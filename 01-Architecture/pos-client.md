@@ -35,7 +35,17 @@ date: 2026-10-20
 ## พักบิล
 - `_holdBill` เป็น `List<_holdBillClass>` **ในหน่วยความจำของเครื่อง** — ไม่ได้บันทึกลง database (ปิดโปรแกรม = หาย) จากโค้ด ยังไม่ได้ยืนยันว่ามีที่เก็บสำรองอื่น
 
+## กะ ส่งเงิน และปิดยอด (จากโค้ด + พจนานุกรม)
+- **กะ** `pos_period`: เครื่อง (`machine_code`), เปิดกะ (`begin_date/time`, `begin_user_code`), ปิดกะ (`end_*`), `period_status` 0 = เปิดใช้ / 1 = ปิดแล้ว, ผูกด้วย `period_guid`
+- รหัสรอบการขายปัจจุบันเก็บที่ `erp_option.sale_shift_id` และประทับลง `ic_trans.sale_shift_id` / `ic_trans_detail.sale_shift_id` ตอนบันทึกบิล (ร้าน AOY ไม่ได้ใช้ → ว่าง)
+- **รับเงินทอน / ส่งเงิน** (`_posSaveMoneyReceive`, `_posSaveSendMoney`): ตาราง `POSCashierSettle` (`trans_type` 1 = รับเงินทอน, 2 = ส่งเงิน; แยกยอดเงินสด/บัตร/คูปอง/เช็ค/เงินโอน; ยอดขาย ยอดยกเลิก ยอดสุทธิ ยอดปัดเศษ; ผู้จัดการอนุมัติ) + `POSCashierSettle_detail` นับธนบัตรตาม `banknotes`
+  - ⚠️ ตารางนี้มีคอลัมน์ `manager_password` — ห้ามดึงมาแสดงหรือส่งให้ AI
+- **สรุปปิดยอด** (`_summaryUserControl`): อ่านบิล 44/45 ตามกะ/เครื่อง แล้วบันทึกบิลยกเลิกที่ส่ง `pos_settle_bill_cancel` และบิลส่วนลด `pos_settle_bill_discount` (ผูก `period_guid`)
+- **ใช้ทำ product:** ส่วนต่างเงินที่ส่งจริงกับยอดขายต่อกะ (`POSCashierSettle.total_diff`, ยอดเงินสดเทียบ `cb_trans`), บิลยกเลิก/ส่วนลดต่อกะ, `pos_log` → ตรวจจับความผิดปกติของแคชเชียร์
+
+## โปรโมชั่นและแต้ม
+- ตารางกลุ่ม POS ทั้งหมด (47 ตาราง) ดู [[dict-pos]] — โปรโมชั่นที่ใช้ในบิลบันทึกที่ `ic_trans_detail_promotion`, แต้ม/SMS `point_center_sms`, ตั้งค่าแต้มจากเมนู "กำหนดเงื่อนไขสะสมแต้ม" (`SMLPOSControl._posPointPeriodForm`)
+
 ## ยังไม่ได้ไล่
-- ปิดกะ / ส่งเงิน / ลิ้นชัก ละเอียด (`_posSaveSendMoney`, `temp_cash_movement`)
-- โปรโมชั่นและแต้มสะสม (`SMLPOSControl`)
+- เงื่อนไขโปรโมชั่นละเอียด (SMLPOSControl)
 - ความหมาย command_type ที่เหลือใน `pos_log`

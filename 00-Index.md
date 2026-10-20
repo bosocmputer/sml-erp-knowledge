@@ -41,7 +41,7 @@ tags: [sml, index]
 ## ยังไม่ได้ทำ (งานถัดไป)
 - ฟอร์มพิมพ์เอกสาร (SMLFormDesign / `_formReport`)
 - ความหมาย `report_type` ของ FastReport และการผูก FastReport id ตัวเลขกับเมนู
-- POS: ปิดกะ/ส่งเงิน/ลิ้นชัก, โปรโมชั่น/แต้ม, ความหมาย command_type ใน `pos_log`
+- POS: เงื่อนไขโปรโมชั่นละเอียด, ความหมาย command_type ใน `pos_log`
 - สูตร Lot FIFO/FEFO/Standard cost ละเอียด
 - เฟส 2: ยืนยันด้วย SQL จริง (tcpdump) — ดู [[sql-capture-aoy]]
 - ยืนยันว่าเลข edition ใน menu.json เลขใดคือ SMLAccountPOS
