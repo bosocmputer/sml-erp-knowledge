@@ -13,6 +13,8 @@ tags: [sml, index]
 - [[pricing-vat-gl]] — ลำดับการหาราคา 7 แหล่ง, รูปแบบคำส่วนลด, ประเภทภาษี, การลงบัญชีอัตโนมัติจากรูปแบบเอกสาร
 - [[stock-cost]] — สูตรยอดคงเหลือ/ค้างรับ/ค้างส่ง/ค้างจอง และวิธีคิดต้นทุน 5 แบบ (cost_type 0–4)
 - [[pos-client]] — หน้าจอขายหน้าร้าน: บันทึกบิล, การรับเงิน, โต๊ะ, `pos_log`, พักบิล
+- [[webservice-api]] — SMLJavaWebService: REST 23 endpoint + SOAP 178 method *(generated)*
+- [[print-forms]] — ฟอร์มพิมพ์เอกสาร: ตาราง formdesign, การผูกกับรูปแบบเอกสาร, ตัวออกแบบ/พิมพ์
 - [[architecture]] — client C# WinForms ↔ SMLJavaWebService (Tomcat) ↔ PostgreSQL, โมเดลเอกสาร ic_trans, โฟลว์ขาย/ซื้อ/คลัง, ข้อสังเกตความปลอดภัย
 - [[modules]] — โปรเจกต์ที่ SMLAccount / SMLAccountPOSProfessional ใช้ พร้อมจำนวนหน้าจอ *(generated)*
 - [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
@@ -39,10 +41,9 @@ tags: [sml, index]
 - [[product-ideas]] — ตลาด, pain point, persona, use case, ไอเดีย product 10 ข้อ
 
 ## ยังไม่ได้ทำ (งานถัดไป)
-- ฟอร์มพิมพ์เอกสาร (SMLFormDesign / `_formReport`)
+- โครงสร้างภายใน `formdesigntext` (ฟอร์มพิมพ์)
 - ความหมาย `report_type` ของ FastReport และการผูก FastReport id ตัวเลขกับเมนู
 - POS: เงื่อนไขโปรโมชั่นละเอียด, ความหมาย command_type ใน `pos_log`
 - สูตร Lot FIFO/FEFO/Standard cost ละเอียด
 - เฟส 2: ยืนยันด้วย SQL จริง (tcpdump) — ดู [[sql-capture-aoy]]
-- ยืนยันว่าเลข edition ใน menu.json เลขใดคือ SMLAccountPOS
 - ยืนยันความหมาย trans_flag กับข้อมูลจริง และตรวจว่า field POS/ล็อตมีค่าจริง
