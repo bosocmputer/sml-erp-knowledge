@@ -13,572 +13,572 @@ tags: [sml, reports, generated]
 
 ## FastReport ใน `aoy` (562 รายงาน)
 
-`report_type` / `is_system_report` ยังไม่ได้ยืนยันความหมาย
+`report_type` (จาก `SMLFastReport/_designer.cs`, `_selectMenu.cs`): 0 ทั่วไป, 1 สินค้า, 2 ซื้อ, 3 ขาย, 4 เจ้าหนี้, 5 ลูกหนี้, 6 เงินสด/ธนาคาร, 7 สินทรัพย์, 8 GL — รายงานที่ไม่อยู่ในเมนูหลัก (เช่น menuid ตัวเลขที่ผู้ใช้/SML สร้างเพิ่ม) เปิดจากเมนู "รายงานอื่น ๆ" ของแต่ละโมดูล (`menu_fastreport_other_*`) ซึ่งกรองตาม report_type · `is_system_report` = รายงานมาตรฐานของระบบ (ยังไม่ยืนยัน)
 
 | menuid | ชื่อ | type | system | จำนวน SELECT | ตารางที่อ่าน | อยู่ในเมนู |
 |---|---|---|---|---|---|---|
-| `10002` | รายงานรายละเอียดสินทรัพย์ (คุรุภัณฑ์) | 7 | 0 | 7 | as_asset, erp_side_list, as_asset_location, erp_department_list, erp_user, erp_province |  |
-| `1001` | รายงานบาร์โค๊ดพร้อมราคากลุ่มที่ 1 | 1 | 0 | 4 | ic_inventory, ic_inventory_barcode |  |
-| `1002` | รายงานยอดคงเหลือสินค้า (แสดงทุกสินค้า) | 1 | 0 | 2 |  |  |
-| `1003` | รายงานสินค้าแสดงราคาขายและราคาสมาชิก | 0 | 0 | 6 | pos_id, ic_inventory_barcode |  |
-| `1004` | รายงานสินค้าแสดงราคาขาย ราคาสมาชิก ราคาตามสูตร | 1 | 0 | 36 | ic_inventory_price_formula, ic_inventory, ic_inventory_barcode, ic_unit_use |  |
-| `1005` | รายงานบาร์โค๊ดพร้อมราคากลุ่มที่ 2 | 0 | 0 | 4 | ic_inventory, ic_inventory_barcode |  |
-| `1006` | รายงานสินค้าต่ำกว่าทุน | 3 | 0 | 5 | ic_inventory, ic_trans_detail |  |
-| `2001` | รายงานการขายแยกตามพนักงานขาย (หักส่วนลด) | 3 | 0 | 14 | ic_trans_detail, erp_user, ar_customer, ic_trans, ic_inventory |  |
-| `2002` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามวันที่ | 0 | 0 | 5 | ic_inventory, ic_trans_detail, ic_unit |  |
-| `2003` | รายงานบาร์โค๊ดสินค้าซ้ำ | 1 | 0 | 3 | ic_inventory_barcode |  |
-| `2005` | รายงานสินค้าคงเหลือตามคลัง แสดงราคาขายตามบาร์โค้ด | 1 | 0 | 14 | ic_inventory_barcode, ic_warehouse, ic_inventory, ic_trans_detail |  |
-| `2006` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า | 1 | 1 | 11 | ic_inventory, ic_group |  |
-| `2007` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า (แยกตามคลัง) | 1 | 0 | 10 | ic_inventory, ic_group |  |
-| `2008` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า (แยกตามคลัง ที่เก็บ) | 1 | 0 | 22 | ic_inventory, ic_group, ic_trans_detail, ic_unit_use |  |
-| `2009` | รายงานบาร์โค้ดสินค้าตามผู้จัดจำหน่ายหลัก | 1 | 0 | 2 | ic_inventory_barcode, ic_inventory |  |
-| `2010` | รายงานสินค้าคงเหลือแสดงตามผู้จำหน่ายหลัก | 1 | 0 | 10 | ic_inventory, ap_supplier |  |
-| `2010-1` | รายงานสินค้าคงเหลือแสดงตามผู้จำหน่ายหลัก แสดงยอดคงเหลือศูนย์ | 1 | 0 | 10 | ic_inventory, ap_supplier |  |
-| `2011` | รายงานยอดคงเหลือสินค้าแสดงตามผู้จำหน่ายหลัก (รหัสสินค้า,บาร์โค๊ด) | 1 | 0 | 12 | ic_inventory, ap_supplier, ic_inventory_barcode |  |
-| `2012` | รายงานจุดต่ำสุดสูงสุดสินค้า | 1 | 1 | 5 | ic_wh_shelf, ic_inventory, ic_warehouse, ic_shelf |  |
-| `2013` | รายงานบาร์โค๊ดสินค้า | 1 | 0 | 2 | ic_inventory_barcode |  |
-| `2014` | รายงานยอดคงเหลือสินค้า แสดงยอดคงเหลือตามหน่วย | 1 | 0 | 3 | ic_inventory |  |
-| `2015` | รายงานยอดคงเหลือสินค้าตามคลัง แสดงยอดคงเหลือตามหน่วย | 1 | 0 | 26 | ic_inventory, ic_trans_detail, ic_unit_use, ic_warehouse |  |
-| `2016` | รายงานยอดคงเหลือสินค้าตามที่เก็บสินค้า แสดงยอดคงเหลือตามหน่วย | 1 | 0 | 4 | ic_inventory |  |
-| `2017` | รายงานสินค้าคงเหลือตามคลัง-ที่เก็บ | 1 | 0 | 9 | ic_warehouse, ic_shelf, ic_inventory, ic_inventory_barcode |  |
-| `2018` | รายการสินค้าที่ไม่พบหน่วยนับ | 1 | 0 | 3 | ic_inventory, ic_unit_use |  |
-| `2019` | รายงานสินค้าถึงจุดสั่งซื้อเรียงตามผู้จำหน่ายหลัก | 1 | 0 | 16 | ic_inventory_detail, ap_supplier, ic_inventory, ic_trans_detail |  |
-| `2020` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้าย่อย | 1 | 0 | 10 | ic_inventory, ic_group_sub |  |
-| `2021` | รายงานข้อมูลสินค้าพบอัตราส่วนหน่วยต้นทุนผิด | 1 | 0 | 10 | ic_unit_use, ic_inventory |  |
-| `2022` | รายงานราคาขายสินค้าตามสูตร | 1 | 0 | 6 | ic_inventory, ic_inventory_price_formula |  |
-| `2023` | สินค้าไม่พบ barcode | 1 | 0 | 4 | ic_inventory, ic_inventory_barcode |  |
-| `2024` | รายงานยอดคงเหลือสินค้าติดลบ | 1 | 0 | 3 | ic_inventory |  |
-| `2025` | รายงานยอดคงเหลือสินค้าติดลบตามคลังสินค้า | 1 | 0 | 2 |  |  |
-| `2026` | รายงานยอดคงเหลือสินค้าติดลบตามพืันที่เก็บสินค้า | 1 | 0 | 2 |  |  |
-| `2027` | รายงานยอดคงเหลือสินค้าหักยอดจอง | 1 | 0 | 6 | ic_trans_detail |  |
-| `2028` | รายงานบาร์โค๊ดสินค้าทีไม่แสดงในใบเสร็จ | 1 | 0 | 2 | ic_inventory_barcode |  |
-| `2029` | รายงานรายการสินค้าที่จะตรวจนับ | 1 | 0 | 2 | ic_wh_shelf |  |
-| `2030` | รายงานสินค้าหลายหน่วยนับ | 1 | 0 | 5 | ic_inventory, ic_unit_use |  |
-| `2031` | รายงานปริมาณการสั่งซื้อสินค้าเทียบกับยอดสูงสุด | 1 | 0 | 12 | ic_inventory_detail, ic_inventory |  |
-| `2032` | รายงานสินค้าคงเหลือตามคลัง แสดงตามผุ้จำหน่ายหลัก | 1 | 0 | 9 | ic_warehouse, ic_inventory_barcode, ap_supplier, ic_inventory |  |
-| `2033` | รายงานสินค้าคงเหลือตามคลัง-ที่เก็บ แสดงตามผู้จำหน่ายหลัก | 1 | 0 | 6 | ic_warehouse, ic_shelf, ic_inventory, ic_trans_detail, ap_supplier |  |
-| `2034` | รายงานรายละเอียดสินค้าแสดงจุดต่ำสุด สุงสุด | 1 | 0 | 3 | ic_inventory_detail, ic_inventory |  |
-| `2035` | รายงานสินค้าที่ไม่มีการเคลื่อนไหว ตามผู้จำหน่ายหลัก | 1 | 0 | 63 | ic_trans, ic_trans_detail, ic_inventory, ic_unit, ic_unit_use, ap_supplier |  |
-| `2036` | รายงาน LOT Error | 1 | 0 | 3 | ic_trans_detail_lot, ic_inventory |  |
-| `2037` | รายงานจุดต่ำสุดสูงสุดสินค้า ตามผู้จำหน่ายหลัก | 1 | 0 | 8 | ic_wh_shelf, ic_inventory, ap_supplier, ic_warehouse, ic_shelf |  |
-| `2038` | รายงานสินค้าแสดงยอดคงเหลือสินค้าตามผู้จำหน่าย | 1 | 0 | 9 | ic_inventory_barcode, ic_warehouse, ic_trans_detail |  |
-| `2039` | รายงานกำไรขั้นต้นประจำเดือน แสดงต้นงวด | 1 | 0 | 10 | ic_trans_detail, ic_inventory |  |
-| `2040` | รายงานสินค้าแสดง หน่วยนับ บาร์โค๊ด ราคา | 1 | 0 | 2 | ic_inventory, ic_unit_use, ic_inventory_barcode |  |
-| `2041` | รายงานสินค้าถึงจุดต่ำสุด แยกตามคลัง-จุดเก็บ ตามผู้จำหน่ายหลัก | 1 | 0 | 5 | ap_supplier, ic_inventory |  |
-| `2042` | รายงานราคาขายสินค้าตามสูตร แสดงบาร์โค๊ด | 1 | 0 | 6 | ic_inventory, ic_inventory_price_formula |  |
-| `2043` | รายงานการโอนสินค้า ตามคลังที่เก็บ | 1 | 0 | 7 | ic_trans_detail, ic_trans, ic_inventory_barcode |  |
-| `2044` | ใบตรวจสอบราคาขายก่อนเสนอลูกค้าและใบตรวจสอบราคาหลังการขาย | 1 | 0 | 24 | ic_inventory, ic_trans_detail, ic_trans, ar_customer |  |
-| `2045` | รายงานยอดคงเหลือสินค้าแสดงตามยี่ห้อ | 1 | 0 | 10 | ic_inventory, ap_supplier, ic_brand |  |
-| `2046` | รายงานกำไรขั้นต้นตามพนักงานขาย | 1 | 0 | 18 | erp_user, ic_trans_detail, ic_trans, ar_customer, ic_inventory |  |
-| `2047` | รายงานข้อมูลสินค้า (แสดงครัว) | 1 | 0 | 4 | kitchen_master_item, ic_inventory_barcode |  |
-| `2048` | รายงานรายการสินค้าที่อนูญาติให้ติดลบ | 1 | 0 | 4 | ic_inventory, ic_inventory_detail |  |
-| `2049` | รายงานสินค้าที่ยังไม่ได้ตรวจนับ | 1 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `2050` | รายงานสินค้าคงเหลือตามคลัง-ที่เก็บ เรียงตามสินค้า | 1 | 0 | 8 | ic_warehouse, ic_shelf, ic_inventory_barcode, ic_inventory |  |
-| `2051` | รายงานตรวจสอบยอดคงเหลือสินค้ากับ Serial | 1 | 0 | 10 | ic_serial, ic_inventory |  |
-| `2052` | รายงานตรวจสอบข้อมูลคลังสาขา | 1 | 0 | 8 | ic_warehouse, ic_wms_trans, ic_wms_trans_detail |  |
-| `2053` | รายงานยอดคงเหลือสินค้าแสดงตามผู้จำหน่ายหลัก (รหัสสินค้า,บาร์โค๊ด) แสดงราคาทุน | 1 | 0 | 20 | ic_inventory, ic_trans_detail, ap_supplier, ic_inventory_barcode |  |
-| `2054` | รายงาน Lot สินค้า - แสดงราคา | 1 | 0 | 12 | ic_trans_detail_lot, ic_inventory, ic_unit, ic_unit_use |  |
-| `2055` | รายงานตรวจสอบสถานะรายการยกเลิก | 1 | 0 | 6 | ic_trans, ic_trans_detail |  |
-| `2056` | รายงานรายละเอียดสินค้า - ตามกลุ่มสินค้าและหมวดสินค้า | 1 | 0 | 8 | ic_group, ic_group_sub, ic_category, ic_inventory |  |
-| `2057` | รายงานจุดต่ำสุดสูงสุดสินค้า แสดงยอดคงเหลือ | 1 | 0 | 10 | ic_inventory_detail, ic_inventory |  |
-| `2058` | รายงานรายละเอียดสินค้า - แสดงราคาขายทั่วไป | 1 | 0 | 6 | ic_inventory, ic_inventory_price |  |
-| `2059` | รายงานสถานะสินค้า - ตามคลัง | 1 | 0 | 14 | ic_trans_detail, ic_inventory |  |
-| `2060` | รายงานเคลื่อนไหวสินค้า ตามคลัง | 1 | 0 | 19 | ic_trans_detail, ic_inventory, ic_trans, ic_warehouse, ic_shelf |  |
-| `2061` | รายงานการตรวจสอบการแก้ไขข้อมูลย้อนหลัง | 1 | 0 | 14 | ap_ar_trans, ic_trans, logs |  |
-| `2062` | รายงานการตรวจสอบการแก้ไขข้อมูลหลักย้อนหลัง | 1 | 0 | 2 | master_logs |  |
-| `2063` | รายงานขอเบิกสินค้าและวัตถุดิบ | 1 | 0 | 20 | erp_branch_list, ic_trans, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2064` | รายงานการเคลื่อนไหวตามมูลค่า | 1 | 0 | 42 | ic_trans_detail, ic_trans, ic_unit, ic_unit_use, ic_inventory |  |
-| `2065` | รายละเอียดสินค้า ตรวจสอบรูปภาพ | 1 | 0 | 14 | ic_inventory, images |  |
-| `2066` | รายงานยอดคงเหลือสินค้า แสดงชั้นวาง | 1 | 0 | 20 | ic_inventory, ic_unit_use, ic_wh_shelf, ic_trans_detail |  |
-| `2067` | รายงานยอดคงเหลือสินค้า-ตามหมวดสินค้า | 1 | 0 | 11 | ic_inventory, ic_group, ic_category |  |
-| `2068` | รายงานเบิกสินค้าและวัตถุดิบ แยกแผนก | 1 | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2069` | รายงานเบิกสินค้าและวัตถุดิบ แยกโครงการ | 1 | 0 | 18 | ic_trans, erp_project_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2070` | รายงานเบิกสินค้าและวัตถุดิบ แยกกลุ่มเอกสาร | 1 | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2071` | รายงานเบิกสินค้าและวัตถุดิบ แยกหน่วยงาน | 1 | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2072` | รายงานเบิกสินค้าและวัตถุดิบ แยกการจัดสรร | 1 | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2073` | รายงานเบิกสินค้าและวัตถุดิบ แยกงาน | 1 | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2074` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกแผนก | 1 | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2075` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกโครงการ | 1 | 0 | 18 | ic_trans, erp_project_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2076` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกกลุ่มเอกสาร | 1 | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2077` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกหน่วยงาน | 1 | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2078` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกการจัดสรร | 1 | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2079` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกงาน | 1 | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `2080` | รายละเอียดสินค้า ตรวจสอบกลุ่มสินค้า | 1 | 0 | 7 | ic_group, ic_group_sub, ic_inventory |  |
-| `2081` | รายงานรายละเอียดสินค้า แสดงชื่อสินค้า2 | 1 | 0 | 6 | ic_unit, ic_inventory |  |
-| `2082` | รายงานเคลื่อนไหวสินค้าต้นทุนมาตราฐาน ตามคลัง | 1 | 0 | 26 | ic_inventory, ic_trans_detail, ic_trans, ap_supplier, ar_customer, ic_warehouse, ic_shelf |  |
-| `2083` | รายงานยอดคงเหลือสินค้า (ต้นทุนแฝง) | 1 | 0 | 20 | ic_inventory, ic_trans_detail, ic_unit_use |  |
-| `2084` | รายงานกำไรขั้นต้น (เอกสาร) หักส่วนลดท้ายบิล | 1 | 0 | 16 | ic_trans_detail, ic_trans |  |
-| `2085` | รายงานข้อมูลสินค้า แสดงฝังบัญชี | 1 | 0 | 6 | gl_chart_of_account, ic_inventory |  |
-| `2086` | รายงานตรวจสอบโปรโมชั่น | 1 | 0 | 8 | ic_inventory, ic_promotion_formula_condition, ic_promotion_formula |  |
-| `2087` | รายงานประวัติการพิมพ์ | 1 | 0 | 4 | erp_print_logs, ic_trans, ap_ar_trans |  |
-| `2088` | รายงานรายละเอียดคูปอง | 1 | 0 | 10 | cb_trans_detail, ar_customer, coupon_list |  |
-| `2089` | รายงานสถานะคูปอง | 1 | 0 | 10 | cb_trans_detail, ar_customer, coupon_list |  |
-| `2090` | รายงานเคลื่อนไหวคูปอง | 1 | 0 | 14 | ar_customer, coupon_list, ap_ar_trans, ic_trans, cb_trans_detail |  |
-| `2091` | รายงานสินค้าที่ไม่มีการเคลื่อนไหว ตามกลุ่มสินค้าหลัก | 1 | 0 | 62 | ic_trans, ic_trans_detail, ic_group, ic_unit, ic_unit_use, ic_inventory |  |
-| `2092` | รายงานสินค้าคงเหลือ แสดงเฉพาะสินค้าบริการ | 1 | 0 | 20 | ic_inventory, ic_trans_detail, ic_unit_use |  |
-| `2093` | รายงานการเบิกสินค้าและวัตถุดิบ แสดงหมายเหตุ แยกตามเอกสาร | 1 | 0 | 8 | ic_trans, ic_trans_detail |  |
-| `2094` | รายงานกำไรขั้นต้น (สินค้า) | 1 | 0 | 20 | ic_trans_detail, ic_unit, ic_inventory |  |
-| `2095` | รายงานการใช้โปรโมชั่น | 1 | 0 | 2 | ic_trans_detail_promotion, ic_trans_detail |  |
-| `2096` | รายงานกำไรขั้นต้น (สินค้า) ตามกลุ่มสินค้า | 1 | 0 | 11 | ic_inventory, ic_unit, ic_group, ic_trans_detail |  |
-| `2097` | รายงานสินค้า หยุดซื้อ หยุดขาย | 1 | 0 | 4 | ic_unit, ic_inventory_detail, ic_inventory |  |
-| `212` | 212 | 6 | 0 | 4 | ar_customer, ic_trans |  |
-| `2901` | รายงานข้อมูลสินค้าสำหรับนำเข้า | 1 | 0 | 2 | ic_inventory |  |
-| `2902` | รายงานรายละเอียดหน่วยนับสินค้านำเข้า | 1 | 0 | 2 | ic_unit_use |  |
-| `2903` | รายงานรายละเอียดหน่วยนับนำเข้า | 1 | 0 | 2 | ic_unit |  |
-| `2904` | รายงานรายละเอียดบาร์โค๊ดนำเข้า | 1 | 0 | 2 | ic_inventory_barcode |  |
-| `2905` | รายงานรายละเอียดราคาตามสูตรนำเข้า | 1 | 0 | 2 | ic_inventory_price_formula |  |
-| `3001` | รายงานใบสังซื้อสินค้าที่ค้างรับ-ตามเจ้าหนี้ | 2 | 0 | 9 | ic_trans_detail, ap_supplier |  |
-| `3002` | รายงานเปรียบเทียบต้นทุนการซื้อล่าสุด | 2 | 0 | 3 | ic_trans_detail |  |
-| `3003` | รายงานวิเคราะห์ใบสั่งซื้อเรียงตามสินค้า-Supplier | 2 | 0 | 4 | ic_trans_detail, ap_supplier, ic_trans |  |
-| `3004` | รายงานวิเคราะห์ใบสั่งซื้อเรียงตาม Supplier-สินค้า | 2 | 0 | 4 | ic_trans_detail, ap_supplier, ic_trans |  |
-| `3005` | รายงานสถานะใบสั่งซื้อตามสินค้า | 2 | 0 | 6 | ap_supplier, ic_inventory, ic_trans_detail |  |
-| `3006` | รายงานราคาซื้อสินค้าล่าสุดแสดงตามผู้จำหน่ายหลัก | 2 | 0 | 12 | ic_trans_detail, ap_supplier, ic_inventory |  |
-| `3007` | รายงานใบสังซื้อสินค้าที่ค้างรับ-ตามเจ้าหนี้ แสดงหมายเหตุ | 2 | 0 | 9 | ic_trans_detail, ap_supplier, ic_trans |  |
-| `3008` | รายงานสรุปใบสั่งซื้อ แยกแผนก | 2 | 0 | 6 | erp_department_list, ap_supplier, ic_trans |  |
-| `3009` | รายงานซื้อสินค้า แยกแผนก | 2 | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3010` | รายงานซื้อสินค้า แยกโครงการ | 2 | 0 | 19 | ic_trans, ic_trans_detail, erp_project_list, ap_supplier, ic_inventory, ic_unit |  |
-| `3011` | รายงานซื้อสินค้า แยกกลุ่มเอกสาร | 2 | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3012` | รายงานซื้อสินค้า แยกหน่วยงาน | 2 | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3013` | รายงานซื้อสินค้า แยกการจัดสรร | 2 | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3014` | รายงานซื้อสินค้า แยกงาน | 2 | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3015` | รายงานใบสั่งซื้อ แยกแผนก | 2 | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3016` | รายงานใบสั่งซื้อ แยกโครงการ | 2 | 0 | 18 | ic_trans, erp_project_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3017` | รายงานใบสั่งซื้อ แยกกลุ่มเอกสาร | 2 | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3018` | รายงานใบสั่งซื้อ แยกหน่วยงาน | 2 | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3019` | รายงานใบสั่งซื้อ แยกการจัดสรร | 2 | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3020` | รายงานใบสั่งซื้อ แยกงาน | 2 | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail |  |
-| `3021` | รายงานสถานะใบเสนอซื้อ แสดงสถานะ | 2 | 0 | 28 | ic_trans_detail, ic_trans, ap_supplier, ic_inventory, ic_unit |  |
-| `3022` | รายงานสรุปยอดซื้อ-ตามวันที่ | 2 | 0 | 3 | ic_trans, cb_trans |  |
-| `3023` | รายงานสรุปมูลค่าการซื้อ 12 เดือน แยกตามเจ้าหนี้ | 2 | 0 | 12 | ic_inventory, ic_trans_detail, ar_customer, ap_supplier |  |
-| `3024` | รายงานเปรียบเทียบยอดซื้อสินค้า 12 เดือน ตามเจ้าหนี้ | 2 | 0 | 2 |  |  |
-| `3025` | รายงานรับสินค้าแบบทะยอยรับ ค้างตั้งหนี้ | 2 | 0 | 9 | ic_trans_detail, ic_inventory |  |
-| `3026` | รายงานรับสินค้าแบบทะยอยรับ มูลค่าค้างตั้งหนี้ | 2 | 0 | 10 | ic_inventory, ic_trans_detail |  |
-| `3027` | รายงานใบตั้งหนี้จากการซื้อแบบสรุป-ตามโครงการ | 2 | 0 | 4 | erp_project_list, ic_trans |  |
-| `4001` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามสมาชิก | 3 | 0 | 14 | ic_trans, ar_customer, ic_inventory, ar_dealer, ic_trans_detail |  |
-| `4002` | รายงานการขายแสดง รายละเอียดการรับเงิน | 3 | 0 | 22 | ic_trans, ar_customer, cb_trans, cb_trans_detail |  |
-| `4003` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามสินค้า | 3 | 0 | 6 | ic_inventory, ic_trans_detail |  |
-| `4004` | สรุปยอดขายตามคลังสินค้า | 3 | 0 | 10 | ic_inventory, ic_warehouse, ic_trans_detail |  |
-| `4005` | รายงานสรุปยอดขายสินค้า - ตามรหัสเครือง POS | 3 | 0 | 4 | ar_customer, ic_trans |  |
-| `4006` | รายงานใบสั่งขายสินค้าที่ค้างส่ง-ตามลูกค้า | 3 | 0 | 10 | ic_trans_detail, ar_customer, ic_trans |  |
-| `4007` | รายงานสรุปยอดขาย (มูลค่าสุทธิของเอกสาร) - ตามวันที่ | 3 | 1 | 3 | ic_trans, cb_trans |  |
-| `4009` | รายงานการยกเลิกอาหาร | 3 | 0 | 3 | table_order_cancel, ic_inventory |  |
-| `4011` | รายงานสรุปยอดขายตามวันที่/รหัสเครื่อง POS | 3 | 0 | 2 | ic_trans |  |
-| `4012` | รายงานวิเคราะห์ จำนวนยอดขายสินค้า แจกแจงรายเดือน | 3 | 0 | 11 | ic_inventory, ic_trans_detail |  |
-| `4013` | รายงานใบสังจองสินค้าที่ค้างส่ง-ตามลูกค้า | 3 | 0 | 8 | ic_trans_detail, ar_customer |  |
-| `4014` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามกลุ่มสินค้าย่อย | 3 | 0 | 12 | ic_inventory, ar_customer, ic_trans_detail |  |
-| `4015` | รายงานแสดงยอดคอมมิสชั่น-ตามพนักงานขาย | 3 | 0 | 9 | ic_inventory, ic_trans_detail, erp_user, ic_trans |  |
-| `4016` | รายงานแสดงสถานะการเปิด-ปิด กะ เรียงตามหมายเลขบรรทัด | 3 | 0 | 4 | pos_period, erp_user |  |
-| `4017` | รายงานสรุปมูลค่าการขาย 12 เดือน แยกตามลูกค้า | 3 | 0 | 5 | gl_journal_detail, ic_trans, ar_customer |  |
-| `4018` | รายงานใบส่งสินค้าและการวางบิล | 3 | 0 | 7 | ap_ar_trans_detail, ic_trans, ar_customer |  |
-| `4019` | สรุปข้อมูลใบสั่งจองสินค้า | 3 | 0 | 3 | ic_trans_detail, erp_user |  |
-| `4020` | รายงานเปรียบเทียบการขาย จัดอันดับยอดขายลูกค้า-ตามจังหวัด | 3 | 0 | 11 | ar_customer, ic_trans, erp_province |  |
-| `4021` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า | 3 | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans |  |
-| `4021-1` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า แสดงยอดคงเหลือตามคลัง | 3 | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans |  |
-| `4022` | รายงานวิเคราะห์ การขาย จัดเรียงตาม มิติแผนก กลุ่ม แสดงมูลค่า | 3 | 0 | 11 | ic_trans_detail, ic_inventory, ic_trans, erp_department_list, ic_group |  |
-| `4023` | รายงานรวมขายประจำวัน | 3 | 0 | 4 | ic_trans |  |
-| `4024` | รายงานรวมขายประจำวัน-ตามลูกค้า | 3 | 0 | 5 | ic_trans, ar_customer |  |
-| `4025` | รายงานสรุปการสั่งอาหาร แจกแจงตามวันที่ พนักงาน | 3 | 0 | 5 | table_order, table_order_doc, ic_inventory |  |
-| `4026` | รายงานสรุปยอดขายตามวันที่-แจกแจงอาหารเครื่องดื่ม | 3 | 0 | 7 | ic_trans, ic_trans_detail, ic_inventory |  |
-| `4027` | รายงานการขายสินค้าแยกตามลูกค้า | 3 | 0 | 5 | ar_customer, ic_trans, ar_customer_detail |  |
-| `4028` | รายงานสรุปการสั่งอาหาร แจกแจงตามวันที่ พนักงาน แสดงหมายเหตุ | 3 | 0 | 7 | table_order_doc, table_order, erp_user, ic_inventory |  |
-| `4029` | รายงานยอดขายตามกะ | 3 | 0 | 9 | ic_trans, cb_trans, pos_period, erp_user |  |
-| `4030` | รายงานสรุปการสั่งอาหารและยอดขาย-ตามวันที่ | 3 | 0 | 6 | table_order, ic_trans |  |
-| `4031` | สรุปยอดขายตามคลังสินค้า แสดงผู้จำหน่ายหลัก | 3 | 0 | 12 | ic_inventory, ic_warehouse, ic_trans_detail, ap_supplier |  |
-| `4032` | รายงานการขายสินค้า แสดงเฉพาะรายการที่มีส่วนลด | 3 | 0 | 6 | ic_trans_detail_promotion, ic_trans, erp_user |  |
-| `4033` | รายงานรายละเอียดการขายสินค้า แสดงเฉพาะยอดส่วนลด | 3 | 0 | 3 | ic_trans_detail, erp_user |  |
-| `4034` | รายงานใบสังขายสินค้าที่ค้างส่ง-ตามพนักงาน-ตามลูกค้า | 3 | 0 | 9 | ic_trans_detail, ar_customer, erp_user |  |
-| `4035` | รายงานการขายตามผู้จำหน่ายหลัก | 3 | 0 | 6 | ic_inventory, ic_trans_detail |  |
-| `4036` | รายงานการรับเงินประจำวันแยกตามรหัสเครื่องขาย POS | 3 | 0 | 31 | ic_trans, ar_customer, cb_trans, cb_trans_detail, ic_inventory, ic_trans_detail, ic_trans_serial_number |  |
-| `4037` | รายงานการขาย/รับคืน ตามพนักงาน | 3 | 0 | 4 | ic_trans, erp_user, ar_customer |  |
-| `4038` | รายงานสรุปยอดขายตามเดือน | 3 | 0 | 2 | ic_trans_detail, ic_trans |  |
-| `4039` | รายงานการขายตามบาร์โค๊ด | 3 | 0 | 2 | ic_trans_detail |  |
-| `4040` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามลูกค้า-ตามหน่วยนับ | 3 | 0 | 9 | ic_inventory, ic_trans, ic_trans_detail, ar_customer |  |
-| `4041` | รายงานการขายสินค้าและบริการแยกตามหน่วยนับ/ตามคลัง/ที่เก็บ | 3 | 0 | 7 | ic_trans_detail, ic_trans, ar_customer |  |
-| `4042` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามกลุ่มสินค้า ตามสาขา | 0 | 0 | 10 | ic_inventory, ic_trans_detail, ic_trans |  |
-| `4067` | รายงานยกเลิกการขายและบริการ แยกตามพนักงานขาย | 3 | 1 | 18 | ic_trans, ar_customer, erp_user |  |
-| `4067-1` | รายงานยกเลิกการขายและบริการ แยกตามพนักงานขาย | 3 | 0 | 18 | ic_trans, ar_customer, erp_user |  |
-| `4068` | รายงานสรุปมูลค่าการขาย 12 เดือน แยกตามลูกค้า | 3 | 0 | 12 | ar_customer, ic_inventory, ic_trans_detail |  |
-| `4069` | รายงานการรับเงินประจำวัน แสดงรายการรับชำระ | 3 | 0 | 12 | ic_trans, ar_customer, cb_trans, ap_ar_trans |  |
-| `4070` | รายงานแสดงการพักบิล | 3 | 0 | 6 | erp_user, pos_log |  |
-| `4071` | รายงานการรับเงิน แสดง Wallet | 3 | 0 | 18 | ic_trans, ar_customer, cb_trans |  |
-| `4072` | รายงานสรุปการขายสินค้าตามพนักงานขาย แสดงยอดมัดจำ | 3 | 0 | 10 | ic_trans_detail, erp_user, ar_customer, ic_trans, ic_inventory |  |
-| `4073` | รายงานการขาย/รับคืน ตามพนักงาน ตามรูปแบบเอกสาร | 3 | 0 | 4 | ic_trans, erp_user, ar_customer |  |
-| `4074` | รายงานสรุปยอดขายสินค้าสุทธิ ตามพนักงานขาย | 3 | 0 | 6 | erp_user, ic_trans |  |
-| `4075` | รายงานขายสินค้าและบริการ แยกแผนก | 3 | 0 | 18 | ic_trans, erp_department_list, ar_customer, ic_inventory, ic_unit, ic_trans_detail |  |
-| `4076` | รายงานสรุปการขายสินค้า ตามกลุ่มพนักงานขาย | 3 | 0 | 25 | erp_user, erp_user_group_detail, ar_customer, ic_trans, erp_user_group, ic_trans_detail, ic_inventory |  |
-| `4078` | รายงานการรับเงิน Wallet | 3 | 0 | 5 | cb_trans_detail, ar_customer, ic_trans, ap_ar_trans |  |
-| `4079` | รายงานเปรียบเทียบยอดขายสินค้า 12 เดือน ตามลูกหนี้ | 3 | 0 | 2 |  |  |
-| `4080` | รายงานสินค้าค้างส่ง ตามคลัง/ที่เก็บ | 3 | 0 | 18 | ic_trans_detail, ic_inventory, ar_customer |  |
-| `4081` | รายงานใบเสนอราคาคงค้าง | 3 | 0 | 4 | ar_customer, ic_trans |  |
-| `4082` | รายงานวิเคราะห์การขายสุทธิ-ตามโครงการ | 3 | 0 | 19 | ic_trans_detail, ic_trans, erp_project_list, ic_inventory |  |
-| `4083` | รายงานรับเงินมัดจำใช้ไปคงเหลือ | 3 | 0 | 10 | ic_trans, ar_customer, cb_trans_detail |  |
-| `4084` | รายงานออกใบกำกับภาษีออกแทน | 3 | 0 | 4 | ar_customer, ic_trans |  |
-| `4085` | รายงานสรุปยอดขาย-ตามวันที่ | 3 | 0 | 3 | ic_trans, cb_trans |  |
-| `4086` | รายงานการขายสินค้าและบริการ หักรับคืนและลดหนี้ | 3 | 0 | 22 | ic_trans, ar_customer, ic_trans_detail, ic_inventory |  |
-| `4087` | รายงานการรับเงินประจำวัน ตามแคชเชียร์ | 3 | 0 | 18 | ic_trans, erp_user, ar_customer, cb_trans |  |
-| `5001` | รายงานการจ่ายชำระหนี้ (แสดงรายละเอียด) | 4 | 0 | 18 | cb_trans_detail, ap_ar_trans, ap_supplier, erp_bank, cb_trans, ic_trans |  |
-| `5002` | รายงานเจ้าหนี้ค้างจ่ายชำระจากการซื้อ - สรุป | 4 | 0 | 12 | ic_trans, ap_ar_trans_detail, ap_supplier |  |
-| `5003` | รายงานการจ่ายชำระเจ้าหนี้ แสดงรายละเอียดบิล รายละเอียดการจ่ายเงิน | 4 | 0 | 34 | cb_trans, ic_trans, cb_trans_detail, ap_ar_trans, ap_supplier, erp_bank, ap_ar_trans_detail |  |
-| `5004` | รายงานรายละเอียดเจ้าหนี้ ตามกลุ่มเจ้าหนี้ | 4 | 0 | 34 | ap_supplier_detail, ap_group_sub, ap_group, ap_supplier |  |
-| `5.7.4 รายงานยกเลิก` | รายงานสรุปใบกำกับภาษีอย่างย่อ(ยกเลิก) | 0 | 0 | 4 | ar_customer, ic_trans |  |
-| `5.8.11` | รายงานการรับเงิน เอวี | 0 | 0 | 27 | ic_trans, ar_customer, cb_trans, cb_trans_detail |  |
-| `6001` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) | 5 | 0 | 21 | cb_trans_detail, ap_ar_trans, ar_customer, erp_bank, cb_trans |  |
-| `6002` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามลูกค้า | 5 | 0 | 14 | ic_trans, ar_customer, ic_inventory, ar_dealer, ic_trans_detail |  |
-| `6003` | รายงานลูกหนี้ค้างชำระ | 5 | 0 | 9 | ic_trans, ap_ar_trans_detail, ar_customer |  |
-| `6004` | รายงานลูกหนี้ค้างชำระ - แบบสรุป | 5 | 0 | 10 | ic_trans, ap_ar_trans_detail, ar_customer |  |
-| `6005` | รายงานสรุปการรับเงิน | 5 | 0 | 28 | cb_trans, ar_customer, ic_trans, ap_ar_trans |  |
-| `6006` | รายงาน invoice ค้างชำระตามพนักงานขาย | 5 | 0 | 7 | ic_trans, ap_ar_trans_detail, erp_user, ar_customer |  |
-| `6007` | รายงานสมาชิกหมดอายุ | 5 | 0 | 4 | ar_customer, ar_dealer |  |
-| `6008` | รายงานรายละเอียดลูกหนี้(สถานประกอบการ เลขประจำตัวผู้เสียภาษี) | 5 | 0 | 5 | ar_customer, ar_customer_detail |  |
-| `6009` | รายงานเอกสารค้างชำระตามพนักงานขาย | 5 | 0 | 7 | ic_trans, ap_ar_trans_detail, erp_user, ar_customer |  |
-| `6010` | รายงานยอดค้างชำระ ตามช่วงวันที่ | 5 | 0 | 7 | ic_trans, ap_ar_trans_detail, ar_customer |  |
-| `6011` | รายงานข้อมูลลูกหนี้ที่ไม่เป็นสมาชิก | 5 | 0 | 4 | ar_customer, ar_dealer |  |
-| `6012` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน ตามพนักงานเก็บเงิน (แสดงรายละเอียด) | 5 | 0 | 28 | ap_ar_trans, cb_trans_detail, erp_user, ar_customer, erp_bank, cb_trans |  |
-| `6013` | รายงานรายละเอียดบัตรสมาชิก | 5 | 0 | 16 | ar_customer, ar_customer_detail, ar_dealer |  |
-| `6014` | รายงานสมาชิกใหม่ | 5 | 0 | 10 | ar_customer, ar_dealer |  |
-| `6015` | รายงานลูกค้าสินค้าหมายเหตุ | 5 | 0 | 4 | ar_customer, ar_item_by_customer |  |
-| `6016` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) | 5 | 0 | 33 | cb_trans_detail, ic_trans_detail, ap_ar_trans, erp_bank, ar_customer, cb_trans, erp_bank_branch |  |
-| `6017` | รายงานกลุ่มลูกหนี้ผิดผลาด | 5 | 0 | 7 | ar_customer_detail, ar_group_sub |  |
-| `6018` | รายงานบันทึกตัดแต้มลูกหนี้ | 5 | 0 | 4 | ar_customer, ic_trans |  |
-| `6019` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) ตามรูปแบบเอกสาร | 5 | 0 | 39 | ap_ar_trans, cb_trans_detail, ic_trans_detail, erp_bank, erp_bank_branch, ar_customer, cb_trans, erp_expenses_list |  |
-| `6020` | รายงานเอกสารค้างชำระตามพนักงานขาย ตามรูปแบบเอกสาร | 5 | 0 | 7 | ic_trans, ap_ar_trans_detail, erp_user, ar_customer |  |
-| `6021` | รายงานแต้มคงเหลือยกมา | 5 | 0 | 4 | ar_customer, ic_trans |  |
-| `6022` | รายงานรายละเอียดลูกหนี้ (แสดงรายละเอียดเครดิต) | 5 | 0 | 5 | ar_customer, ar_customer_detail |  |
-| `6023` | รายงานแต้มคงเหลือลูกหนี้ แสดงเอกสารตามช่วงเวลา | 5 | 0 | 31 | ic_trans, cb_trans, ar_customer |  |
-| `6024` | รายงานข้อมูลลูกหนี้นำเข้า | 6 | 0 | 2 | ar_customer |  |
-| `69001` | รายงานรายละเอียดลูกค้า แสดงที่อยู่ และยอดขาย | 5 | 0 | 7 | ic_trans, ar_customer, erp_tambon, erp_amper, erp_province |  |
-| `7001` | รายงานการจ่ายชำระค่าใช้จ่ายอื่น ๆ | 6 | 0 | 18 | cb_trans_detail, ic_trans, ap_ar_trans, ap_supplier, erp_bank, cb_trans |  |
-| `7002` | รายงานการรับชำระรายได้อื่น ๆ | 6 | 0 | 18 | cb_trans_detail, ap_ar_trans, ic_trans, ar_customer, erp_bank, cb_trans |  |
-| `7003` | รายงานค่าใช้จ่ายอื่นๆ ตามรหัสค่าใช้จ่าย | 6 | 0 | 3 | ic_trans_detail, erp_expenses_list |  |
-| `7004` | รายงานรายละเอียดเช็คจ่าย-ตามสถานะเช็ค | 6 | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list |  |
-| `7005` | รายงานรายละเอียดเช็ครับ-ตามสถานะเช็ค | 6 | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list |  |
-| `7006` | รายงานสถานะบัตรเครดิต | 6 | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list |  |
-| `7007` | รายงานภาษีขายประจำเดือน | 6 | 0 | 11 | ic_trans, gl_journal_vat_sale |  |
-| `7008` | รายงานรายละเอียดเช็คจ่าย-ตามสถานะเช็คถึงวันที่ | 6 | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list |  |
-| `7009` | รายงานรายละเอียดเช็ครับ-ตามสถานะเช็คถึงวันที่ | 6 | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list |  |
-| `7010` | รายงานยอดคงเหลือวงเงินสดย่อย | 6 | 0 | 6 | cb_petty_cash, cb_trans_detail |  |
-| `7011` | รายการการจ่ายเงินสดย่อย | 6 | 0 | 7 | cb_trans, cb_trans_detail, ap_supplier, cb_petty_cash |  |
-| `7012` | รายงานการนำฝากเช็ครับตามสมุดเงินฝาก | 6 | 0 | 21 | cb_chq_list, erp_bank, erp_bank_branch, ic_trans_detail, ar_customer |  |
-| `7013` | รายงานเช็ครับผิดพลาด | 6 | 0 | 8 | cb_chq_list, ic_trans_detail |  |
-| `7014` | รายงานนำฝากเช็ค เรียงตามวันที่นำฝาก | 6 | 0 | 21 | cb_chq_list, erp_bank, erp_bank_branch, ic_trans_detail, ar_customer |  |
-| `7015` | รายงานการชำระด้วยค่าใช้จ่ายอื่นๆ ตามรหัสค่าใช้จ่าย | 6 | 0 | 10 | ap_supplier, ic_trans_detail, ar_customer, erp_expenses_list, cb_trans, cb_trans_detail |  |
-| `7017` | รายงานรายละเอียดลูกหนี้ | 5 | 0 | 26 | ar_customer, erp_province, erp_amper, erp_tambon, ar_shoptype1, ar_shoptype2, ar_shoptype3, ar_shoptype4 |  |
-| `7018` | รายงานเคลื่อนไหวเงินสดย่อย | 6 | 0 | 43 | ic_trans_detail, cb_trans_detail, cb_petty_cash, ic_trans, ap_ar_trans |  |
-| `7019` | รายงานรายละเอียดธนาคาร | 6 | 0 | 4 | erp_bank, erp_bank_branch |  |
-| `8001` | รายงานบัญชีแยกประเภทแบบสรุปเปรียบเทียบ 12 เดือน | 8 | 0 | 7 | gl_chart_of_account, gl_journal_detail |  |
-| `8002` | รายงานรายการภาษีซื้อไม่ถึงกำหนดชำระ | 8 | 0 | 11 | gl_journal_vat_buy |  |
-| `8003` | รายงานภาษีขายไม่พบข้อมูลลูกหนี้ | 8 | 0 | 4 | gl_journal_vat_sale, ar_customer |  |
-| `8004` | รายงานตรวจสอบข้อมูลที่ยังไม่ได้บันทึกบัญชี | 8 | 0 | 33 | gl_journal, ic_trans, ap_ar_trans |  |
-| `8005` | รายงานบัญชีแยกประเภท แสดงแผนก | 8 | 0 | 24 | gl_chart_of_account, gl_journal_detail, gl_journal_depart_list, gl_journal, gl_journal_book |  |
-| `8006` | รายงานข้อมูลรายวัน แสดงแผนก | 8 | 0 | 8 | gl_journal_book, gl_journal, gl_journal_depart_list, gl_journal_detail |  |
-| `8007` | รายงานบัญชีแยกประเภท แยกสาขา | 8 | 0 | 23 | gl_chart_of_account, gl_journal_detail, gl_journal_book, gl_journal, erp_branch_list, gl_journal_depart_list |  |
-| `8008` | รายงานข้อมูลรายวัน แยกสาขา | 8 | 0 | 9 | erp_branch_list, gl_journal_book, gl_journal, gl_journal_detail |  |
-| `8009` | รายงานภาษีขาย แยกสาขา | 8 | 0 | 33 | ic_trans, ap_ar_trans, erp_branch_list, ar_customer, gl_journal_vat_sale, gl_journal |  |
-| `8010` | รายงานภาษีซื้อ แยกสาขา | 8 | 0 | 30 | ic_trans, ap_ar_trans, erp_branch_list, gl_journal, ap_supplier, gl_journal_vat_buy |  |
-| `8011` | งบทดลอง แยกแผนก | 8 | 0 | 26 | gl_journal_detail, gl_chart_of_account, gl_journal_depart_list, erp_department_list |  |
-| `8012` | รายงานภาษีขาย แสดงใบกำกับภาษีอย่างเต็ม | 8 | 0 | 38 | ic_trans, ar_customer, ap_ar_trans, gl_journal_vat_sale |  |
-| `8013` | รายงานตรวจสอบการลงบัญชีที่ไม่ Balance | 8 | 0 | 4 | gl_journal |  |
-| `8014` | รายงานตรวจสอบข้อมูลรายวันทีไม่มีการลงบัญชี | 8 | 0 | 6 | erp_doc_format, gl_journal, ic_trans, ap_ar_trans |  |
-| `8015` | รายงานภาษีซื้อ (รูปแบบใหม่แสดงมูลค่าอัตราภาษีศูนย์) | 8 | 0 | 28 | ic_trans, ap_supplier_detail, ap_supplier, gl_journal_vat_buy |  |
-| `8016` | รายงานภาษีถูกหัก ณ ที่จ่าย แสดงเลขที่เอกสาร | 8 | 1 | 8 | ar_customer, ar_customer_detail, gl_wht_list_detail |  |
-| `8017` | งบทดลอง แยกสาขา | 8 | 0 | 39 | erp_branch_list, gl_chart_of_account, gl_journal, gl_journal_detail |  |
-| `8018` | รายงานบัญชีแยกประเภท แยกสาขา แสดงรายละเอียดรายตัว | 8 | 0 | 23 | gl_chart_of_account, gl_journal_detail, gl_journal_book, gl_journal, erp_branch_list, gl_journal_depart_list |  |
-| `8019` | รายงานตรวจสอบการลงบัญชีและสินค้าคงเหลือ กรณีไม่แยกฝังบัญชี | 8 | 0 | 16 | ic_trans, ic_trans_detail, ic_inventory, gl_journal_detail |  |
-| `8020` | รายงานภาษีขาย (รูปแบบใหม่) ตามวันที่ | 8 | 0 | 34 | ap_ar_trans, ic_trans, ar_customer_detail, as_trans, ar_customer, gl_journal_vat_sale |  |
-| `8021` | รายงานบัญชีแยกประเภท ตามโครงการ | 8 | 0 | 30 | gl_journal_project_list, gl_journal_detail, gl_chart_of_account, gl_journal, gl_journal_book |  |
-| `8022` | รายงานตรวจสอบการลงบัญชีและสินค้าคงเหลือ กรณีแยกฝังบัญชีรายสินค้า | 8 | 0 | 15 | ic_inventory, ic_trans_detail, gl_journal_detail |  |
-| `8023` | รายงานการคืนเช็ค/ตั้งหนี้ใหม่ | 6 | 0 | 4 | ar_customer, ic_trans_detail |  |
-| `AP0001` | รายงานค้างจ่ายเจ้าหนี้ | 4 | 0 | 2 |  |  |
-| `AR0001` | รายงานค้างรับชำระ | 5 | 0 | 2 |  |  |
-| `B2007` | รายงานสินค้าและวัตถุดิบ คงเหลือยกมา แยกสาขา | 1 | 0 | 19 | ic_trans, erp_branch_list, ic_inventory, ic_unit, ic_trans_detail |  |
-| `B2016` | รายงานการเคลื่อนไหวตามปริมาณ แยกสาขา | 1 | 0 | 47 | ic_trans_detail, ic_trans, ic_inventory, erp_branch_list, ic_unit, ic_unit_use |  |
-| `B2025` | รายงานสินค้าที่ไม่มีการเคลื่อนไหว แยกสาขา | 1 | 0 | 63 | ic_trans, ic_trans_detail, erp_branch_list, ic_unit, ic_unit_use, ic_inventory |  |
-| `B2029` | รายงานกำไรขั้นต้น (สินค้า) แยกสาขา | 1 | 0 | 39 | ic_trans_detail, erp_branch_list, ic_unit, ic_inventory |  |
-| `B2037` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า (แยกตามคลัง ที่เก็บ) แยกสาขา | 1 | 0 | 33 | ic_inventory, erp_branch_list, ic_wh_shelf, ic_trans_detail, ic_group |  |
-| `B2042` | รายงานสินค้าคงเหลือแสดงตามผู้จำหน่ายหลัก แยกสาขา | 1 | 0 | 30 | ic_inventory, erp_branch_list, ic_trans_detail, ap_supplier |  |
-| `B3017` | รายงานการซื้อสินค้าแยกตามสินค้า แยกสาขา | 2 | 0 | 10 | ic_trans_detail, erp_branch_list, ic_inventory, ap_supplier |  |
-| `B4017` | รายงานยอดคงเหลือรับเงินล่วงหน้า แยกสาขา | 3 | 0 | 18 | ic_trans, erp_branch_list, ar_customer, cb_trans_detail, ap_ar_trans |  |
-| `B4026` | รายงานการรับคืนสินค้า/ลดหนี้ แยกสาขา | 3 | 0 | 21 | erp_branch_list, ic_trans, ic_trans_detail, ar_customer, ic_inventory, ic_unit |  |
-| `B4027` | รายงานขายบริการสินค้าและบริการ แยกสาขา | 3 | 0 | 20 | erp_branch_list, ic_trans, ar_customer, ic_inventory, ic_unit, ic_trans_detail |  |
-| `B4032` | รายงานประวัติการขายสินค้า แยกสาขา | 3 | 0 | 12 | ar_customer, erp_branch_list, ic_inventory, ic_unit, ic_trans_detail |  |
-| `B4034` | รายงานสรุปยอดขายสินค้า-สรุปตามวันที่ แยกสาขา | 3 | 0 | 6 | erp_branch_list, ic_trans |  |
-| `B4052` | รายงานรวม INV_ ขายประจำวัน แยกสาขา | 3 | 0 | 10 | ic_trans, cb_trans, erp_branch_list |  |
-| `B4066` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า ตามสาขา | 3 | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans, erp_branch_list |  |
-| `B4066-1` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า ตามสาขา แสดงยอดคงเหลือตามคลัง | 3 | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans, erp_branch_list |  |
-| `B4067` | รายงานจัดอันดับยอดขาย-ตามลูกค้า ตามสาขา | 3 | 0 | 5 | ic_trans_detail, erp_branch_list, ar_customer |  |
-| `B5012` | รายงานการจ่ายชำระหนี้ (แสดงรายละเอียด) แยกสาขา | 4 | 0 | 22 | ap_ar_trans, cb_trans_detail, erp_branch_list, ap_supplier, erp_bank, cb_trans |  |
-| `B6002` | รายงานใบส่งของค้างชำระ-ตามวันที่ แยกสาขา | 5 | 0 | 12 | ap_ar_trans_detail, erp_branch_list, ar_customer, ic_trans |  |
-| `B6003` | รายงานสถานะลูกหนี้ แยกสาขา | 5 | 0 | 104 | ic_trans, ap_ar_trans, erp_branch_list, ar_customer |  |
-| `B6004` | รายงานอายุลูกหนี้-ตามเอกสาร(ว้นที่ครบกำหนด) แยกสาขา | 5 | 0 | 20 | ap_ar_trans_detail, ic_trans, erp_branch_list, ar_customer |  |
-| `B6005` | รายงานอายุลูกหนี้-ตามเอกสาร(ว้นที่เอกสาร) แยกสาขา | 5 | 0 | 20 | ap_ar_trans_detail, ic_trans, erp_branch_list, ar_customer |  |
-| `B6008` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) แยกสาขา | 5 | 0 | 23 | ap_ar_trans, cb_trans_detail, erp_branch_list, ar_customer, erp_bank, cb_trans |  |
-| `B6013` | รายงานสรุปการรับเงิน | 5 | 0 | 18 | cb_trans, ar_customer, ic_trans, ap_ar_trans |  |
-| `B7002` | รายงานการจ่ายชำระค่าใช้จ่ายอื่น ๆ แยกสาขา | 6 | 0 | 25 | ic_trans, cb_trans_detail, erp_branch_list, ap_supplier, erp_bank, cb_trans |  |
-| `B7005` | รายงานการฝากเงินสด แยกสาขา | 6 | 0 | 8 | erp_branch_list, ic_trans, ic_trans_detail, erp_bank, erp_bank_branch |  |
-| `B7007` | รายงานการรับเงินทั้งหมดตามวันที่ แยกสาขา | 6 | 0 | 15 | ic_trans, erp_branch_list, ap_ar_trans, ar_customer, cb_trans |  |
-| `B7010` | รายงานเคลื่อนไหวเงินสด แยกสาขา | 6 | 0 | 13 | ic_trans, erp_branch_list, cb_trans, ap_ar_trans, ar_customer, ap_supplier |  |
-| `BC2001` | รายงานเคลื่อนไหวสินค้า ตามคลัง | 1 | 0 | 24 | ic_trans_detail, ic_inventory, ic_trans, ap_supplier, ar_customer, ic_warehouse, ic_shelf |  |
-| `BC3001` | รายงานการสั่งซื้อสินค้าแบบแจกแจง-ตามสินค้า | 2 | 0 | 8 | ic_inventory, ap_supplier, ic_trans, ic_trans_detail |  |
-| `BC3002` | รายงานการซื้อสินค้าแบบสรุป-ตามโครงการ | 2 | 0 | 11 | ic_trans, erp_project_list, ic_inventory, ic_trans_detail |  |
-| `BC3003` | รายงานการซื้อสินค้าแบบแจกแจง-ตามโครงการ | 2 | 0 | 13 | ic_trans, erp_project_list, ic_inventory, ic_trans_detail |  |
-| `BC3004` | รายงานการอ้างอิงจากใบสั่งซื้อ | 2 | 0 | 7 | ic_trans, ap_supplier, ic_trans_detail |  |
-| `BC3005` | รายงานการอ้างอิงจากใบรับสินค้า | 2 | 0 | 7 | ic_trans, ap_supplier, ic_trans_detail |  |
-| `BC3006` | รายงานการซื้อสุทธิ-ตามยี่ห้อสินค้า | 2 | 0 | 8 | ic_brand, ic_trans_detail, ic_inventory |  |
-| `BC3007` | รายงานวิเคราะห์การซื้อสุทธิ-ตามเจ้าหนี้ | 4 | 0 | 8 | ap_supplier, ic_inventory, ic_trans_detail |  |
-| `BC4001` | รายงานใบสั่งขาย/จองสินค้าที่ยังไม่ขาย | 3 | 0 | 6 | ic_trans_detail, erp_user, ic_trans, ic_inventory, ar_customer |  |
-| `BC4002` | รายงานยอดสุทธิสรุปยอดขายตามลูกค้า - ตามพนักงานขาย | 3 | 0 | 10 | erp_user, ar_customer, ar_customer_detail, ic_trans |  |
-| `BC4003` | รายงานสรุปยอดสินค้า-ตามเขตการขาย | 3 | 0 | 8 | ic_trans, ar_sale_area, ar_customer_detail, ar_customer |  |
-| `BC4004` | รายงานบันทึกขายสินค้า-บริการ | 3 | 0 | 6 | ar_customer, erp_user, ic_trans |  |
-| `BC4005` | รายงานใบสั่งจองและใบสั่งขาย แสดงพนักงาน | 3 | 0 | 6 | ar_customer, erp_user, ic_trans |  |
-| `BC4006` | รายงานจัดอันดับยอดขาย-ตามพนักงาน | 3 | 0 | 9 | ic_trans, ic_trans_detail, erp_user |  |
-| `BC4007` | รายงานจัดลำดับยอด ตามพนักงาน | 3 | 0 | 4 | erp_user, ic_trans |  |
-| `BC4008` | รายงานใบส่งของค้างชำระ แยกตามแผนก | 3 | 0 | 12 | ap_ar_trans_detail, erp_department_list, ar_customer, ic_trans |  |
-| `BC4009` | รายงานการรับเงินประจำวัน แยกแผนก | 3 | 0 | 45 | ic_trans, ap_ar_trans, ar_customer, erp_department_list, ap_supplier, cb_trans |  |
-| `BC4010` | รายงานการขายสุทธิ-ตามยี่ห้อสินค้า | 3 | 0 | 8 | ic_brand, ic_trans_detail, ic_inventory |  |
-| `BC4011` | รายงานวิเคราะห์การขายสุทธิ-ตามแผนก | 3 | 0 | 10 | erp_department_list, ic_inventory, ic_unit, ic_trans_detail, ic_trans |  |
-| `CASH_IN` | รายงานการรับเงินทั้งหมดตามวันที่ | 6 | 0 | 6 | ar_customer, cb_trans, ap_ar_trans, ic_trans |  |
-| `CASH_MOVEMENT` | รายงานเคลื่อนไหวเงินสด | 6 | 0 | 2 |  |  |
-| `CASH_MOVEMENT01` | รายงานเคลื่อไหวเงินสด | 6 | 0 | 3 | ic_trans |  |
-| `CASH_OUT` | รายงานการจ่ายเงินทั้งหมดตามวันที่ | 6 | 0 | 4 | cb_trans, ar_customer, ap_supplier |  |
-| `IC_INVENTORY_NO_SALE` | รายงานสินค้าที่ไม่มีการขาย | 1 | 0 | 3 | ic_inventory | สินค้า › วิเคราะห์ข้อมูล |
-| `MANU_SINGHA_REPORT_AR_CUSTOMER` | รายงานรายละเอียดลูกหนี้ | 0 | 0 | 26 | ar_customer, erp_province, erp_amper, erp_tambon, ar_shoptype1, ar_shoptype2, ar_shoptype3, ar_shoptype4 |  |
-| `MENU_ADVANCE_MONEY_BALANCE_BRANCH` | รายงานยอดคงเหลือเงินมัดจำ ตามสาขา | 3 | 0 | 7 | ic_trans, ar_customer, cb_trans_detail |  |
-| `MENU_ADVANCE_MONEY_CUT_BRANCH` | การงานการตัดเงินมัดจำ - แยกสาขา | 3 | 0 | 12 | ic_trans, cb_trans_detail, ar_customer |  |
-| `MENU_ADVANCE_MONEY_RECRIVE_BRANCH` | รายงานการรับเงินมัดจำ - แยกสาขา | 3 | 0 | 7 | cb_trans, ic_trans, ar_customer |  |
-| `MENU_ADVANCE_MONEY_RECRIVE_CANCEL_BRANCH` | รายงานยกเลิกรับเงินมัดจำ - แยกสาขา | 3 | 0 | 4 | ic_trans, ar_customer |  |
-| `MENU_ADVANCE_MONEY_RETURN_BRANCH` | รายงานคืนเงินมัดจำ - แยกสาขา | 3 | 0 | 7 | cb_trans, ic_trans, ar_customer |  |
-| `MENU_ADVANCE_MONEY_RETURN_CANCEL_BRANCH` | รายงานยกเลิกคืนเงินมัดจำ - แยกสาขา | 3 | 0 | 4 | ic_trans, ar_customer |  |
-| `MENU_ANALYSIS_SELL_EX_BY_PRODUCT` | รายงานวิเคราะห์การขายแบบแจกแจง-ตามสินค้า | 3 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `MENU_ANALYSIS_SELL_SUM_BY_DOCNO` | รายงานวิเคราะห์การขายแบบสรุป-ตามเอกสาร | 3 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `MENU_AP_DETAIL_DEBT_BY_AP` | รายงานใบตั้งหนี้จากการซื้อแบบแจกแจงตามเจ้าหนี้ | 4 | 0 | 8 | ic_trans, ap_supplier, ic_trans_detail | เจ้าหนี้ › รายงานวิเคราะห์ |
-| `MENU_AR_DEALER` | รายงานรายละเอียดสมาชิก | 5 | 0 | 12 | ar_customer, ar_dealer | ลูกหนี้ › ข้อมูลลูกหนี้ |
-| `MENU_AR_MAIN_REPORT` | รายงานข้อมูลลูกหนี้ | 5 | 0 | 15 | ar_dealer, ar_customer, erp_tambon, erp_amper, erp_province |  |
-| `MENU_AR_MAIN_REPORT_BY_SALE` | รายงานข้อมูลลูกหนี้แสดงตามพนักงานขาย | 5 | 0 | 13 | ar_customer_detail, ar_customer, erp_tambon, erp_amper, erp_province, erp_user |  |
-| `MENU_AR_REPORT_INVOICE_REMAIN_PAY` | ใบส่งของค้างชำระ-ตามวันที่ | 0 | 0 | 7 | ic_trans, ap_ar_trans_detail, ar_customer, ar_customer_detail | ลูกหนี้ › รายงานสรุป |
-| `MENU_BILLING_OUTSTANDING` | รายงานใบรับวางบิลค่าสินค้าที่คงค้าง | 4 | 0 | 12 | ap_ar_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงาน/ยกเลิก |
-| `MENU_BILLING_VALUE_BY_INVOICE` | รายงานใบรับวางบิลค่าสินค้า-ตามใบส่งของ | 0 | 0 | 8 | ap_ar_trans, ap_supplier, ap_ar_trans_detail | เจ้าหนี้ › รายงาน/ยกเลิก |
-| `MENU_BOOK_BANK_BALANCE` | รายงานยอดคงเหลือสมุดเงินฝาก | 6 | 0 | 15 | erp_pass_book, cb_trans, ic_trans, ic_trans_detail, ar_customer, ap_supplier, cb_trans_detail, ap_ar_trans | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
-| `MENU_CB_REPORT_CHQ_IN_RECEIVE_BY_CHQ_GET_DATE` | รายงานรายละเอียดเช็ครับ-ตามวันที่รับ | 6 | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list |  |
-| `MENU_CB_REPORT_CHQ_IN_RECEIVE_BY_DATE` | รายงานรายละเอียดเช็ครับ-ตามวันที่รับ-ตามสถานะเช็ค | 0 | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list | เงินสด/ธนาคาร › ธนาคาร › เช็ครับ › รายงาน/ยกเลิก |
-| `MENU_CB_REPORT_CHQ_OUT_PAYMENT_BY_DATE` | รายงานรายละเอียดเช็คจ่าย-ตามวันที่รับ-ตามสถานะเช็ค | 6 | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list | เงินสด/ธนาคาร › ธนาคาร › เช็คจ่าย › รายงาน/ยกเลิก |
-| `MENU_CB_REPORT_PETTY_REQUEST` | รายงานการเบิกเงินสดย่อย | 6 | 0 | 4 | ic_trans, ic_trans_detail |  |
-| `MENU_CB_REPORT_PETTY_RETURN` | รายงานการรับคืนเงินสดย่อย | 6 | 0 | 4 | ic_trans, ic_trans_detail |  |
-| `MENU_COMPARE_SALE_WITH_PRICE` | รายงานการเทียบการขายกับราคาขาย | 0 | 0 | 6 | ar_customer, ic_trans_detail, ic_inventory_price_formula | ขาย › รายงานวิเคราะห์ |
-| `MENU_FAST_REPORT_ADDITIONAL_PRODUCT_PURCHASE_SUMMARY_BY_ITEM` | รายงานใบเพิ่มสินค้า(เจ้าหนี้)แบบสรุป-ตามสินค้า | 0 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `MENU_FAST_REPORT_ANALYSIS_SELL_EX_BY_PRODUCT` | รายงานวิเคราเห์การขายแบบแจกแจง-ตามสินค้า | 0 | 0 | 4 | ic_inventory, ic_trans_detail | ขาย › รายงานวิเคราะห์ |
-| `MENU_FAST_REPORT_ANALYSIS_SELL_SUM_BY_DOCNO` | รายงานวิเคราะห์การขายแบบสรุป-ตามเลขที่เอกสาร | 0 | 0 | 11 | ar_customer, gl_wht_list, ic_trans_detail, ic_trans, erp_option | ขาย › รายงานวิเคราะห์ |
-| `MENU_FASTREPORT_AR_CUSTOMER` | รายงานข้อมูลลูกค้า | 5 | 0 | 2 | ar_customer |  |
-| `MENU_FAST_REPORT_COMPARE_PURCHASE_MONTHLY` | รายงานสรุปยอดซื้อ 12 เดือน ตามเจ้าหนี้ | 0 | 0 | 0 |  |  |
-| `MENU_FASTREPORT_CUSTOMER_MOVEMENT` | รายงานการเคลื่อนไหวลูกค้า | 0 | 0 | 10 | ar_customer, ic_trans |  |
-| `MENU_FASTREPORT_IC_INVENTORY` | รายงานข้อมูลสินค้า | 1 | 0 | 2 | ic_inventory |  |
-| `menu_fastreport_invoice_cancel` | รายงานใบกำกับภาษีอย่างย่อยกเลิก | 0 | 1 | 4 | ic_trans, ar_customer | ขาย POS › รายงาน/ยกเลิก |
-| `MENU_FAST_REPORT_MARGIN_REACCEPTANCE` | รายงานกำไรขั้นต้นแสดงหักรับคืน | 0 | 0 | 18 | ic_trans_detail, ic_inventory, ic_unit | ขาย › รายงานวิเคราะห์ |
-| `MENU_FAST_REPORT_PRODUCT_RANK` | รายงานจัดอันดับยอดขาย-ตามสินค้า | 0 | 0 | 5 | ic_inventory, ic_trans_detail | ขาย › รายงานวิเคราะห์ |
-| `MENU_FAST_REPORT_PRODUCT_RANK_BY_CUST` | รายงานจัดอันดับยอดขาย-ตามลูกค้า | 3 | 0 | 4 | ic_trans_detail, ar_customer |  |
-| `MENU_FAST_REPORT_PRODUCT_RANK_BY_SALE` | รายงานจัดอันดับยอดขาย-ตามพนักงาน | 3 | 0 | 12 | ic_trans, erp_user, ic_trans_detail |  |
-| `MENU_FAST_REPORT_PURCHASE_BY_TAX` | รายงานการซื้อสินค้าแจกแจงตามประเภทภาษี | 0 | 0 | 6 | ic_trans, ic_inventory, ic_trans_detail |  |
-| `MENU_FAST_REPORT_PURCHASE_DUE_DATE` | รายงานใบซื้อสินค้าที่ถึงกำหนดจ่ายเงิน | 0 | 0 | 6 | ap_supplier, ic_unit, ic_trans |  |
-| `MENU_FAST_REPORT_PURCHASE_SUMMARY_BY_DATE` | รายงานการซื้อสินค้าแบบสรุป-ตามวันที่ | 2 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `MENU_FAST_REPORT_PURCHASE_SUMMARY_BY_DATE_SHOW_PRICE` | รายงานการซื้อสินค้าแบบสรุป-ตามวันที่ แสดงราคาซื้อ | 2 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `MENU_FAST_REPORT_PURCHASE_SUMMARY_BY_DATE_SUPLIER` | รายงานการซื้อสินค้าแบบสรุป-ตามวันที่ เจ้าหนี้ | 2 | 0 | 6 | ap_supplier, ic_inventory, ic_trans_detail |  |
-| `MENU_FASTREPORT_RECEIVED_MONEY` | รายงานการรับเงิน | 0 | 1 | 22 | ic_trans, ar_customer, cb_trans | ขาย POS › รายงาน/ยกเลิก |
-| `MENU_FASTREPORT_RECEIVED_MONEY_SCG` | รายงานการรับเงิน | 0 | 0 | 28 | ic_trans, ar_customer, cb_trans, cb_trans_detail, erp_option |  |
-| `MENU_FAST_REPORT_SALE_BY_EMPLOYEE` | รายงานยอดขาย-ตามพนักงานขาย | 3 | 0 | 8 | erp_user, ar_customer, ic_trans |  |
-| `MENU_FAST_REPORT_SALE_HISTORY_PRODUCT` | รายงานประวัติการขายสินค้า | 3 | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail |  |
-| `MENU_FASTREPORT_SERVICE_CHARGE_INCOME` | รายงานรายได้จาก Service Charge | 3 | 0 | 4 | ar_customer, ic_trans |  |
-| `MENU_FASTREPORT_SERVICE_CHARGE_INCOME_CASH` | รายงานรายได้จาก Service Charge - ชำระเงินด้วยเงินสด | 3 | 0 | 10 | cb_trans, ic_trans |  |
-| `MENU_FASTREPORT_SERVICE_CHARGE_INCOME_CREDIT` | รายงานรายได้จาก Service Charge - ชำระเงินด้วยบัตรเครคิต | 3 | 0 | 10 | cb_trans, ic_trans |  |
-| `MENU_FAST_REPORT_SHIPMENTS_COMPARE_MONTH` | รายงานเปรียบเทียบยอดขายสินค้า 12 เดือน | 3 | 0 | 2 |  | ขาย › รายงานวิเคราะห์ |
-| `MENU_FAST_REPORT_SHIPMENTS_QTY_COMPARE_MONTH` | รายงานเปรียบเทียบปริมาณขายสินค้า 12 เดือน | 3 | 0 | 2 |  |  |
-| `MENU_FAST_REPORT_SUMMARY_CREDIT_NOTE_BY_ITEM` | รายงานการส่งคืนสินค้า-ลดหนี้แบบสรุป-ตามสินค้า | 0 | 0 | 4 | ic_inventory, ic_trans_detail |  |
-| `MENU_FAST_REPORT_SUMMARY_SELL_BY_SALE` | รายงานสรุปยอดขายสินค้าสุทธิตามพนักงานขาย | 0 | 0 | 10 | ic_trans, erp_user, ic_trans_detail, erp_option | ขาย › รายงานสรุป |
-| `MENU_FAST_REPORT_SUMMARY_SELL_BY_SALE_BY_GROUP` | รายงานสรุปยอดขายสินค้าสุทธิตามพนักงานขาย แสดงตามหมวดสินค้า | 3 | 0 | 14 | ic_inventory, ic_trans, erp_user, ic_trans_detail, ic_category |  |
-| `MENU_GL_CHECK_NO_BRACNCH` | รายงานตรวจสอบรายการรายวัน ไม่พบรายละเอียดสาขา | 0 | 0 | 3 | gl_journal_detail, erp_branch_list | รายงาน › ข้อมูลทั่วไป |
-| `MENU_IC_BALANCE_WAREHOUSE_FOR_CENTER` | รายงานยอดคงเหลือสินค้าตามคลัง สำหรับระบบ Sync | 1 | 0 | 20 | ic_trans, ic_inventory, ic_trans_detail, ic_warehouse, ic_unit, ic_unit_use, ic_inventory_barcode |  |
-| `MENU_IC_REPORT_POS_SALE_GROUP_BY_ITEM` | รายงานสรุปการขายสินค้าหน้าร้าน รวมรายการสินค้า | 0 | 0 | 5 | ic_inventory, ic_trans_detail, ic_trans |  |
-| `MENU_IC_REPORT_SALE_REMAIN` | รายงานสรุปยอดสินค้าค้างส่ง | 0 | 0 | 16 | ic_trans_detail, erp_option, ic_trans, ic_inventory, ar_customer | สินค้า › รายงานวิเคราะห์ |
-| `MENU_INVOICE_ARREARS_BY_DATE` | รายงานใบส่งของค้างจ่ายชำระ-ตามวันที่ | 0 | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
-| `MENU_INVOICE_ARREARS_DUE` | รายงานใบส่งของค้างชำระแสดงวันที่ถึงกำหนด | 4 | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
-| `MENU_INVOICE_DUE_BY_DATE` | รายงานใบส่งของถึงกำหนดชำระ-ตามวันที่ | 4 | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
-| `MENU_INVOICE_OVERDUE_BY_DATE` | รายงานใบส่งของเกินกำหนดชำระ-ตามวันที่ | 4 | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
-| `MENU_PAYMENT_BY_DATE` | รายงานการจ่ายชำระประจำวัน-ตามวันที่ | 0 | 0 | 5 | cb_trans, ap_supplier, ap_ar_trans, ic_trans | เจ้าหนี้ › รายงานสรุป |
-| `MENU_PAYMENT_BY_DEPARTMENT` | รายงานการจ่ายเงินประจำวัน-ตามแผนก | 0 | 0 | 16 | ic_trans, ap_ar_trans, erp_department_list, cb_trans, ap_supplier | เจ้าหนี้ › รายงานสรุป |
-| `MENU_PAYMENT_BY_INVOICE` | รายงานจ่ายชำระสินค้า-ตามใบส่งของ | 0 | 0 | 8 | ap_ar_trans, ap_supplier, ap_ar_trans_detail | เจ้าหนี้ › รายงานสรุป |
-| `MENU_PO_REPORT_COMPARE_PURCHASE_MO` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน (ตามสินค้า-ราคา/ปริมาณ) | 0 | 0 | 2 |  |  |
-| `MENU_PO_REPORT_COMPARE_PURCHASE_MONTHLY` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน (ตามสินค้า-ราคา/ปริมาณ) | 0 | 0 | 2 |  | ซื้อ › รายงานวิเคราะห์ |
-| `MENU_PO_REPORT_COMPARE_PURCHASE_MONTHLY_QTY` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน ตามปริมาณ | 2 | 0 | 2 |  |  |
-| `MENU_PO_REPORT_COMPARE_PURCHASE_MONTHLY_QTY_SUPPLIER` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน ตามปริมาณ ตามผุ้จำหน่ายหลัก | 2 | 0 | 6 | ic_inventory |  |
-| `MENU_PO_REPORT_PURCHASE_ANALYZE` | รายงานวิเคราะห์การซื้อสุทธิ์-ตามสินค้า | 0 | 0 | 8 | ic_inventory, ic_trans_detail | ซื้อ › รายงานวิเคราะห์ |
-| `MENU_POS_PERIOD_STATUS` | รายงานแสดงสถานะการเปิด-ปิด กะ | 3 | 0 | 4 | pos_period, erp_user |  |
-| `MENU_POS_SALE_DETAIL_001` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามวันที่ | 0 | 0 | 4 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_002` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามลูกค้า | 0 | 0 | 7 | ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_003` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามรหัส | 0 | 0 | 4 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_004` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามยี่ห้อสินค้า | 3 | 0 | 12 | ic_inventory, ar_customer, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_005` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามพนักงาน | 0 | 0 | 11 | ic_trans, ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_006` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามแผนก | 0 | 0 | 11 | ic_trans, erp_department_list, ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_007` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามประเภทลูกค้า | 0 | 0 | 14 | ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_008` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามแคชเชียร์ | 0 | 0 | 12 | ic_trans, ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_009` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามกลุ่มสินค้า | 3 | 0 | 12 | ic_inventory, ar_customer, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_010` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามกลุ่มลูกค้า | 0 | 0 | 12 | ar_customer_detail, ic_inventory, ar_customer, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
-| `MENU_POS_SALE_DETAIL_011` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามหมวดสินค้า | 3 | 0 | 11 | ic_inventory, ic_trans_detail |  |
-| `MENU_POS_SALE_DETAIL_012` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามรูปแบบสินค้า | 3 | 0 | 11 | ic_inventory, ic_trans_detail |  |
-| `MENU_POS_SUMARY_001` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-เรียงตามแคชเชียร์ | 0 | 0 | 10 | ic_trans, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_002` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามวันที่ | 0 | 0 | 4 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_003` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามลูกค้า | 0 | 0 | 8 | ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_004` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามยี่ห้อสินค้า | 0 | 0 | 10 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_005` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามพนักงานขาย | 0 | 0 | 10 | ic_trans, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_006` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามแผนก | 0 | 0 | 8 | erp_department_list, ic_inventory, ic_trans_detail |  |
-| `MENU_POS_SUMARY_007` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามประเภทลูกค้า | 0 | 0 | 10 | ar_customer, ic_inventory, ic_trans_detail |  |
-| `MENU_POS_SUMARY_008` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามกลุ่มสินค้า | 0 | 0 | 10 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_009` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามกลุ่มลูกค้า | 0 | 0 | 8 | ar_customer_detail, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
-| `MENU_POS_SUMARY_010` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามพนักงานขาย (เทียบราคากลาง) | 3 | 0 | 15 | ic_trans, ic_inventory_price_formula, ic_inventory, ic_trans_detail |  |
-| `MENU_POS_SUMARY_011` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามพนักงานขาย (เทียบราคากลาง) 2 | 3 | 0 | 15 | ic_trans, ic_inventory_price_formula, ic_inventory, ic_trans_detail |  |
-| `MENU_POS_SUM_FRONT` | รายงานสรุปการขายหน้าร้าน | 0 | 1 | 4 | ar_customer, ic_trans | ขาย POS › รายงาน/ยกเลิก |
-| `MENU_POS_SUM_FRONT_SCG` | รายงานสรุปการขายหน้าร้าน | 0 | 0 | 5 | ar_customer, ic_trans, erp_option |  |
-| `MENU_POS_SUM_FULL_VAT` | รายงานสรุปใบกำกับภาษีอย่างเต็ม | 0 | 0 | 4 | ar_customer, ic_trans | ขาย POS › รายงาน/ยกเลิก |
-| `MENU_POS_SUM_SHORT_VAT` | รายงานสรุปใบกำกับภาษีอย่างย่อ | 3 | 1 | 6 | ar_customer, ic_trans, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก |
-| `MENU_POS_SUM_SHORT_VAT_SALE_SHIFT` | รายงานสรุปรายการใบกำกับภาษีอย่างย่อ ตามรอบการขาย | 3 | 0 | 4 | ar_customer, ic_trans |  |
-| `MENU_PRODUCT_SALE_LOSS` | รายงานสินค้าขายต่ำกว่าทุน | 0 | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail | ขาย › รายงานวิเคราะห์ |
-| `MENU_REPORT_ACCRUED_IN_QTY` | รายงานสรุปยอดสินค้าค้างรับ | 0 | 0 | 12 | ic_trans_detail, ap_supplier, ic_inventory, erp_option, ic_trans | สินค้า › รายงานวิเคราะห์ |
-| `MENU_REPORT_AR_PAYMENT_PAY_DETAIL` | รายงานการรับชำระหนี้ / ออกใบเสร็จรับเงิน (แสดงรายละเอียดการรับเงิน) | 0 | 0 | 4 | ap_ar_trans_detail, ap_ar_trans, cb_trans, ar_customer | ลูกหนี้ › รายงาน/ยกเลิก |
-| `MENU_REPORT_CASH_PAYIN` | รายการการฝากเงินสด | 6 | 0 | 7 | ic_trans_detail, ic_trans, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › รายงาน/ยกเลิก |
-| `MENU_REPORT_CASH_WITHDRAW` | รายงานการถอนเงินสด | 6 | 0 | 6 | ic_trans, ic_trans_detail, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › รายงาน/ยกเลิก |
-| `MENU_REPORT_CB_PETTY_CASH_REQUEST` | รายงานการเบิกเงินสดย่อย | 0 | 0 | 4 | ic_trans, ic_trans_detail | เงินสด/ธนาคาร › เงินสด/เงินสดย่อย › รายงาน/ยกเลิก |
-| `MENU_REPORT_CB_PETTY_CASH_RETURN` | รายงานการรับคืนเงินสดย่อย | 0 | 0 | 4 | ic_trans, ic_trans_detail | เงินสด/ธนาคาร › เงินสด/เงินสดย่อย › รายงาน/ยกเลิก |
-| `MENU_REPORT_CHECK_VAT_BUY` | ตรวจสอบเลขที่ใบกำกับภาษีซื้อ | 2 | 0 | 3 | gl_journal_vat_buy, ap_supplier |  |
-| `MENU_REPORT_CHQ_CARD_ENDDATE_CARD` | รายงานรายละเอียดบัตรครดิต-ตามวันที่รับ | 6 | 0 | 8 | erp_bank, erp_bank_branch, cb_chq_list, ap_supplier, ar_customer | เงินสด/ธนาคาร › ธนาคาร › บัตรเครดิต |
-| `MENU_REPORT_CHQ_PAY_DUE_DATE` | รายงานรายละเอียดเช็คจ่าย-ตามวันครบกำหนด | 6 | 0 | 5 | cb_chq_list, ap_supplier, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › เช็คจ่าย › รายงาน/ยกเลิก |
-| `MENU_REPORT_CHQ_RECEIVE_DUE_DATE` | รายงานรายละเอียดเช็ครับ-ตามวันครบกำหนด | 0 | 0 | 5 | cb_chq_list, ar_customer, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › เช็ครับ › รายงาน/ยกเลิก |
-| `MENU_REPORT_CUSTOMER_POINT_BALANCE` | รายงานแต้มคงเหลือสมาชิก | 0 | 0 | 12 | ic_trans, cb_trans, ar_customer |  |
-| `menu_report_employee_group` | รายงานพนักงานเรียงตามกลุ่ม | 0 | 1 | 9 | erp_user, erp_user_group, erp_user_group_detail | เริ่มต้น › รายละเอียดข้อมูลทั่วไป |
-| `MENU_REPORT_IC_STOCK_BALANCE_LOCATION_MAX` | รายงานสินค้าถึงจุดสูงสุด แยกตามคลัง-จุดเก็บ | 0 | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
-| `MENU_REPORT_IC_STOCK_BALANCE_LOCATION_MIN` | รายงานสินค้าถึงจุดต่ำสุด แยกตามคลัง-จุดเก็บ | 0 | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
-| `MENU_REPORT_IC_STOCK_BALANCE_WAREHOUSE_MAX` | รายงานสินค้าถึงจุดสูงสุด แยกตามคลัง | 0 | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
-| `MENU_REPORT_IC_STOCK_BALANCE_WAREHOUSE_MIN` | รายงานสินค้าถึงจุดต่ำสุด แยกตามคลัง | 0 | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
-| `MENU_REPORT_INVENTORY_ADJUST` | รายงานการปรับปรุงยอดสินค้า | 1 | 0 | 3 | ic_trans_detail, ic_inventory | สินค้า › รายงานสรุป |
-| `MENU_REPORT_LOT_INVENTORY` | รายงาน Lot สินค้า | 1 | 0 | 13 | ic_trans_detail_lot, ic_inventory, ic_unit, ic_unit_use | สินค้า › รายงานสรุป |
-| `MENU_REPORT_PURCHASE_ADD_BY_DATE` | รายงานใบเพิ่มสินค้า(เจ้าหนี้)แบบสรุป-ตามวันที่ | 0 | 0 | 4 | ic_inventory, ic_trans_detail | ซื้อ › รายงานสรุป |
-| `MENU_REPORT_PURCHASE_BY_DATE` | รายงานยอดซื้อตามวันที่ | 0 | 0 | 4 | ap_supplier, ic_trans | ซื้อ › รายงานสรุป |
-| `MENU_REPORT_PURCHASE_CREDIT_BY_DATE` | รายงานใบตั้งหนี้จากการซื้อแบบสรุป-ตามวันที่ | 0 | 0 | 3 | ic_trans, ap_supplier | ซื้อ › รายงานสรุป |
-| `MENU_REPORT_PURCHASE_CREDIT_NOTE_BY_ITEM` | รายงานการส่งคืนสินค้า/ลดหนี้แบบสรุป-ตามสินค้า | 0 | 0 | 4 | ic_inventory, ic_trans_detail | ซื้อ › รายงานสรุป |
-| `menu_report_purchase_order_by_date` | รายงานการสั่งซื้อสินค้าแบบสรุป-ตามวันที่ | 0 | 1 | 3 | ic_trans_detail, ic_inventory | ซื้อ › รายงานสรุป |
-| `MENU_REPORT_PURCHASE_RANK_ITEM_GROUP` | รายงานการจัดอันดับยอดซื้อ(ตามสินค้า-กลุ่มสินค้า) | 0 | 0 | 6 | ic_inventory, ic_trans_detail | ซื้อ › รายงานวิเคราะห์ |
-| `MENU_REPORT_PURCHSE_ON_DUE` | รายงานใบซื้อสินค้าที่ถึงกำหนดจ่ายเงิน | 0 | 0 | 8 | ic_trans, ap_supplier, ic_trans_detail, ic_inventory | ซื้อ › รายงานสรุป |
-| `MENU_REPORT_RECEIVE_MONEY_CREDIT_BY_DATE` | รายงานการรับเงินบัตรเครดิต ตามวันที่ | 3 | 0 | 3 | cb_trans_detail, ar_customer |  |
-| `MENU_REPORT_RECEIVE_MONEY_SUMMARY` | รายงานสรุป การบันทึก รับเงินจากการขาย/รับชำระหนี้ | 0 | 0 | 2 | cb_trans, ar_customer | ลูกหนี้ › รายงานสรุป |
-| `MENU_REPORT_REGISTER_MEMBER_BY_DATE` | รายงานจำนวนสมาชิกตามวันที่ | 0 | 0 | 2 | ar_dealer |  |
-| `MENU_REPORT_SALE_VIEW_SERIAL_NUMBER` | รายการการขายสินค้าและบริการ แสดง Serial Number | 3 | 0 | 8 | ic_trans, ic_trans_detail, ic_trans_serial_number, ic_warehouse, ic_shelf |  |
-| `MENU_REPORT_SINGHA_LOGS_TRANS` | รายงานการตรวจสอบการแก้ไขข้อมูลย้อนหลัง | 0 | 0 | 14 | ap_ar_trans, ic_trans, logs | รายงาน › ข้อมูลทั่วไป |
-| `MENU_REPORT_SUMMARY_ORDER_KITCHEN` | รายงานสรุปการสั่งอาหาร ห้องครัว/บาร์น้ำ | 3 | 0 | 9 | table_order, ic_inventory, ic_unit_use, kitchen_master, ic_unit |  |
-| `MENU_REPORT_SUM_PURCHASE_BY_VAT` | รายงานการซื้อสินค้าสรุปตามประเภทภาษี | 0 | 0 | 2 | ic_trans_detail | ซื้อ › รายงานสรุป |
-| `MENU_REPORT_SUPPLIER_UNCASH` | รายงานเจ้าหนี้ค้างจ่ายชำระ | 4 | 0 | 10 | ic_trans, ap_ar_trans_detail, ap_supplier |  |
-| `MENU_REPORT_SUPPLIER_UNCASH_2` | รายงานเจ้าหนี้ค้างจ่ายชำระ | 4 | 0 | 10 | ic_trans, ap_ar_trans_detail, ap_supplier |  |
-| `MENU_SALE_HISTORY_PRODUCT` | รายงานประวัติการขายสินค้า | 3 | 1 | 5 | ic_trans_detail, ic_inventory, ar_customer | ขาย › รายงานสรุป |
-| `MENU_SCG_PRODUCT_SALE_LOSS` | รายงานสินค้าขายต่ำกว่าทุน | 0 | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail |  |
-| `MENU_SCG_REPORT_SUMMARY_PAYMENT` | รายงานสรุปการจ่ายเงิน | 0 | 0 | 2 | cb_trans |  |
-| `MENU_SHIPMENTS_BY_DATE` | รายงานสรุปยอดขายสินค้า-สรุปตามวันที่ | 3 | 0 | 3 | ic_trans | ขาย › รายงานสรุป |
-| `MENU_SINGHA_REPORT_AGING_DEPOSIT` | aging ของฝาก | 0 | 0 | 30 | ic_unit_use, ic_wms_trans_detail, ic_inventory, ar_customer, ic_wms_trans |  |
-| `MENU_SINGHA_REPORT_AMOUNT_SALE_CUSTOMER` | รายงานสรุปมูลค่าการขาย 12 เดือน แยกตามลูกค้า | 0 | 0 | 7 | gl_journal_detail, ar_customer, ic_trans_detail, ar_customer_detail |  |
-| `MENU_SINGHA_REPORT_ANALYST_SALE_AREA` | ยอดขายสินค้า ตามพื้นที่ | 0 | 0 | 24 | ar_customer, ic_unit_use, ic_inventory, ic_trans_detail, ic_report_sort_item, ar_customer_detail | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_ANALYST_SALE_CUSTOMER` | ยอดขายสินค้า วิเคราะห์ตามลูกค้า | 0 | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_ANALYST_SALE_CUSTOMER_CUT_RETURN` | ยอดขายสินค้า วิเคราะห์ตามลูกค้า หักรับคืน | 0 | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_AP_PURCHASE_SUMMARY_PRODUCT` | สรุปยอดซื้อสินค้า วิเคราะห์ตามผู้ขาย | 0 | 0 | 12 | ic_trans, ic_unit_use, ap_supplier, ic_trans_detail | รายงาน › ซื้อ |
-| `MENU_SINGHA_REPORT_AR_CUSTOMER` | รายงานรายละเอียดลูกหนี้ | 0 | 0 | 78 | ar_customer_detail, erp_province, erp_amper, erp_tambon, ar_tier, ar_shoptype1, ar_shoptype2, ar_shoptype3 |  |
-| `MENU_SINGHA_REPORT_AR_SALE_CARD` | การ์ดลูกค้า | 0 | 0 | 9 | ic_unit_use, ar_customer, ic_trans_detail | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_BALANCE_QTY_WH_SHELF` | รายงานสินค้าคงเหลือแสดงตามพื้นที่เก็บ | 0 | 0 | 33 | ic_unit_use, ic_inventory, ic_trans_detail, ic_unit |  |
-| `MENU_SINGHA_REPORT_BANK_STATEMENT_SHOW_PAYMENT_DETAIL` | รายงาน Bank Statement แสดงช่องทางการจ่ายเงิน | 0 | 0 | 40 | ic_trans, erp_pass_book, ap_supplier, ar_customer, ap_ar_trans, cb_trans, ic_trans_detail, ap_supplier_detail | รายงาน › เงินสด/ธนาคาร |
-| `MENU_SINGHA_REPORT_CANCEL_DOC` | รายงานการยกเลิกเอกสาร | 0 | 0 | 14 | erp_cancel_logs, ic_trans, ap_ar_trans | รายงาน › ข้อมูลทั่วไป |
-| `MENU_SINGHA_REPORT_CHEQUEIN_BALANCE` | สรุปยอดรับเช็คคงเหลือ | 0 | 0 | 6 | ar_customer, cb_chq_list, ic_trans, ap_ar_trans | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
-| `MENU_SINGHA_REPORT_CHEQUEIN_DEPOSIT` | สรุปยอดรับเช็ค  ส่งเข้าธนาคาร | 0 | 0 | 13 | cb_chq_list, ar_customer, ic_trans_detail | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
-| `MENU_SINGHA_REPORT_CHEQUEIN_LIST` | ทะเบียนรับเช็ค | 0 | 0 | 6 | ar_customer, cb_chq_list, ic_trans, ap_ar_trans | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
-| `MENU_SINGHA_REPORT_CHEQUEIN_PASS` | สรุปเช็ครับล่วงหน้า (ผ่าน) | 0 | 0 | 13 | cb_chq_list, ar_customer, ic_trans_detail | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
-| `MENU_SINGHA_REPORT_CHQ_IN_RETURN` | รายงานรับคืน (เช็ครับ) | 0 | 0 | 10 | cb_chq_list, ic_trans, ic_trans_detail, erp_bank, ar_customer | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
-| `MENU_SINGHA_REPORT_CREDIT_MONEY_CHECK` | รายงานตรวจสอบยอดวงเงิน | 0 | 0 | 9 | ar_customer, ar_customer_detail, ic_trans | รายงาน › ลูกหนี้ |
-| `MENU_SINGHA_REPORT_DEPART_RETURN` | รายงานการ์ดสินค้า เบิก-รับคืน (อ้างอิงลูกหนี้) | 0 | 0 | 32 | ic_trans_detail, ar_customer, ic_inventory, ic_warehouse, ic_shelf |  |
-| `MENU_SINGHA_REPORT_DEPART_SHOWNAME` | รายงานการเบิกสินค้า แสดงชื่อลูกค้า | 0 | 0 | 12 | ic_trans, ar_customer, ic_trans_detail, ic_unit |  |
-| `MENU_SINGHA_REPORT_DEPOSIT_CARD` | รายงานการ์ดสินค้าฝาก | 0 | 0 | 40 | ic_unit_use, ic_wms_trans_detail, ic_unit, ar_customer, ic_warehouse, ic_shelf, ic_inventory |  |
-| `MENU_SINGHA_REPORT_IC_DEPOSIT_SUMMARY` | สรุปสินค้าฝาก - ค้างส่ง | 0 | 0 | 12 | ic_unit_use, ic_wms_trans_detail, ic_inventory, ar_customer |  |
-| `MENU_SINGHA_REPORT_OTHER_EXPENSES` | รายงานค่าใช้จ่ายอื่น ๆ | 0 | 0 | 9 | gl_journal_vat_buy, ic_trans, ic_trans_detail, ap_supplier | รายงาน › เงินสด/ธนาคาร |
-| `MENU_SINGHA_REPORT_PRICE_LAST_BUY` | ราคาซื้อสินค้าล่าสุด | 0 | 0 | 12 | ic_trans_detail, ap_supplier, ic_inventory | รายงาน › ซื้อ |
-| `MENU_SINGHA_REPORT_PRODUCT` | รายการรับสินค้ากรณีอื่นๆ โดยระเอียด | 0 | 0 | 10 | ic_trans, ic_unit_use, ic_trans_detail |  |
-| `MENU_SINGHA_REPORT_PRODUCT_MOVEMENT_STORE` | รายงานสโตร์ | 0 | 0 | 33 | ic_unit_use, ic_inventory, ic_trans_detail, ic_unit, ic_report_sort_item, ic_trans | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PRODUCT_OUT_OTHER` | รายการจ่ายสินค้ากรณีอื่นๆ โดยระเอียด | 0 | 0 | 17 | ic_trans, ic_unit_use, ic_trans_detail | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PRODUCT_RECEIVE` | รายการรับสินค้ากรณีอื่นๆโดยระเอียด | 0 | 0 | 16 | ic_unit_use, ic_trans, ic_trans_detail | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PRODUCT_RECEIVE_BY_BRANCH` | รายงานรับสินค้า แยกสาขา | 0 | 0 | 20 | erp_branch_list, ic_trans, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงาน › ซื้อ |
-| `MENU_SINGHA_REPORT_PRODUCT_SUM_OUT_BY_DAY` | สรุปยอดจ่ายสินค้าออกจากคลัง | 0 | 0 | 26 | ic_unit_use, ic_unit, ic_inventory, ic_trans_detail, ic_report_sort_item | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PRODUCT_SUM_TRANSFER` | รับโอนสินค้าสรุปตามคลัง | 0 | 0 | 29 | ic_unit_use, ic_trans, ic_trans_detail, ic_inventory, ic_unit | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PRODUCT_SUM_TRANSFEROUT` | จ่ายโอนสินค้าสรุปตามคลัง | 0 | 0 | 29 | ic_unit_use, ic_trans, ic_trans_detail, ic_inventory, ic_unit | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PRODUCT_TRANSFER` | รายงานการโอนสินค้าและวัตถุดิบ | 0 | 0 | 3 | ic_trans_detail, ic_trans, ic_report_sort_item | รายงาน › สินค้า |
-| `MENU_SINGHA_REPORT_PU_BY_PRODUCT` | รายงานสรุปยอดซื้อจากผู้ขาย วิเคราะห์ตามสินค้า | 0 | 0 | 19 | ic_unit_use, ic_inventory, ic_trans_detail, ar_customer, ap_supplier, ic_trans | รายงาน › ซื้อ |
-| `MENU_SINGHA_REPORT_SALE_BOX_LITRE` | รายงานยอดขาย (ลิตร) | 3 | 0 | 14 | ic_unit_use, ic_inventory, ic_unit, ic_trans_detail, ic_report_sort_item |  |
-| `MENU_SINGHA_REPORT_SALE_BY_BRANCH` | รายงานสรุปยอดขายสินค้าเรียงตามสาขา | 0 | 0 | 22 | ic_unit_use, ic_trans, erp_branch_list, ic_inventory, ic_trans_detail, ar_customer | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_HISTORY_BRANCH` | รายงานประวัติการขายสินค้า แยกสาขา | 0 | 0 | 16 | ic_trans, ar_customer, erp_branch_list, ic_inventory, ic_unit, ic_trans_detail | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_INVOICE` | สรุปรายละเอียดการขาย/เก็บเงิน รายบิล | 0 | 0 | 9 | cb_trans, ar_customer, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_INVOICE_BY_CREDIT_DAY` | สรุปรายละเอียดการขาย/เก็บเงิน รายบิล ตามระยะเวลาเครดิต | 0 | 0 | 10 | cb_trans, ar_customer, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_INVOICE_SHOWREMARK` | สรุปรายละเอียดการขาย/เก็บเงิน รายบิล | 0 | 0 | 9 | cb_trans, ar_customer, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_PREMIUM_BY_DATE` | รายงานสรุปขาย/แถมรายวัน | 0 | 0 | 17 | ic_unit_use, ic_inventory, ic_trans_detail, ar_customer | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า | 0 | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_ADD_SALE_CODE` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (เพิ่มรหัสพนักงานขาย) | 0 | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans |  |
-| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_ARM` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (ARM) | 0 | 0 | 25 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans |  |
-| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_ONELINE` | รายงานสรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า(หักรับคืน) แบบแถวเดียว | 0 | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_SUMVAT` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (รวม VAT) | 0 | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans |  |
-| `MENU_SINGHA_REPORT_SHIPMENT` | รายงานบันทึกการจัดส่ง | 0 | 1 | 65 | ic_unit_use, pp_shipment, pp_shipment_detail, ic_wms_trans, ic_inventory, ar_customer, ic_trans, transport_type | คลังสินค้า › การส่งสินค้า |
-| `MENU_SINGHA_REPORT_STOCK_BALANCE_COMPARE_DEPOSIT` | สรุปการ์ดสินค้า VS  สินค้าฝาก | 0 | 0 | 30 | ic_unit_use, ic_inventory, ic_unit, ic_trans, ic_trans_detail, ic_wms_trans_detail, ic_report_sort_item | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
-| `MENU_SINGHA_REPORT_SUMARY_SALE_CUSTOMER_ANALYSIS_PRODUCT` | รายงานสรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (VAT) | 0 | 0 | 8 | ar_customer, ic_inventory, ic_trans_detail |  |
-| `MENU_SINGHA_REPORT_SUMMARY_DEPART_RETURN` | รายงานสรุปยอดค้างสินค้าจากการเบิก(ลูกค้า) | 0 | 0 | 8 | ic_trans_detail, ar_customer |  |
-| `MENU_SINGHA_REPORT_SUMMARY_WAREHOUSE_DEPART_RETURN` | สรุปรับคืนฝาก | 0 | 0 | 25 | ic_unit_use, ic_wms_trans, ar_customer, ic_inventory, ic_wms_trans_detail | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
-| `MENU_SINGHA_REPORT_SUMMARY_WAREHOUSE_DEPOSIT` | สรุปฝาก | 0 | 0 | 25 | ic_unit_use, ic_wms_trans, ar_customer, ic_inventory, ic_wms_trans_detail | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
-| `MENU_SINGHA_REPORT_SUMMARY_WAREHOUSE_DEPOSIT_DEPART` | เบิกฝาก | 0 | 0 | 25 | ic_unit_use, ic_wms_trans, ar_customer, ic_inventory, ic_wms_trans_detail | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
-| `MENU_SINGHA_REPORT_SUM_PAY_MONEY` | สรุปยอดเงินจ่าย | 0 | 0 | 44 | cb_trans, ic_trans, ar_customer, ap_supplier, ap_ar_trans_detail, ap_ar_trans | รายงาน › ซื้อ |
-| `MENU_SINGHA_REPORT_SUM_RECEIVE_MONEY` | สรุปยอดเงินรับ | 0 | 0 | 47 | cb_trans, ar_customer, ic_trans, ap_ar_trans_detail, ap_ar_trans | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SUM_SALE_QTY` | สรุปยอดขายสินค้า(QTY)ตามช่วงเวลา | 0 | 0 | 29 | ic_unit_use, ic_unit, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans, ar_customer | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SUM_TRANSPORT_TYPE` | สรุปยอดการส่งสินค้าตามประเภทการขนส่ง | 0 | 0 | 17 | ic_unit_use, ic_inventory, ic_unit, ic_trans_shipment, ic_trans_detail, ar_customer | รายงาน › ขาย |
-| `MENU_SINGHA_REPORT_SUPPLIER_DETAIL` | รายละเอียดเจ้าหนี้ | 0 | 0 | 7 | ap_ar_trans_detail, ic_trans, ap_supplier | รายงาน › ซื้อ |
-| `MENU_SINGHA_REPORT_TRANSPORT_ADDRESS` | รายงานที่อยู่จัดส่งลูกค้า | 0 | 0 | 8 | ar_customer, erp_amper, erp_province, ap_ar_transport_label | รายงาน › ลูกหนี้ |
-| `MENU_SINGHA_REPORT_VATBUY_GROUP` | รายงานตรวจสอบภาษีซื้อ | 0 | 0 | 2 | gl_journal_vat_buy |  |
-| `MENU_SINGHA_REPORT_VAT_FREE_BY_ISSUE` | รายงานภาษีขายสินค้าฟรี(ใบควบคุม) | 0 | 0 | 8 | ar_customer, ic_trans, ic_inventory_price_formula, ic_trans_detail, erp_option | รายงาน › บัญชี |
-| `MENU_SINGHA_REPORT_WH_ACCRUED_OUT` | สรุปสินค้าฝาก - ค้างส่ง | 0 | 0 | 13 | ic_unit_use, ic_wms_trans_detail, ic_inventory, ar_customer, ic_wms_trans | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
-| `MENU_SINGHA_REPORT_WH_DEPOSITS_CUSTOMER` | สรุปฝากรายลูกค้า | 0 | 0 | 23 | ic_unit_use, ic_unit, ar_customer, ic_inventory, ic_wms_trans_detail, ic_wms_trans | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
-| `MENU_SING_REPORT_SALE_LESSTHAN_COST` | รายงานสินค้าต่ำกว่าทุน | 0 | 0 | 8 | ar_customer, ic_inventory, ic_trans_detail | รายงาน › ขาย |
-| `MENU_STATEMENT_ADVANCE` | รายงาน Statement ล่วงหน้า | 6 | 0 | 2 | cb_chq_list | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
-| `MENU_STOCK_BALANCE_ALL_SHOW_CURRENT_VALUE` | รายงานยอดคงเหลือสินค้า (แสดงทุกสินค้า)  แสดงมูลค่าปัจจุบัน | 0 | 0 | 4 | ic_inventory_barcode | สินค้า › วิเคราะห์ข้อมูล |
-| `menu_summary_payment` | รายงานสรุปการจ่ายเงิน | 6 | 1 | 2 | cb_trans | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
-| `MENU_SUMMARY_RECEIVED` | รายงานสรุปการรับเงิน | 0 | 1 | 4 | cb_trans, ap_ar_trans, ic_trans | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
-| `MENU_SUMMARY_RECEIVED_SCG` | รายงานสรุปการรับเงิน | 0 | 0 | 9 | ic_trans, cb_trans, ap_ar_trans, erp_option |  |
-| `PANUT` | รายงานยอดคงเหลือสินค้าซีเรียวตามคลัง | 1 | 0 | 40 | ic_trans, ic_inventory, ic_trans_detail, ic_unit_use, ic_serial |  |
-| `QC-RETEST-01` | รายงานสินค้า/วัตถุดิบ ที่ถึงกำหนด Retest | 0 | 0 | 4 | ic_qc_lab, ic_inventory, ic_qc_lab_container |  |
-| `REPORT_BUY_VAT_NO_DUE` | รายงานภาษีซื้อไม่ถึงกำหนดชำระ | 0 | 0 | 5 | gl_journal_vat_buy |  |
-| `REPORT_COUPON_LIST` | รายงานรายละเอียดคูปอง | 0 | 0 | 8 | ic_trans, ar_customer, coupon_list |  |
-| `REPORT_CUSTOM_2254367893_SALE_1` | รายงานยอดขายสินค้าแบบพิเศษ | 3 | 0 | 14 | ar_customer, ic_inventory_price_formula, ic_inventory, ic_trans_detail, ic_trans, ap_ar_trans_detail |  |
-| `REPORT_ETAX_PENDING` | รายงานแสดงรายการค้างส่งข้อมูล e-Tax | 3 | 0 | 4 | ic_trans, ar_customer, erp_doc_format_etax, e_tax_transaction |  |
-| `REPORT_IC_ALL_BALANCE` | รายงานสินค้าคงเหลือแบบรวม | 0 | 0 | 2 | ic_unit_use, ic_inventory |  |
-| `REPORT_IC_BALANCE_GROUP_BY_CATEGORY` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า | 3 | 0 | 11 | ic_inventory, ic_group |  |
-| `REPORT_IC_DETAIL_WITH_ALL_BALANCE` | รายงานแสดงสินค้าแบบละเอียด | 0 | 0 | 4 | ic_unit_use, ic_inventory |  |
-| `REPORT_IMEX_QC_APPROVED_VENDOR` |  | 0 | 0 | 2 | qc_approved_vendor_list, ic_inventory, ap_supplier, manufacturer_list | สินค้า › ตรวจสอบคุณภาพสินค้า |
-| `REPORT_INVENTORY_EXPIRE_DATE` | รายงานสินค้าหมดอายุ | 1 | 0 | 4 | ic_unit |  |
-| `REPORT_INVENTORY_EXPIRE_WAREHOUSE_DATE` | รายงานสินค้าหมดอายุตามคลัง | 1 | 0 | 3 |  |  |
-| `REPORT_PACKING_FROM_INVOICE` | รายงานการจัดสินค้าจากใบขาย | 3 | 0 | 2 | ic_trans_detail |  |
-| `REPORT_PACKING_FROM_INVOICE_CUSTOMER` | รายงานการจัดสินค้าจากใบขาย แสดงตามลูกค้า | 3 | 0 | 5 | ic_trans_detail, ar_customer |  |
-| `REPORT_QC_LAB_RETEST` | รายงานกำหนด Retest วัตถุดิบ | 1 | 0 | 4 | ic_qc_lab, ic_inventory, ic_qc_lab_container |  |
-| `REPORT_SALE_BY_EMPLOYEE` | รายงานการขายแยกตามพนักงานขาย (หักส่วนลด) | 3 | 0 | 10 | ic_trans_detail, erp_user, ic_inventory |  |
-| `REPORT_SALE_BY_SUPPLIER` | รายงานการขายสินค้า แยกตามผู้จัดจำหน่าย | 3 | 0 | 10 | ic_inventory, ap_supplier, ic_trans_detail |  |
-| `REPORT_SCG_SEND_MONEY_POS` | รายงานการนำส่งเงินประจำวัน | 0 | 0 | 2 | poscashiersettle |  |
-| `REPORT_SEND_MONEY_POS` | รายงานการนำส่งเงินประจำวัน | 0 | 0 | 2 | poscashiersettle | ขาย POS › รายงาน/ยกเลิก |
-| `REPORT_SUMMARY_PURCHASE_BY_SUPPLIER` | รายงานสรุปการซื้อสินค้า แยกตามผู้จัดจำหน่าย | 2 | 0 | 12 | ic_inventory, ap_supplier, ic_trans_detail |  |
-| `REPORT_SUMMARY_SALE_BY_SUPPLIER` | รายงานสรุปการขายสินค้า แยกตามผู้จัดจำหน่าย | 3 | 0 | 12 | ic_inventory, ap_supplier, ic_trans_detail |  |
-| `REPORT_SYNC_SEND_SUCCESS_TRANS` | รายงานสถานะการส่งข้อมูล | 3 | 0 | 8 | ic_trans, ic_trans_detail, cb_trans, cb_trans_detail, ap_ar_trans, ap_ar_trans_detail |  |
-| `SALE_ANALYSIS_BY_CUSTOMER_GROUP_SALE_VALUE` | รายงานวิเคราะห์ การขาย จัดเรียงตาม กลุ่มลูกค้า แสดงมูลค่า | 3 | 0 | 15 | ar_customer_detail, ic_trans_detail, ar_group, ar_group_sub, erp_user, ic_inventory |  |
-| `TESTSAVE` | รายงานลูกหนี้ค้างชำระ แสดงรายละเอียดบิลขาย | 5 | 0 | 10 | ic_trans, ar_customer, erp_user, ic_trans_detail |  |
-| `TEST SML` | test sml | 0 | 0 | 2 |  |  |
-| `TOC-001` | รายงานยอดคงเหลือสินค้า | 1 | 0 | 23 | ic_trans_detail_lot, ic_inventory, ic_warehouse, ic_inventory_barcode, ic_unit_use, ic_lot_manage |  |
-| `TOC-SS-013` | รายงานยอดขายของผู้แทน หัก รับคืนสินค้า | 3 | 0 | 21 | ic_trans, erp_user, ic_trans_detail_commission |  |
-| `TOC-ST-004` | รายงานวัตถุดิบที่ใช้ในการผลิตสินค้าสำเร็จรูป | 1 | 0 | 8 | ic_trans_detail, ic_inventory |  |
-| `TV_DIRECT_REPORT_INVOICE_SUMMARY` | รายงานการรวม INV_ ขายประจำวัน | 3 | 0 | 10 | ic_trans, cb_trans, erp_branch_list |  |
-| `TV_DIRECT_REPORT_INVOICE_SUMMARY_TRANSFER` | รายงานการ Tranfer ข้อมูลประจำวัน | 3 | 0 | 8 | ic_trans, erp_branch_list, pos_period, cb_trans |  |
-| `TV_DIRECT_REPORT_POS_OUTPUT_DATA` | รายงานข้อมูลออกจาก POS (Out put  Data) | 3 | 0 | 2 |  |  |
-| `V001` | รายงานขายสินค้าต่ำกว่าทุน | 0 | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail |  |
-| `V002` | รายงานใบตั้งหนี้จากการซื้อแบบแจกแจงตามเจ้าหนี้ | 0 | 0 | 8 | ic_trans, ap_supplier, ic_trans_detail |  |
-| `รายงานตัดแต้มลูกหนี้` | 6018 | 5 | 0 | 4 | ar_customer, ic_trans |  |
+| `10002` | รายงานรายละเอียดสินทรัพย์ (คุรุภัณฑ์) | 7 สินทรัพย์ | 0 | 7 | as_asset, erp_side_list, as_asset_location, erp_department_list, erp_user, erp_province | รายงานอื่น ๆ (`menu_fastreport_other_asset`) |
+| `1001` | รายงานบาร์โค๊ดพร้อมราคากลุ่มที่ 1 | 1 สินค้า | 0 | 4 | ic_inventory, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `1002` | รายงานยอดคงเหลือสินค้า (แสดงทุกสินค้า) | 1 สินค้า | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `1003` | รายงานสินค้าแสดงราคาขายและราคาสมาชิก | 0 ทั่วไป | 0 | 6 | pos_id, ic_inventory_barcode |  |
+| `1004` | รายงานสินค้าแสดงราคาขาย ราคาสมาชิก ราคาตามสูตร | 1 สินค้า | 0 | 36 | ic_inventory_price_formula, ic_inventory, ic_inventory_barcode, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `1005` | รายงานบาร์โค๊ดพร้อมราคากลุ่มที่ 2 | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_inventory_barcode |  |
+| `1006` | รายงานสินค้าต่ำกว่าทุน | 3 ขาย | 0 | 5 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `2001` | รายงานการขายแยกตามพนักงานขาย (หักส่วนลด) | 3 ขาย | 0 | 14 | ic_trans_detail, erp_user, ar_customer, ic_trans, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `2002` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามวันที่ | 0 ทั่วไป | 0 | 5 | ic_inventory, ic_trans_detail, ic_unit |  |
+| `2003` | รายงานบาร์โค๊ดสินค้าซ้ำ | 1 สินค้า | 0 | 3 | ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2005` | รายงานสินค้าคงเหลือตามคลัง แสดงราคาขายตามบาร์โค้ด | 1 สินค้า | 0 | 14 | ic_inventory_barcode, ic_warehouse, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2006` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า | 1 สินค้า | 1 | 11 | ic_inventory, ic_group | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2007` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า (แยกตามคลัง) | 1 สินค้า | 0 | 10 | ic_inventory, ic_group | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2008` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า (แยกตามคลัง ที่เก็บ) | 1 สินค้า | 0 | 22 | ic_inventory, ic_group, ic_trans_detail, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2009` | รายงานบาร์โค้ดสินค้าตามผู้จัดจำหน่ายหลัก | 1 สินค้า | 0 | 2 | ic_inventory_barcode, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2010` | รายงานสินค้าคงเหลือแสดงตามผู้จำหน่ายหลัก | 1 สินค้า | 0 | 10 | ic_inventory, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2010-1` | รายงานสินค้าคงเหลือแสดงตามผู้จำหน่ายหลัก แสดงยอดคงเหลือศูนย์ | 1 สินค้า | 0 | 10 | ic_inventory, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2011` | รายงานยอดคงเหลือสินค้าแสดงตามผู้จำหน่ายหลัก (รหัสสินค้า,บาร์โค๊ด) | 1 สินค้า | 0 | 12 | ic_inventory, ap_supplier, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2012` | รายงานจุดต่ำสุดสูงสุดสินค้า | 1 สินค้า | 1 | 5 | ic_wh_shelf, ic_inventory, ic_warehouse, ic_shelf | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2013` | รายงานบาร์โค๊ดสินค้า | 1 สินค้า | 0 | 2 | ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2014` | รายงานยอดคงเหลือสินค้า แสดงยอดคงเหลือตามหน่วย | 1 สินค้า | 0 | 3 | ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2015` | รายงานยอดคงเหลือสินค้าตามคลัง แสดงยอดคงเหลือตามหน่วย | 1 สินค้า | 0 | 26 | ic_inventory, ic_trans_detail, ic_unit_use, ic_warehouse | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2016` | รายงานยอดคงเหลือสินค้าตามที่เก็บสินค้า แสดงยอดคงเหลือตามหน่วย | 1 สินค้า | 0 | 4 | ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2017` | รายงานสินค้าคงเหลือตามคลัง-ที่เก็บ | 1 สินค้า | 0 | 9 | ic_warehouse, ic_shelf, ic_inventory, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2018` | รายการสินค้าที่ไม่พบหน่วยนับ | 1 สินค้า | 0 | 3 | ic_inventory, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2019` | รายงานสินค้าถึงจุดสั่งซื้อเรียงตามผู้จำหน่ายหลัก | 1 สินค้า | 0 | 16 | ic_inventory_detail, ap_supplier, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2020` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้าย่อย | 1 สินค้า | 0 | 10 | ic_inventory, ic_group_sub | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2021` | รายงานข้อมูลสินค้าพบอัตราส่วนหน่วยต้นทุนผิด | 1 สินค้า | 0 | 10 | ic_unit_use, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2022` | รายงานราคาขายสินค้าตามสูตร | 1 สินค้า | 0 | 6 | ic_inventory, ic_inventory_price_formula | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2023` | สินค้าไม่พบ barcode | 1 สินค้า | 0 | 4 | ic_inventory, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2024` | รายงานยอดคงเหลือสินค้าติดลบ | 1 สินค้า | 0 | 3 | ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2025` | รายงานยอดคงเหลือสินค้าติดลบตามคลังสินค้า | 1 สินค้า | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2026` | รายงานยอดคงเหลือสินค้าติดลบตามพืันที่เก็บสินค้า | 1 สินค้า | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2027` | รายงานยอดคงเหลือสินค้าหักยอดจอง | 1 สินค้า | 0 | 6 | ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2028` | รายงานบาร์โค๊ดสินค้าทีไม่แสดงในใบเสร็จ | 1 สินค้า | 0 | 2 | ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2029` | รายงานรายการสินค้าที่จะตรวจนับ | 1 สินค้า | 0 | 2 | ic_wh_shelf | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2030` | รายงานสินค้าหลายหน่วยนับ | 1 สินค้า | 0 | 5 | ic_inventory, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2031` | รายงานปริมาณการสั่งซื้อสินค้าเทียบกับยอดสูงสุด | 1 สินค้า | 0 | 12 | ic_inventory_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2032` | รายงานสินค้าคงเหลือตามคลัง แสดงตามผุ้จำหน่ายหลัก | 1 สินค้า | 0 | 9 | ic_warehouse, ic_inventory_barcode, ap_supplier, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2033` | รายงานสินค้าคงเหลือตามคลัง-ที่เก็บ แสดงตามผู้จำหน่ายหลัก | 1 สินค้า | 0 | 6 | ic_warehouse, ic_shelf, ic_inventory, ic_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2034` | รายงานรายละเอียดสินค้าแสดงจุดต่ำสุด สุงสุด | 1 สินค้า | 0 | 3 | ic_inventory_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2035` | รายงานสินค้าที่ไม่มีการเคลื่อนไหว ตามผู้จำหน่ายหลัก | 1 สินค้า | 0 | 63 | ic_trans, ic_trans_detail, ic_inventory, ic_unit, ic_unit_use, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2036` | รายงาน LOT Error | 1 สินค้า | 0 | 3 | ic_trans_detail_lot, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2037` | รายงานจุดต่ำสุดสูงสุดสินค้า ตามผู้จำหน่ายหลัก | 1 สินค้า | 0 | 8 | ic_wh_shelf, ic_inventory, ap_supplier, ic_warehouse, ic_shelf | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2038` | รายงานสินค้าแสดงยอดคงเหลือสินค้าตามผู้จำหน่าย | 1 สินค้า | 0 | 9 | ic_inventory_barcode, ic_warehouse, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2039` | รายงานกำไรขั้นต้นประจำเดือน แสดงต้นงวด | 1 สินค้า | 0 | 10 | ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2040` | รายงานสินค้าแสดง หน่วยนับ บาร์โค๊ด ราคา | 1 สินค้า | 0 | 2 | ic_inventory, ic_unit_use, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2041` | รายงานสินค้าถึงจุดต่ำสุด แยกตามคลัง-จุดเก็บ ตามผู้จำหน่ายหลัก | 1 สินค้า | 0 | 5 | ap_supplier, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2042` | รายงานราคาขายสินค้าตามสูตร แสดงบาร์โค๊ด | 1 สินค้า | 0 | 6 | ic_inventory, ic_inventory_price_formula | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2043` | รายงานการโอนสินค้า ตามคลังที่เก็บ | 1 สินค้า | 0 | 7 | ic_trans_detail, ic_trans, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2044` | ใบตรวจสอบราคาขายก่อนเสนอลูกค้าและใบตรวจสอบราคาหลังการขาย | 1 สินค้า | 0 | 24 | ic_inventory, ic_trans_detail, ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2045` | รายงานยอดคงเหลือสินค้าแสดงตามยี่ห้อ | 1 สินค้า | 0 | 10 | ic_inventory, ap_supplier, ic_brand | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2046` | รายงานกำไรขั้นต้นตามพนักงานขาย | 1 สินค้า | 0 | 18 | erp_user, ic_trans_detail, ic_trans, ar_customer, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2047` | รายงานข้อมูลสินค้า (แสดงครัว) | 1 สินค้า | 0 | 4 | kitchen_master_item, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2048` | รายงานรายการสินค้าที่อนูญาติให้ติดลบ | 1 สินค้า | 0 | 4 | ic_inventory, ic_inventory_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2049` | รายงานสินค้าที่ยังไม่ได้ตรวจนับ | 1 สินค้า | 0 | 4 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2050` | รายงานสินค้าคงเหลือตามคลัง-ที่เก็บ เรียงตามสินค้า | 1 สินค้า | 0 | 8 | ic_warehouse, ic_shelf, ic_inventory_barcode, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2051` | รายงานตรวจสอบยอดคงเหลือสินค้ากับ Serial | 1 สินค้า | 0 | 10 | ic_serial, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2052` | รายงานตรวจสอบข้อมูลคลังสาขา | 1 สินค้า | 0 | 8 | ic_warehouse, ic_wms_trans, ic_wms_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2053` | รายงานยอดคงเหลือสินค้าแสดงตามผู้จำหน่ายหลัก (รหัสสินค้า,บาร์โค๊ด) แสดงราคาทุน | 1 สินค้า | 0 | 20 | ic_inventory, ic_trans_detail, ap_supplier, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2054` | รายงาน Lot สินค้า - แสดงราคา | 1 สินค้า | 0 | 12 | ic_trans_detail_lot, ic_inventory, ic_unit, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2055` | รายงานตรวจสอบสถานะรายการยกเลิก | 1 สินค้า | 0 | 6 | ic_trans, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2056` | รายงานรายละเอียดสินค้า - ตามกลุ่มสินค้าและหมวดสินค้า | 1 สินค้า | 0 | 8 | ic_group, ic_group_sub, ic_category, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2057` | รายงานจุดต่ำสุดสูงสุดสินค้า แสดงยอดคงเหลือ | 1 สินค้า | 0 | 10 | ic_inventory_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2058` | รายงานรายละเอียดสินค้า - แสดงราคาขายทั่วไป | 1 สินค้า | 0 | 6 | ic_inventory, ic_inventory_price | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2059` | รายงานสถานะสินค้า - ตามคลัง | 1 สินค้า | 0 | 14 | ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2060` | รายงานเคลื่อนไหวสินค้า ตามคลัง | 1 สินค้า | 0 | 19 | ic_trans_detail, ic_inventory, ic_trans, ic_warehouse, ic_shelf | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2061` | รายงานการตรวจสอบการแก้ไขข้อมูลย้อนหลัง | 1 สินค้า | 0 | 14 | ap_ar_trans, ic_trans, logs | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2062` | รายงานการตรวจสอบการแก้ไขข้อมูลหลักย้อนหลัง | 1 สินค้า | 0 | 2 | master_logs | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2063` | รายงานขอเบิกสินค้าและวัตถุดิบ | 1 สินค้า | 0 | 20 | erp_branch_list, ic_trans, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2064` | รายงานการเคลื่อนไหวตามมูลค่า | 1 สินค้า | 0 | 42 | ic_trans_detail, ic_trans, ic_unit, ic_unit_use, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2065` | รายละเอียดสินค้า ตรวจสอบรูปภาพ | 1 สินค้า | 0 | 14 | ic_inventory, images | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2066` | รายงานยอดคงเหลือสินค้า แสดงชั้นวาง | 1 สินค้า | 0 | 20 | ic_inventory, ic_unit_use, ic_wh_shelf, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2067` | รายงานยอดคงเหลือสินค้า-ตามหมวดสินค้า | 1 สินค้า | 0 | 11 | ic_inventory, ic_group, ic_category | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2068` | รายงานเบิกสินค้าและวัตถุดิบ แยกแผนก | 1 สินค้า | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2069` | รายงานเบิกสินค้าและวัตถุดิบ แยกโครงการ | 1 สินค้า | 0 | 18 | ic_trans, erp_project_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2070` | รายงานเบิกสินค้าและวัตถุดิบ แยกกลุ่มเอกสาร | 1 สินค้า | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2071` | รายงานเบิกสินค้าและวัตถุดิบ แยกหน่วยงาน | 1 สินค้า | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2072` | รายงานเบิกสินค้าและวัตถุดิบ แยกการจัดสรร | 1 สินค้า | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2073` | รายงานเบิกสินค้าและวัตถุดิบ แยกงาน | 1 สินค้า | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2074` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกแผนก | 1 สินค้า | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2075` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกโครงการ | 1 สินค้า | 0 | 18 | ic_trans, erp_project_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2076` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกกลุ่มเอกสาร | 1 สินค้า | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2077` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกหน่วยงาน | 1 สินค้า | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2078` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกการจัดสรร | 1 สินค้า | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2079` | รายงานรับคืนจากการเบิกสินค้าและวัตถุดิบ แยกงาน | 1 สินค้า | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2080` | รายละเอียดสินค้า ตรวจสอบกลุ่มสินค้า | 1 สินค้า | 0 | 7 | ic_group, ic_group_sub, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2081` | รายงานรายละเอียดสินค้า แสดงชื่อสินค้า2 | 1 สินค้า | 0 | 6 | ic_unit, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2082` | รายงานเคลื่อนไหวสินค้าต้นทุนมาตราฐาน ตามคลัง | 1 สินค้า | 0 | 26 | ic_inventory, ic_trans_detail, ic_trans, ap_supplier, ar_customer, ic_warehouse, ic_shelf | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2083` | รายงานยอดคงเหลือสินค้า (ต้นทุนแฝง) | 1 สินค้า | 0 | 20 | ic_inventory, ic_trans_detail, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2084` | รายงานกำไรขั้นต้น (เอกสาร) หักส่วนลดท้ายบิล | 1 สินค้า | 0 | 16 | ic_trans_detail, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2085` | รายงานข้อมูลสินค้า แสดงฝังบัญชี | 1 สินค้า | 0 | 6 | gl_chart_of_account, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2086` | รายงานตรวจสอบโปรโมชั่น | 1 สินค้า | 0 | 8 | ic_inventory, ic_promotion_formula_condition, ic_promotion_formula | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2087` | รายงานประวัติการพิมพ์ | 1 สินค้า | 0 | 4 | erp_print_logs, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2088` | รายงานรายละเอียดคูปอง | 1 สินค้า | 0 | 10 | cb_trans_detail, ar_customer, coupon_list | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2089` | รายงานสถานะคูปอง | 1 สินค้า | 0 | 10 | cb_trans_detail, ar_customer, coupon_list | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2090` | รายงานเคลื่อนไหวคูปอง | 1 สินค้า | 0 | 14 | ar_customer, coupon_list, ap_ar_trans, ic_trans, cb_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2091` | รายงานสินค้าที่ไม่มีการเคลื่อนไหว ตามกลุ่มสินค้าหลัก | 1 สินค้า | 0 | 62 | ic_trans, ic_trans_detail, ic_group, ic_unit, ic_unit_use, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2092` | รายงานสินค้าคงเหลือ แสดงเฉพาะสินค้าบริการ | 1 สินค้า | 0 | 20 | ic_inventory, ic_trans_detail, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2093` | รายงานการเบิกสินค้าและวัตถุดิบ แสดงหมายเหตุ แยกตามเอกสาร | 1 สินค้า | 0 | 8 | ic_trans, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2094` | รายงานกำไรขั้นต้น (สินค้า) | 1 สินค้า | 0 | 20 | ic_trans_detail, ic_unit, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2095` | รายงานการใช้โปรโมชั่น | 1 สินค้า | 0 | 2 | ic_trans_detail_promotion, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2096` | รายงานกำไรขั้นต้น (สินค้า) ตามกลุ่มสินค้า | 1 สินค้า | 0 | 11 | ic_inventory, ic_unit, ic_group, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2097` | รายงานสินค้า หยุดซื้อ หยุดขาย | 1 สินค้า | 0 | 4 | ic_unit, ic_inventory_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `212` | 212 | 6 เงินสด/ธนาคาร | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `2901` | รายงานข้อมูลสินค้าสำหรับนำเข้า | 1 สินค้า | 0 | 2 | ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2902` | รายงานรายละเอียดหน่วยนับสินค้านำเข้า | 1 สินค้า | 0 | 2 | ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2903` | รายงานรายละเอียดหน่วยนับนำเข้า | 1 สินค้า | 0 | 2 | ic_unit | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2904` | รายงานรายละเอียดบาร์โค๊ดนำเข้า | 1 สินค้า | 0 | 2 | ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `2905` | รายงานรายละเอียดราคาตามสูตรนำเข้า | 1 สินค้า | 0 | 2 | ic_inventory_price_formula | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `3001` | รายงานใบสังซื้อสินค้าที่ค้างรับ-ตามเจ้าหนี้ | 2 ซื้อ | 0 | 9 | ic_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3002` | รายงานเปรียบเทียบต้นทุนการซื้อล่าสุด | 2 ซื้อ | 0 | 3 | ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3003` | รายงานวิเคราะห์ใบสั่งซื้อเรียงตามสินค้า-Supplier | 2 ซื้อ | 0 | 4 | ic_trans_detail, ap_supplier, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3004` | รายงานวิเคราะห์ใบสั่งซื้อเรียงตาม Supplier-สินค้า | 2 ซื้อ | 0 | 4 | ic_trans_detail, ap_supplier, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3005` | รายงานสถานะใบสั่งซื้อตามสินค้า | 2 ซื้อ | 0 | 6 | ap_supplier, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3006` | รายงานราคาซื้อสินค้าล่าสุดแสดงตามผู้จำหน่ายหลัก | 2 ซื้อ | 0 | 12 | ic_trans_detail, ap_supplier, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3007` | รายงานใบสังซื้อสินค้าที่ค้างรับ-ตามเจ้าหนี้ แสดงหมายเหตุ | 2 ซื้อ | 0 | 9 | ic_trans_detail, ap_supplier, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3008` | รายงานสรุปใบสั่งซื้อ แยกแผนก | 2 ซื้อ | 0 | 6 | erp_department_list, ap_supplier, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3009` | รายงานซื้อสินค้า แยกแผนก | 2 ซื้อ | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3010` | รายงานซื้อสินค้า แยกโครงการ | 2 ซื้อ | 0 | 19 | ic_trans, ic_trans_detail, erp_project_list, ap_supplier, ic_inventory, ic_unit | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3011` | รายงานซื้อสินค้า แยกกลุ่มเอกสาร | 2 ซื้อ | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3012` | รายงานซื้อสินค้า แยกหน่วยงาน | 2 ซื้อ | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3013` | รายงานซื้อสินค้า แยกการจัดสรร | 2 ซื้อ | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3014` | รายงานซื้อสินค้า แยกงาน | 2 ซื้อ | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3015` | รายงานใบสั่งซื้อ แยกแผนก | 2 ซื้อ | 0 | 18 | ic_trans, erp_department_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3016` | รายงานใบสั่งซื้อ แยกโครงการ | 2 ซื้อ | 0 | 18 | ic_trans, erp_project_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3017` | รายงานใบสั่งซื้อ แยกกลุ่มเอกสาร | 2 ซื้อ | 0 | 18 | ic_trans, erp_doc_group, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3018` | รายงานใบสั่งซื้อ แยกหน่วยงาน | 2 ซื้อ | 0 | 18 | ic_trans, erp_side_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3019` | รายงานใบสั่งซื้อ แยกการจัดสรร | 2 ซื้อ | 0 | 18 | ic_trans, erp_allocate_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3020` | รายงานใบสั่งซื้อ แยกงาน | 2 ซื้อ | 0 | 18 | ic_trans, erp_job_list, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3021` | รายงานสถานะใบเสนอซื้อ แสดงสถานะ | 2 ซื้อ | 0 | 28 | ic_trans_detail, ic_trans, ap_supplier, ic_inventory, ic_unit | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3022` | รายงานสรุปยอดซื้อ-ตามวันที่ | 2 ซื้อ | 0 | 3 | ic_trans, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3023` | รายงานสรุปมูลค่าการซื้อ 12 เดือน แยกตามเจ้าหนี้ | 2 ซื้อ | 0 | 12 | ic_inventory, ic_trans_detail, ar_customer, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3024` | รายงานเปรียบเทียบยอดซื้อสินค้า 12 เดือน ตามเจ้าหนี้ | 2 ซื้อ | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3025` | รายงานรับสินค้าแบบทะยอยรับ ค้างตั้งหนี้ | 2 ซื้อ | 0 | 9 | ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3026` | รายงานรับสินค้าแบบทะยอยรับ มูลค่าค้างตั้งหนี้ | 2 ซื้อ | 0 | 10 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `3027` | รายงานใบตั้งหนี้จากการซื้อแบบสรุป-ตามโครงการ | 2 ซื้อ | 0 | 4 | erp_project_list, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `4001` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามสมาชิก | 3 ขาย | 0 | 14 | ic_trans, ar_customer, ic_inventory, ar_dealer, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4002` | รายงานการขายแสดง รายละเอียดการรับเงิน | 3 ขาย | 0 | 22 | ic_trans, ar_customer, cb_trans, cb_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4003` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามสินค้า | 3 ขาย | 0 | 6 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4004` | สรุปยอดขายตามคลังสินค้า | 3 ขาย | 0 | 10 | ic_inventory, ic_warehouse, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4005` | รายงานสรุปยอดขายสินค้า - ตามรหัสเครือง POS | 3 ขาย | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4006` | รายงานใบสั่งขายสินค้าที่ค้างส่ง-ตามลูกค้า | 3 ขาย | 0 | 10 | ic_trans_detail, ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4007` | รายงานสรุปยอดขาย (มูลค่าสุทธิของเอกสาร) - ตามวันที่ | 3 ขาย | 1 | 3 | ic_trans, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4009` | รายงานการยกเลิกอาหาร | 3 ขาย | 0 | 3 | table_order_cancel, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4011` | รายงานสรุปยอดขายตามวันที่/รหัสเครื่อง POS | 3 ขาย | 0 | 2 | ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4012` | รายงานวิเคราะห์ จำนวนยอดขายสินค้า แจกแจงรายเดือน | 3 ขาย | 0 | 11 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4013` | รายงานใบสังจองสินค้าที่ค้างส่ง-ตามลูกค้า | 3 ขาย | 0 | 8 | ic_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4014` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามกลุ่มสินค้าย่อย | 3 ขาย | 0 | 12 | ic_inventory, ar_customer, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4015` | รายงานแสดงยอดคอมมิสชั่น-ตามพนักงานขาย | 3 ขาย | 0 | 9 | ic_inventory, ic_trans_detail, erp_user, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4016` | รายงานแสดงสถานะการเปิด-ปิด กะ เรียงตามหมายเลขบรรทัด | 3 ขาย | 0 | 4 | pos_period, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4017` | รายงานสรุปมูลค่าการขาย 12 เดือน แยกตามลูกค้า | 3 ขาย | 0 | 5 | gl_journal_detail, ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4018` | รายงานใบส่งสินค้าและการวางบิล | 3 ขาย | 0 | 7 | ap_ar_trans_detail, ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4019` | สรุปข้อมูลใบสั่งจองสินค้า | 3 ขาย | 0 | 3 | ic_trans_detail, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4020` | รายงานเปรียบเทียบการขาย จัดอันดับยอดขายลูกค้า-ตามจังหวัด | 3 ขาย | 0 | 11 | ar_customer, ic_trans, erp_province | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4021` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า | 3 ขาย | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4021-1` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า แสดงยอดคงเหลือตามคลัง | 3 ขาย | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4022` | รายงานวิเคราะห์ การขาย จัดเรียงตาม มิติแผนก กลุ่ม แสดงมูลค่า | 3 ขาย | 0 | 11 | ic_trans_detail, ic_inventory, ic_trans, erp_department_list, ic_group | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4023` | รายงานรวมขายประจำวัน | 3 ขาย | 0 | 4 | ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4024` | รายงานรวมขายประจำวัน-ตามลูกค้า | 3 ขาย | 0 | 5 | ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4025` | รายงานสรุปการสั่งอาหาร แจกแจงตามวันที่ พนักงาน | 3 ขาย | 0 | 5 | table_order, table_order_doc, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4026` | รายงานสรุปยอดขายตามวันที่-แจกแจงอาหารเครื่องดื่ม | 3 ขาย | 0 | 7 | ic_trans, ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4027` | รายงานการขายสินค้าแยกตามลูกค้า | 3 ขาย | 0 | 5 | ar_customer, ic_trans, ar_customer_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4028` | รายงานสรุปการสั่งอาหาร แจกแจงตามวันที่ พนักงาน แสดงหมายเหตุ | 3 ขาย | 0 | 7 | table_order_doc, table_order, erp_user, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4029` | รายงานยอดขายตามกะ | 3 ขาย | 0 | 9 | ic_trans, cb_trans, pos_period, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4030` | รายงานสรุปการสั่งอาหารและยอดขาย-ตามวันที่ | 3 ขาย | 0 | 6 | table_order, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4031` | สรุปยอดขายตามคลังสินค้า แสดงผู้จำหน่ายหลัก | 3 ขาย | 0 | 12 | ic_inventory, ic_warehouse, ic_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4032` | รายงานการขายสินค้า แสดงเฉพาะรายการที่มีส่วนลด | 3 ขาย | 0 | 6 | ic_trans_detail_promotion, ic_trans, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4033` | รายงานรายละเอียดการขายสินค้า แสดงเฉพาะยอดส่วนลด | 3 ขาย | 0 | 3 | ic_trans_detail, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4034` | รายงานใบสังขายสินค้าที่ค้างส่ง-ตามพนักงาน-ตามลูกค้า | 3 ขาย | 0 | 9 | ic_trans_detail, ar_customer, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4035` | รายงานการขายตามผู้จำหน่ายหลัก | 3 ขาย | 0 | 6 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4036` | รายงานการรับเงินประจำวันแยกตามรหัสเครื่องขาย POS | 3 ขาย | 0 | 31 | ic_trans, ar_customer, cb_trans, cb_trans_detail, ic_inventory, ic_trans_detail, ic_trans_serial_number | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4037` | รายงานการขาย/รับคืน ตามพนักงาน | 3 ขาย | 0 | 4 | ic_trans, erp_user, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4038` | รายงานสรุปยอดขายตามเดือน | 3 ขาย | 0 | 2 | ic_trans_detail, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4039` | รายงานการขายตามบาร์โค๊ด | 3 ขาย | 0 | 2 | ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4040` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามลูกค้า-ตามหน่วยนับ | 3 ขาย | 0 | 9 | ic_inventory, ic_trans, ic_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4041` | รายงานการขายสินค้าและบริการแยกตามหน่วยนับ/ตามคลัง/ที่เก็บ | 3 ขาย | 0 | 7 | ic_trans_detail, ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4042` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามกลุ่มสินค้า ตามสาขา | 0 ทั่วไป | 0 | 10 | ic_inventory, ic_trans_detail, ic_trans |  |
+| `4067` | รายงานยกเลิกการขายและบริการ แยกตามพนักงานขาย | 3 ขาย | 1 | 18 | ic_trans, ar_customer, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4067-1` | รายงานยกเลิกการขายและบริการ แยกตามพนักงานขาย | 3 ขาย | 0 | 18 | ic_trans, ar_customer, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4068` | รายงานสรุปมูลค่าการขาย 12 เดือน แยกตามลูกค้า | 3 ขาย | 0 | 12 | ar_customer, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4069` | รายงานการรับเงินประจำวัน แสดงรายการรับชำระ | 3 ขาย | 0 | 12 | ic_trans, ar_customer, cb_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4070` | รายงานแสดงการพักบิล | 3 ขาย | 0 | 6 | erp_user, pos_log | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4071` | รายงานการรับเงิน แสดง Wallet | 3 ขาย | 0 | 18 | ic_trans, ar_customer, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4072` | รายงานสรุปการขายสินค้าตามพนักงานขาย แสดงยอดมัดจำ | 3 ขาย | 0 | 10 | ic_trans_detail, erp_user, ar_customer, ic_trans, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4073` | รายงานการขาย/รับคืน ตามพนักงาน ตามรูปแบบเอกสาร | 3 ขาย | 0 | 4 | ic_trans, erp_user, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4074` | รายงานสรุปยอดขายสินค้าสุทธิ ตามพนักงานขาย | 3 ขาย | 0 | 6 | erp_user, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4075` | รายงานขายสินค้าและบริการ แยกแผนก | 3 ขาย | 0 | 18 | ic_trans, erp_department_list, ar_customer, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4076` | รายงานสรุปการขายสินค้า ตามกลุ่มพนักงานขาย | 3 ขาย | 0 | 25 | erp_user, erp_user_group_detail, ar_customer, ic_trans, erp_user_group, ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4078` | รายงานการรับเงิน Wallet | 3 ขาย | 0 | 5 | cb_trans_detail, ar_customer, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4079` | รายงานเปรียบเทียบยอดขายสินค้า 12 เดือน ตามลูกหนี้ | 3 ขาย | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4080` | รายงานสินค้าค้างส่ง ตามคลัง/ที่เก็บ | 3 ขาย | 0 | 18 | ic_trans_detail, ic_inventory, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4081` | รายงานใบเสนอราคาคงค้าง | 3 ขาย | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4082` | รายงานวิเคราะห์การขายสุทธิ-ตามโครงการ | 3 ขาย | 0 | 19 | ic_trans_detail, ic_trans, erp_project_list, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4083` | รายงานรับเงินมัดจำใช้ไปคงเหลือ | 3 ขาย | 0 | 10 | ic_trans, ar_customer, cb_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4084` | รายงานออกใบกำกับภาษีออกแทน | 3 ขาย | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4085` | รายงานสรุปยอดขาย-ตามวันที่ | 3 ขาย | 0 | 3 | ic_trans, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4086` | รายงานการขายสินค้าและบริการ หักรับคืนและลดหนี้ | 3 ขาย | 0 | 22 | ic_trans, ar_customer, ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `4087` | รายงานการรับเงินประจำวัน ตามแคชเชียร์ | 3 ขาย | 0 | 18 | ic_trans, erp_user, ar_customer, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `5001` | รายงานการจ่ายชำระหนี้ (แสดงรายละเอียด) | 4 เจ้าหนี้ | 0 | 18 | cb_trans_detail, ap_ar_trans, ap_supplier, erp_bank, cb_trans, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `5002` | รายงานเจ้าหนี้ค้างจ่ายชำระจากการซื้อ - สรุป | 4 เจ้าหนี้ | 0 | 12 | ic_trans, ap_ar_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `5003` | รายงานการจ่ายชำระเจ้าหนี้ แสดงรายละเอียดบิล รายละเอียดการจ่ายเงิน | 4 เจ้าหนี้ | 0 | 34 | cb_trans, ic_trans, cb_trans_detail, ap_ar_trans, ap_supplier, erp_bank, ap_ar_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `5004` | รายงานรายละเอียดเจ้าหนี้ ตามกลุ่มเจ้าหนี้ | 4 เจ้าหนี้ | 0 | 34 | ap_supplier_detail, ap_group_sub, ap_group, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `5.7.4 รายงานยกเลิก` | รายงานสรุปใบกำกับภาษีอย่างย่อ(ยกเลิก) | 0 ทั่วไป | 0 | 4 | ar_customer, ic_trans |  |
+| `5.8.11` | รายงานการรับเงิน เอวี | 0 ทั่วไป | 0 | 27 | ic_trans, ar_customer, cb_trans, cb_trans_detail |  |
+| `6001` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) | 5 ลูกหนี้ | 0 | 21 | cb_trans_detail, ap_ar_trans, ar_customer, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6002` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามลูกค้า | 5 ลูกหนี้ | 0 | 14 | ic_trans, ar_customer, ic_inventory, ar_dealer, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6003` | รายงานลูกหนี้ค้างชำระ | 5 ลูกหนี้ | 0 | 9 | ic_trans, ap_ar_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6004` | รายงานลูกหนี้ค้างชำระ - แบบสรุป | 5 ลูกหนี้ | 0 | 10 | ic_trans, ap_ar_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6005` | รายงานสรุปการรับเงิน | 5 ลูกหนี้ | 0 | 28 | cb_trans, ar_customer, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6006` | รายงาน invoice ค้างชำระตามพนักงานขาย | 5 ลูกหนี้ | 0 | 7 | ic_trans, ap_ar_trans_detail, erp_user, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6007` | รายงานสมาชิกหมดอายุ | 5 ลูกหนี้ | 0 | 4 | ar_customer, ar_dealer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6008` | รายงานรายละเอียดลูกหนี้(สถานประกอบการ เลขประจำตัวผู้เสียภาษี) | 5 ลูกหนี้ | 0 | 5 | ar_customer, ar_customer_detail | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6009` | รายงานเอกสารค้างชำระตามพนักงานขาย | 5 ลูกหนี้ | 0 | 7 | ic_trans, ap_ar_trans_detail, erp_user, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6010` | รายงานยอดค้างชำระ ตามช่วงวันที่ | 5 ลูกหนี้ | 0 | 7 | ic_trans, ap_ar_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6011` | รายงานข้อมูลลูกหนี้ที่ไม่เป็นสมาชิก | 5 ลูกหนี้ | 0 | 4 | ar_customer, ar_dealer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6012` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน ตามพนักงานเก็บเงิน (แสดงรายละเอียด) | 5 ลูกหนี้ | 0 | 28 | ap_ar_trans, cb_trans_detail, erp_user, ar_customer, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6013` | รายงานรายละเอียดบัตรสมาชิก | 5 ลูกหนี้ | 0 | 16 | ar_customer, ar_customer_detail, ar_dealer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6014` | รายงานสมาชิกใหม่ | 5 ลูกหนี้ | 0 | 10 | ar_customer, ar_dealer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6015` | รายงานลูกค้าสินค้าหมายเหตุ | 5 ลูกหนี้ | 0 | 4 | ar_customer, ar_item_by_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6016` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) | 5 ลูกหนี้ | 0 | 33 | cb_trans_detail, ic_trans_detail, ap_ar_trans, erp_bank, ar_customer, cb_trans, erp_bank_branch | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6017` | รายงานกลุ่มลูกหนี้ผิดผลาด | 5 ลูกหนี้ | 0 | 7 | ar_customer_detail, ar_group_sub | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6018` | รายงานบันทึกตัดแต้มลูกหนี้ | 5 ลูกหนี้ | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6019` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) ตามรูปแบบเอกสาร | 5 ลูกหนี้ | 0 | 39 | ap_ar_trans, cb_trans_detail, ic_trans_detail, erp_bank, erp_bank_branch, ar_customer, cb_trans, erp_expenses_list | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6020` | รายงานเอกสารค้างชำระตามพนักงานขาย ตามรูปแบบเอกสาร | 5 ลูกหนี้ | 0 | 7 | ic_trans, ap_ar_trans_detail, erp_user, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6021` | รายงานแต้มคงเหลือยกมา | 5 ลูกหนี้ | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6022` | รายงานรายละเอียดลูกหนี้ (แสดงรายละเอียดเครดิต) | 5 ลูกหนี้ | 0 | 5 | ar_customer, ar_customer_detail | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6023` | รายงานแต้มคงเหลือลูกหนี้ แสดงเอกสารตามช่วงเวลา | 5 ลูกหนี้ | 0 | 31 | ic_trans, cb_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `6024` | รายงานข้อมูลลูกหนี้นำเข้า | 6 เงินสด/ธนาคาร | 0 | 2 | ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `69001` | รายงานรายละเอียดลูกค้า แสดงที่อยู่ และยอดขาย | 5 ลูกหนี้ | 0 | 7 | ic_trans, ar_customer, erp_tambon, erp_amper, erp_province | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `7001` | รายงานการจ่ายชำระค่าใช้จ่ายอื่น ๆ | 6 เงินสด/ธนาคาร | 0 | 18 | cb_trans_detail, ic_trans, ap_ar_trans, ap_supplier, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7002` | รายงานการรับชำระรายได้อื่น ๆ | 6 เงินสด/ธนาคาร | 0 | 18 | cb_trans_detail, ap_ar_trans, ic_trans, ar_customer, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7003` | รายงานค่าใช้จ่ายอื่นๆ ตามรหัสค่าใช้จ่าย | 6 เงินสด/ธนาคาร | 0 | 3 | ic_trans_detail, erp_expenses_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7004` | รายงานรายละเอียดเช็คจ่าย-ตามสถานะเช็ค | 6 เงินสด/ธนาคาร | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7005` | รายงานรายละเอียดเช็ครับ-ตามสถานะเช็ค | 6 เงินสด/ธนาคาร | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7006` | รายงานสถานะบัตรเครดิต | 6 เงินสด/ธนาคาร | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7007` | รายงานภาษีขายประจำเดือน | 6 เงินสด/ธนาคาร | 0 | 11 | ic_trans, gl_journal_vat_sale | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7008` | รายงานรายละเอียดเช็คจ่าย-ตามสถานะเช็คถึงวันที่ | 6 เงินสด/ธนาคาร | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7009` | รายงานรายละเอียดเช็ครับ-ตามสถานะเช็คถึงวันที่ | 6 เงินสด/ธนาคาร | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7010` | รายงานยอดคงเหลือวงเงินสดย่อย | 6 เงินสด/ธนาคาร | 0 | 6 | cb_petty_cash, cb_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7011` | รายการการจ่ายเงินสดย่อย | 6 เงินสด/ธนาคาร | 0 | 7 | cb_trans, cb_trans_detail, ap_supplier, cb_petty_cash | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7012` | รายงานการนำฝากเช็ครับตามสมุดเงินฝาก | 6 เงินสด/ธนาคาร | 0 | 21 | cb_chq_list, erp_bank, erp_bank_branch, ic_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7013` | รายงานเช็ครับผิดพลาด | 6 เงินสด/ธนาคาร | 0 | 8 | cb_chq_list, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7014` | รายงานนำฝากเช็ค เรียงตามวันที่นำฝาก | 6 เงินสด/ธนาคาร | 0 | 21 | cb_chq_list, erp_bank, erp_bank_branch, ic_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7015` | รายงานการชำระด้วยค่าใช้จ่ายอื่นๆ ตามรหัสค่าใช้จ่าย | 6 เงินสด/ธนาคาร | 0 | 10 | ap_supplier, ic_trans_detail, ar_customer, erp_expenses_list, cb_trans, cb_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7017` | รายงานรายละเอียดลูกหนี้ | 5 ลูกหนี้ | 0 | 26 | ar_customer, erp_province, erp_amper, erp_tambon, ar_shoptype1, ar_shoptype2, ar_shoptype3, ar_shoptype4 | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `7018` | รายงานเคลื่อนไหวเงินสดย่อย | 6 เงินสด/ธนาคาร | 0 | 43 | ic_trans_detail, cb_trans_detail, cb_petty_cash, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `7019` | รายงานรายละเอียดธนาคาร | 6 เงินสด/ธนาคาร | 0 | 4 | erp_bank, erp_bank_branch | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `8001` | รายงานบัญชีแยกประเภทแบบสรุปเปรียบเทียบ 12 เดือน | 8 บัญชี (GL) | 0 | 7 | gl_chart_of_account, gl_journal_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8002` | รายงานรายการภาษีซื้อไม่ถึงกำหนดชำระ | 8 บัญชี (GL) | 0 | 11 | gl_journal_vat_buy | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8003` | รายงานภาษีขายไม่พบข้อมูลลูกหนี้ | 8 บัญชี (GL) | 0 | 4 | gl_journal_vat_sale, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8004` | รายงานตรวจสอบข้อมูลที่ยังไม่ได้บันทึกบัญชี | 8 บัญชี (GL) | 0 | 33 | gl_journal, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8005` | รายงานบัญชีแยกประเภท แสดงแผนก | 8 บัญชี (GL) | 0 | 24 | gl_chart_of_account, gl_journal_detail, gl_journal_depart_list, gl_journal, gl_journal_book | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8006` | รายงานข้อมูลรายวัน แสดงแผนก | 8 บัญชี (GL) | 0 | 8 | gl_journal_book, gl_journal, gl_journal_depart_list, gl_journal_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8007` | รายงานบัญชีแยกประเภท แยกสาขา | 8 บัญชี (GL) | 0 | 23 | gl_chart_of_account, gl_journal_detail, gl_journal_book, gl_journal, erp_branch_list, gl_journal_depart_list | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8008` | รายงานข้อมูลรายวัน แยกสาขา | 8 บัญชี (GL) | 0 | 9 | erp_branch_list, gl_journal_book, gl_journal, gl_journal_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8009` | รายงานภาษีขาย แยกสาขา | 8 บัญชี (GL) | 0 | 33 | ic_trans, ap_ar_trans, erp_branch_list, ar_customer, gl_journal_vat_sale, gl_journal | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8010` | รายงานภาษีซื้อ แยกสาขา | 8 บัญชี (GL) | 0 | 30 | ic_trans, ap_ar_trans, erp_branch_list, gl_journal, ap_supplier, gl_journal_vat_buy | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8011` | งบทดลอง แยกแผนก | 8 บัญชี (GL) | 0 | 26 | gl_journal_detail, gl_chart_of_account, gl_journal_depart_list, erp_department_list | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8012` | รายงานภาษีขาย แสดงใบกำกับภาษีอย่างเต็ม | 8 บัญชี (GL) | 0 | 38 | ic_trans, ar_customer, ap_ar_trans, gl_journal_vat_sale | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8013` | รายงานตรวจสอบการลงบัญชีที่ไม่ Balance | 8 บัญชี (GL) | 0 | 4 | gl_journal | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8014` | รายงานตรวจสอบข้อมูลรายวันทีไม่มีการลงบัญชี | 8 บัญชี (GL) | 0 | 6 | erp_doc_format, gl_journal, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8015` | รายงานภาษีซื้อ (รูปแบบใหม่แสดงมูลค่าอัตราภาษีศูนย์) | 8 บัญชี (GL) | 0 | 28 | ic_trans, ap_supplier_detail, ap_supplier, gl_journal_vat_buy | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8016` | รายงานภาษีถูกหัก ณ ที่จ่าย แสดงเลขที่เอกสาร | 8 บัญชี (GL) | 1 | 8 | ar_customer, ar_customer_detail, gl_wht_list_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8017` | งบทดลอง แยกสาขา | 8 บัญชี (GL) | 0 | 39 | erp_branch_list, gl_chart_of_account, gl_journal, gl_journal_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8018` | รายงานบัญชีแยกประเภท แยกสาขา แสดงรายละเอียดรายตัว | 8 บัญชี (GL) | 0 | 23 | gl_chart_of_account, gl_journal_detail, gl_journal_book, gl_journal, erp_branch_list, gl_journal_depart_list | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8019` | รายงานตรวจสอบการลงบัญชีและสินค้าคงเหลือ กรณีไม่แยกฝังบัญชี | 8 บัญชี (GL) | 0 | 16 | ic_trans, ic_trans_detail, ic_inventory, gl_journal_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8020` | รายงานภาษีขาย (รูปแบบใหม่) ตามวันที่ | 8 บัญชี (GL) | 0 | 34 | ap_ar_trans, ic_trans, ar_customer_detail, as_trans, ar_customer, gl_journal_vat_sale | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8021` | รายงานบัญชีแยกประเภท ตามโครงการ | 8 บัญชี (GL) | 0 | 30 | gl_journal_project_list, gl_journal_detail, gl_chart_of_account, gl_journal, gl_journal_book | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8022` | รายงานตรวจสอบการลงบัญชีและสินค้าคงเหลือ กรณีแยกฝังบัญชีรายสินค้า | 8 บัญชี (GL) | 0 | 15 | ic_inventory, ic_trans_detail, gl_journal_detail | รายงานอื่น ๆ (`menu_fastreport_other_gl`) |
+| `8023` | รายงานการคืนเช็ค/ตั้งหนี้ใหม่ | 6 เงินสด/ธนาคาร | 0 | 4 | ar_customer, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `AP0001` | รายงานค้างจ่ายเจ้าหนี้ | 4 เจ้าหนี้ | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `AR0001` | รายงานค้างรับชำระ | 5 ลูกหนี้ | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B2007` | รายงานสินค้าและวัตถุดิบ คงเหลือยกมา แยกสาขา | 1 สินค้า | 0 | 19 | ic_trans, erp_branch_list, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `B2016` | รายงานการเคลื่อนไหวตามปริมาณ แยกสาขา | 1 สินค้า | 0 | 47 | ic_trans_detail, ic_trans, ic_inventory, erp_branch_list, ic_unit, ic_unit_use | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `B2025` | รายงานสินค้าที่ไม่มีการเคลื่อนไหว แยกสาขา | 1 สินค้า | 0 | 63 | ic_trans, ic_trans_detail, erp_branch_list, ic_unit, ic_unit_use, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `B2029` | รายงานกำไรขั้นต้น (สินค้า) แยกสาขา | 1 สินค้า | 0 | 39 | ic_trans_detail, erp_branch_list, ic_unit, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `B2037` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า (แยกตามคลัง ที่เก็บ) แยกสาขา | 1 สินค้า | 0 | 33 | ic_inventory, erp_branch_list, ic_wh_shelf, ic_trans_detail, ic_group | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `B2042` | รายงานสินค้าคงเหลือแสดงตามผู้จำหน่ายหลัก แยกสาขา | 1 สินค้า | 0 | 30 | ic_inventory, erp_branch_list, ic_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `B3017` | รายงานการซื้อสินค้าแยกตามสินค้า แยกสาขา | 2 ซื้อ | 0 | 10 | ic_trans_detail, erp_branch_list, ic_inventory, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `B4017` | รายงานยอดคงเหลือรับเงินล่วงหน้า แยกสาขา | 3 ขาย | 0 | 18 | ic_trans, erp_branch_list, ar_customer, cb_trans_detail, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4026` | รายงานการรับคืนสินค้า/ลดหนี้ แยกสาขา | 3 ขาย | 0 | 21 | erp_branch_list, ic_trans, ic_trans_detail, ar_customer, ic_inventory, ic_unit | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4027` | รายงานขายบริการสินค้าและบริการ แยกสาขา | 3 ขาย | 0 | 20 | erp_branch_list, ic_trans, ar_customer, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4032` | รายงานประวัติการขายสินค้า แยกสาขา | 3 ขาย | 0 | 12 | ar_customer, erp_branch_list, ic_inventory, ic_unit, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4034` | รายงานสรุปยอดขายสินค้า-สรุปตามวันที่ แยกสาขา | 3 ขาย | 0 | 6 | erp_branch_list, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4052` | รายงานรวม INV_ ขายประจำวัน แยกสาขา | 3 ขาย | 0 | 10 | ic_trans, cb_trans, erp_branch_list | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4066` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า ตามสาขา | 3 ขาย | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans, erp_branch_list | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4066-1` | รายงานการขายสินค้าแบบแจกแจงเป็นรายสินค้า ตามสาขา แสดงยอดคงเหลือตามคลัง | 3 ขาย | 0 | 22 | ic_trans_detail, ic_inventory, ic_trans, erp_branch_list | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B4067` | รายงานจัดอันดับยอดขาย-ตามลูกค้า ตามสาขา | 3 ขาย | 0 | 5 | ic_trans_detail, erp_branch_list, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `B5012` | รายงานการจ่ายชำระหนี้ (แสดงรายละเอียด) แยกสาขา | 4 เจ้าหนี้ | 0 | 22 | ap_ar_trans, cb_trans_detail, erp_branch_list, ap_supplier, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `B6002` | รายงานใบส่งของค้างชำระ-ตามวันที่ แยกสาขา | 5 ลูกหนี้ | 0 | 12 | ap_ar_trans_detail, erp_branch_list, ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B6003` | รายงานสถานะลูกหนี้ แยกสาขา | 5 ลูกหนี้ | 0 | 104 | ic_trans, ap_ar_trans, erp_branch_list, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B6004` | รายงานอายุลูกหนี้-ตามเอกสาร(ว้นที่ครบกำหนด) แยกสาขา | 5 ลูกหนี้ | 0 | 20 | ap_ar_trans_detail, ic_trans, erp_branch_list, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B6005` | รายงานอายุลูกหนี้-ตามเอกสาร(ว้นที่เอกสาร) แยกสาขา | 5 ลูกหนี้ | 0 | 20 | ap_ar_trans_detail, ic_trans, erp_branch_list, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B6008` | รายงานการรับชำระหนี้/ออกใบเสร็จรับเงิน (แสดงรายละเอียด) แยกสาขา | 5 ลูกหนี้ | 0 | 23 | ap_ar_trans, cb_trans_detail, erp_branch_list, ar_customer, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B6013` | รายงานสรุปการรับเงิน | 5 ลูกหนี้ | 0 | 18 | cb_trans, ar_customer, ic_trans, ap_ar_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `B7002` | รายงานการจ่ายชำระค่าใช้จ่ายอื่น ๆ แยกสาขา | 6 เงินสด/ธนาคาร | 0 | 25 | ic_trans, cb_trans_detail, erp_branch_list, ap_supplier, erp_bank, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `B7005` | รายงานการฝากเงินสด แยกสาขา | 6 เงินสด/ธนาคาร | 0 | 8 | erp_branch_list, ic_trans, ic_trans_detail, erp_bank, erp_bank_branch | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `B7007` | รายงานการรับเงินทั้งหมดตามวันที่ แยกสาขา | 6 เงินสด/ธนาคาร | 0 | 15 | ic_trans, erp_branch_list, ap_ar_trans, ar_customer, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `B7010` | รายงานเคลื่อนไหวเงินสด แยกสาขา | 6 เงินสด/ธนาคาร | 0 | 13 | ic_trans, erp_branch_list, cb_trans, ap_ar_trans, ar_customer, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `BC2001` | รายงานเคลื่อนไหวสินค้า ตามคลัง | 1 สินค้า | 0 | 24 | ic_trans_detail, ic_inventory, ic_trans, ap_supplier, ar_customer, ic_warehouse, ic_shelf | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `BC3001` | รายงานการสั่งซื้อสินค้าแบบแจกแจง-ตามสินค้า | 2 ซื้อ | 0 | 8 | ic_inventory, ap_supplier, ic_trans, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `BC3002` | รายงานการซื้อสินค้าแบบสรุป-ตามโครงการ | 2 ซื้อ | 0 | 11 | ic_trans, erp_project_list, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `BC3003` | รายงานการซื้อสินค้าแบบแจกแจง-ตามโครงการ | 2 ซื้อ | 0 | 13 | ic_trans, erp_project_list, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `BC3004` | รายงานการอ้างอิงจากใบสั่งซื้อ | 2 ซื้อ | 0 | 7 | ic_trans, ap_supplier, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `BC3005` | รายงานการอ้างอิงจากใบรับสินค้า | 2 ซื้อ | 0 | 7 | ic_trans, ap_supplier, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `BC3006` | รายงานการซื้อสุทธิ-ตามยี่ห้อสินค้า | 2 ซื้อ | 0 | 8 | ic_brand, ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `BC3007` | รายงานวิเคราะห์การซื้อสุทธิ-ตามเจ้าหนี้ | 4 เจ้าหนี้ | 0 | 8 | ap_supplier, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `BC4001` | รายงานใบสั่งขาย/จองสินค้าที่ยังไม่ขาย | 3 ขาย | 0 | 6 | ic_trans_detail, erp_user, ic_trans, ic_inventory, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4002` | รายงานยอดสุทธิสรุปยอดขายตามลูกค้า - ตามพนักงานขาย | 3 ขาย | 0 | 10 | erp_user, ar_customer, ar_customer_detail, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4003` | รายงานสรุปยอดสินค้า-ตามเขตการขาย | 3 ขาย | 0 | 8 | ic_trans, ar_sale_area, ar_customer_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4004` | รายงานบันทึกขายสินค้า-บริการ | 3 ขาย | 0 | 6 | ar_customer, erp_user, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4005` | รายงานใบสั่งจองและใบสั่งขาย แสดงพนักงาน | 3 ขาย | 0 | 6 | ar_customer, erp_user, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4006` | รายงานจัดอันดับยอดขาย-ตามพนักงาน | 3 ขาย | 0 | 9 | ic_trans, ic_trans_detail, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4007` | รายงานจัดลำดับยอด ตามพนักงาน | 3 ขาย | 0 | 4 | erp_user, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4008` | รายงานใบส่งของค้างชำระ แยกตามแผนก | 3 ขาย | 0 | 12 | ap_ar_trans_detail, erp_department_list, ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4009` | รายงานการรับเงินประจำวัน แยกแผนก | 3 ขาย | 0 | 45 | ic_trans, ap_ar_trans, ar_customer, erp_department_list, ap_supplier, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4010` | รายงานการขายสุทธิ-ตามยี่ห้อสินค้า | 3 ขาย | 0 | 8 | ic_brand, ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `BC4011` | รายงานวิเคราะห์การขายสุทธิ-ตามแผนก | 3 ขาย | 0 | 10 | erp_department_list, ic_inventory, ic_unit, ic_trans_detail, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `CASH_IN` | รายงานการรับเงินทั้งหมดตามวันที่ | 6 เงินสด/ธนาคาร | 0 | 6 | ar_customer, cb_trans, ap_ar_trans, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `CASH_MOVEMENT` | รายงานเคลื่อนไหวเงินสด | 6 เงินสด/ธนาคาร | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `CASH_MOVEMENT01` | รายงานเคลื่อไหวเงินสด | 6 เงินสด/ธนาคาร | 0 | 3 | ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `CASH_OUT` | รายงานการจ่ายเงินทั้งหมดตามวันที่ | 6 เงินสด/ธนาคาร | 0 | 4 | cb_trans, ar_customer, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `IC_INVENTORY_NO_SALE` | รายงานสินค้าที่ไม่มีการขาย | 1 สินค้า | 0 | 3 | ic_inventory | สินค้า › วิเคราะห์ข้อมูล |
+| `MANU_SINGHA_REPORT_AR_CUSTOMER` | รายงานรายละเอียดลูกหนี้ | 0 ทั่วไป | 0 | 26 | ar_customer, erp_province, erp_amper, erp_tambon, ar_shoptype1, ar_shoptype2, ar_shoptype3, ar_shoptype4 |  |
+| `MENU_ADVANCE_MONEY_BALANCE_BRANCH` | รายงานยอดคงเหลือเงินมัดจำ ตามสาขา | 3 ขาย | 0 | 7 | ic_trans, ar_customer, cb_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ADVANCE_MONEY_CUT_BRANCH` | การงานการตัดเงินมัดจำ - แยกสาขา | 3 ขาย | 0 | 12 | ic_trans, cb_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ADVANCE_MONEY_RECRIVE_BRANCH` | รายงานการรับเงินมัดจำ - แยกสาขา | 3 ขาย | 0 | 7 | cb_trans, ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ADVANCE_MONEY_RECRIVE_CANCEL_BRANCH` | รายงานยกเลิกรับเงินมัดจำ - แยกสาขา | 3 ขาย | 0 | 4 | ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ADVANCE_MONEY_RETURN_BRANCH` | รายงานคืนเงินมัดจำ - แยกสาขา | 3 ขาย | 0 | 7 | cb_trans, ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ADVANCE_MONEY_RETURN_CANCEL_BRANCH` | รายงานยกเลิกคืนเงินมัดจำ - แยกสาขา | 3 ขาย | 0 | 4 | ic_trans, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ANALYSIS_SELL_EX_BY_PRODUCT` | รายงานวิเคราะห์การขายแบบแจกแจง-ตามสินค้า | 3 ขาย | 0 | 4 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_ANALYSIS_SELL_SUM_BY_DOCNO` | รายงานวิเคราะห์การขายแบบสรุป-ตามเอกสาร | 3 ขาย | 0 | 4 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_AP_DETAIL_DEBT_BY_AP` | รายงานใบตั้งหนี้จากการซื้อแบบแจกแจงตามเจ้าหนี้ | 4 เจ้าหนี้ | 0 | 8 | ic_trans, ap_supplier, ic_trans_detail | เจ้าหนี้ › รายงานวิเคราะห์ |
+| `MENU_AR_DEALER` | รายงานรายละเอียดสมาชิก | 5 ลูกหนี้ | 0 | 12 | ar_customer, ar_dealer | ลูกหนี้ › ข้อมูลลูกหนี้ |
+| `MENU_AR_MAIN_REPORT` | รายงานข้อมูลลูกหนี้ | 5 ลูกหนี้ | 0 | 15 | ar_dealer, ar_customer, erp_tambon, erp_amper, erp_province | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `MENU_AR_MAIN_REPORT_BY_SALE` | รายงานข้อมูลลูกหนี้แสดงตามพนักงานขาย | 5 ลูกหนี้ | 0 | 13 | ar_customer_detail, ar_customer, erp_tambon, erp_amper, erp_province, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `MENU_AR_REPORT_INVOICE_REMAIN_PAY` | ใบส่งของค้างชำระ-ตามวันที่ | 0 ทั่วไป | 0 | 7 | ic_trans, ap_ar_trans_detail, ar_customer, ar_customer_detail | ลูกหนี้ › รายงานสรุป |
+| `MENU_BILLING_OUTSTANDING` | รายงานใบรับวางบิลค่าสินค้าที่คงค้าง | 4 เจ้าหนี้ | 0 | 12 | ap_ar_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงาน/ยกเลิก |
+| `MENU_BILLING_VALUE_BY_INVOICE` | รายงานใบรับวางบิลค่าสินค้า-ตามใบส่งของ | 0 ทั่วไป | 0 | 8 | ap_ar_trans, ap_supplier, ap_ar_trans_detail | เจ้าหนี้ › รายงาน/ยกเลิก |
+| `MENU_BOOK_BANK_BALANCE` | รายงานยอดคงเหลือสมุดเงินฝาก | 6 เงินสด/ธนาคาร | 0 | 15 | erp_pass_book, cb_trans, ic_trans, ic_trans_detail, ar_customer, ap_supplier, cb_trans_detail, ap_ar_trans | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
+| `MENU_CB_REPORT_CHQ_IN_RECEIVE_BY_CHQ_GET_DATE` | รายงานรายละเอียดเช็ครับ-ตามวันที่รับ | 6 เงินสด/ธนาคาร | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `MENU_CB_REPORT_CHQ_IN_RECEIVE_BY_DATE` | รายงานรายละเอียดเช็ครับ-ตามวันที่รับ-ตามสถานะเช็ค | 0 ทั่วไป | 0 | 9 | erp_bank, ar_customer, erp_bank_branch, cb_chq_list | เงินสด/ธนาคาร › ธนาคาร › เช็ครับ › รายงาน/ยกเลิก |
+| `MENU_CB_REPORT_CHQ_OUT_PAYMENT_BY_DATE` | รายงานรายละเอียดเช็คจ่าย-ตามวันที่รับ-ตามสถานะเช็ค | 6 เงินสด/ธนาคาร | 0 | 8 | ap_supplier, erp_bank, erp_bank_branch, cb_chq_list | เงินสด/ธนาคาร › ธนาคาร › เช็คจ่าย › รายงาน/ยกเลิก |
+| `MENU_CB_REPORT_PETTY_REQUEST` | รายงานการเบิกเงินสดย่อย | 6 เงินสด/ธนาคาร | 0 | 4 | ic_trans, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `MENU_CB_REPORT_PETTY_RETURN` | รายงานการรับคืนเงินสดย่อย | 6 เงินสด/ธนาคาร | 0 | 4 | ic_trans, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_cashbank`) |
+| `MENU_COMPARE_SALE_WITH_PRICE` | รายงานการเทียบการขายกับราคาขาย | 0 ทั่วไป | 0 | 6 | ar_customer, ic_trans_detail, ic_inventory_price_formula | ขาย › รายงานวิเคราะห์ |
+| `MENU_FAST_REPORT_ADDITIONAL_PRODUCT_PURCHASE_SUMMARY_BY_ITEM` | รายงานใบเพิ่มสินค้า(เจ้าหนี้)แบบสรุป-ตามสินค้า | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail |  |
+| `MENU_FAST_REPORT_ANALYSIS_SELL_EX_BY_PRODUCT` | รายงานวิเคราเห์การขายแบบแจกแจง-ตามสินค้า | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail | ขาย › รายงานวิเคราะห์ |
+| `MENU_FAST_REPORT_ANALYSIS_SELL_SUM_BY_DOCNO` | รายงานวิเคราะห์การขายแบบสรุป-ตามเลขที่เอกสาร | 0 ทั่วไป | 0 | 11 | ar_customer, gl_wht_list, ic_trans_detail, ic_trans, erp_option | ขาย › รายงานวิเคราะห์ |
+| `MENU_FASTREPORT_AR_CUSTOMER` | รายงานข้อมูลลูกค้า | 5 ลูกหนี้ | 0 | 2 | ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `MENU_FAST_REPORT_COMPARE_PURCHASE_MONTHLY` | รายงานสรุปยอดซื้อ 12 เดือน ตามเจ้าหนี้ | 0 ทั่วไป | 0 | 0 |  |  |
+| `MENU_FASTREPORT_CUSTOMER_MOVEMENT` | รายงานการเคลื่อนไหวลูกค้า | 0 ทั่วไป | 0 | 10 | ar_customer, ic_trans |  |
+| `MENU_FASTREPORT_IC_INVENTORY` | รายงานข้อมูลสินค้า | 1 สินค้า | 0 | 2 | ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `menu_fastreport_invoice_cancel` | รายงานใบกำกับภาษีอย่างย่อยกเลิก | 0 ทั่วไป | 1 | 4 | ic_trans, ar_customer | ขาย POS › รายงาน/ยกเลิก |
+| `MENU_FAST_REPORT_MARGIN_REACCEPTANCE` | รายงานกำไรขั้นต้นแสดงหักรับคืน | 0 ทั่วไป | 0 | 18 | ic_trans_detail, ic_inventory, ic_unit | ขาย › รายงานวิเคราะห์ |
+| `MENU_FAST_REPORT_PRODUCT_RANK` | รายงานจัดอันดับยอดขาย-ตามสินค้า | 0 ทั่วไป | 0 | 5 | ic_inventory, ic_trans_detail | ขาย › รายงานวิเคราะห์ |
+| `MENU_FAST_REPORT_PRODUCT_RANK_BY_CUST` | รายงานจัดอันดับยอดขาย-ตามลูกค้า | 3 ขาย | 0 | 4 | ic_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FAST_REPORT_PRODUCT_RANK_BY_SALE` | รายงานจัดอันดับยอดขาย-ตามพนักงาน | 3 ขาย | 0 | 12 | ic_trans, erp_user, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FAST_REPORT_PURCHASE_BY_TAX` | รายงานการซื้อสินค้าแจกแจงตามประเภทภาษี | 0 ทั่วไป | 0 | 6 | ic_trans, ic_inventory, ic_trans_detail |  |
+| `MENU_FAST_REPORT_PURCHASE_DUE_DATE` | รายงานใบซื้อสินค้าที่ถึงกำหนดจ่ายเงิน | 0 ทั่วไป | 0 | 6 | ap_supplier, ic_unit, ic_trans |  |
+| `MENU_FAST_REPORT_PURCHASE_SUMMARY_BY_DATE` | รายงานการซื้อสินค้าแบบสรุป-ตามวันที่ | 2 ซื้อ | 0 | 4 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `MENU_FAST_REPORT_PURCHASE_SUMMARY_BY_DATE_SHOW_PRICE` | รายงานการซื้อสินค้าแบบสรุป-ตามวันที่ แสดงราคาซื้อ | 2 ซื้อ | 0 | 4 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `MENU_FAST_REPORT_PURCHASE_SUMMARY_BY_DATE_SUPLIER` | รายงานการซื้อสินค้าแบบสรุป-ตามวันที่ เจ้าหนี้ | 2 ซื้อ | 0 | 6 | ap_supplier, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `MENU_FASTREPORT_RECEIVED_MONEY` | รายงานการรับเงิน | 0 ทั่วไป | 1 | 22 | ic_trans, ar_customer, cb_trans | ขาย POS › รายงาน/ยกเลิก |
+| `MENU_FASTREPORT_RECEIVED_MONEY_SCG` | รายงานการรับเงิน | 0 ทั่วไป | 0 | 28 | ic_trans, ar_customer, cb_trans, cb_trans_detail, erp_option |  |
+| `MENU_FAST_REPORT_SALE_BY_EMPLOYEE` | รายงานยอดขาย-ตามพนักงานขาย | 3 ขาย | 0 | 8 | erp_user, ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FAST_REPORT_SALE_HISTORY_PRODUCT` | รายงานประวัติการขายสินค้า | 3 ขาย | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FASTREPORT_SERVICE_CHARGE_INCOME` | รายงานรายได้จาก Service Charge | 3 ขาย | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FASTREPORT_SERVICE_CHARGE_INCOME_CASH` | รายงานรายได้จาก Service Charge - ชำระเงินด้วยเงินสด | 3 ขาย | 0 | 10 | cb_trans, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FASTREPORT_SERVICE_CHARGE_INCOME_CREDIT` | รายงานรายได้จาก Service Charge - ชำระเงินด้วยบัตรเครคิต | 3 ขาย | 0 | 10 | cb_trans, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FAST_REPORT_SHIPMENTS_COMPARE_MONTH` | รายงานเปรียบเทียบยอดขายสินค้า 12 เดือน | 3 ขาย | 0 | 2 |  | ขาย › รายงานวิเคราะห์ |
+| `MENU_FAST_REPORT_SHIPMENTS_QTY_COMPARE_MONTH` | รายงานเปรียบเทียบปริมาณขายสินค้า 12 เดือน | 3 ขาย | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_FAST_REPORT_SUMMARY_CREDIT_NOTE_BY_ITEM` | รายงานการส่งคืนสินค้า-ลดหนี้แบบสรุป-ตามสินค้า | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail |  |
+| `MENU_FAST_REPORT_SUMMARY_SELL_BY_SALE` | รายงานสรุปยอดขายสินค้าสุทธิตามพนักงานขาย | 0 ทั่วไป | 0 | 10 | ic_trans, erp_user, ic_trans_detail, erp_option | ขาย › รายงานสรุป |
+| `MENU_FAST_REPORT_SUMMARY_SELL_BY_SALE_BY_GROUP` | รายงานสรุปยอดขายสินค้าสุทธิตามพนักงานขาย แสดงตามหมวดสินค้า | 3 ขาย | 0 | 14 | ic_inventory, ic_trans, erp_user, ic_trans_detail, ic_category | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_GL_CHECK_NO_BRACNCH` | รายงานตรวจสอบรายการรายวัน ไม่พบรายละเอียดสาขา | 0 ทั่วไป | 0 | 3 | gl_journal_detail, erp_branch_list | รายงาน › ข้อมูลทั่วไป |
+| `MENU_IC_BALANCE_WAREHOUSE_FOR_CENTER` | รายงานยอดคงเหลือสินค้าตามคลัง สำหรับระบบ Sync | 1 สินค้า | 0 | 20 | ic_trans, ic_inventory, ic_trans_detail, ic_warehouse, ic_unit, ic_unit_use, ic_inventory_barcode | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `MENU_IC_REPORT_POS_SALE_GROUP_BY_ITEM` | รายงานสรุปการขายสินค้าหน้าร้าน รวมรายการสินค้า | 0 ทั่วไป | 0 | 5 | ic_inventory, ic_trans_detail, ic_trans |  |
+| `MENU_IC_REPORT_SALE_REMAIN` | รายงานสรุปยอดสินค้าค้างส่ง | 0 ทั่วไป | 0 | 16 | ic_trans_detail, erp_option, ic_trans, ic_inventory, ar_customer | สินค้า › รายงานวิเคราะห์ |
+| `MENU_INVOICE_ARREARS_BY_DATE` | รายงานใบส่งของค้างจ่ายชำระ-ตามวันที่ | 0 ทั่วไป | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
+| `MENU_INVOICE_ARREARS_DUE` | รายงานใบส่งของค้างชำระแสดงวันที่ถึงกำหนด | 4 เจ้าหนี้ | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
+| `MENU_INVOICE_DUE_BY_DATE` | รายงานใบส่งของถึงกำหนดชำระ-ตามวันที่ | 4 เจ้าหนี้ | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
+| `MENU_INVOICE_OVERDUE_BY_DATE` | รายงานใบส่งของเกินกำหนดชำระ-ตามวันที่ | 4 เจ้าหนี้ | 0 | 6 | ic_trans, ap_ar_trans_detail, ap_supplier | เจ้าหนี้ › รายงานสรุป |
+| `MENU_PAYMENT_BY_DATE` | รายงานการจ่ายชำระประจำวัน-ตามวันที่ | 0 ทั่วไป | 0 | 5 | cb_trans, ap_supplier, ap_ar_trans, ic_trans | เจ้าหนี้ › รายงานสรุป |
+| `MENU_PAYMENT_BY_DEPARTMENT` | รายงานการจ่ายเงินประจำวัน-ตามแผนก | 0 ทั่วไป | 0 | 16 | ic_trans, ap_ar_trans, erp_department_list, cb_trans, ap_supplier | เจ้าหนี้ › รายงานสรุป |
+| `MENU_PAYMENT_BY_INVOICE` | รายงานจ่ายชำระสินค้า-ตามใบส่งของ | 0 ทั่วไป | 0 | 8 | ap_ar_trans, ap_supplier, ap_ar_trans_detail | เจ้าหนี้ › รายงานสรุป |
+| `MENU_PO_REPORT_COMPARE_PURCHASE_MO` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน (ตามสินค้า-ราคา/ปริมาณ) | 0 ทั่วไป | 0 | 2 |  |  |
+| `MENU_PO_REPORT_COMPARE_PURCHASE_MONTHLY` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน (ตามสินค้า-ราคา/ปริมาณ) | 0 ทั่วไป | 0 | 2 |  | ซื้อ › รายงานวิเคราะห์ |
+| `MENU_PO_REPORT_COMPARE_PURCHASE_MONTHLY_QTY` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน ตามปริมาณ | 2 ซื้อ | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `MENU_PO_REPORT_COMPARE_PURCHASE_MONTHLY_QTY_SUPPLIER` | รายงานการเปรียบเทียบยอดซื้อสินค้า 12 เดือน ตามปริมาณ ตามผุ้จำหน่ายหลัก | 2 ซื้อ | 0 | 6 | ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `MENU_PO_REPORT_PURCHASE_ANALYZE` | รายงานวิเคราะห์การซื้อสุทธิ์-ตามสินค้า | 0 ทั่วไป | 0 | 8 | ic_inventory, ic_trans_detail | ซื้อ › รายงานวิเคราะห์ |
+| `MENU_POS_PERIOD_STATUS` | รายงานแสดงสถานะการเปิด-ปิด กะ | 3 ขาย | 0 | 4 | pos_period, erp_user | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_POS_SALE_DETAIL_001` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามวันที่ | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_002` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามลูกค้า | 0 ทั่วไป | 0 | 7 | ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_003` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามรหัส | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_004` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามยี่ห้อสินค้า | 3 ขาย | 0 | 12 | ic_inventory, ar_customer, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_005` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามพนักงาน | 0 ทั่วไป | 0 | 11 | ic_trans, ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_006` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามแผนก | 0 ทั่วไป | 0 | 11 | ic_trans, erp_department_list, ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_007` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามประเภทลูกค้า | 0 ทั่วไป | 0 | 14 | ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_008` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามแคชเชียร์ | 0 ทั่วไป | 0 | 12 | ic_trans, ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_009` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามกลุ่มสินค้า | 3 ขาย | 0 | 12 | ic_inventory, ar_customer, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_010` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามกลุ่มลูกค้า | 0 ทั่วไป | 0 | 12 | ar_customer_detail, ic_inventory, ar_customer, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์การขายแบบแจกแจง |
+| `MENU_POS_SALE_DETAIL_011` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามหมวดสินค้า | 3 ขาย | 0 | 11 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_POS_SALE_DETAIL_012` | รายงานวิเคราะห์ยอดขายสินค้าแบบแจกแจง-เรียงตามรูปแบบสินค้า | 3 ขาย | 0 | 11 | ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_POS_SUMARY_001` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-เรียงตามแคชเชียร์ | 0 ทั่วไป | 0 | 10 | ic_trans, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_002` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามวันที่ | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_003` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามลูกค้า | 0 ทั่วไป | 0 | 8 | ar_customer, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_004` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามยี่ห้อสินค้า | 0 ทั่วไป | 0 | 10 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_005` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามพนักงานขาย | 0 ทั่วไป | 0 | 10 | ic_trans, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_006` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามแผนก | 0 ทั่วไป | 0 | 8 | erp_department_list, ic_inventory, ic_trans_detail |  |
+| `MENU_POS_SUMARY_007` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามประเภทลูกค้า | 0 ทั่วไป | 0 | 10 | ar_customer, ic_inventory, ic_trans_detail |  |
+| `MENU_POS_SUMARY_008` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามกลุ่มสินค้า | 0 ทั่วไป | 0 | 10 | ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_009` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามกลุ่มลูกค้า | 0 ทั่วไป | 0 | 8 | ar_customer_detail, ic_inventory, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก › รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป |
+| `MENU_POS_SUMARY_010` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามพนักงานขาย (เทียบราคากลาง) | 3 ขาย | 0 | 15 | ic_trans, ic_inventory_price_formula, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_POS_SUMARY_011` | รายงานวิเคราะห์ยอดขายสินค้าแบบสรุป-ตามพนักงานขาย (เทียบราคากลาง) 2 | 3 ขาย | 0 | 15 | ic_trans, ic_inventory_price_formula, ic_inventory, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_POS_SUM_FRONT` | รายงานสรุปการขายหน้าร้าน | 0 ทั่วไป | 1 | 4 | ar_customer, ic_trans | ขาย POS › รายงาน/ยกเลิก |
+| `MENU_POS_SUM_FRONT_SCG` | รายงานสรุปการขายหน้าร้าน | 0 ทั่วไป | 0 | 5 | ar_customer, ic_trans, erp_option |  |
+| `MENU_POS_SUM_FULL_VAT` | รายงานสรุปใบกำกับภาษีอย่างเต็ม | 0 ทั่วไป | 0 | 4 | ar_customer, ic_trans | ขาย POS › รายงาน/ยกเลิก |
+| `MENU_POS_SUM_SHORT_VAT` | รายงานสรุปใบกำกับภาษีอย่างย่อ | 3 ขาย | 1 | 6 | ar_customer, ic_trans, ic_trans_detail | ขาย POS › รายงาน/ยกเลิก |
+| `MENU_POS_SUM_SHORT_VAT_SALE_SHIFT` | รายงานสรุปรายการใบกำกับภาษีอย่างย่อ ตามรอบการขาย | 3 ขาย | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_PRODUCT_SALE_LOSS` | รายงานสินค้าขายต่ำกว่าทุน | 0 ทั่วไป | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail | ขาย › รายงานวิเคราะห์ |
+| `MENU_REPORT_ACCRUED_IN_QTY` | รายงานสรุปยอดสินค้าค้างรับ | 0 ทั่วไป | 0 | 12 | ic_trans_detail, ap_supplier, ic_inventory, erp_option, ic_trans | สินค้า › รายงานวิเคราะห์ |
+| `MENU_REPORT_AR_PAYMENT_PAY_DETAIL` | รายงานการรับชำระหนี้ / ออกใบเสร็จรับเงิน (แสดงรายละเอียดการรับเงิน) | 0 ทั่วไป | 0 | 4 | ap_ar_trans_detail, ap_ar_trans, cb_trans, ar_customer | ลูกหนี้ › รายงาน/ยกเลิก |
+| `MENU_REPORT_CASH_PAYIN` | รายการการฝากเงินสด | 6 เงินสด/ธนาคาร | 0 | 7 | ic_trans_detail, ic_trans, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › รายงาน/ยกเลิก |
+| `MENU_REPORT_CASH_WITHDRAW` | รายงานการถอนเงินสด | 6 เงินสด/ธนาคาร | 0 | 6 | ic_trans, ic_trans_detail, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › รายงาน/ยกเลิก |
+| `MENU_REPORT_CB_PETTY_CASH_REQUEST` | รายงานการเบิกเงินสดย่อย | 0 ทั่วไป | 0 | 4 | ic_trans, ic_trans_detail | เงินสด/ธนาคาร › เงินสด/เงินสดย่อย › รายงาน/ยกเลิก |
+| `MENU_REPORT_CB_PETTY_CASH_RETURN` | รายงานการรับคืนเงินสดย่อย | 0 ทั่วไป | 0 | 4 | ic_trans, ic_trans_detail | เงินสด/ธนาคาร › เงินสด/เงินสดย่อย › รายงาน/ยกเลิก |
+| `MENU_REPORT_CHECK_VAT_BUY` | ตรวจสอบเลขที่ใบกำกับภาษีซื้อ | 2 ซื้อ | 0 | 3 | gl_journal_vat_buy, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `MENU_REPORT_CHQ_CARD_ENDDATE_CARD` | รายงานรายละเอียดบัตรครดิต-ตามวันที่รับ | 6 เงินสด/ธนาคาร | 0 | 8 | erp_bank, erp_bank_branch, cb_chq_list, ap_supplier, ar_customer | เงินสด/ธนาคาร › ธนาคาร › บัตรเครดิต |
+| `MENU_REPORT_CHQ_PAY_DUE_DATE` | รายงานรายละเอียดเช็คจ่าย-ตามวันครบกำหนด | 6 เงินสด/ธนาคาร | 0 | 5 | cb_chq_list, ap_supplier, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › เช็คจ่าย › รายงาน/ยกเลิก |
+| `MENU_REPORT_CHQ_RECEIVE_DUE_DATE` | รายงานรายละเอียดเช็ครับ-ตามวันครบกำหนด | 0 ทั่วไป | 0 | 5 | cb_chq_list, ar_customer, erp_bank, erp_bank_branch | เงินสด/ธนาคาร › ธนาคาร › เช็ครับ › รายงาน/ยกเลิก |
+| `MENU_REPORT_CUSTOMER_POINT_BALANCE` | รายงานแต้มคงเหลือสมาชิก | 0 ทั่วไป | 0 | 12 | ic_trans, cb_trans, ar_customer |  |
+| `menu_report_employee_group` | รายงานพนักงานเรียงตามกลุ่ม | 0 ทั่วไป | 1 | 9 | erp_user, erp_user_group, erp_user_group_detail | เริ่มต้น › รายละเอียดข้อมูลทั่วไป |
+| `MENU_REPORT_IC_STOCK_BALANCE_LOCATION_MAX` | รายงานสินค้าถึงจุดสูงสุด แยกตามคลัง-จุดเก็บ | 0 ทั่วไป | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
+| `MENU_REPORT_IC_STOCK_BALANCE_LOCATION_MIN` | รายงานสินค้าถึงจุดต่ำสุด แยกตามคลัง-จุดเก็บ | 0 ทั่วไป | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
+| `MENU_REPORT_IC_STOCK_BALANCE_WAREHOUSE_MAX` | รายงานสินค้าถึงจุดสูงสุด แยกตามคลัง | 0 ทั่วไป | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
+| `MENU_REPORT_IC_STOCK_BALANCE_WAREHOUSE_MIN` | รายงานสินค้าถึงจุดต่ำสุด แยกตามคลัง | 0 ทั่วไป | 0 | 2 |  | สินค้า › รายงานวิเคราะห์ |
+| `MENU_REPORT_INVENTORY_ADJUST` | รายงานการปรับปรุงยอดสินค้า | 1 สินค้า | 0 | 3 | ic_trans_detail, ic_inventory | สินค้า › รายงานสรุป |
+| `MENU_REPORT_LOT_INVENTORY` | รายงาน Lot สินค้า | 1 สินค้า | 0 | 13 | ic_trans_detail_lot, ic_inventory, ic_unit, ic_unit_use | สินค้า › รายงานสรุป |
+| `MENU_REPORT_PURCHASE_ADD_BY_DATE` | รายงานใบเพิ่มสินค้า(เจ้าหนี้)แบบสรุป-ตามวันที่ | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail | ซื้อ › รายงานสรุป |
+| `MENU_REPORT_PURCHASE_BY_DATE` | รายงานยอดซื้อตามวันที่ | 0 ทั่วไป | 0 | 4 | ap_supplier, ic_trans | ซื้อ › รายงานสรุป |
+| `MENU_REPORT_PURCHASE_CREDIT_BY_DATE` | รายงานใบตั้งหนี้จากการซื้อแบบสรุป-ตามวันที่ | 0 ทั่วไป | 0 | 3 | ic_trans, ap_supplier | ซื้อ › รายงานสรุป |
+| `MENU_REPORT_PURCHASE_CREDIT_NOTE_BY_ITEM` | รายงานการส่งคืนสินค้า/ลดหนี้แบบสรุป-ตามสินค้า | 0 ทั่วไป | 0 | 4 | ic_inventory, ic_trans_detail | ซื้อ › รายงานสรุป |
+| `menu_report_purchase_order_by_date` | รายงานการสั่งซื้อสินค้าแบบสรุป-ตามวันที่ | 0 ทั่วไป | 1 | 3 | ic_trans_detail, ic_inventory | ซื้อ › รายงานสรุป |
+| `MENU_REPORT_PURCHASE_RANK_ITEM_GROUP` | รายงานการจัดอันดับยอดซื้อ(ตามสินค้า-กลุ่มสินค้า) | 0 ทั่วไป | 0 | 6 | ic_inventory, ic_trans_detail | ซื้อ › รายงานวิเคราะห์ |
+| `MENU_REPORT_PURCHSE_ON_DUE` | รายงานใบซื้อสินค้าที่ถึงกำหนดจ่ายเงิน | 0 ทั่วไป | 0 | 8 | ic_trans, ap_supplier, ic_trans_detail, ic_inventory | ซื้อ › รายงานสรุป |
+| `MENU_REPORT_RECEIVE_MONEY_CREDIT_BY_DATE` | รายงานการรับเงินบัตรเครดิต ตามวันที่ | 3 ขาย | 0 | 3 | cb_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_REPORT_RECEIVE_MONEY_SUMMARY` | รายงานสรุป การบันทึก รับเงินจากการขาย/รับชำระหนี้ | 0 ทั่วไป | 0 | 2 | cb_trans, ar_customer | ลูกหนี้ › รายงานสรุป |
+| `MENU_REPORT_REGISTER_MEMBER_BY_DATE` | รายงานจำนวนสมาชิกตามวันที่ | 0 ทั่วไป | 0 | 2 | ar_dealer |  |
+| `MENU_REPORT_SALE_VIEW_SERIAL_NUMBER` | รายการการขายสินค้าและบริการ แสดง Serial Number | 3 ขาย | 0 | 8 | ic_trans, ic_trans_detail, ic_trans_serial_number, ic_warehouse, ic_shelf | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_REPORT_SINGHA_LOGS_TRANS` | รายงานการตรวจสอบการแก้ไขข้อมูลย้อนหลัง | 0 ทั่วไป | 0 | 14 | ap_ar_trans, ic_trans, logs | รายงาน › ข้อมูลทั่วไป |
+| `MENU_REPORT_SUMMARY_ORDER_KITCHEN` | รายงานสรุปการสั่งอาหาร ห้องครัว/บาร์น้ำ | 3 ขาย | 0 | 9 | table_order, ic_inventory, ic_unit_use, kitchen_master, ic_unit | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_REPORT_SUM_PURCHASE_BY_VAT` | รายงานการซื้อสินค้าสรุปตามประเภทภาษี | 0 ทั่วไป | 0 | 2 | ic_trans_detail | ซื้อ › รายงานสรุป |
+| `MENU_REPORT_SUPPLIER_UNCASH` | รายงานเจ้าหนี้ค้างจ่ายชำระ | 4 เจ้าหนี้ | 0 | 10 | ic_trans, ap_ar_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `MENU_REPORT_SUPPLIER_UNCASH_2` | รายงานเจ้าหนี้ค้างจ่ายชำระ | 4 เจ้าหนี้ | 0 | 10 | ic_trans, ap_ar_trans_detail, ap_supplier | รายงานอื่น ๆ (`menu_fastreport_other_supplier`) |
+| `MENU_SALE_HISTORY_PRODUCT` | รายงานประวัติการขายสินค้า | 3 ขาย | 1 | 5 | ic_trans_detail, ic_inventory, ar_customer | ขาย › รายงานสรุป |
+| `MENU_SCG_PRODUCT_SALE_LOSS` | รายงานสินค้าขายต่ำกว่าทุน | 0 ทั่วไป | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail |  |
+| `MENU_SCG_REPORT_SUMMARY_PAYMENT` | รายงานสรุปการจ่ายเงิน | 0 ทั่วไป | 0 | 2 | cb_trans |  |
+| `MENU_SHIPMENTS_BY_DATE` | รายงานสรุปยอดขายสินค้า-สรุปตามวันที่ | 3 ขาย | 0 | 3 | ic_trans | ขาย › รายงานสรุป |
+| `MENU_SINGHA_REPORT_AGING_DEPOSIT` | aging ของฝาก | 0 ทั่วไป | 0 | 30 | ic_unit_use, ic_wms_trans_detail, ic_inventory, ar_customer, ic_wms_trans |  |
+| `MENU_SINGHA_REPORT_AMOUNT_SALE_CUSTOMER` | รายงานสรุปมูลค่าการขาย 12 เดือน แยกตามลูกค้า | 0 ทั่วไป | 0 | 7 | gl_journal_detail, ar_customer, ic_trans_detail, ar_customer_detail |  |
+| `MENU_SINGHA_REPORT_ANALYST_SALE_AREA` | ยอดขายสินค้า ตามพื้นที่ | 0 ทั่วไป | 0 | 24 | ar_customer, ic_unit_use, ic_inventory, ic_trans_detail, ic_report_sort_item, ar_customer_detail | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_ANALYST_SALE_CUSTOMER` | ยอดขายสินค้า วิเคราะห์ตามลูกค้า | 0 ทั่วไป | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_ANALYST_SALE_CUSTOMER_CUT_RETURN` | ยอดขายสินค้า วิเคราะห์ตามลูกค้า หักรับคืน | 0 ทั่วไป | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_AP_PURCHASE_SUMMARY_PRODUCT` | สรุปยอดซื้อสินค้า วิเคราะห์ตามผู้ขาย | 0 ทั่วไป | 0 | 12 | ic_trans, ic_unit_use, ap_supplier, ic_trans_detail | รายงาน › ซื้อ |
+| `MENU_SINGHA_REPORT_AR_CUSTOMER` | รายงานรายละเอียดลูกหนี้ | 0 ทั่วไป | 0 | 78 | ar_customer_detail, erp_province, erp_amper, erp_tambon, ar_tier, ar_shoptype1, ar_shoptype2, ar_shoptype3 |  |
+| `MENU_SINGHA_REPORT_AR_SALE_CARD` | การ์ดลูกค้า | 0 ทั่วไป | 0 | 9 | ic_unit_use, ar_customer, ic_trans_detail | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_BALANCE_QTY_WH_SHELF` | รายงานสินค้าคงเหลือแสดงตามพื้นที่เก็บ | 0 ทั่วไป | 0 | 33 | ic_unit_use, ic_inventory, ic_trans_detail, ic_unit |  |
+| `MENU_SINGHA_REPORT_BANK_STATEMENT_SHOW_PAYMENT_DETAIL` | รายงาน Bank Statement แสดงช่องทางการจ่ายเงิน | 0 ทั่วไป | 0 | 40 | ic_trans, erp_pass_book, ap_supplier, ar_customer, ap_ar_trans, cb_trans, ic_trans_detail, ap_supplier_detail | รายงาน › เงินสด/ธนาคาร |
+| `MENU_SINGHA_REPORT_CANCEL_DOC` | รายงานการยกเลิกเอกสาร | 0 ทั่วไป | 0 | 14 | erp_cancel_logs, ic_trans, ap_ar_trans | รายงาน › ข้อมูลทั่วไป |
+| `MENU_SINGHA_REPORT_CHEQUEIN_BALANCE` | สรุปยอดรับเช็คคงเหลือ | 0 ทั่วไป | 0 | 6 | ar_customer, cb_chq_list, ic_trans, ap_ar_trans | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
+| `MENU_SINGHA_REPORT_CHEQUEIN_DEPOSIT` | สรุปยอดรับเช็ค  ส่งเข้าธนาคาร | 0 ทั่วไป | 0 | 13 | cb_chq_list, ar_customer, ic_trans_detail | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
+| `MENU_SINGHA_REPORT_CHEQUEIN_LIST` | ทะเบียนรับเช็ค | 0 ทั่วไป | 0 | 6 | ar_customer, cb_chq_list, ic_trans, ap_ar_trans | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
+| `MENU_SINGHA_REPORT_CHEQUEIN_PASS` | สรุปเช็ครับล่วงหน้า (ผ่าน) | 0 ทั่วไป | 0 | 13 | cb_chq_list, ar_customer, ic_trans_detail | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
+| `MENU_SINGHA_REPORT_CHQ_IN_RETURN` | รายงานรับคืน (เช็ครับ) | 0 ทั่วไป | 0 | 10 | cb_chq_list, ic_trans, ic_trans_detail, erp_bank, ar_customer | รายงาน › เงินสด/ธนาคาร › เช็ครับ |
+| `MENU_SINGHA_REPORT_CREDIT_MONEY_CHECK` | รายงานตรวจสอบยอดวงเงิน | 0 ทั่วไป | 0 | 9 | ar_customer, ar_customer_detail, ic_trans | รายงาน › ลูกหนี้ |
+| `MENU_SINGHA_REPORT_DEPART_RETURN` | รายงานการ์ดสินค้า เบิก-รับคืน (อ้างอิงลูกหนี้) | 0 ทั่วไป | 0 | 32 | ic_trans_detail, ar_customer, ic_inventory, ic_warehouse, ic_shelf |  |
+| `MENU_SINGHA_REPORT_DEPART_SHOWNAME` | รายงานการเบิกสินค้า แสดงชื่อลูกค้า | 0 ทั่วไป | 0 | 12 | ic_trans, ar_customer, ic_trans_detail, ic_unit |  |
+| `MENU_SINGHA_REPORT_DEPOSIT_CARD` | รายงานการ์ดสินค้าฝาก | 0 ทั่วไป | 0 | 40 | ic_unit_use, ic_wms_trans_detail, ic_unit, ar_customer, ic_warehouse, ic_shelf, ic_inventory |  |
+| `MENU_SINGHA_REPORT_IC_DEPOSIT_SUMMARY` | สรุปสินค้าฝาก - ค้างส่ง | 0 ทั่วไป | 0 | 12 | ic_unit_use, ic_wms_trans_detail, ic_inventory, ar_customer |  |
+| `MENU_SINGHA_REPORT_OTHER_EXPENSES` | รายงานค่าใช้จ่ายอื่น ๆ | 0 ทั่วไป | 0 | 9 | gl_journal_vat_buy, ic_trans, ic_trans_detail, ap_supplier | รายงาน › เงินสด/ธนาคาร |
+| `MENU_SINGHA_REPORT_PRICE_LAST_BUY` | ราคาซื้อสินค้าล่าสุด | 0 ทั่วไป | 0 | 12 | ic_trans_detail, ap_supplier, ic_inventory | รายงาน › ซื้อ |
+| `MENU_SINGHA_REPORT_PRODUCT` | รายการรับสินค้ากรณีอื่นๆ โดยระเอียด | 0 ทั่วไป | 0 | 10 | ic_trans, ic_unit_use, ic_trans_detail |  |
+| `MENU_SINGHA_REPORT_PRODUCT_MOVEMENT_STORE` | รายงานสโตร์ | 0 ทั่วไป | 0 | 33 | ic_unit_use, ic_inventory, ic_trans_detail, ic_unit, ic_report_sort_item, ic_trans | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PRODUCT_OUT_OTHER` | รายการจ่ายสินค้ากรณีอื่นๆ โดยระเอียด | 0 ทั่วไป | 0 | 17 | ic_trans, ic_unit_use, ic_trans_detail | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PRODUCT_RECEIVE` | รายการรับสินค้ากรณีอื่นๆโดยระเอียด | 0 ทั่วไป | 0 | 16 | ic_unit_use, ic_trans, ic_trans_detail | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PRODUCT_RECEIVE_BY_BRANCH` | รายงานรับสินค้า แยกสาขา | 0 ทั่วไป | 0 | 20 | erp_branch_list, ic_trans, ap_supplier, ic_inventory, ic_unit, ic_trans_detail | รายงาน › ซื้อ |
+| `MENU_SINGHA_REPORT_PRODUCT_SUM_OUT_BY_DAY` | สรุปยอดจ่ายสินค้าออกจากคลัง | 0 ทั่วไป | 0 | 26 | ic_unit_use, ic_unit, ic_inventory, ic_trans_detail, ic_report_sort_item | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PRODUCT_SUM_TRANSFER` | รับโอนสินค้าสรุปตามคลัง | 0 ทั่วไป | 0 | 29 | ic_unit_use, ic_trans, ic_trans_detail, ic_inventory, ic_unit | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PRODUCT_SUM_TRANSFEROUT` | จ่ายโอนสินค้าสรุปตามคลัง | 0 ทั่วไป | 0 | 29 | ic_unit_use, ic_trans, ic_trans_detail, ic_inventory, ic_unit | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PRODUCT_TRANSFER` | รายงานการโอนสินค้าและวัตถุดิบ | 0 ทั่วไป | 0 | 3 | ic_trans_detail, ic_trans, ic_report_sort_item | รายงาน › สินค้า |
+| `MENU_SINGHA_REPORT_PU_BY_PRODUCT` | รายงานสรุปยอดซื้อจากผู้ขาย วิเคราะห์ตามสินค้า | 0 ทั่วไป | 0 | 19 | ic_unit_use, ic_inventory, ic_trans_detail, ar_customer, ap_supplier, ic_trans | รายงาน › ซื้อ |
+| `MENU_SINGHA_REPORT_SALE_BOX_LITRE` | รายงานยอดขาย (ลิตร) | 3 ขาย | 0 | 14 | ic_unit_use, ic_inventory, ic_unit, ic_trans_detail, ic_report_sort_item | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `MENU_SINGHA_REPORT_SALE_BY_BRANCH` | รายงานสรุปยอดขายสินค้าเรียงตามสาขา | 0 ทั่วไป | 0 | 22 | ic_unit_use, ic_trans, erp_branch_list, ic_inventory, ic_trans_detail, ar_customer | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_HISTORY_BRANCH` | รายงานประวัติการขายสินค้า แยกสาขา | 0 ทั่วไป | 0 | 16 | ic_trans, ar_customer, erp_branch_list, ic_inventory, ic_unit, ic_trans_detail | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_INVOICE` | สรุปรายละเอียดการขาย/เก็บเงิน รายบิล | 0 ทั่วไป | 0 | 9 | cb_trans, ar_customer, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_INVOICE_BY_CREDIT_DAY` | สรุปรายละเอียดการขาย/เก็บเงิน รายบิล ตามระยะเวลาเครดิต | 0 ทั่วไป | 0 | 10 | cb_trans, ar_customer, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_INVOICE_SHOWREMARK` | สรุปรายละเอียดการขาย/เก็บเงิน รายบิล | 0 ทั่วไป | 0 | 9 | cb_trans, ar_customer, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_PREMIUM_BY_DATE` | รายงานสรุปขาย/แถมรายวัน | 0 ทั่วไป | 0 | 17 | ic_unit_use, ic_inventory, ic_trans_detail, ar_customer | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า | 0 ทั่วไป | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_ADD_SALE_CODE` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (เพิ่มรหัสพนักงานขาย) | 0 ทั่วไป | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans |  |
+| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_ARM` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (ARM) | 0 ทั่วไป | 0 | 25 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans |  |
+| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_ONELINE` | รายงานสรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า(หักรับคืน) แบบแถวเดียว | 0 ทั่วไป | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SALE_SUMMARY_BYPRODUCT_SUMVAT` | สรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (รวม VAT) | 0 ทั่วไป | 0 | 21 | ic_unit_use, ar_customer, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans |  |
+| `MENU_SINGHA_REPORT_SHIPMENT` | รายงานบันทึกการจัดส่ง | 0 ทั่วไป | 1 | 65 | ic_unit_use, pp_shipment, pp_shipment_detail, ic_wms_trans, ic_inventory, ar_customer, ic_trans, transport_type | คลังสินค้า › การส่งสินค้า |
+| `MENU_SINGHA_REPORT_STOCK_BALANCE_COMPARE_DEPOSIT` | สรุปการ์ดสินค้า VS  สินค้าฝาก | 0 ทั่วไป | 0 | 30 | ic_unit_use, ic_inventory, ic_unit, ic_trans, ic_trans_detail, ic_wms_trans_detail, ic_report_sort_item | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
+| `MENU_SINGHA_REPORT_SUMARY_SALE_CUSTOMER_ANALYSIS_PRODUCT` | รายงานสรุปยอดขายลูกค้า วิเคราะห์ตามสินค้า (VAT) | 0 ทั่วไป | 0 | 8 | ar_customer, ic_inventory, ic_trans_detail |  |
+| `MENU_SINGHA_REPORT_SUMMARY_DEPART_RETURN` | รายงานสรุปยอดค้างสินค้าจากการเบิก(ลูกค้า) | 0 ทั่วไป | 0 | 8 | ic_trans_detail, ar_customer |  |
+| `MENU_SINGHA_REPORT_SUMMARY_WAREHOUSE_DEPART_RETURN` | สรุปรับคืนฝาก | 0 ทั่วไป | 0 | 25 | ic_unit_use, ic_wms_trans, ar_customer, ic_inventory, ic_wms_trans_detail | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
+| `MENU_SINGHA_REPORT_SUMMARY_WAREHOUSE_DEPOSIT` | สรุปฝาก | 0 ทั่วไป | 0 | 25 | ic_unit_use, ic_wms_trans, ar_customer, ic_inventory, ic_wms_trans_detail | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
+| `MENU_SINGHA_REPORT_SUMMARY_WAREHOUSE_DEPOSIT_DEPART` | เบิกฝาก | 0 ทั่วไป | 0 | 25 | ic_unit_use, ic_wms_trans, ar_customer, ic_inventory, ic_wms_trans_detail | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
+| `MENU_SINGHA_REPORT_SUM_PAY_MONEY` | สรุปยอดเงินจ่าย | 0 ทั่วไป | 0 | 44 | cb_trans, ic_trans, ar_customer, ap_supplier, ap_ar_trans_detail, ap_ar_trans | รายงาน › ซื้อ |
+| `MENU_SINGHA_REPORT_SUM_RECEIVE_MONEY` | สรุปยอดเงินรับ | 0 ทั่วไป | 0 | 47 | cb_trans, ar_customer, ic_trans, ap_ar_trans_detail, ap_ar_trans | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SUM_SALE_QTY` | สรุปยอดขายสินค้า(QTY)ตามช่วงเวลา | 0 ทั่วไป | 0 | 29 | ic_unit_use, ic_unit, ic_inventory, ic_trans_detail, ic_report_sort_item, ic_trans, ar_customer | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SUM_TRANSPORT_TYPE` | สรุปยอดการส่งสินค้าตามประเภทการขนส่ง | 0 ทั่วไป | 0 | 17 | ic_unit_use, ic_inventory, ic_unit, ic_trans_shipment, ic_trans_detail, ar_customer | รายงาน › ขาย |
+| `MENU_SINGHA_REPORT_SUPPLIER_DETAIL` | รายละเอียดเจ้าหนี้ | 0 ทั่วไป | 0 | 7 | ap_ar_trans_detail, ic_trans, ap_supplier | รายงาน › ซื้อ |
+| `MENU_SINGHA_REPORT_TRANSPORT_ADDRESS` | รายงานที่อยู่จัดส่งลูกค้า | 0 ทั่วไป | 0 | 8 | ar_customer, erp_amper, erp_province, ap_ar_transport_label | รายงาน › ลูกหนี้ |
+| `MENU_SINGHA_REPORT_VATBUY_GROUP` | รายงานตรวจสอบภาษีซื้อ | 0 ทั่วไป | 0 | 2 | gl_journal_vat_buy |  |
+| `MENU_SINGHA_REPORT_VAT_FREE_BY_ISSUE` | รายงานภาษีขายสินค้าฟรี(ใบควบคุม) | 0 ทั่วไป | 0 | 8 | ar_customer, ic_trans, ic_inventory_price_formula, ic_trans_detail, erp_option | รายงาน › บัญชี |
+| `MENU_SINGHA_REPORT_WH_ACCRUED_OUT` | สรุปสินค้าฝาก - ค้างส่ง | 0 ทั่วไป | 0 | 13 | ic_unit_use, ic_wms_trans_detail, ic_inventory, ar_customer, ic_wms_trans | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
+| `MENU_SINGHA_REPORT_WH_DEPOSITS_CUSTOMER` | สรุปฝากรายลูกค้า | 0 ทั่วไป | 0 | 23 | ic_unit_use, ic_unit, ar_customer, ic_inventory, ic_wms_trans_detail, ic_wms_trans | คลังสินค้า › ฝาก / เบิก / รับคืน สินค้า › รายงาน |
+| `MENU_SING_REPORT_SALE_LESSTHAN_COST` | รายงานสินค้าต่ำกว่าทุน | 0 ทั่วไป | 0 | 8 | ar_customer, ic_inventory, ic_trans_detail | รายงาน › ขาย |
+| `MENU_STATEMENT_ADVANCE` | รายงาน Statement ล่วงหน้า | 6 เงินสด/ธนาคาร | 0 | 2 | cb_chq_list | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
+| `MENU_STOCK_BALANCE_ALL_SHOW_CURRENT_VALUE` | รายงานยอดคงเหลือสินค้า (แสดงทุกสินค้า)  แสดงมูลค่าปัจจุบัน | 0 ทั่วไป | 0 | 4 | ic_inventory_barcode | สินค้า › วิเคราะห์ข้อมูล |
+| `menu_summary_payment` | รายงานสรุปการจ่ายเงิน | 6 เงินสด/ธนาคาร | 1 | 2 | cb_trans | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
+| `MENU_SUMMARY_RECEIVED` | รายงานสรุปการรับเงิน | 0 ทั่วไป | 1 | 4 | cb_trans, ap_ar_trans, ic_trans | เงินสด/ธนาคาร › ธนาคาร › รายงาน |
+| `MENU_SUMMARY_RECEIVED_SCG` | รายงานสรุปการรับเงิน | 0 ทั่วไป | 0 | 9 | ic_trans, cb_trans, ap_ar_trans, erp_option |  |
+| `PANUT` | รายงานยอดคงเหลือสินค้าซีเรียวตามคลัง | 1 สินค้า | 0 | 40 | ic_trans, ic_inventory, ic_trans_detail, ic_unit_use, ic_serial | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `QC-RETEST-01` | รายงานสินค้า/วัตถุดิบ ที่ถึงกำหนด Retest | 0 ทั่วไป | 0 | 4 | ic_qc_lab, ic_inventory, ic_qc_lab_container |  |
+| `REPORT_BUY_VAT_NO_DUE` | รายงานภาษีซื้อไม่ถึงกำหนดชำระ | 0 ทั่วไป | 0 | 5 | gl_journal_vat_buy |  |
+| `REPORT_COUPON_LIST` | รายงานรายละเอียดคูปอง | 0 ทั่วไป | 0 | 8 | ic_trans, ar_customer, coupon_list |  |
+| `REPORT_CUSTOM_2254367893_SALE_1` | รายงานยอดขายสินค้าแบบพิเศษ | 3 ขาย | 0 | 14 | ar_customer, ic_inventory_price_formula, ic_inventory, ic_trans_detail, ic_trans, ap_ar_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_ETAX_PENDING` | รายงานแสดงรายการค้างส่งข้อมูล e-Tax | 3 ขาย | 0 | 4 | ic_trans, ar_customer, erp_doc_format_etax, e_tax_transaction | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_IC_ALL_BALANCE` | รายงานสินค้าคงเหลือแบบรวม | 0 ทั่วไป | 0 | 2 | ic_unit_use, ic_inventory |  |
+| `REPORT_IC_BALANCE_GROUP_BY_CATEGORY` | รายงานยอดคงเหลือสินค้า-ตามกลุ่มสินค้า | 3 ขาย | 0 | 11 | ic_inventory, ic_group | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_IC_DETAIL_WITH_ALL_BALANCE` | รายงานแสดงสินค้าแบบละเอียด | 0 ทั่วไป | 0 | 4 | ic_unit_use, ic_inventory |  |
+| `REPORT_IMEX_QC_APPROVED_VENDOR` |  | 0 ทั่วไป | 0 | 2 | qc_approved_vendor_list, ic_inventory, ap_supplier, manufacturer_list | สินค้า › ตรวจสอบคุณภาพสินค้า |
+| `REPORT_INVENTORY_EXPIRE_DATE` | รายงานสินค้าหมดอายุ | 1 สินค้า | 0 | 4 | ic_unit | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `REPORT_INVENTORY_EXPIRE_WAREHOUSE_DATE` | รายงานสินค้าหมดอายุตามคลัง | 1 สินค้า | 0 | 3 |  | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `REPORT_PACKING_FROM_INVOICE` | รายงานการจัดสินค้าจากใบขาย | 3 ขาย | 0 | 2 | ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_PACKING_FROM_INVOICE_CUSTOMER` | รายงานการจัดสินค้าจากใบขาย แสดงตามลูกค้า | 3 ขาย | 0 | 5 | ic_trans_detail, ar_customer | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_QC_LAB_RETEST` | รายงานกำหนด Retest วัตถุดิบ | 1 สินค้า | 0 | 4 | ic_qc_lab, ic_inventory, ic_qc_lab_container | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `REPORT_SALE_BY_EMPLOYEE` | รายงานการขายแยกตามพนักงานขาย (หักส่วนลด) | 3 ขาย | 0 | 10 | ic_trans_detail, erp_user, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_SALE_BY_SUPPLIER` | รายงานการขายสินค้า แยกตามผู้จัดจำหน่าย | 3 ขาย | 0 | 10 | ic_inventory, ap_supplier, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_SCG_SEND_MONEY_POS` | รายงานการนำส่งเงินประจำวัน | 0 ทั่วไป | 0 | 2 | poscashiersettle |  |
+| `REPORT_SEND_MONEY_POS` | รายงานการนำส่งเงินประจำวัน | 0 ทั่วไป | 0 | 2 | poscashiersettle | ขาย POS › รายงาน/ยกเลิก |
+| `REPORT_SUMMARY_PURCHASE_BY_SUPPLIER` | รายงานสรุปการซื้อสินค้า แยกตามผู้จัดจำหน่าย | 2 ซื้อ | 0 | 12 | ic_inventory, ap_supplier, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_purchase`) |
+| `REPORT_SUMMARY_SALE_BY_SUPPLIER` | รายงานสรุปการขายสินค้า แยกตามผู้จัดจำหน่าย | 3 ขาย | 0 | 12 | ic_inventory, ap_supplier, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `REPORT_SYNC_SEND_SUCCESS_TRANS` | รายงานสถานะการส่งข้อมูล | 3 ขาย | 0 | 8 | ic_trans, ic_trans_detail, cb_trans, cb_trans_detail, ap_ar_trans, ap_ar_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `SALE_ANALYSIS_BY_CUSTOMER_GROUP_SALE_VALUE` | รายงานวิเคราะห์ การขาย จัดเรียงตาม กลุ่มลูกค้า แสดงมูลค่า | 3 ขาย | 0 | 15 | ar_customer_detail, ic_trans_detail, ar_group, ar_group_sub, erp_user, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `TESTSAVE` | รายงานลูกหนี้ค้างชำระ แสดงรายละเอียดบิลขาย | 5 ลูกหนี้ | 0 | 10 | ic_trans, ar_customer, erp_user, ic_trans_detail | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
+| `TEST SML` | test sml | 0 ทั่วไป | 0 | 2 |  |  |
+| `TOC-001` | รายงานยอดคงเหลือสินค้า | 1 สินค้า | 0 | 23 | ic_trans_detail_lot, ic_inventory, ic_warehouse, ic_inventory_barcode, ic_unit_use, ic_lot_manage | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `TOC-SS-013` | รายงานยอดขายของผู้แทน หัก รับคืนสินค้า | 3 ขาย | 0 | 21 | ic_trans, erp_user, ic_trans_detail_commission | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `TOC-ST-004` | รายงานวัตถุดิบที่ใช้ในการผลิตสินค้าสำเร็จรูป | 1 สินค้า | 0 | 8 | ic_trans_detail, ic_inventory | รายงานอื่น ๆ (`menu_fastreport_other_ic`) |
+| `TV_DIRECT_REPORT_INVOICE_SUMMARY` | รายงานการรวม INV_ ขายประจำวัน | 3 ขาย | 0 | 10 | ic_trans, cb_trans, erp_branch_list | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `TV_DIRECT_REPORT_INVOICE_SUMMARY_TRANSFER` | รายงานการ Tranfer ข้อมูลประจำวัน | 3 ขาย | 0 | 8 | ic_trans, erp_branch_list, pos_period, cb_trans | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `TV_DIRECT_REPORT_POS_OUTPUT_DATA` | รายงานข้อมูลออกจาก POS (Out put  Data) | 3 ขาย | 0 | 2 |  | รายงานอื่น ๆ (`menu_fastreport_other_sale`) |
+| `V001` | รายงานขายสินค้าต่ำกว่าทุน | 0 ทั่วไป | 0 | 6 | ic_inventory, ar_customer, ic_trans_detail |  |
+| `V002` | รายงานใบตั้งหนี้จากการซื้อแบบแจกแจงตามเจ้าหนี้ | 0 ทั่วไป | 0 | 8 | ic_trans, ap_supplier, ic_trans_detail |  |
+| `รายงานตัดแต้มลูกหนี้` | 6018 | 5 ลูกหนี้ | 0 | 4 | ar_customer, ic_trans | รายงานอื่น ๆ (`menu_fastreport_other_customer`) |
 
 ## ตาราง → FastReport ที่อ่านตารางนั้น
 

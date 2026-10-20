@@ -28,7 +28,8 @@ tags: [sml, index]
 
 ## โมดูลและรายงาน
 - [[modules-index]] — โน้ต 1 ไฟล์ต่อเมนูหลัก (ขาย, ซื้อ, สินค้า, ลูกหนี้, เจ้าหนี้, เงินสด/ธนาคาร, บัญชี, POS …) *(generated + สรุป)*
-- [[reports]] — FastReport 562 ตัว (ตารางที่อ่าน) + รายงานในโค้ด 335 เมนู *(generated)*
+- [[reports]] — FastReport 562 ตัว (ตารางที่อ่าน, หมวด report_type) + รายงานในโค้ด 335 เมนู *(generated)*
+- [[code-reports]] — เครื่องมือรายงานในโค้ด: 151 reportEnum → ตาราง/เอกสาร/เมนู *(generated)*
 
 ## Database
 - [[database-layout]] — รูปแบบ DB ต่อกิจการ (`smlerpmain<provider>`, `<db>`, `_images`, `_logs`) และสถานะ DB สำเนา

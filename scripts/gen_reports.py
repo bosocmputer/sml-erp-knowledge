@@ -51,6 +51,11 @@ def tables_in_report(blob, tables):
     return found, n_sql
 
 
+RTYPE = {"0": "ทั่วไป", "1": "สินค้า", "2": "ซื้อ", "3": "ขาย", "4": "เจ้าหนี้", "5": "ลูกหนี้", "6": "เงินสด/ธนาคาร", "7": "สินทรัพย์", "8": "บัญชี (GL)"}
+RMENU = {"1": "menu_fastreport_other_ic", "2": "menu_fastreport_other_purchase", "3": "menu_fastreport_other_sale", "4": "menu_fastreport_other_supplier",
+         "5": "menu_fastreport_other_customer", "6": "menu_fastreport_other_cashbank", "7": "menu_fastreport_other_asset", "8": "menu_fastreport_other_gl"}
+
+
 def main():
     OUT.mkdir(exist_ok=True)
     tables = known_tables()
@@ -61,7 +66,8 @@ def main():
         blob = base64.b64decode(b64.replace("\\n", "")) if b64 else b""
         found, n_sql = tables_in_report(blob, tables)
         m = menu.get(menuid.lower())
-        fr.append((menuid, menuname, rtype, system, n_sql, [t for t, _ in found.most_common()], " › ".join(m["path"]) if m else ""))
+        where = " › ".join(m["path"]) if m else (f"รายงานอื่น ๆ (`{RMENU[rtype]}`)" if rtype in RMENU else "")
+        fr.append((menuid, menuname, f"{rtype} {RTYPE.get(rtype, '')}", system, n_sql, [t for t, _ in found.most_common()], where))
         for t in found:
             by_table[t].append(menuid)
     code_reports = [r for r in menu.values() if r["class"] and r["class"] != "SMLFastReport._designer"
@@ -74,7 +80,7 @@ def main():
          "2. **รายงานเอกสารตาม trans_flag** — `SMLERPReportTool._reportTrans(reportEnum, transType, screenName)` และตระกูล `_reportCashBankTrans`, `_reportArApTrans` (เขียนในโค้ด)",
          "3. **รายงานเฉพาะ** — คลาสใน `SMLERP*Report`, `SINGHAReport` ที่สืบจาก `SMLReport._report._viewReport` หรือ UserControl", "",
          f"## FastReport ใน `{DB}` ({len(fr)} รายงาน)", "",
-         "`report_type` / `is_system_report` ยังไม่ได้ยืนยันความหมาย", "",
+         "`report_type` (จาก `SMLFastReport/_designer.cs`, `_selectMenu.cs`): 0 ทั่วไป, 1 สินค้า, 2 ซื้อ, 3 ขาย, 4 เจ้าหนี้, 5 ลูกหนี้, 6 เงินสด/ธนาคาร, 7 สินทรัพย์, 8 GL — รายงานที่ menuid เป็นตัวเลข (ผู้ใช้/SML สร้างเพิ่ม) เปิดจากเมนู \"รายงานอื่น ๆ\" ของแต่ละโมดูล (`menu_fastreport_other_*`) ซึ่งกรองตาม report_type · `is_system_report` = รายงานมาตรฐานของระบบ (ยังไม่ยืนยัน)", "",
          "| menuid | ชื่อ | type | system | จำนวน SELECT | ตารางที่อ่าน | อยู่ในเมนู |", "|---|---|---|---|---|---|---|"]
     for menuid, name, rtype, system, n_sql, tbls, path in fr:
         L.append(f"| `{menuid}` | {name} | {rtype} | {system} | {n_sql if n_sql >= 0 else 'ไม่ใช่ zip'} | {', '.join(tbls[:8])} | {path} |")
