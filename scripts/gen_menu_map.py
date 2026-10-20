@@ -206,7 +206,7 @@ def main():
                     r["class"], r["trans_enum"], r["report_enum"], r["args"] = c["class"], c["trans_enum"], c["report_enum"], c["args"]
                     r["selector_tables"] = c["tables"]
                 else:
-                    r["route"] += " (no case found)"
+                    r["route"] += " (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)"
         if r["class"]:
             q, f, base = resolve(r["class"], (r["module"] or "").split(".")[0], idx)
             r["class"], r["file"], r["base"] = q, f, base
@@ -223,6 +223,7 @@ def main():
             if not r["trans_enum"]:
                 r["trans_enum"] = enums
         r["trans_flag"] = [flags[e] for e in r["trans_enum"] if e in flags]
+        r["pos_pro"] = "12" in r["editions"]  # SMLAccountPOSProfessional launcher sets _versionType.SMLAccountPOS -> tag &12&
         rows.append(r)
 
     OUT_DIR.mkdir(exist_ok=True)
@@ -231,20 +232,21 @@ def main():
     mapped = sum(1 for r in rows if r["class"])
     lines = ["---", "tags: [sml, menu, generated]", "---", "# แผนที่เมนู → หน้าจอ (SMLAccount)", "",
              "> สร้างอัตโนมัติด้วย `scripts/gen_menu_map.py` (static analysis) — อย่าแก้ด้วยมือ ข้อมูลดิบสำหรับ agent อยู่ที่ `04-Menu/menu-map.json`", "",
-             f"เมนูปลายทาง {len(rows)} รายการ จับคู่คลาสได้ {mapped} รายการ ({mapped * 100 // max(len(rows), 1)}%)", "",
+             f"เมนูปลายทาง {len(rows)} รายการ จับคู่คลาสได้ {mapped} รายการ ({mapped * 100 // max(len(rows), 1)}%) · เห็นใน SMLAccountPOSProfessional (edition 12) {sum(1 for r in rows if r['pos_pro'])} รายการ", "",
+             "**เลข edition ใน tag ของเมนู** (`SMLERPTemplate/_templateMainForm.cs`): 2 = SMLAccount, 3 = SMLAccountProfessional, 6 = SMLPOS/IMSPOS, 7 = POSLite, 8 = TomYumGoong, 9 = POSMED, 10 = POSStarter, 11 = TomYumGoongPro, **12 = SMLAccountPOS (ตัวเปิด SMLAccountPOSProfessional ตั้งค่านี้)**, 13 = SMLAccountPOSProfessional enum / SMLCM, 15 = Merchant, 16 = POSCoffee — เมนูแสดงเมื่อ tag มีเลขของ edition (หรือ tag OEM `&imex&`/`&singha&`, หรือเปิดใน enableMenuFeatures) แล้วจึงกรองตามสิทธิ์ผู้ใช้", "",
              "การ route: `_mainForm._activeMenu` ตรวจสิทธิ์ → ดู tag ของเมนู → `_selectMenuXxx` → `<Module>._selectMenu._getObject(menuName)` (switch) → `new ScreenClass(...)` เปิดเป็นแท็บ ดู [[login-flow]] และ [[screen-classes]]",
              "", "คอลัมน์ trans_flag แปลงจาก `_transControlTypeEnum` ที่ส่งเข้า constructor (ถ้ามี) ดู [[trans_flag]]", ""]
     by_top = collections.defaultdict(list)
     for r in rows:
         by_top[r["path"][0] if r["path"] else "(root)"].append(r)
     for top, items in by_top.items():
-        lines += [f"## {top} ({len(items)})", "", "| เมนู | menu name | คลาส | ใช้ control | trans_flag |", "|---|---|---|---|---|"]
+        lines += [f"## {top} ({len(items)})", "", "| เมนู | menu name | POS Pro | คลาส | ใช้ control | trans_flag |", "|---|---|---|---|---|---|"]
         for r in items:
             sub = " › ".join(r["path"][1:] + [r["text"]])
             cls = f"`{r['class']}`" if r["class"] else ""
             flag = ", ".join(str(x) for x in r["trans_flag"]) or ", ".join(r["report_enum"][:1])
             emb = ", ".join(e.split(".")[-1] for e in r.get("embedded", [])[:3])
-            lines.append(f"| {sub} | `{r['name']}` | {cls} | {emb} | {flag} |")
+            lines.append(f"| {sub} | `{r['name']}` | {'✓' if r['pos_pro'] else ''} | {cls or r['route']} | {emb} | {flag} |")
         lines.append("")
     (OUT_DIR / "menu-map.md").write_text("\n".join(lines), encoding="utf-8")
 

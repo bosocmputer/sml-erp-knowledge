@@ -35,7 +35,8 @@
   "embedded": [],
   "tables": [
    "erp_company_profile"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_option",
@@ -76,7 +77,8 @@
    "erp_option_etax_inet",
    "erp_option_mobillyst",
    "erp_option"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_branch",
@@ -118,7 +120,8 @@
   ],
   "tables": [
    "erp_branch_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_department_list",
@@ -158,7 +161,8 @@
   ],
   "tables": [
    "erp_department_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_staff",
@@ -210,7 +214,8 @@
    "erp_user",
    "ic_shelf",
    "ic_warehouse"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_user_group",
@@ -250,7 +255,8 @@
   ],
   "tables": [
    "erp_user_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_user_group_warehouse_shelf",
@@ -284,7 +290,8 @@
    "ic_shelf",
    "ic_warehouse",
    "erp_user_group"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_setup_staff_pic",
@@ -324,7 +331,8 @@
   "tables": [
    "erp_user",
    "images_erp_user"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_employee_group",
@@ -360,7 +368,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_staff_mis",
@@ -402,7 +411,8 @@
   ],
   "tables": [
    "mis_user"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_doc_group",
@@ -442,7 +452,8 @@
   ],
   "tables": [
    "erp_doc_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_doc_format",
@@ -481,7 +492,8 @@
    "erp_doc_format",
    "erp_doc_format_gl",
    "gl_journal_book"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_transport",
@@ -523,7 +535,8 @@
   ],
   "tables": [
    "transport_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_logistic_area",
@@ -563,7 +576,8 @@
   ],
   "tables": [
    "ar_logistic_area"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_currency",
@@ -600,7 +614,8 @@
   ],
   "tables": [
    "erp_currency"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_edc_config",
@@ -637,7 +652,8 @@
    "System.Windows.Forms.Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_usb_qr_display_config",
@@ -676,7 +692,8 @@
   "embedded": [],
   "tables": [
    "erp_option"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_qr_payment",
@@ -721,7 +738,8 @@
    "erp_amper",
    "erp_bank_branch",
    "erp_tambon"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_province_auto",
@@ -760,7 +778,8 @@
    "erp_province",
    "erp_amper",
    "erp_tambon"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_province",
@@ -802,7 +821,8 @@
   ],
   "tables": [
    "erp_province"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ampher",
@@ -846,7 +866,8 @@
   "tables": [
    "erp_amper",
    "erp_province"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_tambon",
@@ -890,7 +911,8 @@
   "tables": [
    "erp_province",
    "erp_tambon"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_config_pos_startup",
@@ -929,7 +951,8 @@
    "POSConfig",
    "erp_currency",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_config_pos_machine",
@@ -970,7 +993,8 @@
    "ic_shelf",
    "erp_doc_format",
    "POS_ID"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_pos_point_rate",
@@ -1005,7 +1029,8 @@
    "pos_point_period",
    "pos_point_condition",
    "pos_point_special_day"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_config_pos_screen",
@@ -1045,7 +1070,8 @@
    "POSConfig",
    "POS_ID",
    "sml_posdesign"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_group_main",
@@ -1085,7 +1111,8 @@
   ],
   "tables": [
    "ic_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_group_sub",
@@ -1127,7 +1154,8 @@
   "tables": [
    "ic_group",
    "ic_group_sub"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_group_sub2",
@@ -1171,7 +1199,8 @@
    "ic_group",
    "ic_group_sub",
    "ic_group_sub2"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_brand",
@@ -1211,7 +1240,8 @@
   ],
   "tables": [
    "ic_brand"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_model",
@@ -1251,7 +1281,8 @@
   ],
   "tables": [
    "ic_model"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_color",
@@ -1291,7 +1322,8 @@
   ],
   "tables": [
    "ic_color"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_size",
@@ -1331,7 +1363,8 @@
   ],
   "tables": [
    "ic_size"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_pattern",
@@ -1371,7 +1404,8 @@
   ],
   "tables": [
    "ic_pattern"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_grade",
@@ -1411,7 +1445,8 @@
   ],
   "tables": [
    "ic_grade"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_category",
@@ -1451,7 +1486,8 @@
   ],
   "tables": [
    "ic_category"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_design",
@@ -1491,7 +1527,8 @@
   ],
   "tables": [
    "ic_design"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_dimension_name",
@@ -1531,7 +1568,8 @@
   ],
   "tables": [
    "ic_dimension_name"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_dimension",
@@ -1573,7 +1611,8 @@
   "tables": [
    "ic_dimension",
    "ic_dimension_name"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_income_list",
@@ -1613,7 +1652,8 @@
   ],
   "tables": [
    "erp_income_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_class",
@@ -1653,7 +1693,8 @@
   ],
   "tables": [
    "ic_class"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_unit",
@@ -1693,7 +1734,8 @@
   ],
   "tables": [
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_wh",
@@ -1733,7 +1775,8 @@
   ],
   "tables": [
    "ic_warehouse"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_shelf",
@@ -1775,7 +1818,8 @@
   "tables": [
    "ic_shelf",
    "ic_warehouse"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_account_group",
@@ -1802,7 +1846,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_import_duty_point",
@@ -1842,7 +1887,8 @@
   ],
   "tables": [
    "ic_import_duty"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_issue_type",
@@ -1882,7 +1928,8 @@
   ],
   "tables": [
    "ic_issue_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_stk_adjust",
@@ -1922,7 +1969,8 @@
   ],
   "tables": [
    "ic_stk_adjust_reason"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ic_close_reason",
@@ -1962,7 +2010,8 @@
   ],
   "tables": [
    "ic_close_reason"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "ic_auto_add_warehouse_and_location",
@@ -1999,7 +2048,8 @@
    "ic_inventory",
    "ic_wh_shelf",
    "ic_shelf"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_manufacturer_list",
@@ -2041,7 +2091,8 @@
   ],
   "tables": [
    "manufacturer_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_other_income",
@@ -2062,7 +2113,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_setup_ar_sale_area",
@@ -2102,7 +2154,8 @@
   ],
   "tables": [
    "ar_sale_area"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "client_design",
@@ -2135,7 +2188,8 @@
   ],
   "tables": [
    "sml_posdesign"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_pos_sound_download_install",
@@ -2167,7 +2221,8 @@
    "Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_sale_plan",
@@ -2205,7 +2260,8 @@
    "ar_sale_area",
    "erp_user",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ar_setup_paybill_area",
@@ -2241,7 +2297,8 @@
   ],
   "tables": [
    "ar_paybill_area"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_approve_credit_level",
@@ -2283,7 +2340,8 @@
   ],
   "tables": [
    "erp_credit_approve_level"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ap_type",
@@ -2323,7 +2381,8 @@
   ],
   "tables": [
    "ap_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ap_group_main",
@@ -2363,7 +2422,8 @@
   ],
   "tables": [
    "ap_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ap_group_sub",
@@ -2405,7 +2465,8 @@
   "tables": [
    "ap_group",
    "ap_group_sub"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ap_dimension",
@@ -2445,7 +2506,8 @@
   ],
   "tables": [
    "ap_dimension"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_type",
@@ -2485,7 +2547,8 @@
   ],
   "tables": [
    "ar_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_group_main",
@@ -2525,7 +2588,8 @@
   ],
   "tables": [
    "ar_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_group_sub",
@@ -2567,7 +2631,8 @@
   "tables": [
    "ar_group",
    "ar_group_sub"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_dimension",
@@ -2607,7 +2672,8 @@
   ],
   "tables": [
    "ar_dimension"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_credit_approve",
@@ -2647,7 +2713,8 @@
   ],
   "tables": [
    "ar_credit_approve"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_pay_bill_reason",
@@ -2687,7 +2754,8 @@
   ],
   "tables": [
    "ar_pay_bill_condition"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_keep_chq_reason",
@@ -2727,7 +2795,8 @@
   ],
   "tables": [
    "ar_keep_chq_condition"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_ar_keep_money",
@@ -2767,7 +2836,8 @@
   ],
   "tables": [
    "ar_keep_money_condition"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_credit_pay_bill",
@@ -2805,7 +2875,8 @@
   "embedded": [],
   "tables": [
    "ar_credit_pay_bill"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_contact_group",
@@ -2845,7 +2916,8 @@
   ],
   "tables": [
    "ar_contact_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_bank",
@@ -2885,7 +2957,8 @@
   ],
   "tables": [
    "erp_bank"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_bank_branch",
@@ -2929,7 +3002,8 @@
   "tables": [
    "erp_bank",
    "erp_bank_branch"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_book_bank_type",
@@ -2969,7 +3043,8 @@
   ],
   "tables": [
    "erp_pass_book_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_book_bank_trans_type",
@@ -3009,7 +3084,8 @@
   ],
   "tables": [
    "erp_book_bank_trans_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_income_list",
@@ -3049,7 +3125,8 @@
   ],
   "tables": [
    "erp_income_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_expenses_list",
@@ -3089,7 +3166,8 @@
   ],
   "tables": [
    "erp_expenses_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_credit_type",
@@ -3129,7 +3207,8 @@
   ],
   "tables": [
    "erp_credit_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_petty_cash",
@@ -3164,7 +3243,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_coupon_list",
@@ -3209,7 +3289,8 @@
    "coupon_list",
    "cb_trans_detail",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_banknotes",
@@ -3249,7 +3330,8 @@
   ],
   "tables": [
    "banknotes"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_setup_type",
@@ -3289,7 +3371,8 @@
   ],
   "tables": [
    "as_asset_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_setup_location",
@@ -3329,7 +3412,8 @@
   ],
   "tables": [
    "as_asset_location"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_setup_maintain",
@@ -3369,7 +3453,8 @@
   ],
   "tables": [
    "as_asset_maintain"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_setup_maintain_unit",
@@ -3409,7 +3494,8 @@
   ],
   "tables": [
    "as_asset_maintain_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_setup_retire",
@@ -3449,7 +3535,8 @@
   ],
   "tables": [
    "as_asset_retire"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_account_period",
@@ -3487,7 +3574,8 @@
   "embedded": [],
   "tables": [
    "erp_account_period"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_gl_journal_book",
@@ -3527,7 +3615,8 @@
   ],
   "tables": [
    "gl_journal_book"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_gl_account_type",
@@ -3567,7 +3656,8 @@
   ],
   "tables": [
    "gl_account_type"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_gl_account_group",
@@ -3607,7 +3697,8 @@
   ],
   "tables": [
    "gl_account_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_gl_group_for_cash_flow",
@@ -3647,7 +3738,8 @@
   ],
   "tables": [
    "gl_cash_flow_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_tax_group",
@@ -3687,7 +3779,8 @@
   ],
   "tables": [
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_tax_type",
@@ -3714,7 +3807,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_setup_side",
@@ -3756,7 +3850,8 @@
   ],
   "tables": [
    "erp_side_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_allocate",
@@ -3798,7 +3893,8 @@
   ],
   "tables": [
    "erp_allocate_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_project",
@@ -3840,7 +3936,8 @@
   ],
   "tables": [
    "erp_project_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_job",
@@ -3882,7 +3979,8 @@
   ],
   "tables": [
    "erp_job_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_design",
@@ -3921,7 +4019,8 @@
   ],
   "tables": [
    "gl_design_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_form_edit",
@@ -3954,7 +4053,8 @@
   "embedded": [],
   "tables": [
    "formdesign"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "fast_report_designer",
@@ -3987,7 +4087,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_view_manager_custom",
@@ -4028,7 +4129,8 @@
    "erp_view_column_custom",
    "erp_view_table",
    "erp_view_column"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_verify_database",
@@ -4063,7 +4165,8 @@
    "System.Windows.Forms.Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_shink_database",
@@ -4098,7 +4201,8 @@
    "System.Windows.Forms.Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "data_backup",
@@ -4131,7 +4235,8 @@
    "Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "data_restore",
@@ -4164,7 +4269,8 @@
    "Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_change_password",
@@ -4198,7 +4304,8 @@
    "Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "Node9",
@@ -4220,7 +4327,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "Node10",
@@ -4242,7 +4350,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_database_struct",
@@ -4276,7 +4385,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_checking_ic_trans",
@@ -4312,7 +4422,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_system_flow",
@@ -4339,7 +4450,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_query",
@@ -4373,7 +4485,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_change_code_item",
@@ -4435,7 +4548,8 @@
    "ic_purchase_price_detail",
    "ic_relation_detail",
    "ic_serial"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_change_code_supplier",
@@ -4491,7 +4605,8 @@
    "ap_supplier_detail",
    "ap_contactor",
    "ap_item_by_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_change_code_customer",
@@ -4547,7 +4662,8 @@
    "ap_supplier_detail",
    "ap_contactor",
    "ap_item_by_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_change_gl_account_code",
@@ -4593,7 +4709,8 @@
    "gl_journal_side_list",
    "ar_customer_detail",
    "ap_supplier_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_view_capture_screen_realtime",
@@ -4626,7 +4743,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_import_formdesign",
@@ -4660,7 +4778,8 @@
   "embedded": [],
   "tables": [
    "formdesign"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_view_capture_screen",
@@ -4694,7 +4813,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_audit_login",
@@ -4732,7 +4852,8 @@
   "embedded": [],
   "tables": [
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_audit_menu",
@@ -4770,7 +4891,8 @@
   "embedded": [],
   "tables": [
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_audit_trans",
@@ -4808,7 +4930,8 @@
   "embedded": [],
   "tables": [
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_audit_master",
@@ -4846,7 +4969,8 @@
   "embedded": [],
   "tables": [
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_trans_full_logs",
@@ -4885,7 +5009,8 @@
   "tables": [
    "master_logs",
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_data_master",
@@ -4918,7 +5043,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_import_report",
@@ -4954,7 +5080,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_report_branch",
@@ -4990,7 +5117,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_ic_picture",
@@ -5017,7 +5145,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_gen_qeury",
@@ -5050,7 +5179,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_welcome_page",
@@ -5079,7 +5209,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_import_from_image",
@@ -5115,7 +5246,8 @@
    "erp_doc_format",
    "sml_doc_images",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_ic_picture",
@@ -5158,7 +5290,8 @@
   "tables": [
    "images",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_tools_image_transfer",
@@ -5184,7 +5317,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_resource_view",
@@ -5243,7 +5377,8 @@
    "ic_group_sub",
    "ic_group_sub2",
    "ic_shelf"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_detail",
@@ -5301,7 +5436,8 @@
    "ic_name_pos",
    "ic_pattern_use",
    "ic_inventory_set_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_detail_barcode",
@@ -5359,7 +5495,8 @@
    "ic_name_pos",
    "ic_pattern_use",
    "ic_inventory_set_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_detail_2",
@@ -5442,7 +5579,8 @@
    "ic_resource",
    "images",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_detail_2_barcode",
@@ -5525,7 +5663,8 @@
    "ic_resource",
    "images",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_description",
@@ -5566,7 +5705,8 @@
   "tables": [
    "ic_inventory",
    "ic_description"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_description_fast",
@@ -5613,7 +5753,8 @@
   "tables": [
    "ic_inventory",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_barcode",
@@ -5660,7 +5801,8 @@
   "tables": [
    "ic_inventory",
    "ic_inventory_barcode"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_barcode_discount",
@@ -5697,7 +5839,8 @@
   "tables": [
    "ic_inventory_barcode_price",
    "ic_inventory_barcode"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_multibarcode_discount",
@@ -5735,7 +5878,8 @@
    "ic_inventory_barcode_price",
    "ic_inventory_barcode",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_level",
@@ -5780,7 +5924,8 @@
    "ic_inventory_barcode_condition",
    "ic_inventory_level",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_multi_item_level",
@@ -5823,7 +5968,8 @@
    "ic_inventory_barcode",
    "ic_unit",
    "POS_ID"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_picture",
@@ -5867,7 +6013,8 @@
    "ic_inventory",
    "images",
    "ic_inventory_barcode"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_barcode_picture",
@@ -5910,7 +6057,8 @@
    "ic_inventory_barcode",
    "ic_inventory",
    "images"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "pos_promotion_formula",
@@ -5951,7 +6099,8 @@
    "ic_promotion_formula_price_discount",
    "ic_promotion_formula_group_qty",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_setup_pos_slip_campaign",
@@ -5991,7 +6140,8 @@
    "pos_slip_campaign_group",
    "pos_slip_campaign_brand",
    "pos_slip_campaign_category"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_serial",
@@ -6031,7 +6181,8 @@
   ],
   "tables": [
    "ic_serial"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_set",
@@ -6074,7 +6225,8 @@
    "ic_inventory_set_detail",
    "ic_inventory",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_add_barcode_fast",
@@ -6128,7 +6280,8 @@
    "ic_unit_use",
    "ic_warehouse",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_unit_checker",
@@ -6160,7 +6313,8 @@
   "tables": [
    "ic_inventory",
    "ic_unit_use"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_item_barcode_checker",
@@ -6198,7 +6352,8 @@
   "tables": [
    "ic_inventory_barcode",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_barcode_checker_ean13",
@@ -6235,7 +6390,8 @@
   "embedded": [],
   "tables": [
    "ic_inventory_barcode"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "check_price",
@@ -6269,7 +6425,8 @@
   "embedded": [],
   "tables": [
    "ic_inventory_barcode"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_barcode_laser_print",
@@ -6316,7 +6473,8 @@
    "sml_barcode_print_format",
    "ic_unit",
    "formdesign"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_specific_search",
@@ -6351,7 +6509,8 @@
   "tables": [
    "ic_specific_search_word",
    "ic_specific_search"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_warehouse_locaton",
@@ -6397,7 +6556,8 @@
    "ic_warehouse",
    "ic_wh_shelf",
    "ic_shelf"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "ic_warehouse_and_location_group",
@@ -6437,7 +6597,8 @@
   "tables": [
    "ic_warehouse_location_group_detail",
    "ic_warehouse_location_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_detail",
@@ -6476,7 +6637,8 @@
   "tables": [
    "ic_inventory",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_set_formula",
@@ -6515,7 +6677,8 @@
   "tables": [
    "ic_inventory_set_detail",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_barcode",
@@ -6554,7 +6717,8 @@
   "tables": [
    "ic_inventory_barcode",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_by_license",
@@ -6607,7 +6771,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_for_sync",
@@ -6665,7 +6830,8 @@
    "ic_name_pos",
    "ic_pattern_use",
    "ic_inventory_set_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_modify_price",
@@ -6706,7 +6872,8 @@
    "ic_resource",
    "ic_inventory_barcode",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_purchase_price",
@@ -6750,7 +6917,8 @@
    "ic_unit",
    "ar_customer",
    "ic_inventory_barcode"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_purchase_premium",
@@ -6793,7 +6961,8 @@
    "ic_purchase_permium_list",
    "ic_inventory",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_saleprice",
@@ -6841,7 +7010,8 @@
    "erp_currency",
    "ic_inventory_barcode",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_saleprice_2",
@@ -6889,7 +7059,8 @@
    "erp_currency",
    "ic_inventory_barcode",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_discount",
@@ -6932,7 +7103,8 @@
    "ar_group",
    "ar_customer",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_formula_template",
@@ -6968,7 +7140,8 @@
   "embedded": [],
   "tables": [
    "ic_price_formula_template"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_item_saleprice_formula",
@@ -7011,7 +7184,8 @@
    "ic_inventory_price_formula",
    "ic_inventory_barcode",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_all_price",
@@ -7059,7 +7233,8 @@
    "ar_group",
    "ar_customer",
    "master_logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_purchase_price",
@@ -7098,7 +7273,8 @@
    "ic_inventory_purchase_price",
    "ic_resource",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_giveaway",
@@ -7151,7 +7327,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_sale_price",
@@ -7190,7 +7367,8 @@
    "ic_inventory_price",
    "ic_resource",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_sale_price_normal",
@@ -7229,7 +7407,8 @@
    "ic_inventory_price",
    "ic_resource",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_imex_qc_purchase_packing_size_container_assign",
@@ -7265,7 +7444,8 @@
    "ic_qc_purchase_packing_size",
    "ic_qc_purchase_packing_size_item",
    "ic_qc_purchase_packing_size_container"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_qc_receive",
@@ -7304,7 +7484,8 @@
    "ic_qc_purchase_packing_size_container",
    "ic_trans_detail",
    "ic_qc_lab_container"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_qc_control_pass",
@@ -7341,7 +7522,8 @@
    "ic_quality_control_detail",
    "ic_trans",
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_qc_control_reject",
@@ -7378,7 +7560,8 @@
    "ic_quality_control_detail",
    "ic_trans",
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_qc_retest",
@@ -7416,7 +7599,8 @@
    "ic_qc_container_adjust",
    "ic_qc_container_transaction",
    "ic_qc_container_adjustment_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_qc_lab_list",
@@ -7452,7 +7636,8 @@
    "ic_qc_lab",
    "ic_quality_control",
    "ic_qc_lab_container"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_qc_config",
@@ -7484,7 +7669,8 @@
   "embedded": [],
   "tables": [
    "ic_qc_config"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_qc_indentify",
@@ -7521,7 +7707,8 @@
   ],
   "tables": [
    "ic_qc_indentify"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_print_tag_label",
@@ -7560,7 +7747,8 @@
    "formdesign",
    "ic_trans",
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_qc_lab_beginning_balance",
@@ -7599,7 +7787,8 @@
    "ic_qc_lab_beginning_balance_lab_container",
    "ic_qc_lab",
    "ic_qc_lab_container"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_qc_container_issue",
@@ -7633,7 +7822,8 @@
   "tables": [
    "ic_qc_lab_container_issue",
    "ic_qc_container_transaction"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_qc_container_adjustment",
@@ -7668,7 +7858,8 @@
    "ic_qc_container_adjust",
    "ic_qc_container_transaction",
    "ic_qc_container_adjustment_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_qc_lab_cut",
@@ -7704,7 +7895,8 @@
    "ic_qc_lab_cut_detail",
    "ic_trans",
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_qc_approved_vendor",
@@ -7737,7 +7929,8 @@
   "embedded": [],
   "tables": [
    "qc_approved_vendor_list"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "report_imex_qc_approved_vendor",
@@ -7767,7 +7960,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_qc_lab_information",
@@ -7796,7 +7990,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_stk_balance",
@@ -7836,7 +8031,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_imex_sale_order",
@@ -7871,7 +8067,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_finish_receive",
@@ -7911,7 +8108,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_request_issue",
@@ -7951,7 +8149,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_issue",
@@ -7991,7 +8190,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_return_receive",
@@ -8031,7 +8231,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_finish_receive_cancel",
@@ -8072,7 +8273,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_request_issue_cancel",
@@ -8113,7 +8315,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_issue_cancel",
@@ -8154,7 +8357,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_return_receive_cancel",
@@ -8195,7 +8399,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_cancel_goods_pack",
@@ -8240,7 +8445,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_cancel_raw_material",
@@ -8285,7 +8491,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_cancel_goods_raw_meterial",
@@ -8330,7 +8537,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_goods_balance",
@@ -8375,7 +8583,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_item_ready_by_date",
@@ -8420,7 +8629,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_withdraw",
@@ -8465,7 +8675,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_return",
@@ -8510,7 +8721,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_request_transfer",
@@ -8551,7 +8763,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_transfer_wh_out",
@@ -8591,7 +8804,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_request_stk_count",
@@ -8632,7 +8846,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_count",
@@ -8673,7 +8888,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_serialnumber_checker",
@@ -8719,7 +8935,8 @@
    "ic_unit_use",
    "ic_trans_detail",
    "erp_doc_format"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_diff_from_count",
@@ -8771,7 +8988,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_stock_no_balance_from_count",
@@ -8823,7 +9041,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_serial_check",
@@ -8875,7 +9094,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_adjust_auto",
@@ -8918,7 +9138,8 @@
    "ap_ar_trans_detail",
    "ic_resource",
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_adjust_lot_auto",
@@ -8962,7 +9183,8 @@
    "ap_ar_trans_detail",
    "ic_inventory",
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_adjust_stock_lot_amount",
@@ -9007,7 +9229,8 @@
    "ic_resource",
    "logs",
    "erp_doc_format"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_adjust",
@@ -9047,7 +9270,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_adjust_subtract",
@@ -9087,7 +9311,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_hidden_cost_process",
@@ -9129,7 +9354,8 @@
    "ic_hidden_cost_process_item",
    "ic_trans",
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_transfer_wh_out_cancel",
@@ -9170,7 +9396,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_adjust_over_cancel",
@@ -9211,7 +9438,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_stk_adjust_lost_cancel",
@@ -9252,7 +9480,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_stk_cancel",
@@ -9297,7 +9526,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_stk_cancel_over",
@@ -9342,7 +9572,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_stk_cancel_lost",
@@ -9387,7 +9618,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_transfer",
@@ -9432,7 +9664,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_count",
@@ -9477,7 +9710,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_adjust_increase",
@@ -9522,7 +9756,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_item_adjust_decrease",
@@ -9567,7 +9802,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_balance",
@@ -9608,7 +9844,8 @@
   ],
   "tables": [
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_balance_warehouse",
@@ -9645,7 +9882,8 @@
   "embedded": [
    "SMLERPControl._selectWarehouseAndLocationForm"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_balance_shelf",
@@ -9682,7 +9920,8 @@
   "embedded": [
    "SMLERPControl._selectWarehouseAndLocationForm"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_balance_lot",
@@ -9722,7 +9961,8 @@
   "tables": [
    "ic_resource",
    "ic_trans_detail_lot"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_move",
@@ -9763,7 +10003,8 @@
   "tables": [
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_movement",
@@ -9804,7 +10045,8 @@
   "tables": [
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_movement_hidden",
@@ -9845,7 +10087,8 @@
   "tables": [
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_movement_sum",
@@ -9885,7 +10128,8 @@
   "tables": [
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_movement_sum_by_amount",
@@ -9925,7 +10169,8 @@
   "tables": [
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_reorder",
@@ -9971,7 +10216,8 @@
    "ic_unit",
    "ic_trans",
    "ic_inventory_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_purchase_history",
@@ -10017,7 +10263,8 @@
    "ic_unit",
    "ic_trans",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_sale_history",
@@ -10063,7 +10310,8 @@
    "ic_unit",
    "ic_trans",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_product_no_movement",
@@ -10102,7 +10350,8 @@
   ],
   "tables": [
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_profit",
@@ -10139,7 +10388,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_profit_hidden",
@@ -10176,7 +10426,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_profit_by_doc",
@@ -10213,7 +10464,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_info_stk_profit_by_ar",
@@ -10250,7 +10502,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "IC_INVENTORY_NO_SALE",
@@ -10286,7 +10539,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_serial_analyze",
@@ -10323,7 +10577,8 @@
   "embedded": [],
   "tables": [
    "ic_trans_serial_number"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_stock_balance_all_show_current_value",
@@ -10359,7 +10614,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_status",
@@ -10411,7 +10667,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_account_special_item",
@@ -10455,7 +10712,8 @@
    "ic_trans",
    "ic_trans_detail",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ic_product_and_material",
@@ -10497,7 +10755,8 @@
    "ic_resource",
    "ic_trans",
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_inventory_adjust",
@@ -10533,7 +10792,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_span_import_item",
@@ -10556,7 +10816,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_report_lot_inventory",
@@ -10592,7 +10853,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_and_staple",
@@ -10615,7 +10877,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_ic_serial_number",
@@ -10667,7 +10930,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_sale_remain",
@@ -10703,7 +10967,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_accrued_in_qty",
@@ -10739,7 +11004,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_balance",
@@ -10787,7 +11053,8 @@
    "ic_trans_detail",
    "ic_inventory",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_balance_lot",
@@ -10835,7 +11102,8 @@
    "ic_trans_detail",
    "ic_inventory",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_reorder",
@@ -10878,7 +11146,8 @@
    "ic_resource",
    "ic_trans_detail",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ic_stock_balance_warehouse_max",
@@ -10914,7 +11183,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ic_stock_balance_warehouse_min",
@@ -10950,7 +11220,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ic_stock_balance_location_max",
@@ -10986,7 +11257,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ic_stock_balance_location_min",
@@ -11022,7 +11294,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_balance_now_only_serial",
@@ -11074,7 +11347,8 @@
    "ic_trans",
    "ap_ar_resource",
    "resource_report"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_non_transfer",
@@ -11115,7 +11389,8 @@
    "ic_resource",
    "ic_trans_detail",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_transfer",
@@ -11159,7 +11434,8 @@
    "ic_trans",
    "ic_trans_detail",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_result_transfer_item",
@@ -11201,7 +11477,8 @@
    "ic_trans_detail",
    "ic_inventory",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ic_info_stk_movement_sum_show_amount",
@@ -11244,7 +11521,8 @@
    "ic_trans",
    "ic_trans_detail",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_item_transfer_standard",
@@ -11273,7 +11551,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:report (no case found)"
+  "route": "tag:report (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_by_doc_and_discount",
@@ -11312,7 +11591,8 @@
   "embedded": [],
   "tables": [
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit",
@@ -11350,7 +11630,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_ic_doc",
@@ -11388,7 +11669,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_ic_cust",
@@ -11426,7 +11708,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_ic_cust_doc",
@@ -11464,7 +11747,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_doc",
@@ -11502,7 +11786,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_doc_ic",
@@ -11540,7 +11825,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_cust",
@@ -11578,7 +11864,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_cust_ic",
@@ -11616,7 +11903,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_cust_ic_doc",
@@ -11654,7 +11942,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_cust_doc",
@@ -11692,7 +11981,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_report_info_stk_profit_cust_doc_ic",
@@ -11730,7 +12020,8 @@
   "tables": [
    "ic_resource",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_recalc",
@@ -11768,7 +12059,8 @@
    "ic_trans_detail",
    "ic_trans",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_document_picture",
@@ -11804,7 +12096,8 @@
   "embedded": [
    "SMLERPControl._documentPicture"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ic_lot_manage",
@@ -11840,7 +12133,8 @@
    "ic_lot_manage",
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_fastreport_other_ic",
@@ -11869,7 +12163,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_wh_balance",
@@ -11905,7 +12200,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_in_purchase",
@@ -11941,7 +12237,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_in_ret",
@@ -11965,7 +12262,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:ic (no case found)"
+  "route": "tag:ic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_out",
@@ -12001,7 +12299,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_out_ret",
@@ -12025,7 +12324,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:ic (no case found)"
+  "route": "tag:ic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_trans_out",
@@ -12049,7 +12349,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:ic (no case found)"
+  "route": "tag:ic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_trans_in",
@@ -12073,7 +12374,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:ic (no case found)"
+  "route": "tag:ic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_stk_count",
@@ -12109,7 +12411,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_adj",
@@ -12145,7 +12448,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_balance",
@@ -12170,7 +12474,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_in",
@@ -12195,7 +12500,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_in_ret",
@@ -12220,7 +12526,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_out",
@@ -12245,7 +12552,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_out_ret",
@@ -12270,7 +12578,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_trans_out",
@@ -12295,7 +12604,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_trans_in",
@@ -12320,7 +12630,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_item_count",
@@ -12361,7 +12672,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_report_adj",
@@ -12386,7 +12698,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:reportic (no case found)"
+  "route": "tag:reportic (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_ic_shipping",
@@ -12421,7 +12734,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_purchase_requisition",
@@ -12461,7 +12775,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_purchase_requisition_approval",
@@ -12501,7 +12816,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cancel_purchase_requisition",
@@ -12542,7 +12858,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_record_requisition_purchase",
@@ -12587,7 +12904,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_requisition_purchase1",
@@ -12632,7 +12950,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_requisition_cancel",
@@ -12661,7 +12980,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:poreport (no case found)"
+  "route": "tag:poreport (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_requisition_purchase",
@@ -12706,7 +13026,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_order",
@@ -12746,7 +13067,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_order_approve",
@@ -12786,7 +13108,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_order_cancel",
@@ -12827,7 +13150,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_order",
@@ -12872,7 +13196,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_order_approve",
@@ -12917,7 +13242,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_order_cancel",
@@ -12962,7 +13288,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_order_status",
@@ -13007,7 +13334,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_hold_receive_by_doc",
@@ -13052,7 +13380,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_advance_payment_balance",
@@ -13086,7 +13415,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_payment_1",
@@ -13122,7 +13452,8 @@
   "embedded": [
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_return_1",
@@ -13158,7 +13489,8 @@
   "embedded": [
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_payment_1_cancel",
@@ -13199,7 +13531,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_return_1_cancel",
@@ -13240,7 +13573,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_deposit_payment",
@@ -13285,7 +13619,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_deposit_payment_return",
@@ -13330,7 +13665,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_deposit_payment_cancel",
@@ -13375,7 +13711,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_deposit_payment_return_cancel",
@@ -13420,7 +13757,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_deposit_payment_remain",
@@ -13465,7 +13803,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_cut_deposit_payment",
@@ -13510,7 +13849,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_money_balance",
@@ -13544,7 +13884,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_payment_2",
@@ -13578,7 +13919,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_return_2",
@@ -13612,7 +13954,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_payment_2_cancel",
@@ -13653,7 +13996,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_deposit_return_2_cancel",
@@ -13694,7 +14038,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_advance_payment",
@@ -13739,7 +14084,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_advance_payment_return",
@@ -13784,7 +14130,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_advance_payment_cancel",
@@ -13829,7 +14176,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_advance_payment_return_cancel",
@@ -13874,7 +14222,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_deposit_payment_2_remain",
@@ -13919,7 +14268,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_cut_deposit_payment_2",
@@ -13964,7 +14314,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_billing",
@@ -14004,7 +14355,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_addition_debt",
@@ -14044,7 +14396,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_credit_note",
@@ -14084,7 +14437,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_item",
@@ -14125,7 +14479,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_item_debit",
@@ -14166,7 +14521,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_1",
@@ -14207,7 +14563,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_3",
@@ -14248,7 +14605,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_2",
@@ -14289,7 +14647,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_item_cancel",
@@ -14330,7 +14689,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_item_debit_cancel",
@@ -14371,7 +14731,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_1_cancel",
@@ -14412,7 +14773,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_2_cancel",
@@ -14453,7 +14815,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_partial_3_cancel",
@@ -14494,7 +14857,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_partial",
@@ -14539,7 +14903,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_partial_debit",
@@ -14584,7 +14949,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_partial_1",
@@ -14629,7 +14995,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_partial_2",
@@ -14674,7 +15041,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_partial_3",
@@ -14719,7 +15087,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_purchase_billing_cancel",
@@ -14760,7 +15129,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_credit_note_cancel",
@@ -14801,7 +15171,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_addition_debt_cancel",
@@ -14842,7 +15213,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase",
@@ -14887,7 +15259,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_credit_note",
@@ -14932,7 +15305,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_add_goods",
@@ -14977,7 +15351,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_cancel",
@@ -15022,7 +15397,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_credit_note_cancel_report",
@@ -15067,7 +15443,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_add_goods_cancel",
@@ -15112,7 +15489,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_recive_by_item",
@@ -15153,7 +15531,8 @@
    "ic_trans_detail",
    "ar_customer",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchase_by_date",
@@ -15189,7 +15568,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_sum_purchase_by_vat",
@@ -15225,7 +15605,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchase_credit_by_date",
@@ -15261,7 +15642,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchase_order_by_date",
@@ -15297,7 +15679,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchase_add_by_date",
@@ -15333,7 +15716,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchase_credit_note_by_item",
@@ -15369,7 +15753,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchse_on_due",
@@ -15405,7 +15790,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_purchase_rank_item_group",
@@ -15441,7 +15827,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_purchase_analyze",
@@ -15477,7 +15864,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_report_compare_purchase_monthly",
@@ -15513,7 +15901,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_po_doc_picture",
@@ -15549,7 +15938,8 @@
   "embedded": [
    "SMLERPControl._documentPicture"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_purchase",
@@ -15578,7 +15968,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_quotation_order",
@@ -15618,7 +16009,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_quotation_approve",
@@ -15658,7 +16050,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_quotation_cancel",
@@ -15699,7 +16092,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_quotation",
@@ -15744,7 +16138,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_quotation_approve",
@@ -15789,7 +16184,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_quotation_cancel",
@@ -15834,7 +16230,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_quotation_stat",
@@ -15879,7 +16276,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_inquiry_order",
@@ -15919,7 +16317,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_inquiry_order_approve",
@@ -15959,7 +16358,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_inquiry_order_cancel",
@@ -16000,7 +16400,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_inquiry",
@@ -16045,7 +16446,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_inquiry_approve",
@@ -16090,7 +16492,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_inquiry_cancel",
@@ -16135,7 +16538,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_inquiry_stat",
@@ -16180,7 +16584,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_sale_order",
@@ -16220,7 +16625,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_sale_order_approve",
@@ -16260,7 +16666,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_sale_order_cancel",
@@ -16301,7 +16708,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_order",
@@ -16346,7 +16754,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_order_approve",
@@ -16391,7 +16800,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_order_cancel",
@@ -16436,7 +16846,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_order_stat",
@@ -16481,7 +16892,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_advance_money_balance",
@@ -16515,7 +16927,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_receive_1",
@@ -16551,7 +16964,8 @@
   "embedded": [
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_return_1",
@@ -16587,7 +17001,8 @@
   "embedded": [
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_receive_1_cancel",
@@ -16628,7 +17043,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_return_1_cancel",
@@ -16669,7 +17085,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_receive",
@@ -16714,7 +17131,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_return",
@@ -16759,7 +17177,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_payment_cancel",
@@ -16804,7 +17223,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_payment_return_cancel",
@@ -16849,7 +17269,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_payment_remain",
@@ -16894,7 +17315,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_cut_deposit_payment",
@@ -16939,7 +17361,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_money_balance",
@@ -16973,7 +17396,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_receive_2",
@@ -17007,7 +17431,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_return_2",
@@ -17041,7 +17466,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_receive_2_cancel",
@@ -17082,7 +17508,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_deposit_return_2_cancel",
@@ -17123,7 +17550,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_receive_2",
@@ -17168,7 +17596,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_return_2",
@@ -17213,7 +17642,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_payment_cancel_2",
@@ -17258,7 +17688,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_payment_return_cancel_2",
@@ -17303,7 +17734,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_deposit_payment_remain_2",
@@ -17348,7 +17780,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_cut_deposit_payment_2",
@@ -17393,7 +17826,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_invoice",
@@ -17434,7 +17868,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_credit_note",
@@ -17474,7 +17909,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_invoice_add",
@@ -17514,7 +17950,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_send_etax",
@@ -17548,7 +17985,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_invoice_cancel",
@@ -17589,7 +18027,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_credit_note_cancel",
@@ -17630,7 +18069,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_invoice_add_cancel",
@@ -17671,7 +18111,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_invoice",
@@ -17716,7 +18157,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_sale_service_by_item",
@@ -17757,7 +18199,8 @@
    "ic_trans_detail",
    "ar_customer",
    "ap_supplier"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_credit_note",
@@ -17802,7 +18245,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_add_goods",
@@ -17847,7 +18291,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_invoice_cancel",
@@ -17892,7 +18337,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_credit_note_cancel",
@@ -17937,7 +18383,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_add_goods_cancel",
@@ -17982,7 +18429,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_sell_by_sale",
@@ -18025,7 +18473,8 @@
    "cb_trans",
    "erp_user",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fast_report_summary_sell_by_sale",
@@ -18061,7 +18510,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_shipments_by_date",
@@ -18097,7 +18547,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_sale_history_product",
@@ -18133,7 +18584,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_drug_by_lot",
@@ -18176,7 +18628,8 @@
    "ic_resource",
    "ic_inventory",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_drug_13",
@@ -18218,7 +18671,8 @@
   "tables": [
    "ic_inventory",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_drug_by_lot_5",
@@ -18261,7 +18715,8 @@
    "ic_resource",
    "ic_inventory",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_sale_recall",
@@ -18303,7 +18758,8 @@
   "tables": [
    "ic_resource",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fast_report_analysis_sell_ex_by_product",
@@ -18339,7 +18795,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fast_report_analysis_sell_sum_by_docno",
@@ -18375,7 +18832,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fast_report_margin_reacceptance",
@@ -18411,7 +18869,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fast_report_product_rank",
@@ -18447,7 +18906,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fast_report_shipments_compare_month",
@@ -18483,7 +18943,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_compare_sale_with_price",
@@ -18519,7 +18980,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_product_sale_loss",
@@ -18555,7 +19017,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_product_sale_monthly",
@@ -18586,7 +19049,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_so_doc_picture",
@@ -18622,7 +19086,8 @@
   "embedded": [
    "SMLERPControl._documentPicture"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_sale",
@@ -18651,7 +19116,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_pos_screen",
@@ -18678,7 +19144,8 @@
   "report_enum": [],
   "route": "tag:posclient",
   "selector_tables": [],
-  "base_chain": []
+  "base_chain": [],
+  "pos_pro": true
  },
  {
   "name": "menu_coupon_list",
@@ -18715,7 +19182,8 @@
    "coupon_list",
    "cb_trans_detail",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_coupon_generate",
@@ -18750,7 +19218,8 @@
   ],
   "tables": [
    "coupon_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_save_pos_receive_money",
@@ -18786,7 +19255,8 @@
   "tables": [
    "logs",
    "POSCashierSettle"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_save_send_money_pos",
@@ -18824,7 +19294,8 @@
    "POSCashierSettle",
    "POSCashierSettle_detail",
    "logs"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "pos_invoice_list_pos",
@@ -18861,7 +19332,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "pos_full_invoide_list_pos",
@@ -18898,7 +19370,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "pos_invoice_cancel_pos",
@@ -18935,7 +19408,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_received_money",
@@ -18968,7 +19442,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "report_send_money_pos",
@@ -19001,7 +19476,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_so_report_pos_full_invoice",
@@ -19042,7 +19518,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sum_short_vat",
@@ -19075,7 +19552,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_invoice_cancel",
@@ -19108,7 +19586,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_pos_sum_front",
@@ -19141,7 +19620,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_pos_sum_full_vat",
@@ -19174,7 +19654,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_pos_sale_detail_001",
@@ -19207,7 +19688,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_002",
@@ -19240,7 +19722,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_008",
@@ -19273,7 +19756,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_004",
@@ -19306,7 +19790,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_005",
@@ -19339,7 +19824,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_006",
@@ -19372,7 +19858,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_009",
@@ -19405,7 +19892,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_007",
@@ -19438,7 +19926,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_010",
@@ -19471,7 +19960,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sale_detail_003",
@@ -19504,7 +19994,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_report_pos_sale_sugest_by_item_and_serial",
@@ -19537,7 +20028,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_004",
@@ -19570,7 +20062,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_009",
@@ -19603,7 +20096,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_002",
@@ -19636,7 +20130,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_008",
@@ -19669,7 +20164,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_001",
@@ -19702,7 +20198,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_005",
@@ -19735,7 +20232,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_pos_sumary_003",
@@ -19768,7 +20266,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "\r\nmenu_pos_sumary_007",
@@ -19801,7 +20300,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_fastreport_other_sale_pos",
@@ -19827,7 +20327,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_detail",
@@ -19862,7 +20363,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_detail_2",
@@ -19897,7 +20399,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_reference",
@@ -19922,7 +20425,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:ap (no case found)"
+  "route": "tag:ap (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_ap_transport_label",
@@ -19961,7 +20465,8 @@
   ],
   "tables": [
    "ap_ar_transport_label"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_transport_label_print",
@@ -20007,7 +20512,8 @@
    "formdesign",
    "ap_group",
    "ar_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_ap_transport_label",
@@ -20042,7 +20548,8 @@
    "Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_detail_ap",
@@ -20083,7 +20590,8 @@
    "ar_customer",
    "ap_supplier",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_debt_balance",
@@ -20123,7 +20631,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cn_balance",
@@ -20163,7 +20672,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_increase_debt",
@@ -20203,7 +20713,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_early_year_balance_setup",
@@ -20248,7 +20759,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_early_year_balance_decrease",
@@ -20293,7 +20805,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_early_year_balance_increase",
@@ -20338,7 +20851,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_partner_detail",
@@ -20378,7 +20892,8 @@
    "ap_supplier_detail",
    "ap_supplier",
    "ap_supplier_connected"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_partner_import",
@@ -20418,7 +20933,8 @@
    "ic_warehouse",
    "ic_shelf",
    "ap_supplier_connected"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ap_partner_import_return_product",
@@ -20456,7 +20972,8 @@
    "ic_warehouse",
    "ic_shelf",
    "ap_supplier_connected"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ap_partner_import_add_debt",
@@ -20494,7 +21011,8 @@
    "ic_warehouse",
    "ic_shelf",
    "ap_supplier_connected"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ap_debt_other",
@@ -20534,7 +21052,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cn_debt_other",
@@ -20574,7 +21093,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_increase_debt_other",
@@ -20614,7 +21134,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cancel_debt_balance_other",
@@ -20655,7 +21176,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cancel_cn_debt_other",
@@ -20696,7 +21218,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cancel_increase_debt_other",
@@ -20737,7 +21260,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_documents_early_year_other",
@@ -20782,7 +21306,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_increase_debt_other",
@@ -20827,7 +21352,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_reduction_dept_other",
@@ -20872,7 +21398,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cancel_documents_early_year_other",
@@ -20917,7 +21444,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cancel_increase_debt_other",
@@ -20962,7 +21490,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cancel_reduction_dept_other",
@@ -21007,7 +21536,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_pay_bill",
@@ -21048,7 +21578,8 @@
    "SMLERPAPARControl._ar_ap_trans",
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_debt_billing",
@@ -21089,7 +21620,8 @@
    "SMLERPAPARControl._ar_ap_trans",
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cancel_pay_bill",
@@ -21130,7 +21662,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_cancel_debt_billing",
@@ -21171,7 +21704,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_cancel_pay_bill",
@@ -21217,7 +21751,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_cancel_debt_billing",
@@ -21263,7 +21798,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_billing",
@@ -21309,7 +21845,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_billing_value_by_invoice",
@@ -21345,7 +21882,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_billing_outstanding",
@@ -21381,7 +21919,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_payment",
@@ -21427,7 +21966,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_invoice_arrears_by_date",
@@ -21463,7 +22003,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_invoice_due_by_date",
@@ -21499,7 +22040,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_invoice_arrears_due",
@@ -21535,7 +22077,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_invoice_overdue_by_date",
@@ -21571,7 +22114,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_payment_by_invoice",
@@ -21607,7 +22151,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_payment_by_date",
@@ -21643,7 +22188,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_payment_by_department",
@@ -21679,7 +22225,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_payable_movement",
@@ -21716,7 +22263,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_payable_aging",
@@ -21753,7 +22301,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_payable_aging_by_doc",
@@ -21790,7 +22339,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_payable_status",
@@ -21827,7 +22377,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_report_payable_not_movement",
@@ -21856,7 +22407,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:apreport (no case found)"
+  "route": "tag:apreport (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_ap_detail_debt_by_ap",
@@ -21892,7 +22444,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ap_doc_picture",
@@ -21928,7 +22481,8 @@
   "embedded": [
    "SMLERPControl._documentPicture"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_supplier",
@@ -21957,7 +22511,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_detail",
@@ -21992,7 +22547,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_detail_2",
@@ -22027,7 +22583,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_dealer",
@@ -22066,7 +22623,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_reference",
@@ -22091,7 +22649,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:ar (no case found)"
+  "route": "tag:ar (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_ar_point_balance",
@@ -22125,7 +22684,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_point_balance"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cut_point",
@@ -22159,7 +22719,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_cut_point"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_point",
@@ -22191,7 +22752,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_point_recal",
@@ -22223,7 +22785,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_transport_label",
@@ -22262,7 +22825,8 @@
   ],
   "tables": [
    "ap_ar_transport_label"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_transport_label_print",
@@ -22308,7 +22872,8 @@
    "formdesign",
    "ap_group",
    "ar_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_import_ar_transport_label",
@@ -22343,7 +22908,8 @@
    "Form"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_customer_connected",
@@ -22379,7 +22945,8 @@
   ],
   "tables": [
    "ar_customer_connected"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ar_report_detail_ar",
@@ -22417,7 +22984,8 @@
   "embedded": [],
   "tables": [
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_point_balance",
@@ -22460,7 +23028,8 @@
    "cb_trans",
    "ic_inventory",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_debt_balance",
@@ -22500,7 +23069,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_increase_debt",
@@ -22540,7 +23110,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cn_balance",
@@ -22580,7 +23151,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_early_year_balance_setup",
@@ -22625,7 +23197,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_early_year_balance_increase",
@@ -22670,7 +23243,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_early_year_balance_decrease",
@@ -22715,7 +23289,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_debt_other",
@@ -22755,7 +23330,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_increase_debt_other",
@@ -22795,7 +23371,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cn_debt_other",
@@ -22835,7 +23412,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_debt_balance_other",
@@ -22876,7 +23454,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_cn_debt_other",
@@ -22917,7 +23496,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_increase_debt_other",
@@ -22958,7 +23538,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_documents_early_year_other",
@@ -23003,7 +23584,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ar_increase_debt_other",
@@ -23048,7 +23630,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_reduction_dept_other",
@@ -23093,7 +23676,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_documents_early_year_other",
@@ -23138,7 +23722,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_increase_debt_other",
@@ -23183,7 +23768,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_reduction_dept_other",
@@ -23228,7 +23814,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_pay_bill",
@@ -23269,7 +23856,8 @@
    "SMLERPAPARControl._ar_ap_trans",
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_imex_bill_collector",
@@ -23307,7 +23895,8 @@
   "tables": [
    "ar_customer",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ar_debt_billing",
@@ -23348,7 +23937,8 @@
    "SMLERPAPARControl._ar_ap_trans",
    "SMLInventoryControl._formSaleOrderPreview"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_pay_bill",
@@ -23389,7 +23979,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_cancel_debt_billing",
@@ -23430,7 +24021,8 @@
   "embedded": [
    "SMLERPAPARControl._ar_ap_trans"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_cancel_pay_billing",
@@ -23476,7 +24068,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_cancel_invoice",
@@ -23522,7 +24115,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_billing",
@@ -23568,7 +24162,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_pay_debt_trans",
@@ -23614,7 +24209,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_receipt",
@@ -23660,7 +24256,8 @@
    "ap_ar_trans",
    "resource_report",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_ar_payment_pay_detail",
@@ -23696,7 +24293,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_receipt_and_detail",
@@ -23728,7 +24326,8 @@
   "tables": [
    "ap_ar_trans",
    "ap_ar_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_report_billing_note_by_customer_cashier",
@@ -23759,7 +24358,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_ar_report_invoice_remain_pay",
@@ -23795,7 +24395,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_check_balance",
@@ -23835,7 +24436,8 @@
    "ap_ar_resource",
    "ar_customer_detail",
    "cb_petty_cash"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_receive_money_summary",
@@ -23871,7 +24473,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_movement",
@@ -23908,7 +24511,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_period_ar_debt_remain",
@@ -23945,7 +24549,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_period_ar_debt_remain_by_doc",
@@ -23982,7 +24587,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_ar_report_status_ar",
@@ -24019,7 +24625,8 @@
   "embedded": [],
   "tables": [
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_imex_ar_statement",
@@ -24053,7 +24660,8 @@
   "tables": [
    "ap_ar_resource",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ar_doc_picture",
@@ -24089,7 +24697,8 @@
   "embedded": [
    "SMLERPControl._documentPicture"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_customer",
@@ -24118,7 +24727,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other",
@@ -24158,7 +24768,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_credit",
@@ -24198,7 +24809,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_debit",
@@ -24238,7 +24850,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_cancel",
@@ -24279,7 +24892,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_credit_cancel",
@@ -24320,7 +24934,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_debit_cancel",
@@ -24361,7 +24976,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_report",
@@ -24410,7 +25026,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_credit_report",
@@ -24459,7 +25076,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_debit_report",
@@ -24508,7 +25126,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_cancel_report",
@@ -24557,7 +25176,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_credit_cancel_report",
@@ -24606,7 +25226,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_income_other_debit_cancel_report",
@@ -24655,7 +25276,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other",
@@ -24695,7 +25317,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_credit",
@@ -24735,7 +25358,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_debit",
@@ -24775,7 +25399,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_cancel",
@@ -24816,7 +25441,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_credit_cancel",
@@ -24857,7 +25483,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_debit_cancel",
@@ -24898,7 +25525,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_report",
@@ -24947,7 +25575,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_credit_report",
@@ -24996,7 +25625,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_debit_report",
@@ -25045,7 +25675,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_cancel_report",
@@ -25094,7 +25725,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_credit_cancel_report",
@@ -25143,7 +25775,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_expense_other_debit_cancel_report",
@@ -25192,7 +25825,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_cash_balance",
@@ -25233,7 +25867,8 @@
   ],
   "tables": [
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_petty_cash_receive",
@@ -25274,7 +25909,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_petty_return",
@@ -25315,7 +25951,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_petty_cash_receive_cancel",
@@ -25357,7 +25994,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_petty_return_cancel",
@@ -25399,7 +26037,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_petty_cash_request",
@@ -25436,7 +26075,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_petty_cash_return",
@@ -25473,7 +26113,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_cancel_pettycash_request",
@@ -25519,7 +26160,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_cancel_pettycash_return",
@@ -25565,7 +26207,8 @@
    "ic_trans",
    "ic_trans_detail",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_sub_cash_movements",
@@ -25614,7 +26257,8 @@
    "ap_ar_resource",
    "ic_trans",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_pettycash_request_budget",
@@ -25640,7 +26284,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:report (no case found)"
+  "route": "tag:report (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_report_cb_request_testpay",
@@ -25666,7 +26311,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:report (no case found)"
+  "route": "tag:report (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_peety_cash_status",
@@ -25715,7 +26361,8 @@
    "ap_ar_resource",
    "ic_trans",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_book_bank",
@@ -25760,7 +26407,8 @@
    "erp_pass_book_type",
    "erp_bank",
    "erp_bank_branch"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_bank_balance",
@@ -25802,7 +26450,8 @@
   ],
   "tables": [
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_cash_payin",
@@ -25844,7 +26493,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_cash_withdraw",
@@ -25886,7 +26536,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_transfer",
@@ -25928,7 +26579,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_wallet_pass",
@@ -25970,7 +26622,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_cash_payin_cancle",
@@ -26013,7 +26666,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_cash_withdraw_cancle",
@@ -26056,7 +26710,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cash_transfer_cancel",
@@ -26099,7 +26754,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cash_payin",
@@ -26137,7 +26793,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cash_withdraw",
@@ -26175,7 +26832,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_transfer_bank",
@@ -26226,7 +26884,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cancel_withdraw",
@@ -26277,7 +26936,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cancel_payin",
@@ -26328,7 +26988,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_transfer_bank_cancel",
@@ -26379,7 +27040,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_bank_income",
@@ -26406,7 +27068,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:report (no case found)"
+  "route": "tag:report (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_cb_report_bank_expanse",
@@ -26433,7 +27096,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:report (no case found)"
+  "route": "tag:report (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_cb_chq_in_receive_balance",
@@ -26475,7 +27139,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_receive_master",
@@ -26511,7 +27176,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_payin",
@@ -26553,7 +27219,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_pass",
@@ -26595,7 +27262,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_return",
@@ -26637,7 +27305,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_cancel",
@@ -26679,7 +27348,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_renew",
@@ -26721,7 +27391,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_return_chq_new_debt",
@@ -26763,7 +27434,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_payin_cancle",
@@ -26806,7 +27478,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_pass_cancel",
@@ -26849,7 +27522,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_return_cancel",
@@ -26892,7 +27566,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_in_cancel_cancel",
@@ -26935,7 +27610,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_renew_cancel",
@@ -26978,7 +27654,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_chq_in_receive_balance",
@@ -27029,7 +27706,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_in_deposit",
@@ -27080,7 +27758,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_in_pass",
@@ -27131,7 +27810,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_in_return",
@@ -27182,7 +27862,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_in_pass_cancel",
@@ -27233,7 +27914,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_in_change",
@@ -27284,7 +27966,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_in_payin_cancel",
@@ -27335,7 +28018,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_in_honor_cancle",
@@ -27386,7 +28070,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_in_return_cancle",
@@ -27437,7 +28122,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_cancel",
@@ -27488,7 +28174,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_in_change_cancle",
@@ -27539,7 +28226,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_chq_in_receive",
@@ -27581,7 +28269,8 @@
   "tables": [
    "cb_chq_list",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_chq_in_receive_by_date",
@@ -27619,7 +28308,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_chq_receive_due_date",
@@ -27657,7 +28347,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_chq_card_disposit_cheque_detail",
@@ -27690,7 +28381,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "imex_report_cheque_received_by_date_by_status",
@@ -27723,7 +28415,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_report_chqreceive_status_by_date",
@@ -27756,7 +28449,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_report_chqreceive_status_by_date_only_hand",
@@ -27789,7 +28483,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_report_chq_receive_at_date",
@@ -27822,7 +28517,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_cb_chq_out_payment_balance",
@@ -27864,7 +28560,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_payment_master",
@@ -27900,7 +28597,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_pass",
@@ -27942,7 +28640,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_return",
@@ -27984,7 +28683,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_cancel",
@@ -28026,7 +28726,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_renew",
@@ -28068,7 +28769,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_pass_cancel",
@@ -28111,7 +28813,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_cancel_cancel",
@@ -28154,7 +28857,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_return_cancel",
@@ -28197,7 +28901,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_chq_out_renew_cancel",
@@ -28240,7 +28945,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_chq_out_payment_balance",
@@ -28291,7 +28997,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_out_pass",
@@ -28342,7 +29049,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_out_return",
@@ -28393,7 +29101,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_out_pass_cancel",
@@ -28444,7 +29153,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_bank_report_chq_out_change",
@@ -28495,7 +29205,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_out_honor_cancel",
@@ -28546,7 +29257,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_out_cancel_hornor_cancel",
@@ -28597,7 +29309,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_chq_out_return_cancel",
@@ -28648,7 +29361,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_chq_out_change_cancle",
@@ -28699,7 +29413,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_chq_out_payment",
@@ -28741,7 +29456,8 @@
   "tables": [
    "cb_chq_list",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_chq_out_payment_by_date",
@@ -28779,7 +29495,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_chq_pay_due_date",
@@ -28817,7 +29534,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "imex_report_cheque_pay_by_date_by_status",
@@ -28850,7 +29568,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "imex_report_cheque_pay_status_by_date",
@@ -28883,7 +29602,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_imex_report_chq_pay_at_date",
@@ -28916,7 +29636,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_cb_credit_card_receive",
@@ -28952,7 +29673,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_credit_card_pass",
@@ -28994,7 +29716,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_credit_card_cancel",
@@ -29036,7 +29759,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_credit_card_pass",
@@ -29086,7 +29810,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cb_credit_card_cancel",
@@ -29136,7 +29861,8 @@
    "erp_bank",
    "cb_petty_cash",
    "cb_trans_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_report_credit_card_receive",
@@ -29177,7 +29903,8 @@
   "tables": [
    "cb_chq_list",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_chq_card_enddate_card",
@@ -29214,7 +29941,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "_menu_cash_movements",
@@ -29263,7 +29991,8 @@
    "temp_cash_movement",
    "cb_trans_detail",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "_menu_cash_deposit",
@@ -29289,7 +30018,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:report (no case found)"
+  "route": "tag:report (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "_menu_received_cash_sub_item",
@@ -29321,7 +30051,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_summary_received",
@@ -29358,7 +30089,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_summary_payment",
@@ -29395,7 +30127,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_book_bank_balance",
@@ -29432,7 +30165,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "_menu_bank_statement",
@@ -29474,7 +30208,8 @@
    "cb_resource",
    "erp_pass_book",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_statement_advance",
@@ -29511,7 +30246,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_cb_doc_picture",
@@ -29547,7 +30283,8 @@
   "embedded": [
    "SMLERPControl._documentPicture"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_cashbank",
@@ -29576,7 +30313,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_lists",
@@ -29631,7 +30369,8 @@
    "erp_user",
    "erp_province",
    "erp_branch_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_picture",
@@ -29671,7 +30410,8 @@
   ],
   "tables": [
    "as_asset"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_maintenance",
@@ -29714,7 +30454,8 @@
    "erp_branch_list",
    "erp_side_list",
    "erp_department_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_sale",
@@ -29753,7 +30494,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_show_asset_byday",
@@ -29790,7 +30532,8 @@
   "tables": [
    "as_resource",
    "as_asset_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_show_asset_bymonth",
@@ -29826,7 +30569,8 @@
   "embedded": [],
   "tables": [
    "as_asset_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_show_asset_byyear",
@@ -29862,7 +30606,8 @@
   "embedded": [],
   "tables": [
    "as_asset_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_transfers",
@@ -29907,7 +30652,8 @@
    "gl_journal",
    "gl_journal_detail",
    "erp_doc_format"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_report_list",
@@ -29949,7 +30695,8 @@
    "as_asset_type",
    "as_asset_location",
    "ic_unit"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_report_depreciate",
@@ -29991,7 +30738,8 @@
    "as_asset_type",
    "as_asset_location",
    "as_asset_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_asset_report_maintain",
@@ -30029,7 +30777,8 @@
   "tables": [
    "as_asset_maintenance_detail",
    "as_asset"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_asset",
@@ -30058,7 +30807,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:fastreportother",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_chart_of_account",
@@ -30111,7 +30861,8 @@
    "gl_chart_of_account",
    "gl_account_group",
    "gl_cash_flow_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_chart_of_account_fast",
@@ -30150,7 +30901,8 @@
   "embedded": [],
   "tables": [
    "gl_chart_of_account"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_chart_of_account_flow",
@@ -30185,7 +30937,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_report_chart_of_account",
@@ -30222,7 +30975,8 @@
   "embedded": [],
   "tables": [
    "gl_chart_of_account"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_journal",
@@ -30272,7 +31026,8 @@
    "gl_journal_vat_sale",
    "logs",
    "gl_chart_of_account"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_journal_fast",
@@ -30315,7 +31070,8 @@
    "gl_journal",
    "gl_chart_of_account",
    "gl_journal_detail"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_picture",
@@ -30356,7 +31112,8 @@
   ],
   "tables": [
    "gl_journal"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_process",
@@ -30417,7 +31174,8 @@
    "ic_trans_detail_site",
    "ic_trans_detail_jobs",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_check_data",
@@ -30459,7 +31217,8 @@
    "gl_chart_of_account",
    "gl_journal_book",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_journal_pass",
@@ -30498,7 +31257,8 @@
    "gl_journal",
    "gl_journal_detail",
    "gl_chart_of_account"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_journal_pass_cancel",
@@ -30535,7 +31295,8 @@
   "embedded": [],
   "tables": [
    "gl_journal"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_product_sale_cost_close",
@@ -30581,7 +31342,8 @@
    "gl_journal",
    "gl_journal_detail",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_journal_summary",
@@ -30625,7 +31387,8 @@
    "gl_journal",
    "gl_journal_detail",
    "gl_chart_of_account"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_show_sheet",
@@ -30662,7 +31425,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_show_sheet_sum",
@@ -30699,7 +31463,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_journal",
@@ -30735,7 +31500,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_journal_sum",
@@ -30773,7 +31539,8 @@
   "tables": [
    "gl_journal",
    "gl_journal_book"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_sheet",
@@ -30811,7 +31578,8 @@
   "tables": [
    "gl_list_view",
    "gl_chart_of_account"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_sheet_sum",
@@ -30848,7 +31616,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_vat_sale",
@@ -30893,7 +31662,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_except_vat_sale",
@@ -30938,7 +31708,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_vat_sale_2557",
@@ -30983,7 +31754,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_vat_sale_standard",
@@ -31023,7 +31795,8 @@
    "gl_journal_vat_sale",
    "resource_report_vat",
    "erp_branch_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_except_vat_sale_with_tax",
@@ -31068,7 +31841,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_sum_vat_sale",
@@ -31110,7 +31884,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_vat_buy",
@@ -31155,7 +31930,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_except_vat_buy",
@@ -31200,7 +31976,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_vat_buy_2557",
@@ -31245,7 +32022,8 @@
    "ap_supplier",
    "erp_branch_list",
    "gl_tax_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_vat_buy_standard",
@@ -31286,7 +32064,8 @@
    "erp_branch_list",
    "gl_journal_vat_buy",
    "resource_report_vat"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_vat_report_sum",
@@ -31315,7 +32094,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_gl_vat_report_sale_inter",
@@ -31344,7 +32124,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_gl_vat_report_buy_inter",
@@ -31373,7 +32154,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_gl_vat_report_inter_sum",
@@ -31402,7 +32184,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_report_except_vat_sale_with_tax_add_detail",
@@ -31440,7 +32223,8 @@
    "erp_branch_list",
    "gl_tax_group",
    "gl_journal_vat_buy"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_report_except_vat_buy_type1",
@@ -31474,7 +32258,8 @@
    "resource_report_vat",
    "erp_branch_list",
    "gl_journal_vat_buy"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_report_except_vat_buy_type2",
@@ -31510,7 +32295,8 @@
    "erp_branch_list",
    "gl_tax_group",
    "gl_journal_vat_buy"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_gl_wht_report_in_53",
@@ -31555,7 +32341,8 @@
    "ar_customer_detail",
    "ic_trans",
    "erp_branch_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_wht_report_in_3",
@@ -31600,7 +32387,8 @@
    "ar_customer_detail",
    "ic_trans",
    "erp_branch_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_wht_report_sum",
@@ -31645,7 +32433,8 @@
    "ar_customer_detail",
    "ic_trans",
    "erp_branch_list"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_export_wht",
@@ -31680,7 +32469,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_allocate_all",
@@ -31709,7 +32499,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_slip",
@@ -31738,7 +32529,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_gl_show_trial_balance",
@@ -31775,7 +32567,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_analysis_trial_balance",
@@ -31812,7 +32605,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance",
@@ -31849,7 +32643,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance_depart",
@@ -31887,7 +32682,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance_branch",
@@ -31925,7 +32721,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_balancesheet_asset_lao",
@@ -31957,7 +32754,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_gl_report_profit_and_lost_lao",
@@ -31989,7 +32787,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_display_balance_sheet",
@@ -32010,7 +32809,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_gl_report_balance",
@@ -32039,7 +32839,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "tag:gl (no case found)"
+  "route": "tag:gl (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_balancesheet_asset",
@@ -32079,7 +32880,8 @@
    "gl_journal_detail",
    "gl_list_view",
    "gl_account_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_show_work_sheet",
@@ -32116,7 +32918,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_balance_sheet",
@@ -32153,7 +32956,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_display_lost_and_profit_compare_dimension",
@@ -32190,7 +32994,8 @@
   "embedded": [],
   "tables": [
    "gl_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_profit_and_lost_branch_1",
@@ -32228,7 +33033,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance_branch_depart",
@@ -32266,7 +33072,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_profit_and_lost",
@@ -32307,7 +33114,8 @@
    "gl_journal_detail",
    "gl_list_view",
    "gl_account_group"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_profit_and_lost_sum_year",
@@ -32344,7 +33152,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_report_profit_and_lost_sum_year_by_department",
@@ -32382,7 +33191,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_other_1",
@@ -32419,7 +33229,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_financial_report",
@@ -32448,7 +33259,8 @@
   "trans_flag": [],
   "report_enum": [],
   "route": "tag:gl",
-  "selector_tables": []
+  "selector_tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_end_of_period",
@@ -32497,7 +33309,8 @@
    "gl_chart_of_account",
    "gl_journal",
    "erp_doc_format"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_end_of_year",
@@ -32546,7 +33359,8 @@
    "gl_chart_of_account",
    "gl_journal",
    "erp_doc_format"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_close_account_process",
@@ -32586,7 +33400,8 @@
    "gl_journal_summary",
    "gl_journal_summary_detail",
    "gl_summary_close_account_detaiil"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_fastreport_other_gl",
@@ -32622,7 +33437,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_mis_calendar_trans",
@@ -32649,7 +33465,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_sale_information",
@@ -32685,7 +33502,8 @@
    "ar_customer",
    "ic_trans_detail",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_information",
@@ -32725,7 +33543,8 @@
    "ic_inventory_barcode",
    "ic_unit",
    "ic_inventory_price_formula"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_information_manager",
@@ -32772,7 +33591,8 @@
    "erp_doc_format",
    "ic_inventory_detail",
    "ic_wh_shelf"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_buy_information",
@@ -32806,7 +33626,8 @@
    "ap_supplier",
    "ic_trans_detail",
    "ic_resource"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_sales_commission",
@@ -32826,7 +33647,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_ic_sale_shipment",
@@ -32846,7 +33668,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_packing",
@@ -32866,7 +33689,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_shipment_confirm",
@@ -32886,7 +33710,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_edi_external",
@@ -32923,7 +33748,8 @@
    "edi_unit_list",
    "edi_ar_list",
    "edi_external"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_edi_export",
@@ -32961,7 +33787,8 @@
    "resource_report",
    "ic_trans",
    "edi_barcode_list"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_ic_report_sort",
@@ -33001,7 +33828,8 @@
   "tables": [
    "ic_report_sort_item",
    "ic_inventory"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_singha_logs_trans",
@@ -33037,7 +33865,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_cancel_doc",
@@ -33073,7 +33902,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_check_no_bracnch",
@@ -33109,7 +33939,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_receive",
@@ -33145,7 +33976,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_sum_transfer",
@@ -33181,7 +34013,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_sum_transferout",
@@ -33217,7 +34050,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_out_other",
@@ -33253,7 +34087,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_sum_out_by_day",
@@ -33289,7 +34124,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_transfer",
@@ -33325,7 +34161,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_movement_store",
@@ -33361,7 +34198,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_stock_movement",
@@ -33413,7 +34251,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_load_product_warehouse",
@@ -33465,7 +34304,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_ap_purchase_summary_product",
@@ -33501,7 +34341,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_supplier_detail",
@@ -33537,7 +34378,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_supplier_card",
@@ -33585,7 +34427,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sum_pay_money",
@@ -33621,7 +34464,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_receive_by_branch",
@@ -33657,7 +34501,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_pu_by_product",
@@ -33693,7 +34538,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_price_last_buy",
@@ -33729,7 +34575,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_invoice",
@@ -33765,7 +34612,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sum_sale_qty",
@@ -33801,7 +34649,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_ar_sale_card",
@@ -33837,7 +34686,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sum_receive_money",
@@ -33873,7 +34723,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_analyst_sale_customer",
@@ -33909,7 +34760,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_summary_byproduct",
@@ -33945,7 +34797,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_sing_report_sale_lessthan_cost",
@@ -33981,7 +34834,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_by_branch",
@@ -34017,7 +34871,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_history_branch",
@@ -34053,7 +34908,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_summary_by_saleman",
@@ -34101,7 +34957,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_analyst_sale_customer_cut_return",
@@ -34137,7 +34994,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sum_transport_type",
@@ -34173,7 +35031,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_summary_byproduct_oneline",
@@ -34209,7 +35068,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_invoice_showremark",
@@ -34245,7 +35105,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_premium_by_date",
@@ -34281,7 +35142,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_analyst_sale_area",
@@ -34317,7 +35179,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_sale_category_year_compare",
@@ -34369,7 +35232,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_sale_invoice_by_credit_day",
@@ -34405,7 +35269,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_customer_credit_balance",
@@ -34453,7 +35318,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_credit_money_check",
@@ -34489,7 +35355,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_ar_outstanding",
@@ -34537,7 +35404,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_transport_address",
@@ -34573,7 +35441,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_customer_credit_balance_by_creditdate",
@@ -34621,7 +35490,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_chequein_list",
@@ -34658,7 +35528,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_chequein_balance",
@@ -34695,7 +35566,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_chequein_deposit",
@@ -34732,7 +35604,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_chequein_pass",
@@ -34769,7 +35642,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "report_singha_chq_receive_movement",
@@ -34818,7 +35692,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_chq_in_return",
@@ -34855,7 +35730,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_bank_statement",
@@ -34903,7 +35779,8 @@
    "cb_resource",
    "ic_resource",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_bank_statement_show_payment_detail",
@@ -34939,7 +35816,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_other_expenses",
@@ -34975,7 +35853,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_wht_3",
@@ -35027,7 +35906,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_product_wht_53",
@@ -35079,7 +35959,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_vat_buy",
@@ -35122,7 +36003,8 @@
    "resource_report_vat",
    "ap_supplier",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_vat_sale",
@@ -35165,7 +36047,8 @@
    "resource_report_vat",
    "ap_supplier",
    "ar_customer"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_cash_gl_sheet",
@@ -35217,7 +36100,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_report_transfer_gl_sheet",
@@ -35269,7 +36153,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_journal",
@@ -35321,7 +36206,8 @@
    "erp_branch_list",
    "ic_shelf",
    "ap_ar_resource"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_vat_free_by_issue",
@@ -35357,7 +36243,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_profit_and_lost",
@@ -35391,7 +36278,8 @@
    "gl_journal_detail",
    "gl_list_view",
    "gl_account_group"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_singha_report_balancesheet_asset",
@@ -35425,7 +36313,8 @@
    "gl_journal_detail",
    "gl_list_view",
    "gl_account_group"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_singha_report_balancesheet_compare",
@@ -35446,7 +36335,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_singha_report_lost_profit_compare",
@@ -35467,7 +36357,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_gl_report_trial_balance",
@@ -35504,7 +36395,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance_depart",
@@ -35542,7 +36434,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance_branch",
@@ -35580,7 +36473,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_balance_sheet",
@@ -35617,7 +36511,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_other_1",
@@ -35655,7 +36550,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_profit_and_lost_branch_1",
@@ -35693,7 +36589,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_gl_report_trial_balance_branch_depart",
@@ -35731,7 +36628,8 @@
   "embedded": [],
   "tables": [
    "gl_list_view"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_wh_deposits",
@@ -35768,7 +36666,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_issue",
@@ -35805,7 +36704,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_wh_issue_return",
@@ -35842,7 +36742,8 @@
   "embedded": [
    "SMLInventoryControl._icTransControl"
   ],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_singha_report_wh_deposits_customer",
@@ -35879,7 +36780,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_wh_accrued_out",
@@ -35916,7 +36818,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_summary_warehouse_deposit",
@@ -35953,7 +36856,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_summary_warehouse_deposit_depart",
@@ -35990,7 +36894,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_summary_warehouse_depart_return",
@@ -36027,7 +36932,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_singha_report_stock_balance_compare_deposit",
@@ -36064,7 +36970,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_wh_rent_balance",
@@ -36085,7 +36992,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_rent_deposits",
@@ -36106,7 +37014,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_rent_return",
@@ -36127,7 +37036,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_rent_return_deposit",
@@ -36148,7 +37058,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_wh_rent_report",
@@ -36169,7 +37080,8 @@
   "trans_enum": [],
   "trans_flag": [],
   "report_enum": [],
-  "route": "fallback:_g._selectMenu (no case found)"
+  "route": "fallback:_g._selectMenu (ไม่พบตัวจัดการ: เมนูค้าง/ไม่เปิดอะไร)",
+  "pos_pro": false
  },
  {
   "name": "menu_shipment_load",
@@ -36201,7 +37113,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_singha_report_shipment",
@@ -36237,7 +37150,8 @@
   "embedded": [],
   "tables": [
    "sml_fastreport"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_customer",
@@ -36271,7 +37185,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_route_planning",
@@ -36306,7 +37221,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_adhoc_jobs",
@@ -36341,7 +37257,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_manage_route_plan",
@@ -36376,7 +37293,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_invoice",
@@ -36412,7 +37330,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_sales_invoice",
@@ -36448,7 +37367,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_bill_collection",
@@ -36484,7 +37404,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_goods_transfer_request",
@@ -36520,7 +37441,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_ods_transfer",
@@ -36556,7 +37478,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_ods_recieved_customer",
@@ -36592,7 +37515,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_ods_issued_customer",
@@ -36628,7 +37552,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_ods_exchange",
@@ -36664,7 +37589,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_goods_return",
@@ -36700,7 +37626,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_approve_code",
@@ -36736,7 +37663,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_document_running_no",
@@ -36772,7 +37700,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_ods_transfer",
@@ -36808,7 +37737,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_photo_group",
@@ -36843,7 +37773,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_photos",
@@ -36878,7 +37809,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_hea_map",
@@ -36913,7 +37845,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_view_map",
@@ -36948,7 +37881,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_fleet",
@@ -36983,7 +37917,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_real_time",
@@ -37018,7 +37953,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_customer_gps_by_salesman",
@@ -37053,7 +37989,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_aap_analysis",
@@ -37088,7 +38025,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_promotions",
@@ -37123,7 +38061,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_import_promotion",
@@ -37158,7 +38097,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_promotion_group",
@@ -37193,7 +38133,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_advance_price",
@@ -37228,7 +38169,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_web_users",
@@ -37263,7 +38205,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_change_password",
@@ -37298,7 +38241,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_mobile_users",
@@ -37333,7 +38277,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_sync_log",
@@ -37368,7 +38313,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_user_roles",
@@ -37403,7 +38349,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_import_export_data",
@@ -37439,7 +38386,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_update_mobile",
@@ -37475,7 +38423,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_import_master_sml",
@@ -37511,7 +38460,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_product",
@@ -37547,7 +38497,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_store",
@@ -37583,7 +38534,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_region",
@@ -37619,7 +38571,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_state",
@@ -37655,7 +38608,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_city",
@@ -37691,7 +38645,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_town",
@@ -37727,7 +38682,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_customer_type",
@@ -37763,7 +38719,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_credit_days",
@@ -37799,7 +38756,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_price_level",
@@ -37835,7 +38793,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_adjust_money",
@@ -37871,7 +38830,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_news_type",
@@ -37907,7 +38867,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_payment_type",
@@ -37943,7 +38904,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_survey_type",
@@ -37979,7 +38941,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_delivery_days",
@@ -38015,7 +38978,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_material_Type",
@@ -38051,7 +39015,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_display_type",
@@ -38087,7 +39052,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_distributor",
@@ -38123,7 +39089,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_company",
@@ -38159,7 +39126,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_warehouse",
@@ -38195,7 +39163,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_dc_state",
@@ -38231,7 +39200,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_dcsection",
@@ -38267,7 +39237,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_sales_area",
@@ -38303,7 +39274,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_delivery_route",
@@ -38339,7 +39311,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_bank",
@@ -38375,7 +39348,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_bank_account",
@@ -38411,7 +39385,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_news_and_documents",
@@ -38447,7 +39422,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_mustlist_product",
@@ -38483,7 +39459,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_saletools_14_9",
@@ -38517,7 +39494,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_sync_data_arm",
@@ -38548,7 +39526,8 @@
   "embedded": [],
   "tables": [
    "resource_report"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_sync_data_saleout",
@@ -38579,7 +39558,8 @@
   "embedded": [],
   "tables": [
    "resource_report"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_sync_data_stock",
@@ -38610,7 +39590,8 @@
   "embedded": [],
   "tables": [
    "resource_report"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_import_sale_from_stock_count_diff",
@@ -38638,7 +39619,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": false
  },
  {
   "name": "menu_imort_sale_from_pos_sale_report",
@@ -38668,7 +39650,8 @@
   "embedded": [],
   "tables": [
    "ic_trans_detail"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_imort_sale_from_purchase_bill",
@@ -38701,7 +39684,8 @@
    "ic_inventory",
    "ic_unit",
    "ic_trans"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_debt_import",
@@ -38744,7 +39728,8 @@
    "erp_income_list",
    "erp_expenses_list",
    "ap_ar_trans"
-  ]
+  ],
+  "pos_pro": false
  },
  {
   "name": "menu_mobillyst_create_delivery_order",
@@ -38781,7 +39766,8 @@
   "tables": [
    "ic_trans",
    "erp_delivery_order_item"
-  ]
+  ],
+  "pos_pro": true
  },
  {
   "name": "menu_mobillyst_create_cn_delivery_order",
@@ -38816,7 +39802,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_mobillyst_create_tr_delivery_order",
@@ -38851,7 +39838,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_mobillyst_create_po_delivery_order",
@@ -38886,7 +39874,8 @@
    "UserControl"
   ],
   "embedded": [],
-  "tables": []
+  "tables": [],
+  "pos_pro": true
  },
  {
   "name": "menu_mobillyst_delivery_order_list",
@@ -38925,6 +39914,7 @@
   "tables": [
    "erp_delivery_order",
    "erp_delivery_order_item"
-  ]
+  ],
+  "pos_pro": true
  }
 ]

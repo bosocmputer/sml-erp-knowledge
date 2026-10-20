@@ -96,7 +96,7 @@ def main():
              f"# โมดูล: {top}", "", "กลับไป [[modules-index]] · [[00-Index]]", ""]
         if top in CURATED:
             L += ["## สรุปการทำงาน", ""] + [f"- {x}" for x in CURATED[top]] + [""]
-        L += ["## ตัวเลข", "", f"- เมนูปลายทาง {len(rows)} รายการ, จับคู่คลาสได้ {len(mapped)}",
+        L += ["## ตัวเลข", "", f"- เมนูปลายทาง {len(rows)} รายการ, จับคู่คลาสได้ {len(mapped)}, เห็นใน SMLAccountPOSProfessional (edition 12) {sum(1 for r in rows if r.get('pos_pro'))}",
               f"- คลาสหน้าจอที่ใช้บ่อย: " + ", ".join(f"`{c}` ({n})" for c, n in classes.most_common(6)),
               f"- control หลักที่ฝัง: " + (", ".join(f"`{c}` ({n})" for c, n in cores.most_common(6)) or "-"), ""]
         if flags:
@@ -104,10 +104,10 @@ def main():
             L += [f"| {f} | {FLAG_NAMES.get(str(f), '')} | {n} |" for f, n in sorted(flags.items())] + [""]
         if tables:
             L += ["## ตารางที่หน้าจออ้างถึง (static, ไม่นับ control กลาง)", "", ", ".join(f"`{t}`" for t, _ in tables.most_common(40)), ""]
-        L += ["## เมนูทั้งหมด", "", "| เมนู | menu name | คลาส | trans_flag | ตาราง |", "|---|---|---|---|---|"]
+        L += ["## เมนูทั้งหมด", "", "| เมนู | menu name | POS Pro | คลาส | trans_flag | ตาราง |", "|---|---|---|---|---|---|"]
         for r in rows:
             sub = " › ".join(r["path"][1:] + [r["text"]])
-            L.append(f"| {sub} | `{r['name']}` | {('`' + r['class'] + '`') if r['class'] else r['route']} | "
+            L.append(f"| {sub} | `{r['name']}` | {'✓' if r.get('pos_pro') else ''} | {('`' + r['class'] + '`') if r['class'] else r['route']} | "
                      f"{', '.join(map(str, r['trans_flag']))} | {', '.join(r.get('tables', [])[:4])} |")
         (OUT / f"module-{slug}.md").write_text("\n".join(L) + "\n", encoding="utf-8")
         index.append(f"| {top} | [[module-{slug}]] | {len(rows)} | {len(mapped)} |")

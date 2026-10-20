@@ -9,7 +9,7 @@ trans_flags: [2]
 
 ## ตัวเลข
 
-- เมนูปลายทาง 12 รายการ, จับคู่คลาสได้ 11
+- เมนูปลายทาง 12 รายการ, จับคู่คลาสได้ 11, เห็นใน SMLAccountPOSProfessional (edition 12) 12
 - คลาสหน้าจอที่ใช้บ่อย: `SMLERPASSET._as_list` (1), `SMLERPASSET._as_list_pic` (1), `SMLERPASSET._as_maintain` (1), `SMLERPSO._saleAssets` (1), `SMLERPASSET._display._depreciateByDay` (1), `SMLERPASSET._display._depreciateByMonth` (1)
 - control หลักที่ฝัง: `SMLERPControl._getPicture` (1), `SMLERPGLControl._glDetail` (1), `SMLERPGLControl._journalScreen` (1)
 
@@ -25,17 +25,17 @@ trans_flags: [2]
 
 ## เมนูทั้งหมด
 
-| เมนู | menu name | คลาส | trans_flag | ตาราง |
-|---|---|---|---|---|
-| รายละเอียดสินทรัพย์ › ข้อมูลสินทรัพย์ | `menu_asset_lists` | `SMLERPASSET._as_list` |  | as_asset, as_asset_detail, gl_chart_of_account, as_asset_sale_detail |
-| รายละเอียดสินทรัพย์ › กำหนดรูปภาพ | `menu_asset_picture` | `SMLERPASSET._as_list_pic` |  | as_asset |
-| บันทึกการซ่อมบำรุงสินทรัพย์ | `menu_asset_maintenance` | `SMLERPASSET._as_maintain` |  | as_asset_maintenance_detail, as_asset_maintenance, erp_branch_list, erp_side_list |
-| บันทึกการขายสินทรัพย์ | `menu_asset_sale` | `SMLERPSO._saleAssets` | 2 |  |
-| แสดงค่าเสื่อมราคาสินทรัพย์รายวัน | `menu_show_asset_byday` | `SMLERPASSET._display._depreciateByDay` |  | as_resource, as_asset_detail |
-| แสดงค่าเสื่อมราคาสินทรัพย์รายเดือน | `menu_show_asset_bymonth` | `SMLERPASSET._display._depreciateByMonth` |  | as_asset_detail |
-| แสดงค่าเสื่อมราคาสินทรัพย์รายปี | `menu_show_asset_byyear` | `SMLERPASSET._display._depreciateByYear` |  | as_asset_detail |
-| โอนข้อมูลเข้าระบบบัญชี | `menu_asset_transfers` | `SMLERPASSET._as_transfer` |  | as_trans, as_asset, as_trans_detail, gl_journal |
-| รายงาน › รายงานรายละเอียดสินทรัพย์ | `menu_asset_report_list` | `SMLERPASSET._report._asset._report` |  | as_asset_detail, as_asset, erp_department_list, as_asset_type |
-| รายงาน › รายงานค่าเสื่อมราคาสินทรัพย์ | `menu_asset_report_depreciate` | `SMLERPASSET._report._depreciate._report` |  | as_asset, as_resource, erp_department_list, as_asset_type |
-| รายงาน › รายงานการซ่อมบำรุงสินทรัพย์ | `menu_asset_report_maintain` | `SMLERPASSET._report._maintain._report` |  | as_asset_maintenance_detail, as_asset |
-| รายงานอื่น ๆ | `menu_fastreport_other_asset` | tag:fastreportother |  |  |
+| เมนู | menu name | POS Pro | คลาส | trans_flag | ตาราง |
+|---|---|---|---|---|---|
+| รายละเอียดสินทรัพย์ › ข้อมูลสินทรัพย์ | `menu_asset_lists` | ✓ | `SMLERPASSET._as_list` |  | as_asset, as_asset_detail, gl_chart_of_account, as_asset_sale_detail |
+| รายละเอียดสินทรัพย์ › กำหนดรูปภาพ | `menu_asset_picture` | ✓ | `SMLERPASSET._as_list_pic` |  | as_asset |
+| บันทึกการซ่อมบำรุงสินทรัพย์ | `menu_asset_maintenance` | ✓ | `SMLERPASSET._as_maintain` |  | as_asset_maintenance_detail, as_asset_maintenance, erp_branch_list, erp_side_list |
+| บันทึกการขายสินทรัพย์ | `menu_asset_sale` | ✓ | `SMLERPSO._saleAssets` | 2 |  |
+| แสดงค่าเสื่อมราคาสินทรัพย์รายวัน | `menu_show_asset_byday` | ✓ | `SMLERPASSET._display._depreciateByDay` |  | as_resource, as_asset_detail |
+| แสดงค่าเสื่อมราคาสินทรัพย์รายเดือน | `menu_show_asset_bymonth` | ✓ | `SMLERPASSET._display._depreciateByMonth` |  | as_asset_detail |
+| แสดงค่าเสื่อมราคาสินทรัพย์รายปี | `menu_show_asset_byyear` | ✓ | `SMLERPASSET._display._depreciateByYear` |  | as_asset_detail |
+| โอนข้อมูลเข้าระบบบัญชี | `menu_asset_transfers` | ✓ | `SMLERPASSET._as_transfer` |  | as_trans, as_asset, as_trans_detail, gl_journal |
+| รายงาน › รายงานรายละเอียดสินทรัพย์ | `menu_asset_report_list` | ✓ | `SMLERPASSET._report._asset._report` |  | as_asset_detail, as_asset, erp_department_list, as_asset_type |
+| รายงาน › รายงานค่าเสื่อมราคาสินทรัพย์ | `menu_asset_report_depreciate` | ✓ | `SMLERPASSET._report._depreciate._report` |  | as_asset, as_resource, erp_department_list, as_asset_type |
+| รายงาน › รายงานการซ่อมบำรุงสินทรัพย์ | `menu_asset_report_maintain` | ✓ | `SMLERPASSET._report._maintain._report` |  | as_asset_maintenance_detail, as_asset |
+| รายงานอื่น ๆ | `menu_fastreport_other_asset` | ✓ | tag:fastreportother |  |  |

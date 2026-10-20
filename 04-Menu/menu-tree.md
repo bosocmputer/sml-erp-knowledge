@@ -7,7 +7,7 @@ tags: [sml, menu, generated]
 
 เมนูหลัก 18 กลุ่ม, ทั้งหมด 1121 รายการ, เมนูปลายทาง 990 รายการ
 
-ความหมาย tag: คำ (`so`, `po`, `ar`, `gl`, `pos`, `config`, `fastreport` …) ใช้ใน `SMLAccount/_mainForm.cs` เพื่อส่งเมนูไปยังโมดูลที่เปิดหน้าจอ; ตัวเลข (`edition`) น่าจะเป็นรหัส edition ที่เห็นเมนูนี้ — **ยังไม่ได้ยืนยันว่าเลขใดคือ SMLAccountPOS** ดู [[architecture]]
+ความหมาย tag: คำ (`so`, `po`, `ar`, `gl`, `pos`, `config`, `fastreport` …) ใช้ใน `SMLAccount/_mainForm.cs` เพื่อส่งเมนูไปยังโมดูลที่เปิดหน้าจอ; ตัวเลข (`edition`) คือรหัส edition ที่เห็นเมนูนี้ (ยืนยันจาก `SMLERPTemplate/_templateMainForm.cs`) — **12 = SMLAccountPOS** (ตัวเปิด SMLAccountPOSProfessional ใช้ค่านี้) รายการเลขทั้งหมดดู [[menu-map]]
 
 สิทธิ์การเห็นเมนูต่อผู้ใช้/กลุ่มมาจาก `smlerpmain<provider>` (`sml_permissions_user`, `sml_permissions_group`) ผ่าน `_hideNode()`
 
