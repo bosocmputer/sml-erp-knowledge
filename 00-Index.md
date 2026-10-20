@@ -17,6 +17,10 @@ tags: [sml, index]
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
 - [[trans_flag]] — เลข trans_flag → ประเภทเอกสาร 203 ค่า *(generated)*
 
+## โมดูลและรายงาน
+- [[modules-index]] — โน้ต 1 ไฟล์ต่อเมนูหลัก (ขาย, ซื้อ, สินค้า, ลูกหนี้, เจ้าหนี้, เงินสด/ธนาคาร, บัญชี, POS …) *(generated + สรุป)*
+- [[reports]] — FastReport 562 ตัว (ตารางที่อ่าน) + รายงานในโค้ด 335 เมนู *(generated)*
+
 ## Database
 - [[database-layout]] — รูปแบบ DB ต่อกิจการ (`smlerpmain<provider>`, `<db>`, `_images`, `_logs`) และสถานะ DB สำเนา
 - [[sql-capture-aoy]] — ขั้นตอนทดสอบเก็บ SQL กับชุด AOY ทีละขั้น
@@ -28,7 +32,8 @@ tags: [sml, index]
 - [[product-ideas]] — ตลาด, pain point, persona, use case, ไอเดีย product 10 ข้อ
 
 ## ยังไม่ได้ทำ (งานถัดไป)
-- รายการรายงาน (SMLERP*Report, SMLFastReport) และฟอร์มพิมพ์ (SMLFormDesign)
+- ฟอร์มพิมพ์เอกสาร (SMLFormDesign / `_formReport`)
+- ความหมาย `report_type` ของ FastReport และการผูก FastReport id ตัวเลขกับเมนู
 - POS: โฟลว์ขายหน้าร้าน กะ แคชเชียร์ (SMLPOSClient, SMLPOSControl, ตาราง `pos_*`)
 - ยืนยันว่าเลข edition ใน menu.json เลขใดคือ SMLAccountPOS
 - ยืนยันความหมาย trans_flag กับข้อมูลจริง และตรวจว่า field POS/ล็อตมีค่าจริง
