@@ -78,6 +78,7 @@ def resolve(cls, module_ns, idx):
 # --- controls embedded by a screen (designer) -------------------------------
 CORE_RE = re.compile(r"new\s+((?:SMLInventoryControl|SMLERPAPARControl|SMLERPCASHBANK|SMLERPGLControl|SMLERPControl|SMLPOSControl|MyLib)\.\w+)\s*\(")
 _emb_cache = {}
+_tbl_cache = {}
 
 
 def embedded(rel):
@@ -87,6 +88,8 @@ def embedded(rel):
     files = [p] + [q for q in p.parent.glob(p.stem + ".*esigner.cs")]
     src = "".join(strip_comments(read(f)) for f in files if f.exists())
     keep_mylib = {"MyLib._myManageData", "MyLib._managerMasterScreenClass", "MyLib._ManageTransData", "MyLib._searchDataFull"}
+    tables = collections.Counter(re.findall(r"_g\.d\.(\w+)\._table", src))
+    _tbl_cache[rel] = [t for t, _ in tables.most_common(25)]
     emb = sorted({m.group(1) for m in CORE_RE.finditer(src)
                   if not m.group(1).startswith("MyLib.") or m.group(1) in keep_mylib} - {"MyLib._myGrid", "MyLib._myScreen", "MyLib._myTextBox", "MyLib._myLabel", "MyLib._myButton", "MyLib._myPanel", "MyLib._myToolStripButton", "MyLib._myShadowLabel", "MyLib._myTabControl", "MyLib._myCheckBox", "MyLib._myGroupBox", "MyLib._myComboBox", "MyLib._myFlowLayoutPanel", "MyLib._myTabPage"})
     enums = sorted(set(re.findall(r"_transControlType\s*=\s*_g\.g\._transControlTypeEnum\.([^\s;,)]+)", src)))
@@ -146,6 +149,7 @@ def module_cases(module):
                 "trans_enum": re.findall(r"_transControlTypeEnum\.([^\s;,)]+)", seg_core),
                 "report_enum": re.findall(r"_reportEnum\.([^\s;,)]+)", seg_core),
                 "args": re.sub(r"\s+", " ", args)[:160],
+                "tables": sorted(set(re.findall(r"_g\.d\.(\w+)\._table", seg_core))),
             }
             for lbl in pending:
                 cases[lbl] = row
@@ -200,6 +204,7 @@ def main():
                 c = cases.get(name)
                 if c:
                     r["class"], r["trans_enum"], r["report_enum"], r["args"] = c["class"], c["trans_enum"], c["report_enum"], c["args"]
+                    r["selector_tables"] = c["tables"]
                 else:
                     r["route"] += " (no case found)"
         if r["class"]:
@@ -213,6 +218,8 @@ def main():
         if r["file"]:
             emb, enums = embedded(r["file"])
             r["embedded"] = emb
+            core = any(e.endswith("_icTransControl") for e in emb) or r["class"].endswith("_clone_icTrans")
+            r["tables"] = r.get("selector_tables") or ([] if core else _tbl_cache.get(r["file"], []))
             if not r["trans_enum"]:
                 r["trans_enum"] = enums
         r["trans_flag"] = [flags[e] for e in r["trans_enum"] if e in flags]
