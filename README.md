@@ -15,6 +15,7 @@
 | `05-Modules` | โมดูล/โปรเจกต์ (generated) |
 | `06-sml_mcp_ai` | โปรเจกต์ MCP server |
 | `07-Product` | ไอเดีย product, ตลาด, use case |
+| `08-Reports` | แค็ตตาล็อกรายงาน (generated) |
 | `scripts` | ตัวสร้างไฟล์ generated |
 
 ## กติกา
@@ -29,8 +30,11 @@
 ```bash
 python3 scripts/gen_menu.py            # ~/dev/smlerp/SMLAccount/menu.json → 04-Menu/menu-tree.md
 python3 scripts/gen_modules.py         # ~/dev/smlerp → 05-Modules/modules.md
+python3 scripts/gen_menu_map.py        # เมนู → คลาสหน้าจอ → 04-Menu/menu-map.{md,json}, screen-classes.md
+python3 scripts/gen_module_notes.py    # 05-Modules/module-*.md (รันหลัง gen_menu_map)
 export PGHOST=... PGPORT=... PGUSER=... PGPASSWORD=...
 scripts/gen_schema.sh kbyt             # → 02-Database/schema/
+python3 scripts/gen_reports.py aoy     # → 08-Reports/reports.md (อ่าน sml_fastreport, เก็บแค่ชื่อตาราง)
 ```
 
 `03-Reference/trans_flag.md` สกัดจาก `SMLERPGlobal/_global.cs` ฟังก์ชัน `_transFlag()`
