@@ -21,6 +21,7 @@ tags: [sml, index]
 - [[screen-classes]] — คลาสหน้าจอจัดกลุ่มตาม base class *(generated)*
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
 - [[doc-flow-rules]] — กฎสายเอกสาร 67 ประเภท: ยกเลิกด้วยอะไร ถูกใช้ต่อโดยเอกสารไหน, used_status / doc_success *(generated)*
+- [[gl-action-codes]] — รหัสการกระทำ GL 554 รายการใน 48 กลุ่มเอกสาร (ยอดขาย, VAT, เงินสด, บัตร, ส่วนลด, ต้นทุน …) *(generated)*
 - [[company-options]] — ตัวเลือกบริษัท 266 ตัวที่เปลี่ยนพฤติกรรมโปรแกรม (GL realtime, ต้นทุน, ทศนิยม, หลายสกุลเงิน …) *(generated)*
 - [[enums]] — enum 102 ชุด: รหัสตัวเลขในคอลัมน์ → ความหมาย (ประเภทภาษี, สถานะเช็ค, ต้นทุน …) *(generated)*
 - [[trans_flag]] — เลข trans_flag → ประเภทเอกสาร 203 ค่า *(generated)*

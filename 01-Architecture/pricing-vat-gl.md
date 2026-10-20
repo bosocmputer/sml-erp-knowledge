@@ -52,5 +52,5 @@ date: 2026-10-20
 - `gl_journal_detail.journal_type = 1` = ยอดยกมา (รายงานงบใช้แยกยอดยกมากับยอดระหว่างงวด) ดู `SMLProcess/_glProcess.cs`
 
 ## ยังไม่ได้ไล่
-- รายชื่อรหัสการกระทำ (`condition_number` / action_code) ทั้งหมด — อยู่ใน DB master `gl_doc_format` (ไม่มีในโค้ด) อ่านได้จาก `erp_doc_format_gl.condition_name` ของร้าน
+- (เสร็จแล้ว) รหัสการกระทำแยกตามกลุ่มเอกสาร ดู [[gl-action-codes]]
 - สูตรภาษีละเอียดระดับบรรทัด (การปัดเศษ VAT รวมใน)
