@@ -2,3 +2,5 @@
 .obsidian/cache
 .DS_Store
 .trash/
+*.log
+sqllog/
