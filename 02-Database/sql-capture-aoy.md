@@ -29,8 +29,10 @@ trans_flag ที่มีมากสุด: 44 ขาย (649), 12 ซื้�
 - [ ] สิทธิ์ดู log ของ PostgreSQL (`docker logs` หรือไฟล์ log)
 - [ ] (แนะนำ) backup `aoy` ก่อน เพราะการทดสอบจะเขียนข้อมูลจริง:
   ```bash
-  pg_dump -Fc -d aoy -f aoy-before-test.dump
+  mkdir -p ~/sml-sqllog
+  PGPASSWORD='<superuser password>' pg_dump -h <host> -p <port> -U <superuser> -Fc -d aoy -f ~/sml-sqllog/aoy-before-test.dump
   ```
+  ต้องใส่ `-h/-p/-U` เสมอ ไม่งั้น pg_dump จะต่อ socket ในเครื่องตัวเอง; pg_dump 14 dump server 11 ได้ แต่ restore ต้องใช้ pg_restore 14
 
 ## ขั้นที่ 1 — เปิด log เฉพาะชุด AOY
 ต่อ psql ด้วย superuser แล้วรัน:
@@ -89,4 +91,4 @@ ALTER DATABASE aoy_logs      RESET log_statement;
 ALTER SYSTEM RESET log_line_prefix;
 SELECT pg_reload_conf();
 ```
-(ถ้าอยากคืนข้อมูลก่อนทดสอบ: `pg_restore --clean -d aoy aoy-before-test.dump`)
+(ถ้าอยากคืนข้อมูลก่อนทดสอบ: `pg_restore -h <host> -p <port> -U <superuser> --clean -d aoy ~/sml-sqllog/aoy-before-test.dump`)
