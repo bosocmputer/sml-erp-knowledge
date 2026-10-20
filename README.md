@@ -32,6 +32,11 @@ python3 scripts/gen_menu.py            # ~/dev/smlerp/SMLAccount/menu.json → 0
 python3 scripts/gen_modules.py         # ~/dev/smlerp → 05-Modules/modules.md
 python3 scripts/gen_menu_map.py        # เมนู → คลาสหน้าจอ → 04-Menu/menu-map.{md,json}, screen-classes.md
 python3 scripts/gen_module_notes.py    # 05-Modules/module-*.md (รันหลัง gen_menu_map)
+python3 scripts/gen_dictionary.py      # 02-Database/dictionary/ + dictionary.json (จาก smldatabase.xml)
+python3 scripts/gen_enums.py           # 03-Reference/enums.md
+python3 scripts/gen_options.py         # 03-Reference/company-options.md (รันหลัง gen_dictionary)
+python3 scripts/gen_docflow.py         # 03-Reference/doc-flow-rules.md
+python3 scripts/gen_webservice_api.py  # 01-Architecture/webservice-api.md (จาก ~/dev/smljavaws2)
 export PGHOST=... PGPORT=... PGUSER=... PGPASSWORD=...
 scripts/gen_schema.sh kbyt             # → 02-Database/schema/
 python3 scripts/gen_reports.py aoy     # → 08-Reports/reports.md (อ่าน sml_fastreport, เก็บแค่ชื่อตาราง)
