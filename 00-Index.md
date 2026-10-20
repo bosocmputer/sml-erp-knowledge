@@ -3,7 +3,7 @@ tags: [sml, index]
 ---
 # คลังความรู้ SML ERP
 
-จุดเริ่มต้นของ vault นี้ อ่านจากบนลงล่างถ้าเพิ่งเริ่ม
+จุดเริ่มต้นของ vault นี้ อ่านจากบนลงล่างถ้าเพิ่งเริ่ม · ความครบถ้วนดู [[00-Completeness]]
 
 ## ระบบ SML ทำงานอย่างไร
 - [[login-flow]] — เปิดโปรแกรม → หน้า Login → เลือก database → หน้าหลัก (ไล่โค้ดทีละขั้น)
@@ -41,9 +41,4 @@ tags: [sml, index]
 - [[product-ideas]] — ตลาด, pain point, persona, use case, ไอเดีย product 10 ข้อ
 
 ## ยังไม่ได้ทำ (งานถัดไป)
-- โครงสร้างภายใน `formdesigntext` (ฟอร์มพิมพ์)
-- ความหมาย `report_type` ของ FastReport และการผูก FastReport id ตัวเลขกับเมนู
-- POS: เงื่อนไขโปรโมชั่นละเอียด, ความหมาย command_type ใน `pos_log`
-- สูตร Lot FIFO/FEFO/Standard cost ละเอียด
-- เฟส 2: ยืนยันด้วย SQL จริง (tcpdump) — ดู [[sql-capture-aoy]]
-- ยืนยันความหมาย trans_flag กับข้อมูลจริง และตรวจว่า field POS/ล็อตมีค่าจริง
+ดูรายการล่าสุดที่ [[00-Completeness]]

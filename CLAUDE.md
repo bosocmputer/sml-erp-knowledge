@@ -9,8 +9,10 @@ vault นี้อธิบายระบบ SML ERP (SMLSoft) — ตอบเ
 3. ประเภทเอกสาร: `03-Reference/trans_flag.md`; เก็บที่ตารางไหน: `01-Architecture/data-model.md`
 4. ตาราง/คอลัมน์: `grep -rn "## <table>" 02-Database/schema/`
 5. รายงาน: `08-Reports/reports.md` (FastReport + ตารางที่อ่าน)
-6. วิธีทำงานของหน้าจอหลัก: `01-Architecture/document-engine.md`, `pos-client.md`, `login-flow.md`
-7. โค้ดจริง: `~/dev/smlerp` (C#), `~/dev/smljavaws2` (Java) — คอลัมน์ `file` ใน menu-map ชี้ path
+6. ความหมายคอลัมน์: `02-Database/dictionary.json` หรือ `02-Database/dictionary/dict-<module>.md`; รหัสตัวเลข: `03-Reference/enums.md`
+7. กฎ: สายเอกสาร `03-Reference/doc-flow-rules.md`, ตัวเลือกร้าน `03-Reference/company-options.md`, สต็อก/ต้นทุน `01-Architecture/stock-cost.md`, ราคา/ส่วนลด/VAT/GL `01-Architecture/pricing-vat-gl.md`
+8. วิธีทำงานของหน้าจอหลัก: `01-Architecture/document-engine.md`, `pos-client.md`, `login-flow.md`, `print-forms.md`; API: `webservice-api.md`
+9. โค้ดจริง: `~/dev/smlerp` (C#), `~/dev/smljavaws2` (Java) — คอลัมน์ `file` ใน menu-map ชี้ path
 
 ## ระดับความเชื่อมั่น
 frontmatter `status`: `verified-on-aoy` (ยืนยันกับข้อมูลจริง) > `from-code` (อ่านจากโค้ด) > ไม่ระบุ — บอกผู้ใช้เสมอว่าข้อมูลมาจากระดับไหน
