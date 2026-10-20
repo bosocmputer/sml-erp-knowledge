@@ -47,7 +47,16 @@ ALTER DATABASE aoy_logs      SET log_statement = 'all';
 ```
 **ตรวจ:** บอก Claude — Claude จะเปิด connection ใหม่แล้วเช็ก `show log_statement` ต้องได้ `all` และ `show log_line_prefix` ต้องมี `db=%d`
 
-## ขั้นที่ 2 — Restart web service
+## ขั้นที่ 2 — ให้ web service ใช้ connection ใหม่
+**ทางที่ใช้ได้โดยไม่ต้องเข้า server (ทำแล้ว 2026-10-20):** ตัด connection เดิมใน DBeaver ด้วย superuser แล้ว web service จะต่อใหม่เอง
+```sql
+SELECT pid, datname, usename, application_name, client_addr, backend_start, pg_terminate_backend(pid) AS terminated
+FROM pg_stat_activity
+WHERE datname IN ('aoy','smlerpmainaoy','aoy_images','aoy_logs') AND pid <> pg_backend_pid();
+```
+ข้อสังเกต: connection ของ SMLJavaWebService มาจาก `172.18.0.5` (network ภายใน docker → web service เป็น container บนเครื่องเดียวกับ PostgreSQL) และค้างอยู่หลายนาที → เวอร์ชันที่รันจริงเก็บ connection ไว้ใช้ซ้ำ (ต่างจากโค้ด v3.9.14 ที่ `HasConnectionPoolConfig()` คืน false)
+
+**ทางเดิม (ถ้าเข้า server ได้):** restart web service
 ค่าใหม่มีผลกับ connection ใหม่เท่านั้น → restart SMLJavaWebService (Tomcat/container) ที่ชี้ server สำเนา
 **ตรวจ:** เปิด `http://<ws-host>:<port>/SMLJavaWebService/health` (หรือ path health ที่ใช้อยู่) ต้องตอบปกติ และ config ต้องชี้ host สำเนา ไม่ใช่ production
 
@@ -75,6 +84,8 @@ ALTER DATABASE aoy_logs      SET log_statement = 'all';
 | 8 | Logout | ปิด session (sml_guid) |
 
 ## ขั้นที่ 5 — ส่ง log ให้ Claude
+ต้องเข้าเครื่อง server ได้ (log ออก stderr ของ container PostgreSQL) — ถ้าเข้าไม่ได้ ใช้แผน B: audit trigger เก็บ `current_query()` ของ INSERT/UPDATE/DELETE ลงตาราง `zz_sql_capture` ใน `aoy` (อ่านผ่าน user read-only ได้, ไม่ได้ SELECT)
+
 ```bash
 mkdir -p ~/sml-sqllog
 docker logs --since 2h <postgres-container> > ~/sml-sqllog/aoy-$(date +%Y%m%d-%H%M).log 2>&1
