@@ -16,6 +16,7 @@ tags: [sml, index]
 - [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
 - [[screen-classes]] — คลาสหน้าจอจัดกลุ่มตาม base class *(generated)*
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
+- [[doc-flow-rules]] — กฎสายเอกสาร 67 ประเภท: ยกเลิกด้วยอะไร ถูกใช้ต่อโดยเอกสารไหน, used_status / doc_success *(generated)*
 - [[company-options]] — ตัวเลือกบริษัท 266 ตัวที่เปลี่ยนพฤติกรรมโปรแกรม (GL realtime, ต้นทุน, ทศนิยม, หลายสกุลเงิน …) *(generated)*
 - [[enums]] — enum 102 ชุด: รหัสตัวเลขในคอลัมน์ → ความหมาย (ประเภทภาษี, สถานะเช็ค, ต้นทุน …) *(generated)*
 - [[trans_flag]] — เลข trans_flag → ประเภทเอกสาร 203 ค่า *(generated)*
@@ -39,7 +40,7 @@ tags: [sml, index]
 - ฟอร์มพิมพ์เอกสาร (SMLFormDesign / `_formReport`)
 - ความหมาย `report_type` ของ FastReport และการผูก FastReport id ตัวเลขกับเมนู
 - POS: ปิดกะ/ส่งเงิน/ลิ้นชัก, โปรโมชั่น/แต้ม, ความหมาย command_type ใน `pos_log`
-- รายละเอียด `SMLProcess._docFlow` (อัปเดตสถานะเอกสารต้นทาง) และสูตรต้นทุนใน web service
+- สูตรต้นทุนใน web service
 - เฟส 2: ยืนยันด้วย SQL จริง (tcpdump) — ดู [[sql-capture-aoy]]
 - ยืนยันว่าเลข edition ใน menu.json เลขใดคือ SMLAccountPOS
 - ยืนยันความหมาย trans_flag กับข้อมูลจริง และตรวจว่า field POS/ล็อตมีค่าจริง
