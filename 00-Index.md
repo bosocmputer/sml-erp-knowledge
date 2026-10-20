@@ -10,6 +10,8 @@ tags: [sml, index]
 - เอกสารเดิมใน repo: `~/dev/smlerp/SMLDocs/` (`transflag_transtype.md`, `Database.md` เป็น DBML, `MultiCurrency/`, `Report/`)
 - [[architecture]] — client C# WinForms ↔ SMLJavaWebService (Tomcat) ↔ PostgreSQL, โมเดลเอกสาร ic_trans, โฟลว์ขาย/ซื้อ/คลัง, ข้อสังเกตความปลอดภัย
 - [[modules]] — โปรเจกต์ที่ SMLAccount / SMLAccountPOSProfessional ใช้ พร้อมจำนวนหน้าจอ *(generated)*
+- [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
+- [[screen-classes]] — คลาสหน้าจอจัดกลุ่มตาม base class *(generated)*
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
 - [[trans_flag]] — เลข trans_flag → ประเภทเอกสาร 203 ค่า *(generated)*
 
@@ -24,7 +26,6 @@ tags: [sml, index]
 - [[product-ideas]] — ตลาด, pain point, persona, use case, ไอเดีย product 10 ข้อ
 
 ## ยังไม่ได้ทำ (งานถัดไป)
-- แผนที่ เมนู → ฟอร์ม/คลาส ที่เปิด (ไล่ dispatcher ใน `SMLAccount/_mainForm.cs` ตาม tag)
 - รายการรายงาน (SMLERP*Report, SMLFastReport) และฟอร์มพิมพ์ (SMLFormDesign)
 - POS: โฟลว์ขายหน้าร้าน กะ แคชเชียร์ (SMLPOSClient, SMLPOSControl, ตาราง `pos_*`)
 - ยืนยันว่าเลข edition ใน menu.json เลขใดคือ SMLAccountPOS
