@@ -10,6 +10,7 @@ tags: [sml, index]
 - เอกสารเดิมใน repo: `~/dev/smlerp/SMLDocs/` (`transflag_transtype.md`, `Database.md` เป็น DBML, `MultiCurrency/`, `Report/`)
 - [[data-model]] — เอกสารแต่ละกลุ่มเก็บตารางไหน เชื่อมกันอย่างไร (ยืนยันกับข้อมูล AOY)
 - [[document-engine]] — หน้าจอเอกสารกลาง `_icTransControl`: ขั้นตอนบันทึก, ตารางที่เขียน, transaction, GL, ต้นทุน
+- [[pos-client]] — หน้าจอขายหน้าร้าน: บันทึกบิล, การรับเงิน, โต๊ะ, `pos_log`, พักบิล
 - [[architecture]] — client C# WinForms ↔ SMLJavaWebService (Tomcat) ↔ PostgreSQL, โมเดลเอกสาร ic_trans, โฟลว์ขาย/ซื้อ/คลัง, ข้อสังเกตความปลอดภัย
 - [[modules]] — โปรเจกต์ที่ SMLAccount / SMLAccountPOSProfessional ใช้ พร้อมจำนวนหน้าจอ *(generated)*
 - [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
@@ -34,6 +35,8 @@ tags: [sml, index]
 ## ยังไม่ได้ทำ (งานถัดไป)
 - ฟอร์มพิมพ์เอกสาร (SMLFormDesign / `_formReport`)
 - ความหมาย `report_type` ของ FastReport และการผูก FastReport id ตัวเลขกับเมนู
-- POS: โฟลว์ขายหน้าร้าน กะ แคชเชียร์ (SMLPOSClient, SMLPOSControl, ตาราง `pos_*`)
+- POS: ปิดกะ/ส่งเงิน/ลิ้นชัก, โปรโมชั่น/แต้ม, ความหมาย command_type ใน `pos_log`
+- รายละเอียด `SMLProcess._docFlow` (อัปเดตสถานะเอกสารต้นทาง) และสูตรต้นทุนใน web service
+- เฟส 2: ยืนยันด้วย SQL จริง (tcpdump) — ดู [[sql-capture-aoy]]
 - ยืนยันว่าเลข edition ใน menu.json เลขใดคือ SMLAccountPOS
 - ยืนยันความหมาย trans_flag กับข้อมูลจริง และตรวจว่า field POS/ล็อตมีค่าจริง
