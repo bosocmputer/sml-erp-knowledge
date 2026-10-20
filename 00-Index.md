@@ -16,6 +16,7 @@ tags: [sml, index]
 - [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
 - [[screen-classes]] — คลาสหน้าจอจัดกลุ่มตาม base class *(generated)*
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
+- [[enums]] — enum 102 ชุด: รหัสตัวเลขในคอลัมน์ → ความหมาย (ประเภทภาษี, สถานะเช็ค, ต้นทุน …) *(generated)*
 - [[trans_flag]] — เลข trans_flag → ประเภทเอกสาร 203 ค่า *(generated)*
 
 ## โมดูลและรายงาน
@@ -26,6 +27,7 @@ tags: [sml, index]
 - [[database-layout]] — รูปแบบ DB ต่อกิจการ (`smlerpmain<provider>`, `<db>`, `_images`, `_logs`) และสถานะ DB สำเนา
 - [[sql-capture-aoy]] — ขั้นตอนทดสอบเก็บ SQL กับชุด AOY ทีละขั้น
 - [[sql-capture-runbook]] — วิธีเปิด log SQL บน DB สำเนาเพื่อ map เมนู → SQL
+- [[dictionary-index]] — **พจนานุกรมข้อมูล**: 520 ตาราง 9,988 คอลัมน์ พร้อมความหมายไทย/อังกฤษ แยก 25 โมดูล *(generated, raw: `02-Database/dictionary.json`)*
 - [[schema-index]] — ตาราง/คอลัมน์ทั้งหมด 599 ตารางของ `kbyt` แยกตาม prefix *(generated)*
 
 ## sml_mcp_ai และ product
