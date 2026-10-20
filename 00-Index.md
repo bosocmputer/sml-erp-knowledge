@@ -16,6 +16,7 @@ tags: [sml, index]
 - [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
 - [[screen-classes]] — คลาสหน้าจอจัดกลุ่มตาม base class *(generated)*
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
+- [[company-options]] — ตัวเลือกบริษัท 266 ตัวที่เปลี่ยนพฤติกรรมโปรแกรม (GL realtime, ต้นทุน, ทศนิยม, หลายสกุลเงิน …) *(generated)*
 - [[enums]] — enum 102 ชุด: รหัสตัวเลขในคอลัมน์ → ความหมาย (ประเภทภาษี, สถานะเช็ค, ต้นทุน …) *(generated)*
 - [[trans_flag]] — เลข trans_flag → ประเภทเอกสาร 203 ค่า *(generated)*
 
