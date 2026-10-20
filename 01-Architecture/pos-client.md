@@ -58,7 +58,15 @@ date: 2026-10-20
 - **ใช้ทำ product:** ส่วนต่างเงินที่ส่งจริงกับยอดขายต่อกะ (`POSCashierSettle.total_diff`, ยอดเงินสดเทียบ `cb_trans`), บิลยกเลิก/ส่วนลดต่อกะ, `pos_log` → ตรวจจับความผิดปกติของแคชเชียร์
 
 ## โปรโมชั่นและแต้ม
-- ตารางกลุ่ม POS ทั้งหมด (47 ตาราง) ดู [[dict-pos]] — โปรโมชั่นที่ใช้ในบิลบันทึกที่ `ic_trans_detail_promotion`, แต้ม/SMS `point_center_sms`, ตั้งค่าแต้มจากเมนู "กำหนดเงื่อนไขสะสมแต้ม" (`SMLPOSControl._posPointPeriodForm`)
+**โปรโมชั่นแบบสูตร** (ที่ POS ใช้) — โหลดตอนเปิดหน้าจอ `_loadPromotion()` (`_posClientForm.cs` ~6079) เฉพาะ `status = 1` และไม่ล็อกเครื่อง หรือล็อกให้เครื่อง POS นี้ แล้วคำนวณในบิลก่อนชำระ บันทึกผลที่ `ic_trans_detail_promotion`
+- `ic_promotion_formula` — หัวโปรฯ: `order_number` ลำดับความสำคัญ, ประเภท `case_number` (1 = ส่วนลดตามจำนวนเต็ม, 2 = ส่วนลดสินค้าจัดชุด, 3 = จัดชุดรวมกลุ่ม, 4 = ของแถมสินค้าจัดชุด, 5 = ของแถมตามมูลค่า), ขอบเขตลูกค้า (สมาชิก/ทั่วไป/ทั้งหมด, รหัสหรือกลุ่มลูกค้า), ช่วงวันที่ (`use_date_range`, `from_date`, `to_date`), เฉพาะวัน (`lock_day`), เฉพาะเครื่อง POS (`lock_promotion_2` + `lock_code_list`), เฉพาะสินค้าราคาปกติ, ไม่นำมูลค่าไปคิดส่วนลด
+- `ic_promotion_formula_condition` — เงื่อนไขสินค้า: `condition_type` 1 = Barcode, 2 = สินค้า, 3 = กลุ่มสินค้า, 5 = กลุ่มลูกค้า; `condition_case` 1 = ใช้ / 0 = ยกเว้น; ช่วงจำนวน, หน่วยนับ, กลุ่ม
+- `ic_promotion_formula_price_discount` — ราคา/ส่วนลดตามช่วงจำนวน (`qty_start..qty_end`, `price`, `discount`)
+- `ic_promotion_formula_action` — ผลที่ได้ตามช่วงจำนวน (`action_command`, ให้ส่วนลด, จำนวน)
+- `ic_promotion_formula_group_qty` — จำนวน/มูลค่าต่อกลุ่ม (ใช้กับจัดชุดรวมกลุ่ม)
+- มีโปรฯ แบบเก่า `ic_promotion` / `ic_promotion_detail` (ตามประเภท/กลุ่มลูกหนี้ ช่วงวันที่) และฟอร์มเลือกโปรฯ `_posPromotionForm`
+
+**แต้ม** — ตั้งค่าเงื่อนไขสะสมแต้ม `SMLPOSControl._posPointPeriodForm`; ใช้แต้มจ่ายเงินลงบัญชีด้วยรหัส GL 13 "จ่ายด้วยแต้ม" ดู [[gl-action-codes]]; ส่ง SMS แต้ม `point_center_sms`; ตารางทั้งหมดดู [[dict-pos]]
 
 ## ยังไม่ได้ไล่
-- เงื่อนไขโปรโมชั่นละเอียด (SMLPOSControl)
+- อัลกอริทึมเลือกโปรฯ เมื่อเข้าเงื่อนไขหลายตัวพร้อมกัน (ใช้ `order_number`)
