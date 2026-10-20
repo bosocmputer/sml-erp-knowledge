@@ -16,5 +16,10 @@ date: 2026-10-20
 - ตารางแม่แบบฟอร์มเฉพาะ: `resource_form_quotation`, `resource_form_purchase_order`, `resource_form_sale_order` ดู [[dict-form]]
 - สลิป POS ไม่ใช้ formdesign — วาดในโค้ด `_posClientForm._printSlip` ดู [[pos-client]]
 
+## โครงสร้าง `formdesigntext` (จาก `SMLReport/_formReport/_drawPaperXml.cs`)
+- เป็น XML ที่ serialize จากคลาส `SMLFormDesignXml`: `_guid`, `_formCode`, `_formName`, `_lastUpdate`, **`_query` (FormQuerys)** = รายการ query ของฟอร์ม (`query` มี `_queryString`, ตาราง resource, `queryField` และ `fieldCondition`), `_imageList` (รูปที่ฝัง)
+- หน้า/วัตถุ: `_xmlPageSetupClass` (ขนาดกระดาษ), `_xmlPageClass`, `_xmlDrawObjectClass` (ข้อความ/เส้น/รูป/ฟิลด์ พร้อมตำแหน่ง), `XmlTableObject` + `_XmlTableColumns` + `_XmlTableFooter` (ตารางรายการสินค้า), `BackgroundPageXML`
+- ตอนพิมพ์ `_formPrint` (~5,000 บรรทัด) รัน query ในฟอร์มโดยใส่เงื่อนไขเลขที่เอกสาร แล้ววางค่าตามวัตถุ
+
 ## ยังไม่ได้ไล่
-- โครงสร้างภายใน `formdesigntext` และภาษา expression ของฟิลด์ในฟอร์ม
+- ไวยากรณ์ expression/ตัวแปรในฟิลด์ฟอร์มทีละแบบ
