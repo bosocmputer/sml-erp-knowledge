@@ -22,6 +22,8 @@ provider หนึ่งมีได้หลาย data DB — ดู `sml_data
 - `kbyt_images` 2.6 GB: images ~13.9k แถว
 - `kbgtest` คือ DB ที่ sml_mcp_ai/OpenClaw production ใช้ (พร้อม `kbgtest_images`)
 
+- ชุด AOY (`smlerpmainaoy`, `aoy`, `aoy_images`, `aoy_logs`): ต่อได้ครบ 2026-10-20 มีธุรกรรมหลากหลายกว่า kbyt (ic_trans 923 ใบ) — ใช้เป็นชุดทดสอบหลัก ดู [[sql-capture-aoy]]
+
 ## Query ตัวอย่าง (อ่านอย่างเดียว, สรุปผล)
 
 ```bash
