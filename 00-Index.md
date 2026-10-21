@@ -51,6 +51,7 @@ tags: [sml, index]
 - [[write-spec-cancel]] — **ยกเลิกบิลขาย (45)** verified + ยกเลิกใบสั่งขาย (37) จากโค้ด/ข้อมูล; ผลต่อ GL ของบิลที่ยกเลิก
 - [[write-spec-receipt]] — **รับชำระหนี้ (239)**: สูตรยอดค้างรายบิลจริง, `bill_type`, ตารางที่เขียน, `used_status_2`
 - [[write-spec-credit-note]] — **รับคืน/ลดหนี้ (48)** จากโค้ด + ข้อมูลจริง (ยังไม่มี capture — ห้ามเปิดเขียน)
+- [[write-spec-master-product]] — **ข้อมูลหลักสินค้า/หน่วยนับ/บาร์โค้ด**: ตาราง, unique, ค่ารหัส, การบันทึก/แก้/ลบ, งานซ่อมข้อมูลหลังบันทึก, ความผิดปกติในข้อมูลจริง
 - [[nexflow-lessons]] — บทเรียนจาก Nexflow (Shopee/TikTok → SML): route ขาย/ยกเลิก/ลดหนี้/รับชำระ, Document Profile V1, กับดักของ SML, รูปแบบ idempotency
 - [[bybos-callers-and-gap-plan]] — ใครเรียก sml-api-bybos (Nexflow, billflow, paperless), การยิง processstockrequest, ช่องว่างที่เหลือ + แผน
 - [[write-api-comparison]] — เทียบ sml-api-bybos (Go) กับ SMLJavaRESTService3 (Java) สำหรับ MCP เขียนข้อมูล + ช่องว่างที่ต้องเติม
