@@ -8,7 +8,9 @@ date: 2026-10-20
 
 กลับไป [[00-Index]] · เรียกจาก [[document-engine]] หลังบันทึกเอกสาร · คอลัมน์ดู [[dictionary-index]]
 
-## ใครเรียก
+## ใครเรียก (จากโค้ด 2026-10-21)
+- โปรแกรมเรียก SOAP `_process_stock_balance(itemList, calcFlag)` หลังบันทึก → คำนวณยอดคงเหลือ + ค้างรับ/ส่ง/จอง ด้วย SQL ทันที และ (ค่าเริ่มต้น) **ใส่คิว `process` 'IC'** หรือส่ง RabbitMQ/Redis ถ้าตั้ง `StockProcessQueueConfig` → worker `SMLProcess` หยิบไปคำนวณต้นทุน (`_process_stock_cost`) แล้วลบแถวคิว ดู [[adr-001-write-path]]
+
 **ยืนยันจากการรันจริง (2026-10-21):** เอกสารที่บันทึกจะ `insert into process (process_name, wherein)` 1 แถวต่อสินค้า แล้ว web service poll ตาราง `process` ทุก ~10 วินาที หยิบงาน (`last_guid`, `last_process_time`) คำนวณล็อต/ต้นทุน แล้วลบแถวคิว ดู [[runtime-verified]] — คำอธิบายด้านล่างเป็นจากโค้ด
 
 หลังบันทึกเอกสารสำเร็จ โปรแกรม Windows เรียก SOAP `_process_stock_balance(...)` / `_process_stock_cost(database, itemCode, processMode, dateBegin, dateEnd)` / `_process_stock_cost_finish(...)` ใน `SMLICProcess.java` (ปิดได้ด้วยตัวเลือก `disable_ic_cost_process` ดู [[company-options]]) และส่งผ่าน queue ได้ (`processstockrequest`, RabbitMQ/Redis/PubSub)

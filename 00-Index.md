@@ -43,6 +43,7 @@ tags: [sml, index]
 
 ## sml_mcp_ai และ product
 - [[mcp-project]] — MCP server ที่มีอยู่, tool ที่ครอบคลุม, ช่องว่าง, ความเสี่ยง
+- [[adr-001-write-path]] — **ADR-001**: sml_mcp_ai บันทึกเอกสารแบบผสม (เขียนเอกสารเอง + คิวต้นทุนของ SML) + preview/ยืนยันสำหรับ AI
 - [[nexflow-lessons]] — บทเรียนจาก Nexflow (Shopee/TikTok → SML): route ขาย/ยกเลิก/ลดหนี้/รับชำระ, Document Profile V1, กับดักของ SML, รูปแบบ idempotency
 - [[bybos-callers-and-gap-plan]] — ใครเรียก sml-api-bybos (Nexflow, billflow, paperless), การยิง processstockrequest, ช่องว่างที่เหลือ + แผน
 - [[write-api-comparison]] — เทียบ sml-api-bybos (Go) กับ SMLJavaRESTService3 (Java) สำหรับ MCP เขียนข้อมูล + ช่องว่างที่ต้องเติม
