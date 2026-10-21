@@ -9,6 +9,7 @@ trans_flags: [1998, 1999]
 
 ## สรุปการทำงาน
 
+- รายละเอียดเชิงลึก: ภาษีและงวดบัญชี [[tax-period]]
 - สมุดรายวัน `gl_journal` / `gl_journal_detail`, ผังบัญชี `gl_chart_of_account`, ภาษี `gl_journal_vat_buy` / `_sale`
 - GL ส่วนใหญ่สร้างอัตโนมัติจากเอกสาร (`_processGLByTrans`) เมื่อเปิด `gl_process_realtime`; หน้าจอบันทึกมือ `SMLERPGLControl._journalScreen`
 - AOY: 176 จาก 188 รายการ GL ผูก doc_no กับ ic_trans

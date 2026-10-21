@@ -9,6 +9,7 @@ trans_flags: []
 
 ## สรุปการทำงาน
 
+- รายละเอียดเชิงลึก: สูตรรายงานหลัก [[report-formulas]]
 - รายงานใช้เครื่องมือ 3 แบบ: `SMLFastReport._designer` (รายงานที่โหลดตามชื่อเมนู), `SMLERPReportTool._reportTrans` (รายงานเอกสารตาม trans_flag), `SMLReport._report._viewReport`
 - ดูรายการรายงานทั้งหมดที่ [[reports]]
 

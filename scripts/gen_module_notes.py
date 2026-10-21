@@ -48,6 +48,7 @@ CURATED = {
         "ต้นทุนคำนวณหลังบันทึกผ่าน web service (Average/FIFO/Lot) ดู [[document-engine]]",
     ],
     "ลูกหนี้": [
+        "รายละเอียดเชิงลึก: [[write-spec-receipt]], ใบวางบิล [[write-spec-billing-note]]",
         "เอกสารลูกหนี้เก็บใน `ap_ar_trans` / `ap_ar_trans_detail` (ไม่ใช่ ic_trans): ตั้งหนี้ยกมา 93, ใบวางบิล 235, รับชำระ 239 (ยืนยันกับ AOY)",
         "หน้าจอกลาง `SMLAPARControl._ar_ap_trans`; หลังบันทึกเรียก `_process_ap_ar_flow` อัปเดตยอดค้างของบิลขาย",
         "ข้อมูลลูกค้า `ar_customer` / `ar_customer_detail`; วงเงินเครดิตตรวจตอนบันทึกเอกสารขาย",
@@ -65,16 +66,18 @@ CURATED = {
         "control ส่วนกลาง `SMLERPControl._bank._bankControl`",
     ],
     "บัญชี": [
+        "รายละเอียดเชิงลึก: ภาษีและงวดบัญชี [[tax-period]]",
         "สมุดรายวัน `gl_journal` / `gl_journal_detail`, ผังบัญชี `gl_chart_of_account`, ภาษี `gl_journal_vat_buy` / `_sale`",
         "GL ส่วนใหญ่สร้างอัตโนมัติจากเอกสาร (`_processGLByTrans`) เมื่อเปิด `gl_process_realtime`; หน้าจอบันทึกมือ `SMLERPGLControl._journalScreen`",
         "AOY: 176 จาก 188 รายการ GL ผูก doc_no กับ ic_trans",
     ],
     "เริ่มต้น": [
-        "รายละเอียดเชิงลึก: สิทธิ์ผู้ใช้ [[permissions]]",
+        "รายละเอียดเชิงลึก: สิทธิ์ผู้ใช้ [[permissions]], งวดบัญชี/ล็อกวันที่ [[tax-period]]",
         "ตั้งค่าบริษัท สาขา แผนก พนักงาน กลุ่มเอกสาร รูปแบบเลขที่เอกสาร และข้อมูลหลักต่าง ๆ",
         "หน้าจอข้อมูลหลักส่วนใหญ่ใช้ `MyLib._manageMasterCodeFull` ผูก 1 เมนู = 1 ตาราง (ดูคอลัมน์ตารางด้านล่าง)",
     ],
     "รายงาน": [
+        "รายละเอียดเชิงลึก: สูตรรายงานหลัก [[report-formulas]]",
         "รายงานใช้เครื่องมือ 3 แบบ: `SMLFastReport._designer` (รายงานที่โหลดตามชื่อเมนู), `SMLERPReportTool._reportTrans` (รายงานเอกสารตาม trans_flag), `SMLReport._report._viewReport`",
         "ดูรายการรายงานทั้งหมดที่ [[reports]]",
     ],

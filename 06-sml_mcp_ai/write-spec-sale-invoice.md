@@ -117,8 +117,8 @@ source: capture aoy-run1 (INV26100001 ขายสด 08:55–08:57) + aoy-run2 
 
 ## 5. ยังไม่ทราบ
 - ขายเชื่อที่ไม่อ้างเอกสาร: ยังไม่ได้เห็น SQL จริง (ขายสดที่ไม่อ้างเอกสารไม่มี `ap_ar_trans_detail` — ขายเชื่อยังไม่ได้ยืนยัน)
-- `gl_journal_vat_sale.vat_type = 0` ขณะที่หัวบิล `vat_type = 1` — ความหมายของ vat_type ในตารางภาษียังไม่ได้ไล่
-- `delete from cb_trans_detail where trans_number is null or trans_number=''` เกิดจากส่วนไหนของโค้ด และทำไมรันในบิลขายเชื่อด้วย
+- ~~`gl_journal_vat_sale.vat_type = 0` ขณะที่หัวบิล `vat_type = 1`~~ → ตอบแล้ว: ในตารางภาษี 0 = ภาษีถึงกำหนด, 1 = ยังไม่ถึงกำหนด (คนละความหมายกับหัวบิล) [[tax-period]] §2
+- ~~`delete from cb_trans_detail where trans_number is null or ''` มาจากไหน~~ → คำสั่งสุดท้ายของ `_payControl._queryInsert` ([[cash-bank]] §1); ยังไม่ทราบว่าทำไมรันในบิลขายเชื่อ (ไม่มีการรับเงิน) ด้วย
 - ช่องทางรับเงินอื่น (บัตร/เช็ค/โอน/คูปอง/คะแนน/มัดจำ) และ `cb_trans_detail`
 - `tax_format` ที่ไม่ว่าง (ร้านที่ใช้เลขใบกำกับแยกจากเลขบิล)
 - ค่า default ของคอลัมน์ที่ไม่ได้ใส่ และข้อ 5 อื่น ๆ ใน [[write-spec-sale-order]]

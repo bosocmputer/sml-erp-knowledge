@@ -9,6 +9,7 @@ trans_flags: [93, 95, 97, 99, 100, 101, 102, 103, 104, 235, 236, 239, 240, 810]
 
 ## สรุปการทำงาน
 
+- รายละเอียดเชิงลึก: [[write-spec-receipt]], ใบวางบิล [[write-spec-billing-note]]
 - เอกสารลูกหนี้เก็บใน `ap_ar_trans` / `ap_ar_trans_detail` (ไม่ใช่ ic_trans): ตั้งหนี้ยกมา 93, ใบวางบิล 235, รับชำระ 239 (ยืนยันกับ AOY)
 - หน้าจอกลาง `SMLAPARControl._ar_ap_trans`; หลังบันทึกเรียก `_process_ap_ar_flow` อัปเดตยอดค้างของบิลขาย
 - ข้อมูลลูกค้า `ar_customer` / `ar_customer_detail`; วงเงินเครดิตตรวจตอนบันทึกเอกสารขาย
