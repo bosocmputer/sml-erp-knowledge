@@ -20,6 +20,7 @@ source: query อ่านอย่างเดียว (superuser, `default_tr
 | `smlerpmainnext` (NEXT) | AOY → aoy, BEER, KUNG, PLOY (SML) | 1 |
 
 ข้อเท็จจริงที่ได้:
+- `SMLConfig<PROVIDER>.xml` ของ web service ทั้ง 6 ไฟล์ตั้ง `main_database` = `smlerpmain<provider ตัวเล็ก>` ตรงกับตารางนี้ (ยืนยัน 2026-10-21, [[server-layout]])
 - **data database เดียวลงทะเบียนได้หลาย provider** — `aoy` อยู่ทั้ง AOY และ NEXT; ผู้ใช้/สิทธิ์/session แยกกันตาม main database ที่ login (การทดสอบ AOY ทั้ง 3 รอบใช้ NEXT, ดู [[login-flow]])
 - `data_database_name` เก็บเป็นตัวพิมพ์ใหญ่ (`AOY`) ส่วน database จริงชื่อตัวเล็ก (`aoy`) — PostgreSQL แปลงชื่อที่ไม่ใส่ `"` เป็นตัวเล็ก
 - ทุก data database มีคู่ `<db>_images` และ `<db>_logs` · บน PostgreSQL ตัวนี้มี database ทั้งหมด 60 ตัว: main 6, `_images`/`_logs` 32, ที่เหลือเป็น data database + database ที่ไม่ใช่ของ SML (ไม่ได้สำรวจ)

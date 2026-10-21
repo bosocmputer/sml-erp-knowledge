@@ -72,3 +72,8 @@ D (เก็บหลักฐานก่อนแก้) → A → C → B (�
 - ค้างจอง (book_out): CTE `bookout` = ยอดใบจอง 34 − ยอดที่ถูกอ้างอิงโดย (44 หรือ 36 ที่ `doc_ref_type = 2`) − ยกเลิกจอง 39 (`cancel_type = 2`) แยกต่อใบ ไม่ติดลบ
 - ค้างส่ง (accrued_out): CTE `accout` = ยอดใบสั่งขาย 36 − ยอดที่ถูกอ้างอิงโดย 44 ที่ `doc_ref_type = 3` − ยกเลิกสั่งขาย 37 (`cancel_type = 2`)
 - ยอดคงเหลือ: ดู [[stock-cost]]
+
+## ตัวที่ deploy อยู่บน server ทดสอบ (ยืนยัน 2026-10-21)
+- container `nexflow-sml-api-bybos` (image `nexflow-sml-api-bybos:f33b34c`, Up 2 สัปดาห์) อยู่ใน `sml_service_network` IP `172.18.0.5`
+- ใน capture 3 รอบ ต่อ database `aoy`, `demo`, `ploy_test` **อ่านอย่างเดียว**: `-- ping` เป็นระยะ และ query สรุปสถานะใบเสนอราคา → ใบสั่งขาย → บิล → รับชำระ (`WITH base_orders …`, flag 30/31/36/37/44/239) — ไม่เห็นการเขียนในช่วงนั้น
+- ต่อ PostgreSQL ตรง ไม่ผ่าน SMLJavaWebService · รายละเอียด client อื่นดู [[server-layout]]

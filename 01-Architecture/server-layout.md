@@ -1,6 +1,6 @@
 ---
 tags: [sml, server, docker, verified-runtime]
-source: SSH เข้า server ทดสอบ (read-only, ผู้ใช้ไม่ใช่ root) + compose files + /proc + smljavaws2 source — สำรวจ 2026-10-21
+source: SSH เข้า server ทดสอบ (read-only) + compose files + /proc + smljavaws2 source + ผลคำสั่ง sudo ที่ผู้ใช้รันให้ (docker ps -a, docker network inspect, SMLConfig*.xml แบบปิดรหัส, env ของ container) — สำรวจ 2026-10-21
 ---
 # โครงสร้าง server ที่รัน SML (server ทดสอบ/demo)
 
@@ -15,17 +15,18 @@ source: SSH เข้า server ทดสอบ (read-only, ผู้ใช้�
 
 | โฟลเดอร์ | image / หน้าที่ (จาก compose) | รันอยู่ไหม (2026-10-21) |
 |---|---|---|
-| `traefik_proxy` | traefik — route `/SMLJavaWebService`, `/SMLJavaRESTService`, `/rabbitmq` | **รัน** (process `traefik`, uptime 16 วัน) |
-| `smljavawebservice` | `ghcr.io/smlsoft/smljavawebservice:3.9.7` (Tomcat), volume `../tomcat/temp:/usr/local/tomcat/temp`, **ไม่มี env `SML_NEXT_PROCESS_*`** | **รัน** — container `657d8c47fdf6` (ยืนยันจาก `docker ps` ที่ผู้ใช้ส่งมา + cgroup ของ process Java OpenJDK) |
-| `postgresql` | `ghcr.io/smlsoft/smlpostgres:11-thai` (`sml_postgresql`) + `smlpgbackup:11` (backup ทุกวัน 23:00, `BACKUPHOUR=23`) | **รัน** (ต่อ DB ได้) |
-| `smljavarestservice` | `smlsoft/smljavarestservice:3.0.3` (Tomcat), volume `../tomcat/temp` เดียวกัน | ยังไม่ทราบ — มี Tomcat ตัวที่ 2 (Java 1.8, container `ada03f941bd7`) รันอยู่ แต่ยังไม่ได้ยืนยันว่าเป็น image ไหน |
-| `smljavawebservice_process` | `rabbitmq_smlprocess` (rabbitmq:management) + `sml_ws_process` (smljavawebservice 3.9.7 กับ `STOCK_PROCESS_CONSUMER_PROVIDER=RABBITMQ`, topic `when-request-stock-process`) | **ไม่รัน** — ไม่มี process `beam.smp` (RabbitMQ) และมี Java แค่ 2 ตัว (Tomcat ทั้งคู่) |
-| `smlstockprocess` | `smlsoft/smlstockprocess:latest` (`SML_PROCESS_QUEUE=rabbitmq`) | **ไม่รัน** (ไม่มี process ที่ตรง และ RabbitMQ ไม่รัน) |
-| `smlsendstockprocessjob` | `smlsoft/smlstockprocessjob` อ่าน `conf/jobs.yml` (README: cron ส่งงานคำนวณสต็อกเข้า RabbitMQ ต่อ provider/database) | ไม่มีไฟล์ `conf/jobs.yml` (มีแค่ `.keep`) |
+| `traefik_proxy` | traefik — route `/SMLJavaWebService`, `/SMLJavaRESTService`, `/rabbitmq` | **รัน** — `traefik_proxy-traefik-1` (traefik:v2.5) |
+| `smljavawebservice` | `ghcr.io/smlsoft/smljavawebservice:3.9.7` (Tomcat), volume `../tomcat/temp:/usr/local/tomcat/temp`, **ไม่มี env `SML_NEXT_PROCESS_*`** | **รัน** — `smljavawebservice-smljavawebservice-1` (`657d8c47fdf6`), IP ใน network `172.18.0.3`; env ไม่มี `SML_*`/`STOCK_*`/`JAVA_OPTS`/`CATALINA_OPTS` และ command line ของ JVM ไม่มี `-D` ของ SML |
+| `postgresql` | `ghcr.io/smlsoft/smlpostgres:11-thai` (`sml_postgresql`) + `smlpgbackup:11` (backup ทุกวัน 23:00, `BACKUPHOUR=23`) | **รัน** — `sml_postgresql` (Up 7 วัน ณ 2026-10-21, IP `172.18.0.7`) + `sml_postgresql_autobackup` |
+| `smljavarestservice` | `smlsoft/smljavarestservice:3.0.3` (Tomcat), volume `../tomcat/temp` เดียวกัน | **ไม่มี container นี้** (`docker ps -a` ไม่พบ) — Tomcat ตัวที่ 2 (Java 1.8, `ada03f941bd7`) ไม่ใช่ image ของ SML ตามรายการที่กรอง (ชื่อไม่ตรง `sml|rabbit|postgres|traefik`) |
+| `smljavawebservice_process` | `rabbitmq_smlprocess` (rabbitmq:management) + `sml_ws_process` (smljavawebservice 3.9.7 กับ `STOCK_PROCESS_CONSUMER_PROVIDER=RABBITMQ`, topic `when-request-stock-process`) | **ไม่มี container** (`docker ps -a` ไม่พบ `rabbitmq_smlprocess` / `sml_ws_process`) |
+| `smlstockprocess` | `smlsoft/smlstockprocess:latest` (`SML_PROCESS_QUEUE=rabbitmq`) | **ไม่มี container** (`docker ps -a` ไม่พบ `sml_stockprocess`) |
+| `smlsendstockprocessjob` | `smlsoft/smlstockprocessjob` อ่าน `conf/jobs.yml` (README: cron ส่งงานคำนวณสต็อกเข้า RabbitMQ ต่อ provider/database) | **ไม่มี container** และไม่มีไฟล์ `conf/jobs.yml` (มีแค่ `.keep`) |
 | อื่น ๆ ของ SML | `smlreportservice`, `smlpricecenter`, `smlapprove`, `pickandpack`, `smlcloudservice`, `smlmis`, `smlphp`, `mobilestockweb`, `smlslideshow`, `smlrestservicedocs`, `tms` | ไม่ได้ตรวจ |
 
 - สคริปต์เปิดเครื่อง `dockerrunallcontainer.sh` / `dockerrunallcontainer3.sh` สั่ง `up -d` แค่ **traefik_proxy → smljavawebservice → postgresql**
-- การตรวจว่ารันอยู่ไหมใช้ `ps`/`/proc/<pid>/cgroup` (ผู้ใช้ ubuntu อ่านได้) เพราะ `docker ps` ต้องใช้ sudo — ชื่อ container ของ Tomcat ตัวที่ 2 จึงยังไม่ทราบ
+- ⇒ **บน server นี้ส่วน SML ที่รันมีแค่ 4 ตัว:** traefik, smljavawebservice, sml_postgresql, sml_postgresql_autobackup (ตรงกับสคริปต์เปิดเครื่อง) — ไม่มีตัวคำนวณต้นทุนแยก, ไม่มี RabbitMQ, ไม่มี SMLJavaRESTService
+- container อื่นบนเครื่อง (nexflow-*, nextcafe*, kbwshop-*, ฯลฯ) ไม่ใช่ส่วนของ SML ERP — ไม่ได้สำรวจ ยกเว้นตัวที่ต่อ database ของ SML (ตารางด้านล่าง)
 
 ## `tomcat/temp` = config ของ SMLJavaWebService (`java.io.tmpdir`)
 
@@ -33,7 +34,7 @@ source: SSH เข้า server ทดสอบ (read-only, ผู้ใช้�
 
 | ไฟล์ | หน้าที่ (จากโค้ด smljavaws2) |
 |---|---|
-| `SMLConfig<PROVIDER>.xml` × 6: AOY, CUS, CUSMS, DEMO, KBYT, NEXT | config ต่อ provider: `<server> <port> <user> <password> <main_database> <main_database_struct> <database_config> <database_id>` (รูปแบบจาก `src/test/.../config/SMLConfigTest.java`; `database_id` 1 = PostgreSQL) |
+| `SMLConfig<PROVIDER>.xml` × 6: AOY, CUS, CUSMS, DEMO, KBYT, NEXT | config ต่อ provider: `<server> <port> <user> <password> <main_database> <main_database_struct> <database_config> <database_id>` — **ค่าจริง (ปิด server/user/password):** `main_database` = `smlerpmain` + ชื่อ provider ตัวเล็ก ทุกไฟล์ (aoy, cus, cusms, demo, kbyt, next), `port` ว่าง, `main_database_struct` = `smlmaindatabase.xml`, `database_id` = 1 (PostgreSQL) |
 | `SML_STRUCT_<PROVIDER>.XML` × 6 | ใช้ตอนตรวจโครงสร้าง DB (`_loadXmlFile` ข้ามถ้ามี `verifyskip.xml`) |
 | `smlmaindatabase.xml`, `smldatabase.xml` (~1.8 MB), `smllogsdatabase.xml`, `smldatabaseverify.xml` | โครงสร้างตารางของ main / data / logs database ที่ client ส่งมาให้ server ตรวจ-สร้าง |
 | `smlerpview.xml`, `smlerpviewtemplate.xml` | view ของระบบ |
@@ -42,14 +43,24 @@ source: SSH เข้า server ทดสอบ (read-only, ผู้ใช้�
 | `*.gzip` (31 ไฟล์ ชื่อเป็น GUID) | ไฟล์ชั่วคราวของ web service (ยังไม่ได้ไล่ว่าใครสร้าง) |
 
 ไฟล์ที่ **ไม่มี** (ตรวจ 2026-10-21) และผลตามโค้ด:
-- `skip_process_cost.xml` ไม่มี → client `_isServerSkipProcess()` = false → **โปรแกรม Windows เริ่ม thread หยิบคิวต้นทุน** ([[stock-cost]] § ใครเป็นคนหยิบคิว); ฝั่ง server `SMLWSConfig.skipStockProcess` = false (ถ้าไม่ได้ตั้ง system property `SML_PROCESS_SKIP`)
-- `smlstockprocess.cfg` ไม่มี และ compose ไม่ได้ตั้ง `SML_NEXT_PROCESS_SERVER`/`_PORT` → `SMLWSConfig.SendStockProcessNext` = false → **web service ใช้คิวแบบตาราง `process` ไม่ส่ง RabbitMQ** (`SMLWebService/Config/SMLWSConfig.java` `LoadConfigNextProcess`) — สอดคล้องกับ capture ที่เห็น `insert into process` ([[runtime-verified]])
+- `skip_process_cost.xml` ไม่มี → client `_isServerSkipProcess()` = false → **โปรแกรม Windows เริ่ม thread หยิบคิวต้นทุน** ([[stock-cost]] § ใครเป็นคนหยิบคิว); ฝั่ง server `SMLWSConfig.skipStockProcess` = false (ยืนยันแล้วว่าไม่ได้ตั้ง `SML_PROCESS_SKIP` ทั้งใน env และ `-D` ของ JVM)
+- `smlstockprocess.cfg` ไม่มี และไม่ได้ตั้ง `SML_NEXT_PROCESS_SERVER`/`_PORT` (ไม่มีใน compose, env ของ container และ `-D` ของ JVM) → `SMLWSConfig.SendStockProcessNext` = false → **web service ใช้คิวแบบตาราง `process` ไม่ส่ง RabbitMQ** (`SMLWebService/Config/SMLWSConfig.java` `LoadConfigNextProcess`) — สอดคล้องกับ capture ที่เห็น `insert into process` ([[runtime-verified]])
 - `verifyskip.xml`, `skipgetserverip.xml` ไม่มี
 
-## client ของ PostgreSQL ที่เห็นจาก capture (เครือข่าย docker)
-ดู [[runtime-verified]] — `172.18.0.3` = SMLJavaWebService (JDBC) ให้บริการทุก tenant; IP อื่นใน network เดียวกันต่อ database ของ SML ตรง ๆ (ยังไม่ทราบว่าเป็น container ไหน)
+## client ของ database SML ใน `sml_service_network` (ชื่อจาก `docker network inspect` + พฤติกรรมจาก capture 3 รอบ)
 
-## ยังไม่ทราบ (ต้องใช้ sudo — ผู้ใช้ต้องรันเอง)
-- ชื่อ/image ของ container Tomcat ตัวที่ 2 และ container ของ IP `172.18.0.2/.5/.10/.15`
-- เนื้อหา `SMLConfig*.xml` (เพื่อยืนยัน `main_database` ของแต่ละ provider — ตอนนี้ยืนยันได้เฉพาะ NEXT → `smlerpmainnext` จาก SQL จริง [[login-flow]])
-- environment ที่ส่งเข้า container smljavawebservice จริง (compose ไม่มี `SML_PROCESS_SKIP`; ยังไม่ได้ตรวจว่า image ตั้ง property นี้ไว้หรือไม่)
+| IP | container | database ของ SML ที่ใช้ | ทำอะไร (นับชนิดคำสั่ง, ไม่ดูค่า) |
+|---|---|---|---|
+| 172.18.0.3 | `smljavawebservice-smljavawebservice-1` | ทุก tenant + main database ทุก provider | โปรแกรม SML ทั้งหมด (JDBC) |
+| 172.18.0.5 | `nexflow-sml-api-bybos` (image `nexflow-sml-api-bybos:f33b34c`) | aoy, demo, ploy_test | อ่านอย่างเดียวในช่วง capture: `-- ping` และ query สรุปใบเสนอราคา/สถานะ (`WITH base_orders …`) |
+| 172.18.0.10 | `nextloyalty-api` | demo, demo2 (+ `loyalty_hub` ของตัวเอง) | อ่าน + **เขียนตรงเข้าตาราง SML**: `UPDATE ar_customer SET website = <line_user_id> FROM jsonb_to_recordset(...)` (42 ครั้ง) — ใช้คอลัมน์ `website` เก็บ LINE user id |
+| 172.18.0.15 | `kbwshop-nextstep-api-1` | kbgtest | อ่านอย่างเดียวในช่วง capture (369 select) |
+| 172.18.0.2 | `pricelabelservice` | wawacrm | อ่านอย่างเดียวในช่วง capture (122 select) |
+
+- IP ใน docker เปลี่ยนได้เมื่อ container ถูกสร้างใหม่ — mapping นี้ใช้ได้กับ capture วันที่ 2026-10-21 เพราะ container เหล่านี้ Up ≥ 7 วันก่อน capture
+- โปรเจกต์เหล่านี้เป็น**ตัวอย่างอ้างอิงเท่านั้น** (ไม่แก้) — แต่ยืนยันว่ามีหลายระบบเขียน/อ่าน database ของ SML ตรง ๆ โดยไม่ผ่าน web service ซึ่งเป็นเหตุผลที่ sml_mcp_ai ต้องเป็นมาตรฐานกลาง ([[mcp-project]])
+- การเขียนตรงแบบนี้ไม่ผ่าน `logs`/`erp_logs`, ไม่มีแถวใน `sml_access_list` และไม่ใส่คิว `process` (เฉพาะที่เห็นใน capture)
+
+## ยังไม่ทราบ
+- Tomcat ตัวที่ 2 (Java 1.8, `ada03f941bd7`) เป็น container ไหน — ไม่อยู่ในรายการที่กรองด้วยชื่อ SML จึงไม่ใช่ส่วนของ SML ERP ตามขอบเขตที่ผู้ใช้กำหนด (ไม่ไล่ต่อ)
+- `.gzip` ใน `tomcat/temp` ใครสร้าง
