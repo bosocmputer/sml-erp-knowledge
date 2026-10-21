@@ -32,6 +32,7 @@ date: 2026-10-20
 5. **ส่งทั้งหมดในครั้งเดียว** `_myFrameWork._queryList(databaseName, __queryStr)` → web service `Routine._queryList` เปิด connection, `setAutoCommit(false)`, รันทุกคำสั่ง, `commit` (ผิดพลาด → `rollback`) → **ทั้งเอกสารบันทึกแบบ atomic ใน transaction เดียว**
 6. **หลังบันทึกสำเร็จ**
    - ถ้า `_companyProfile._gl_process_realtime` = true และไม่ได้ทำ GL มือ → `_processGLByTrans(...)` แล้ว `_saveToDatabase` ลง `gl_journal` / `gl_journal_detail`
+   - **ยืนยันจากการรันจริง:** หลังบันทึก doc flow อัปเดตสถานะ แล้ว **ส่งรายการสินค้าเข้าคิว `process`** ให้ web service หยิบไปคำนวณต้นทุนภายหลัง (ไม่ได้คำนวณทันที) ดู [[runtime-verified]]
    - คำนวณต้นทุน/สต็อก (เว้นแต่ปิดด้วย `_companyProfile._disable_ic_cost_process`): ฟอร์ม `_utils._waitProcessFrom` → `SMLProcess._docFlow._processAll(transType, items, docNos)` (อัปเดตสถานะเอกสารต้นทาง/ยอดค้าง ตามสายเอกสาร) + `_smlFrameWork._process_stock_cost(...)` (เรียก web service ไปคำนวณต้นทุนสินค้าที่เกี่ยวข้อง) + `_process_stock_cost_finish`
    - โค้ดเก่าที่คำนวณยอดคงเหลือฝั่ง client ถูก comment ไว้ → ย้ายไปทำที่ web service แล้ว
 7. `_saveLog(mode)` บันทึก log การทำรายการ

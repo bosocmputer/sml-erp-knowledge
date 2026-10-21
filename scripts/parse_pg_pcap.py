@@ -73,6 +73,8 @@ def parse_tcp(ip):
     doff = (tcp[12] >> 4) * 4
     flags = tcp[13]
     total = struct.unpack("!H", ip[2:4])[0]
+    if total == 0 or total > len(ip):  # TSO/GRO packets captured before segmentation carry total length 0
+        total = len(ip)
     payload = ip[ihl + doff:total]
     return src, sport, dst, dport, seq, flags, payload
 
@@ -158,7 +160,8 @@ def main():
                     help="keep connections whose StartupMessage was not captured (db shown as '?')")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
-    streams = collections.defaultdict(Stream)
+    streams = {}   # (4-tuple, n) -> Stream; a new SYN on a reused 4-tuple starts a new connection
+    current = {}   # 4-tuple -> n
     for ts, lt, pkt in read_pcap(a.pcap):
         ip = ip_payload(lt, pkt)
         if not ip:
@@ -168,7 +171,13 @@ def main():
             continue
         src, sport, dst, dport, seq, flags, payload = t
         if dport == a.port:  # client -> server
-            streams[(src, sport, dst, dport)].add(ts, seq, payload)
+            tup = (src, sport, dst, dport)
+            if flags & 0x02:  # SYN: new connection (source ports get reused)
+                if tup in current and streams[(tup, current[tup])].segments:
+                    current[tup] += 1
+                current.setdefault(tup, 0)
+            n = current.setdefault(tup, 0)
+            streams.setdefault((tup, n), Stream()).add(ts, seq, payload)
     rows = []
     keep = {d.lower() for d in a.db}
     for i, (key, st) in enumerate(sorted(streams.items(), key=lambda kv: min(kv[1].segments) if kv[1].segments else 0)):
@@ -179,7 +188,7 @@ def main():
                 continue
             if keep and db.lower() not in keep and not (db == "?" and a.include_unknown):
                 continue
-            rows.append((ts, db, f"{key[0]}:{key[1]}", kind, val))
+            rows.append((ts, db, f"{key[0][0]}:{key[0][1]}#{key[1]}", kind, val))
     rows.sort()
     out = pathlib.Path(a.out).expanduser()
     out.mkdir(parents=True, exist_ok=True)

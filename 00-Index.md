@@ -9,6 +9,7 @@ tags: [sml, index]
 - [[login-flow]] — เปิดโปรแกรม → หน้า Login → เลือก database → หน้าหลัก (ไล่โค้ดทีละขั้น)
 - เอกสารเดิมใน repo: `~/dev/smlerp/SMLDocs/` (`transflag_transtype.md`, `Database.md` เป็น DBML, `MultiCurrency/`, `Report/`)
 - [[data-model]] — เอกสารแต่ละกลุ่มเก็บตารางไหน เชื่อมกันอย่างไร (ยืนยันกับข้อมูล AOY)
+- [[runtime-verified]] — **ยืนยันจากการรันจริง (เฟส 2)**: ลำดับ SQL จริงของบิลขาย ยกเลิก POS ซื้อ, คิวต้นทุน `process`, เงื่อนไขรายงานยอดขาย
 - [[document-engine]] — หน้าจอเอกสารกลาง `_icTransControl`: ขั้นตอนบันทึก, ตารางที่เขียน, transaction, GL, ต้นทุน
 - [[pricing-vat-gl]] — ลำดับการหาราคา 7 แหล่ง, รูปแบบคำส่วนลด, ประเภทภาษี, การลงบัญชีอัตโนมัติจากรูปแบบเอกสาร
 - [[stock-cost]] — สูตรยอดคงเหลือ/ค้างรับ/ค้างส่ง/ค้างจอง และวิธีคิดต้นทุน 5 แบบ (cost_type 0–4)
