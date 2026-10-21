@@ -80,7 +80,7 @@ where trans_flag in (?)                -- 44
 
 ### 7. ใบสั่งขาย → บิลขาย (สายเอกสาร)
 - **ใบสั่งขาย:** `insert ic_trans` → `ic_trans_detail` → `ic_trans_shipment` → `logs`/`erp_logs` แล้วปรับ **ยอดค้างจอง** `update ic_inventory set book_out_qty=? …` และเข้าคิวต้นทุน
-- **บิลขายเชื่อที่ดึงจากใบสั่งขาย:** `insert ic_trans` (`doc_ref` = ใบสั่งขาย) → `ic_trans_detail` → **`insert ap_ar_trans_detail (calc_flag -1, bill_type, billing_no, ref_doc_no …)`** (ตั้งลูกหนี้ ไม่มี `cb_trans` เพราะไม่รับเงิน) → `gl_journal_vat_sale` → `ic_trans_shipment` → logs
+- **บิลขายเชื่อที่ดึงจากใบสั่งขาย:** `insert ic_trans` (`doc_ref` = null — การอ้างอิงอยู่ที่บรรทัด `doc_ref_type=3`, `ref_doc_no`, `ref_row`) → `ic_trans_detail` → **`insert ap_ar_trans_detail (calc_flag -1, bill_type=3, billing_no=<เลขใบสั่งขาย>, …)`** = แถวในตาราง**เอกสารอ้างอิง**ของบิล (grid `_icTransRef`) ไม่ใช่การตั้งลูกหนี้ — **แก้ไข 2026-10-21:** บันทึกเดิมว่า "ตั้งลูกหนี้" ผิด; ยอดลูกหนี้คำนวณสดจากเอกสาร ดู [[write-spec-sale-invoice]] (ไม่มี `cb_trans` เพราะไม่รับเงิน) → `gl_journal_vat_sale` → `ic_trans_shipment` → logs
 - หลังบันทึก doc flow: **`update ic_trans set used_status=?, doc_success=? where roworder=?`** บนใบสั่งขาย — ตรวจใน DB แล้ว ใบสั่งขาย `used_status = 1`, `doc_success = 1` (ใช้ครบ) ✅ ตรงกับ [[doc-flow-rules]]
 
 ### 8. ปรับปรุงสต็อก (66)

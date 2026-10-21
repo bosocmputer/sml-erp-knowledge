@@ -23,7 +23,7 @@ date: 2026-10-21
 | **คิวต้นทุน `process`** | ❌ **ไม่พบ** → ต้นทุน/ล็อก/`average_cost` ไม่ถูกคำนวณจนกว่ามีเอกสารอื่นของสินค้านั้นจากโปรแกรม SML | ✅ `insert into process (process_name, wherein)` (SMLICProcess / SMLTrans) |
 | ยอดค้าง `book_out_qty` / `accrued_*` | ❌ ไม่พบ | ✅ พบ (SMLICProcess) |
 | doc flow สถานะต้นทาง (`used_status`, `doc_success`, `used_status_2`) | ⚠️ บางส่วน (void/cancel ตั้ง `used_status`/`last_status`); **ไม่พบ** การตั้งสถานะใบสั่งขายเมื่อเปิดบิล และ `used_status_2` ของบิลเมื่อรับชำระ | ⚠️ พบอ้างถึง `used_status`/`doc_success` 9 ไฟล์ (ยังไม่ได้ไล่ว่าครบตามกฎ [[doc-flow-rules]] ไหม) |
-| ขายเงินสด (`cb_trans`) | ❌ ไม่พบในบิลขาย (บิลเป็นแบบตั้งลูกหนี้ `ap_ar_trans_detail`) | ✅ `cb_trans`, `cb_trans_detail`, เช็ค `cb_chq_list` |
+| ขายเงินสด (`cb_trans`) | ❌ ไม่พบในบิลขาย (บิลเป็นแบบขายเชื่อ; `ap_ar_trans_detail` ที่ API เขียน = แถวเอกสารอ้างอิง ไม่ใช่ตั้งลูกหนี้ ดู [[write-spec-sale-invoice]]) | ✅ `cb_trans`, `cb_trans_detail`, เช็ค `cb_chq_list` |
 | เอกสารทดสอบ/สัญญา | ✅ OpenAPI, test หลายไฟล์, README ละเอียด | ⚠️ หลายเวอร์ชันปนกัน (SMLJavaRESTService, 3, 5), README สั้น |
 
 ## เทียบกับ flow จริงทีละเอกสาร (สิ่งที่โปรแกรม SML ทำ → แต่ละ service ทำไหม)

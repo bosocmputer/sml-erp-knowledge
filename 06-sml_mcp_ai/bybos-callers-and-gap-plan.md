@@ -39,7 +39,7 @@ POST {SML_WEBSERVICE}/SMLJavaWebService/rest/v1/processstockrequest
 | **doc flow สถานะเอกสารต้นทาง** | ❌ **ยังไม่มีใครทำ** | ใบสั่งขายที่ถูกเปิดบิลไม่ได้ `used_status`/`doc_success`; บิลที่ถูกรับชำระผ่าน API ไม่ได้ `used_status_2`; โปรแกรม SML ทำฝั่ง client (C#) จึงไม่มีบริการไหนรันให้ |
 | `logs` / `erp_logs` | ✅ bybos (document profile) | |
 | GL | ⚠️ ไม่มีใครลง GL | ปกติถ้าร้านตั้ง `gl_process_realtime = 0` (ประมวลผลภายหลังจากเมนู) แต่ถ้าร้านเปิด realtime เอกสารจาก API จะไม่มี GL จนกว่าสั่งประมวลผล |
-| ขายเงินสด (`cb_trans`) | ❌ บิลผ่าน API เป็นแบบตั้งลูกหนี้ | รับเงินภายหลังด้วย `/ar/receipts` |
+| ขายเงินสด (`cb_trans`) | ❌ บิลผ่าน API เป็นแบบขายเชื่อ (ไม่มี `cb_trans`) | รับเงินภายหลังด้วย `/ar/receipts` |
 
 ## 4. แผน (ยังไม่ลงมือ — รอยืนยัน)
 
