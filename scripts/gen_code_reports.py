@@ -48,6 +48,7 @@ def main():
     L = ["---", "tags: [sml, reports, generated]", "status: from-code", "---", "# รายงานที่เขียนในโค้ด (SMLERPReportTool)", "",
          "> สร้างอัตโนมัติด้วย `scripts/gen_code_reports.py` — เครื่องมือ `_reportTrans` / `_reportCashBankTrans` / `_reportArApTrans` รับ `reportEnum` + ประเภทเอกสาร แล้วสร้าง query ตามกรณี",
          "> ตาราง = ตารางที่อ้างในโค้ดกรณีนั้น (static) · กลับไป [[reports]] · [[00-Index]]", "",
+         "**ยืนยันจากการรันจริง:** รายงานการขายสินค้าและบริการใช้เงื่อนไข `trans_flag=44 and last_status=0 and (coalesce(doc_ref,'')='' or is_pos=1) and is_doc_copy<>1` ดู [[runtime-verified]]", "",
          f"ทั้งหมด {len(info)} reportEnum", "", "| reportEnum | เมนู | trans_flag | ตาราง | ไฟล์ |", "|---|---|---|---|---|"]
     for name in sorted(info):
         d = info[name]
