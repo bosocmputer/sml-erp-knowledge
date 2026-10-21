@@ -41,6 +41,14 @@ date: 2026-10-20
 - เอกสาร 1 ใบ = หลายตารางที่ต้องสอดคล้องกัน + ขั้นหลังบันทึก (GL, ต้นทุน, สถานะเอกสารต้นทาง) ที่รันฝั่ง client → **การเขียนเอกสารจากภายนอกด้วย SQL ตรงจะได้ข้อมูลไม่ครบ** ต้องให้ SML สร้าง/อนุมัติเอง (เอกสารก่อนอนุมัติ) — ดู [[product-ideas]]
 - การอ่านข้อมูล: ยอดสต็อก/ต้นทุนที่ถูกต้องขึ้นกับว่ากระบวนการคำนวณต้นทุนรันแล้วหรือยัง
 
+## การล็อกเอกสาร/ข้อมูลหลักขณะแก้ไข (`guid_code`) — ยืนยันจาก capture รอบ 4 + `Routine.java` `_unlockRecord`
+- เปิดเอกสารเพื่อแก้: `select guid_code from <table> where doc_no=? and trans_flag=? and guid_code is not null` → ถ้าว่าง `update <table> set guid_code=<GUID session> where doc_no=? and trans_flag=?`
+- ปิด/เปลี่ยนเอกสาร: `update <table> set guid_code=null where doc_no=? and trans_flag=? and guid_code is not null`
+- การบันทึกแก้ไขของ `_icTransControl` ลบหัวเอกสารแล้ว insert ใหม่ (ไม่ใส่ `guid_code`) → ล็อกหายไปพร้อมการบันทึก และ **`roworder` ของหัวเอกสารเปลี่ยน** ([[write-spec-sale-order]] §6.2)
+- logout → `_logoutProcess` → `_unlockRecord(database, tableList)`: ถ้ายังมี session ใน `sml_guid` ของ main database จะปลดเฉพาะแถวที่ `guid_code` ไม่อยู่ใน session ที่ยัง login; ถ้า**ไม่มี session เหลือ** → `update <table> set guid_code=null where guid_code is not null` (เห็นจริงตอน 16:29:35 กับ `ic_trans`, `ap_ar_trans`, `ic_inventory`, `ic_inventory_barcode`)
+  - ⚠️ ตรวจกับ `sml_guid` ของ main database ของผู้ที่ logout เท่านั้น (จากโค้ด) — database ที่ลงทะเบียนหลาย provider (เช่น aoy ใน AOY และ NEXT) ล็อกของผู้ใช้อีก provider จะถูกปลดด้วย
+- **สำหรับ sml_mcp_ai:** ก่อนแก้/ยกเลิกเอกสารที่มีอยู่ ต้องเช็ค `guid_code is not null` (มีคนเปิดแก้อยู่) และปฏิเสธ; ห้ามอ้างอิงเอกสารด้วย `roworder` ข้ามการแก้ไข (ใช้ `doc_no + trans_flag`)
+
 ## ยังไม่ได้ไล่
 - รายละเอียดสูตรใน `SMLProcess._docFlow._processAll` และ `ICStockCostProcess` (web service)
 - การลบ/ยกเลิกเอกสาร (`_glDeleteQuery`, หน้าจอ `_cancelControl`)

@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, sale-order, verified-runtime]
-status: verified-runtime (สร้างใบใหม่) / from-code (ส่วนที่ระบุ)
+status: verified-runtime (สร้างใบใหม่, ดึงจากใบเสนอราคา, แก้ไข, ยกเลิก — รอบ 4) / from-code (ส่วนที่ระบุ)
 source: capture aoy-run2 (SO26100001, 2026-10-21 09:44–09:46) + แถวจริงใน aoy + smlerp SMLInventoryControl/_icTransControl.cs, _processThread.cs, SMLProcess, SMLERPGlobal/_global.cs + smljavaws2 SMLICProcess.java
 ---
 # สเปกการบันทึก: ใบสั่งขาย (trans_flag 36)
@@ -8,7 +8,7 @@ source: capture aoy-run2 (SO26100001, 2026-10-21 09:44–09:46) + แถวจ�
 กลับไป [[00-Index]] · การตัดสินใจภาพรวม [[adr-001-write-path]] · สายเอกสาร [[doc-flow-rules]] · สต็อก [[stock-cost]]
 
 > **ขอบเขต:** สร้างใบสั่งขาย**ใบใหม่** (`_myManageTrans._mode == 1`) ผ่านหน้าจอ `menu_so_sale_order` (screen code `SS`)
-> **ยังไม่ครอบคลุม:** แก้ไข (mode 2), ลบ (mode 3), ยกเลิกใบสั่งขาย (37), อนุมัติใบสั่งขาย (52), ใบสั่งขายที่ดึงจากใบเสนอราคา/ใบจอง — ต้องดักจับเพิ่ม
+> **ยังไม่ครอบคลุม:** ลบ (mode 3), อนุมัติใบสั่งขาย (52), ยกเลิกรายสินค้า (37 type 2), ดึงจากใบจอง — (ดึงจากใบเสนอราคา / แก้ไข / ยกเลิกทั้งหมด ยืนยันแล้วใน §6)
 > ค่าตัวอย่างทั้งหมดมาจาก SO26100001 (ข้อมูล demo) · ช่องที่เป็นชื่อ/ที่อยู่/หมายเหตุ ไม่คัดลอกค่าลง vault
 
 ## 0. ลำดับเหตุการณ์จริง (ผลรวมจาก capture + โค้ด)
@@ -129,3 +129,20 @@ source: capture aoy-run2 (SO26100001, 2026-10-21 09:44–09:46) + แถวจ�
 - `<ต้นปี>` ในการหาเลขที่ (`doc_date >= '2026-01-01'`) มาจากปีปฏิทินหรือรอบบัญชี (`erp_account_period`)
 - พฤติกรรมเมื่อเปิด `sr_ss_credit_check` (ยังไม่เคยเห็นจริงบน tenant ใด)
 - ใบสั่งขายที่ดึงจากใบเสนอราคา (30) / ใบจอง (34), ส่วนลดท้ายบิล, หลายคลัง, สินค้าชุด, serial/lot — ต้องดักจับเพิ่ม
+
+## 6. ยืนยันจากรอบ 4 (capture aoy-run4, 2026-10-21 16:04–16:10): ดึงจากใบเสนอราคา / แก้ไข / ยกเลิก
+### 6.1 สร้างใบสั่งขายจากใบเสนอราคา (SO26100002 จาก QT26090001, 16:06:50)
+- Transaction เดียว: `ic_trans` (39 คอลัมน์) → `ic_trans_detail` × 2 → **`ap_ar_trans_detail` (10 คอลัมน์: `calc_flag=1, trans_type=2, trans_flag=36, doc_date, doc_no, bill_type=1, billing_no='QT26090001', billing_date=<วันที่ใบเสนอราคา>, remark, line_number=0`)** → `ic_trans_shipment` → `COMMIT`
+- หัว `doc_ref` = null (การอ้างอยู่ที่บรรทัด) · บรรทัด **`doc_ref_type=1`, `ref_doc_no='QT26090001'`, `ref_row=-1`** (ไม่ใช่ line_number ของต้นทาง ต่างจากบิลที่ดึงจาก SO)
+- ⇒ `doc_ref_type`/`bill_type` = **ประเภทเอกสารต้นทางตามมุมมองของเอกสารปลายทาง**: ใบสั่งขาย 1 = ใบเสนอราคา · บิลขาย 3 = ใบสั่งขาย, 2 = ใบจอง · ใบลดหนี้ 1 = บิลขาย ([[write-spec-credit-note]])
+- doc flow 16:06:58: `update ic_trans set used_status=1, doc_success=1 where roworder=<QT>` (ดึงครบทุกจำนวน)
+- ใบสั่งขายนี้ `inquiry_type=1` (ผู้ใช้เลือกขายสด)
+
+### 6.2 แก้ไขใบสั่งขาย (mode 2, 16:07:40–16:07:56)
+- **ล็อกเอกสารตอนเปิดแก้:** `select guid_code from ic_trans where doc_no=? and trans_flag=36 and guid_code is not null` (มีคนแก้อยู่หรือไม่) → `update ic_trans set guid_code=<GUID session> where doc_no=? and trans_flag=36`; ปิดหน้าจอ/เปลี่ยนเอกสาร → `update ic_trans set guid_code=null where … and guid_code is not null` ดู [[document-engine]] § การล็อกเอกสาร
+- **บันทึกแก้ไข = ลบแล้วใส่ใหม่ทั้งหมดใน transaction เดียว:**
+  `delete from ic_trans where doc_no=? and trans_flag=36` → `insert ic_trans` (**41 คอลัมน์** = 39 + `last_editor_code`, `lastedit_datetime`; `creator_code`/`create_datetime` ส่งค่าเดิมกลับไป) → `delete from ic_trans_detail …` → `delete from ic_trans_serial_number …` → `delete from ap_ar_trans_detail where doc_no=? and trans_flag=36` → insert บรรทัดใหม่ → insert `ap_ar_trans_detail` ใหม่ → `delete from ic_trans_shipment …` → insert ใหม่ → `COMMIT`
+- ⚠️ **`roworder` ของหัวเอกสารเปลี่ยน** (SO26100002 ได้ roworder ใหม่ 1153) และ `guid_code` หายไปเพราะแถวใหม่ไม่ได้ใส่ — การล็อกจึงปลดไปพร้อมการบันทึก
+- doc flow 16:08:16: ใบเสนอราคา `doc_success=0` (จำนวนที่ดึงเหลือ 6 จาก 10)
+
+### 6.3 ยกเลิกใบสั่งขาย (SSC26100001, 37 type 1, 16:10:01) — ดู [[write-spec-cancel]] B

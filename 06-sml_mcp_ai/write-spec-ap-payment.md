@@ -1,13 +1,13 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, ap, payment]
-status: from-code + ข้อมูลจริง (kbgtest) — ยังไม่มี capture ของใบจ่ายชำระ; ฝั่งลูกหนี้ของโค้ดเดียวกันยืนยันแล้ว
+status: verified-runtime รอบ 4 (PV26100001 จ่ายเงินสด 1 บิล) · สูตรยอดเจ้าหนี้ค้าง from-code
 source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceDoc` ~1228), SMLAPARControl/_ar_ap_trans.cs, _ar_ap_trans_grid.cs (~818) + DB kbgtest (2026-10-21) + capture รับชำระ aoy-run3 (เทียบ)
 ---
 # สเปกการบันทึก: จ่ายชำระหนี้ (trans_flag 19) และยอดเจ้าหนี้คงค้าง
 
 กลับไป [[00-Index]] · ซื้อ [[write-spec-purchase]] · ฝั่งลูกหนี้ (verified) [[write-spec-receipt]] · เงินสด/ธนาคาร [[cash-bank]] · โมดูล [[module-ap]]
 
-> ⚠️ **ยังไม่มี SQL จริงของใบจ่ายชำระ** — หน้าจอเดียวกับใบรับชำระ (`SMLAPARControl._ar_ap_trans`) และใช้ฟังก์ชันยอดค้างเดียวกัน (`_ar_ap_trans_grid.cs` ~818 → `SMLERPARAPInfo._process._arBalanceDoc(this._transControlType, …)`) — ฝั่งลูกหนี้ของฟังก์ชันนี้ตรงกับ SQL จริงที่ capture ได้ทุกเงื่อนไข ([[write-spec-receipt]] §1) ฝั่งเจ้าหนี้ด้านล่างอ่านจากกิ่ง `_apArEnum.เจ้าหนี้` ของโค้ดเดียวกัน
+> ✅ การบันทึกใบจ่ายชำระยืนยันแล้วในรอบ 4 (§6) · สูตรยอดเจ้าหนี้ค้าง (§1) ยังมาจากโค้ด (ฟังก์ชันเดียวกับฝั่งลูกหนี้ที่ verified)
 
 ## 1. ไม่มีตาราง "ตั้งเจ้าหนี้" แยก — ยอดค้างคำนวณจากเอกสาร
 `_createQuery(mode = เจ้าหนี้_ยอดคงเหลือตามเอกสาร)` สร้าง union ของ (ทุกส่วน `coalesce(last_status,0)=0`):
@@ -36,7 +36,7 @@ source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceD
 - ใบจ่ายชำระ 19 ใช้หน้าจอและคลาสบันทึกเดียวกับใบรับชำระ 239 (`SMLAPARControl._ar_ap_trans`) — ลำดับที่เห็นจริงของ 239 อยู่ใน [[write-spec-receipt]] §2
 - doc flow หลังบันทึก (`_docFlowThread.cs` ~165, ~184): `used_status_2=1` ให้ `ic_trans` trans_flag `12, 310, 14, 16, 317, 311, 316, 315` และ `260, 262, 264` ที่มีแถว `ap_ar_trans_detail` ของ **213 (รับวางบิล) หรือ 19** (`last_status=0`) อ้าง `billing_no` — ไม่ดูว่าจ่ายครบหรือไม่ (เหมือนฝั่งลูกหนี้)
 
-**ยังไม่ทราบ (ต้อง capture ใบจ่ายชำระ 1 ใบ):** ลำดับคำสั่งจริงของ 19, ตาราง VAT ที่ลบก่อน insert (ใบรับชำระลบ `gl_journal_vat_sale`), การเขียน `gl_wht_list` ฝั่งเจ้าหนี้, คอลัมน์ครบของ `ap_ar_trans` / `ap_ar_trans_detail` / `cb_trans`
+**ตอบแล้วในรอบ 4:** ลำดับคำสั่งจริง, ตาราง VAT ที่ลบ (`gl_journal_vat_buy`) และคอลัมน์ครบ ดู §6 · ยังไม่ทราบ: การเขียน `gl_wht_list` ฝั่งเจ้าหนี้, ภาษีซื้อที่เกิดตอนจ่าย
 
 ## 4. สำหรับ sml_mcp_ai
 - **อ่าน (เปิดได้):** ยอดเจ้าหนี้ค้างรายเอกสาร/รายผู้ขาย ด้วยสูตรข้อ 1 (อ่านอย่างเดียว ความเสี่ยงต่ำ; ทดสอบเทียบกับรายงานเจ้าหนี้คงค้างของ SML ก่อนใช้จริง)
@@ -47,3 +47,13 @@ source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceD
 - ใบรับวางบิล (213) เขียนอะไร และทำไมทำให้ `used_status_2=1` เหมือนจ่ายแล้ว
 - `lost_profit_exchange_amount` ฝั่งเจ้าหนี้ (หลายสกุลเงิน)
 - ภาษีซื้อที่บันทึกตอนจ่ายชำระ
+
+## 6. ยืนยันจากรอบ 4: จ่ายชำระเงินสด PV26100001 จ่าย PU26100001 (16:22:03)
+**Transaction เดียว** (ลำดับเดียวกับใบรับชำระ [[write-spec-receipt]] §2):
+1. ลบก่อน: `delete from cb_trans where doc_no=? and trans_flag=19 and trans_type=1` → `cb_trans_detail` (`doc_type<>6`) → `gl_wht_list` → `gl_wht_list_detail` → **`gl_journal_vat_buy`** (ใบรับชำระลบ `_vat_sale`)
+2. `insert ap_ar_trans` (18 คอลัมน์): `trans_type=1, trans_flag=19, doc_date, doc_time, doc_no, cust_code=<ผู้ขาย>, doc_format_code='PV', project_code, allocate_code, job_code, side_code, department_code, doc_group, remark, is_manual_vat=0, total_net_value=260.00, creator_code, create_datetime`
+3. `insert ap_ar_trans_detail` (15): `trans_type=1, trans_flag=19, billing_no='PU26100001', billing_date, ref_doc_no, ref_doc_date, due_date, doc_ref, sum_debt_amount=260, balance_ref=260, sum_pay_money=260, bill_type=12, line_number=0`
+4. `insert cb_trans` (22 คอลัมน์): `doc_format_code='PV', doc_no, doc_date, doc_time, ap_ar_code, **pay_type=2**, trans_type=1, trans_flag=19, remark, total_amount, cash_amount=260, total_expense_other, total_income_amount, petty_cash_amount, deposit_amount, total_tax_at_pay, chq_amount, tranfer_amount, discount_amount, total_income_other, total_net_amount, total_amount_pay`
+5. `delete cb_trans_detail …ว่าง` → ลบ GL 7 ตารางของเลขที่นี้ → ลบบรรทัดว่าง → `update ic_trans set due_date … where doc_no=<PV>` → `COMMIT`
+- doc flow 16:22:09: **PU26100001 `used_status_2=1`**
+- ⇒ ข้อ 3 "ยังไม่ทราบ" เดิมตอบแล้ว: ลำดับและตารางตามนี้ (WHT/VAT ซื้อในใบจ่ายชำระยังไม่ได้ทดสอบ)

@@ -1,13 +1,13 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, ar, billing-note]
-status: from-code + ข้อมูลจริง (kbgtest/samai/aoy) — ยังไม่มี capture
+status: verified-runtime รอบ 4 (BL26100001) + from-code (กฎสถานะ) + ข้อมูลจริง
 source: smlerp SMLProcess/_docFlowThread.cs (~115, ~147, ~269, ~1556), SMLAPARControl/_ar_ap_trans.cs + DB kbgtest/samai/aoy (2026-10-21)
 ---
 # สเปกเอกสาร: ใบวางบิลลูกหนี้ (trans_flag 235)
 
 กลับไป [[00-Index]] · รับชำระ [[write-spec-receipt]] · บิลขาย [[write-spec-sale-invoice]] · ฝั่งเจ้าหนี้ (213) [[write-spec-ap-payment]]
 
-> ⚠️ ไม่มี SQL จริงของการบันทึก 235 — ใช้หน้าจอเดียวกับใบรับชำระ (`SMLAPARControl._ar_ap_trans`) โครงสร้างด้านล่างมาจากแถวที่โปรแกรมบันทึกไว้แล้ว และกฎสถานะมาจากโค้ด
+> ยืนยันด้วย SQL จริงแล้วในรอบ 4 (§0) · กฎสถานะมาจากโค้ดและตรงกับที่เห็นจริง
 
 ## 1. โครงสร้าง (ข้อมูลจริง)
 | | kbgtest | samai | aoy |
@@ -37,9 +37,19 @@ source: smlerp SMLProcess/_docFlowThread.cs (~115, ~147, ~269, ~1556), SMLAPARCo
 
 ## 4. สำหรับ sml_mcp_ai
 - **อ่าน (เปิดได้):** "บิลที่วางแล้วแต่ยังไม่รับเงิน" = ใบวางบิลที่ `last_status=0 and doc_success=0` + บรรทัดของมัน; "บิลที่ยังไม่วาง" = บิลขายเชื่อที่ยอดค้าง ≠ 0 และไม่มีบรรทัด 235 อ้าง
-- **เขียน: ยังไม่เปิด** จนกว่าจะ capture การบันทึก 235 และใบรับชำระที่รับตามใบวางบิล (ยืนยันว่า `doc_ref` ของบรรทัดถูกใส่อย่างไร)
+- **เขียน:** ทำตาม §0 ได้ (ใบวางบิล + ใบรับชำระตามใบวางบิล ยืนยันแล้ว)
 
 ## 5. ยังไม่ทราบ
-- ลำดับ SQL ของการบันทึก 235 / 236
-- ใบรับชำระตามใบวางบิล ใส่ `doc_ref` ที่บรรทัดอย่างไร (ทุกบรรทัด / เฉพาะบรรทัดที่มาจากใบวางบิล)
+- ลำดับ SQL ของการยกเลิกใบวางบิล (236)
+- ใบรับชำระที่รับบางบิลในใบวางบิล / ปนบิลที่ไม่ได้วาง
 - ใบรับวางบิลฝั่งเจ้าหนี้ (213) ใช้กฎเดียวกันหรือไม่ (โค้ด ~1530 มีโครงสร้างคล้ายกัน)
+
+## 0. ยืนยันจากรอบ 4 (2026-10-21)
+### ใบวางบิล BL26100001 (16:13:19) — 1 transaction
+1. `insert ap_ar_trans` (15 คอลัมน์): `trans_type=2, trans_flag=235, doc_date, doc_no, cust_code, doc_format_code='BL', due_date, credit_day, doc_ref, doc_ref_date, remark, sale_code, total_net_value=90.00, creator_code, create_datetime`
+2. `insert ap_ar_trans_detail` ต่อบิล (15 คอลัมน์): `trans_type=2, trans_flag=235, doc_date, doc_no, billing_no=<บิล>, billing_date, ref_doc_no=<ic_trans.doc_ref ของบิล>, ref_doc_date, due_date, sum_debt_amount, balance_ref, sum_pay_money (= ยอดที่วาง), doc_ref=null, bill_type=44, line_number`
+3. `delete from ap_ar_trans_detail where sum_debt_amount=0 and coalesce(remark,'')='' and (billing_no='' or billing_no is null)` → `update ic_trans set due_date=date(doc_date)+credit_day … where doc_no=<เลขใบวางบิล>` → `COMMIT`
+- **ไม่มีการลบก่อน insert** (ต่างจากใบรับชำระ) และไม่มี `cb_trans`
+- doc flow 16:13:25–26: บิล BF-INV26100032/33 `used_status_2=1`
+### ใบรับชำระตามใบวางบิล RC26100004 (16:15:06) — ดู [[write-spec-receipt]] §6
+- doc flow 16:15:45: **`update ap_ar_trans set used_status=1, doc_success=1 where roworder=<BL>`** (รับครบ 90) ตรงกับกฎ §3

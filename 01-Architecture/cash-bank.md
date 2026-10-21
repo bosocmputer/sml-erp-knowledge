@@ -1,6 +1,6 @@
 ---
 tags: [sml, cash-bank, payment, cheque, wht]
-status: from-code + ข้อมูลจริง (kbgtest/aoy, 2026-10-21) + capture บางส่วน (เงินสด)
+status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4)
 source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceControl.cs, SMLERPGlobal/_global.cs (`_payType` ~2151), SMLProcess/_docFlowThread.cs (~958–1100), SMLERPControl/_bank/_chqListControl.cs, _customer/_arStatusForm.cs + DB + capture aoy-run1..3
 ---
 # เงินสด / ธนาคาร: การรับ-จ่ายเงิน, เช็ค, ภาษีหัก ณ ที่จ่าย
@@ -68,7 +68,8 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
-- โอน/บัตร/เช็ค: โครงสร้าง `cb_trans_detail` จากโค้ดชัดแล้ว แต่ยังไม่รู้ชุดคอลัมน์ครบของแต่ละ grid (`_createQueryForInsert` ใช้คอลัมน์ของ grid) — ต้อง capture 1 ครั้งต่อช่องทางก่อนเปิด
+- **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
+- บัตร/เช็ค/อื่น ๆ: ยังต้อง capture 1 ครั้งต่อช่องทางก่อนเปิด
 - รับเช็ค ⇒ ต้องสร้างแถว `cb_chq_list` (status 0) ด้วย ไม่เช่นนั้นเช็คจะไม่อยู่ในทะเบียนและหน้าจอฝาก/ผ่านเช็คหาไม่เจอ
 
 ## 5. ยังไม่ทราบ

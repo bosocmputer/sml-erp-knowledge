@@ -1,13 +1,13 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, credit-note]
-status: from-code + ข้อมูลจริงหลายร้าน (ยังไม่มี capture SQL) — ห้ามเปิดใช้การเขียนจนกว่าจะดักจับจริง
+status: verified-runtime รอบ 4 สำหรับรับคืนจากขายเงินเชื่อ (inquiry_type 0) · ประเภทอื่น from-code
 source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โครงสร้างเท่านั้น) + smlerp _icTransScreenTopControl.cs, SMLProcess/_docFlowThread.cs, smljavaws2 SMLICProcess.java + query จริงที่ capture ได้จากเอกสารอื่น
 ---
 # สเปกการบันทึก: รับคืนสินค้า / ลดหนี้ (trans_flag 48)
 
 กลับไป [[00-Index]] · บิลขาย [[write-spec-sale-invoice]] · รับชำระ [[write-spec-receipt]] · ยกเลิก [[write-spec-cancel]]
 
-> ⚠️ **ไม่มี SQL จริงของการบันทึก 48** — ข้อมูลด้านล่างมาจาก (1) แถวที่โปรแกรม SML บันทึกไว้แล้วในหลายร้าน (2) โค้ด (3) query ของเอกสารอื่นที่ capture ได้และอ้างถึง 48 · ลำดับคำสั่งและคอลัมน์ครบชุดยังไม่ทราบ
+> ✅ รอบ 4 ยืนยันรับคืนจากขายเงินเชื่อ 2 ใบ (§0) · ⚠️ ประเภทอื่นยังเป็นข้อมูลจากแถวที่บันทึกไว้แล้ว + โค้ด
 
 ## 1. ประเภท (`inquiry_type`) — ป้ายจาก `SMLERPTemplate/smldatabase.xml`, ลำดับจาก `_icTransScreenTopControl.cs` ~1712
 | ค่า | ความหมาย | กระทบสต็อก | นับในยอดลูกหนี้ |
@@ -42,7 +42,7 @@ source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โคร�
 - ยกเลิก CN (49) → `_processThread` แปลงเป็น 48 ก่อนเรียก (เหมือนยกเลิกบิล)
 
 ## 5. สำหรับ sml_mcp_ai
-- **ยังไม่เปิด `commit_credit_note`** จนกว่าจะดักจับ SQL จริงอย่างน้อย 2 แบบ: รับคืนจากขายเชื่อ (0) และลดหนี้จากขายเชื่อไม่กระทบสต็อก (2)
+- `commit_credit_note` เปิดได้**เฉพาะรับคืนจากขายเชื่อ (inquiry_type 0)** ตาม §0 · ประเภท 1–5 ยังไม่เปิดจนกว่าจะ capture (โดยเฉพาะ 2 = ลดหนี้ไม่กระทบสต็อก)
 - `preview_credit_note` ทำได้แล้ว (อ่านอย่างเดียว): ตรวจบิลต้นทาง `last_status=0`, จำนวนรับคืนต่อบรรทัด ≤ จำนวนขายที่ยังไม่ถูกคืน, เลือก `inquiry_type` ให้ตรงกับประเภทบิล (เชื่อ 0/2/4, สด 1/3/5)
 
 ## 6. ยังไม่ทราบ
@@ -50,3 +50,24 @@ source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โคร�
 - `vat_calc` 1 กับ −1 ต่างกันอย่างไร
 - `ap_ar_trans_detail.bill_type = 1` ในใบลดหนี้หมายถึงอะไร (ใบสั่งขายใช้ 3, ใบรับชำระใช้ trans_flag ของบิล)
 - จำนวนรับคืนเกินจำนวนขายถูกห้ามด้วยตัวเลือกใด (`check_qty_over_doc_ref` = 0 ใน aoy)
+
+## 0. ยืนยันจากรอบ 4: รับคืนจากขายเงินเชื่อ (CN26100002 16:17:27, CN26100003 16:19:53 — อ้าง BF-INV26100035 ทั้งสองใบ)
+**Transaction เดียว:** `ic_trans` (38 คอลัมน์) → `ic_trans_detail` ต่อบรรทัด (62 คอลัมน์) → `ap_ar_trans_detail` (14 คอลัมน์) → `gl_journal_vat_sale` (29 คอลัมน์) → `COMMIT` — **ไม่มี `cb_trans`** (ขายเชื่อ) และไม่มี `ic_trans_shipment`
+- `ic_trans`: `trans_type=2, trans_flag=48, doc_format_code='CN', tax_doc_no=tax_doc_date=<เลข/วันที่ CN>, doc_ref=null, sale_code, inquiry_type=0, vat_type, credit_day/date, vat_rate, total_value, total_discount, total_before_vat, total_vat_value, total_after_vat, total_except_vat, total_amount, remark_2..5, is_pos=0, …` และ **3 คอลัมน์เฉพาะใบลดหนี้**:
+  | คอลัมน์ | CN26100002 | CN26100003 | ความหมาย (จากค่าจริง 2 ใบ) |
+  |---|---|---|---|
+  | `ref_amount` | 318.00 | 18.00 | มูลค่าบิลก่อนลดครั้งนี้ (หักใบลดหนี้ก่อนหน้าแล้ว) |
+  | `ref_diff` | 300.00 | 18.00 | ยอดลดครั้งนี้ |
+  | `ref_new_amount` | 18.00 | 0 | มูลค่าบิลหลังลด |
+- `ic_trans_detail`: **`calc_flag=1`**, `doc_ref_type=1`, `ref_doc_no=<บิล>`, **`ref_row=<line_number ของบรรทัดบิล>`** (0 และ 1), `price_mode/price_type=null`, `set_ref_price=0`
+- `ap_ar_trans_detail` (14): `calc_flag=-1, trans_type=2, trans_flag=48, doc_date, doc_no, bill_type=1, billing_no=<บิล>, billing_date, sum_debt_value, sum_debt_balance, sum_debt_amount, final_amount, sum_before_vat, line_number`
+  | คอลัมน์ | CN26100002 | CN26100003 | ความหมาย |
+  |---|---|---|---|
+  | `sum_debt_value` | 318 | 318 | มูลค่าบิลเดิม |
+  | `sum_debt_balance` | 318 | 18 | มูลค่าคงเหลือก่อนลดครั้งนี้ (= `ref_amount`) |
+  | `sum_debt_amount` | 300 | 18 | ยอดลดครั้งนี้ (= `ref_diff`) |
+  | `final_amount` | 18 | 0 | มูลค่าหลังลด (= `ref_new_amount`) |
+  | `sum_before_vat` | 297.20 | 297.20 | ฐานภาษีของบิลเดิม (318 / 1.07) |
+- `gl_journal_vat_sale`: **`vat_calc=-1`** ทั้ง 2 ใบ (ฐาน/ภาษี 280.37/19.63 และ 16.82/1.18), `vat_number`=เลข CN, `ref_doc_no/ref_vat_no` = null
+- หลัง commit (CN26100002): `logs` → สต็อกของสินค้าที่รับคืน (flag 48: `balance_qty`, ค้างทุกแบบ) → คิว `process` → doc flow: **บิล `used_status=1`** (16:17:31) + reset `last_status` ของ 44 และ 48 → worker คำนวณต้นทุน (`sum_of_cost` ของบรรทัด CN26100002 = 149.53)
+- รอบ 4 ผู้ใช้เลือก inquiry 0 ทั้งสองใบ (แผนเดิมให้ใบที่ 2 เป็น inquiry 2) ⇒ **ลดหนี้ไม่กระทบสต็อก (2) ยังไม่ได้ยืนยัน**

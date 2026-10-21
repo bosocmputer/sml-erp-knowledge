@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, master-data, product, unit, barcode]
-status: from-code + ข้อมูลจริงหลายร้าน (ยังไม่มี capture SQL ของการบันทึกสินค้า)
+status: verified-runtime รอบ 4 (สร้างสินค้าหลายหน่วย + บาร์โค้ดจากหน้าจอข้อมูลสินค้า) · หน้าจอบาร์โค้ดแยก/แก้ไข/ลบ from-code
 source: smlerp SMLERPIC/_icMain.cs (`_saveData`, `_dataList__deleteData`), SMLERPIC/_icBarcode.cs, SMLERPControl/_icmainScreenTopControl.cs, SMLERPGlobal/_utils.cs (`_updateInventoryMasterFunction`), MyLib/_myScreen.cs, SMLERPTemplate/smldatabase.xml + DB aoy/kbgtest/samai/wawacrm (2026-10-21, นับ/โครงสร้างเท่านั้น)
 ---
 # สเปกข้อมูลหลัก: สินค้า / หน่วยนับ / บาร์โค้ด
@@ -8,7 +8,7 @@ source: smlerp SMLERPIC/_icMain.cs (`_saveData`, `_dataList__deleteData`), SMLER
 กลับไป [[00-Index]] · ราคา [[pricing-vat-gl]] · สต็อก/ต้นทุน [[stock-cost]] · เมนู [[module-inventory]]
 
 > หน้าจอ: ข้อมูลสินค้า › ข้อมูลสินค้า (`menu_ic_item_detail`, `SMLERPIC._icMain`), กำหนดบาร์โค้ดสินค้า (`menu_ic_item_barcode`, `SMLERPIC._icBarcode`), กำหนดหน่วยนับสินค้า (`menu_setup_ic_unit`, `MyLib._manageMasterCodeFull` → ตาราง `ic_unit`)
-> ⚠️ **ยังไม่มี SQL จริงของการบันทึกสินค้า** (การทดสอบรอบ 1–3 ไม่ได้สร้าง/แก้สินค้า) — ลำดับคำสั่งด้านล่างมาจากโค้ด และกฎความสัมพันธ์ตรวจกับข้อมูลที่โปรแกรมบันทึกไว้แล้ว
+> ✅ รอบ 4 ยืนยันการสร้างสินค้า ZZTEST-0001 (§10) · ⚠️ หน้าจอบาร์โค้ดแยก, แก้ไข, ลบ ยังเป็นข้อมูลจากโค้ด
 
 ## 1. ตารางและความสัมพันธ์
 | ตาราง | หน้าที่ | Unique (ตรวจ `pg_indexes` aoy) |
@@ -56,7 +56,7 @@ source: smlerp SMLERPIC/_icMain.cs (`_saveData`, `_dataList__deleteData`), SMLER
 **แก้ไข (mode 2):** `update ic_inventory set … , last_update_code, last_update_date_time=now() where <รหัสเดิม>` แล้ว **ลบแล้วใส่ใหม่ทั้งชุด** สำหรับ `ic_unit_use`, `ic_opposite_unit`, `ic_wh_shelf` (ไม่ใส่ใหม่ถ้า `enable_all_ic_wh_shelf`), `ic_inventory_barcode`, `ic_standard_cost` (`where upper(ic_code) in (<รหัสเดิม>, <รหัสใหม่>)`) + `update ic_inventory_detail set have_point=…`
 
 ## 5. หลังบันทึก
-1. `insert into master_logs (…)` (`_createLog`, `_icMain.cs` ~134) — ⚠️ โค้ดใส่คอลัมน์ `module_name` แต่ตารางจริงใน aoy **ไม่มีคอลัมน์นี้** (ยังไม่ทราบว่าคำสั่งนี้ล้มเงียบ ๆ หรือ web service ปรับโครงสร้างให้ — ต้องดูจาก capture)
+1. `insert into master_logs (function_code, computer_name, guid, menu_name, screen_code, function_type, user_code, date_time, code, name_1, data1, data2)` — **ยืนยันรอบ 4: ไม่มี `module_name`** (โค้ดที่มี `module_name` ใน `_createLog` ไม่ใช่เส้นทางที่รันจริงบน edition นี้)
 2. `_utils._updateInventoryMasterFunction()` (1 batch):
    - `ic_inventory.unit_standard_name` = ชื่อจาก `ic_unit`
    - `unit_standard_stand_value`/`unit_standard_divide_value`: ตั้ง 1 ถ้าว่าง/0 หรือ `unit_type=0`; ถ้า `unit_type=1` ใช้ค่าจาก `ic_unit_use` ของหน่วยมาตรฐาน (ข้อมูลจริง: ค่าไม่ตรง = 0 ทุกร้าน)
@@ -89,4 +89,17 @@ source: smlerp SMLERPIC/_icMain.cs (`_saveData`, `_dataList__deleteData`), SMLER
 - ผลของ `_docFlow._processAll(สินค้า_ปรับปรุงสต็อก, …)` หลังบันทึกสินค้า
 - หน่วยนับขนาน (`ic_opposite_unit`) ใช้ในการคำนวณอย่างไร
 - กฎของ `ic_inventory_price` / `ic_inventory_price_formula` ตอนบันทึก (หน้าจอราคาแยก)
-- `master_logs.module_name` ที่โค้ดใส่แต่ไม่มีในตาราง
+- ~~`master_logs.module_name`~~ → ตอบแล้ว (ไม่ได้ใส่จริง)
+
+## 10. ยืนยันจากรอบ 4: สร้างสินค้า ZZTEST-0001 (16:27:53)
+**Transaction เดียว** ตรงกับลำดับในโค้ด §4:
+1. `delete from ic_inventory_detail where not exists (…)`
+2. `insert ic_inventory` (33 คอลัมน์): `code, ic_serial_no=0, tax_type=0, item_type=0, name_1, name_2, name_eng_1, name_eng_2, unit_type=1, unit_cost, unit_standard, cost_type=0, income_type, item_pattern, supplier_code, sign_code, account_code_1..4, update_detail=1, update_price=1, manufacturer_code, drink_type=0, use_expire=0, production_period=0, barcode_checker_print=0, print_order_per_unit=0, is_eordershow=0, is_speech=0, pos_no_sum=0, create_code, create_datetime=now()`
+3. `insert ic_unit_use` ต่อหน่วย (11): `ic_code, line_number (0,1), code, stand_value, divide_value, ratio (= stand/divide: 1, 6), row_order (1, 2), width_length_height, weight, unit_size=0, status=1`
+4. `insert ic_wh_shelf` ต่อแถว (7): `ic_code, wh_code, shelf_code, shelf_list=null, min_point=0, max_point=0, status=1`
+5. `insert into ic_inventory_detail (ic_code, have_point) values (?, 0)`
+6. `insert ic_inventory_barcode` ต่อบาร์โค้ด (16): `ic_code, barcode, unit_code, price, price_member, price_2, price_member_2, price_3, price_member_3, price_4, price_member_4, hidden_text, no_point=0, is_clearance=0, from_date, to_date`
+7. `COMMIT` — **ไม่มี** `ic_opposite_unit` และ `ic_standard_cost` เพราะ grid ว่าง (grid ว่างไม่สร้างคำสั่ง)
+- หลัง commit: `master_logs` (16:27:53.667) → ชุด `_updateInventoryMasterFunction` (`unit_standard_name`, `unit_standard_stand/divide_value`, `ic_inventory_barcode.description`, เติม `ic_inventory_detail`) → (16:27:55) `_process_stock_balance('<รหัส>', "*")`: `item_type`, `balance_qty` … คิว `process`
+- ผลใน DB: `unit_standard_name='ชิ้น'`, `unit_standard_stand_value=1`, `unit_standard_divide_value=1`, `ic_inventory_detail` 1 แถว
+- หน้าจอ "กำหนดบาร์โค้ดสินค้า" ไม่ได้ทดสอบในรอบนี้ (ผู้ใช้ใส่บาร์โค้ดในตารางของหน้าจอข้อมูลสินค้า)

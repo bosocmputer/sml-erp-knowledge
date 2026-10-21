@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, receipt, verified-runtime]
-status: verified-runtime (รับชำระเงินสดเต็มจำนวน 1 บิล) / from-code (ส่วนที่ระบุ)
+status: verified-runtime (เงินสด 1 บิล รอบ 3; ตามใบวางบิล + โอนเงิน รอบ 4) / from-code (ส่วนที่ระบุ)
 source: capture aoy-run3 (RC26100003 รับชำระ INV26100002, 10:39–10:42) + DB aoy + smlerp SMLProcess/_docFlowThread.cs
 ---
 # สเปกการบันทึก: รับชำระหนี้ (trans_flag 239)
@@ -67,3 +67,11 @@ source: capture aoy-run3 (RC26100003 รับชำระ INV26100002, 10:39–
 - การรับด้วยช่องทางอื่น (`cb_trans_detail`, `cb_chq_list`), ส่วนลด, ภาษีหัก ณ ที่จ่าย (`gl_wht_list`), `lost_profit_exchange_amount`
 - ขั้นตอนหลังบันทึกของหน้าจอรับชำระ (ห่าง 44 วินาที) เกิดจากพิมพ์หรือไม่ — ยังไม่ได้ไล่โค้ด `SMLAPARControl/_ar_ap_trans.cs`
 - การยกเลิกใบรับชำระ (240) และผลต่อ `used_status_2`
+
+## 6. ยืนยันจากรอบ 4: รับชำระตามใบวางบิล + โอนเงิน (RC26100004, 16:15:06)
+ลำดับเดียวกับ §2 และเพิ่ม:
+- บรรทัดบิล (`ap_ar_trans_detail` trans_flag 239, 15 คอลัมน์) มี **`doc_ref='BL26100001'`** และ `ref_doc_no`/`ref_doc_date` = `ic_trans.doc_ref` ของบิล
+- `cb_trans`: `cash_amount=0`, **`tranfer_amount=90.00`**, `total_amount`/`total_net_amount`/`total_amount_pay=90`
+- **`insert cb_trans_detail` (13 คอลัมน์):** `doc_no, doc_date, doc_time, trans_type=2, trans_flag=239, doc_type=1 (โอน), chq_due_date=<วันที่>, trans_number=<รหัสสมุดบัญชี erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount=90.00, remark, line_number=0` (ดู [[cash-bank]])
+- **แถวเอกสารอ้างอิงของใบรับชำระ:** หลัง `delete cb_trans_detail …ว่าง` มี `insert ap_ar_trans_detail` (8 คอลัมน์) **`trans_type=2, trans_flag=99, doc_date, doc_no='RC26100004', billing_no='BL26100001', billing_date, remark, line_number=0`** + แถวว่าง line 1 (ถูกลบโดยคำสั่ง cleanup ท้าย transaction) — `trans_flag=99` ในที่นี้ใช้กับแถวอ้างอิงใบวางบิล (ชื่อ flag 99 ใน [[trans_flag]] คือ ลูกหนี้_ตั้งหนี้อื่น) · kbgtest มีแถวแบบนี้ 20,158 แถวที่ผูกกับใบรับชำระ
+- doc flow 16:15:45: ใบวางบิล `used_status=1, doc_success=1` ([[write-spec-billing-note]])

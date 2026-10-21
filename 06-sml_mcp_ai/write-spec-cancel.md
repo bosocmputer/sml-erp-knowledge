@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, cancel, verified-runtime]
-status: ยกเลิกบิลขาย (45) verified-runtime · ยกเลิกใบสั่งขาย (37) from-code + ข้อมูลจริงหลายร้าน
+status: ยกเลิกบิลขาย (45) verified-runtime · ยกเลิกใบสั่งขายทั้งหมด (37 type 1) verified-runtime รอบ 4 · 37 type 2 from-code
 source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08:59) + DB aoy/kbgtest/samai/debug_kbgds_data1/demo/wawacrm (2026-10-21) + smlerp _icTransControl.cs, _icTransScreenTopControl.cs, SMLProcess/_docFlowThread.cs, _processThread.cs
 ---
 # สเปกการบันทึก: เอกสารยกเลิก (45 ยกเลิกบิลขาย, 37 ยกเลิกใบสั่งขาย)
@@ -50,7 +50,7 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
   | debug_kbgds_data1 | | | 160 | 160 |
   ⇒ ใน AOY (demo) บัญชีของบิลที่ยกเลิกไม่ถูกกลับรายการ เพราะการตั้งค่ารูปแบบเอกสาร — `erp_doc_format_gl` ของรูปแบบยกเลิกเป็น 0 แถวทุกร้าน จึงยังไม่ทราบว่า GL ของ 45 ใช้ผังบัญชีจากไหน
 
-## B. ยกเลิกใบสั่งขาย (37) — from-code + ข้อมูลจริง (ยังไม่ได้ดักจับ SQL)
+## B. ยกเลิกใบสั่งขาย (37) — type 1 ยืนยันแล้ว (B.0) · type 2 from-code + ข้อมูลจริง
 - เมนู ขาย › รายงาน/ยกเลิก › ยกเลิกใบสั่งขาย (`menu_so_sale_order_cancel`, `SMLERPSO._soSaleorderCancel`, [[menu-map]])
 - หน้าจอมี `cancel_type` (`_icTransScreenTopControl.cs` ~452): **1 = ยกเลิกทั้งหมด, 2 = ยกเลิกรายสินค้า** (ป้ายจาก `smldatabase.xml`)
 - ข้อมูลจริง (จำนวนเอกสาร 37 แยกตาม `cancel_type` / มีบรรทัดหรือไม่):
@@ -71,11 +71,18 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
 - `cancel_sale_invoice(doc_no)`: ตรวจกฎ A.1 → transaction เดียว: insert หัว 45 (A.2) **+ doc flow ปิดต้นทาง (A.3 ข้อ 4)** + SQL ส่วนที่ 1 ของสต็อกด้วย flag 44 + คิว `process` 'IC' → `logs`; หลัง commit `erp_logs`
   - ใส่ doc flow ในชุดเดียวกันได้เพราะเป็น `update` ที่กำหนดผลได้แน่นอน (ต่างจากโปรแกรมที่ทำแยกและทำหลังปิดหน้าพิมพ์ — ช่วงนั้นบิลยังนับเป็นยอดขาย/ยอดคงเหลืออยู่)
   - แจ้งผู้ใช้เรื่อง GL: ถ้ารูปแบบเอกสาร 45 ของร้านไม่มี `gl_book` บัญชีจะไม่ถูกกลับรายการ (พฤติกรรมเดียวกับโปรแกรม)
-- `cancel_sale_order(doc_no, type)`: **ยังไม่ควรเปิดใช้** จนกว่าจะดักจับ SQL จริงของ 37 (type 1/2) — ข้อมูลจริงมีทั้งแบบมีและไม่มีบรรทัดในทั้งสองประเภท
+- `cancel_sale_order(doc_no)` แบบ**ยกเลิกทั้งหมด**: เปิดได้ตาม B.0 · แบบ**ยกเลิกรายสินค้า (type 2)**: ยังไม่เปิดจนกว่าจะ capture
 
 ## ยังไม่ทราบ
 - เลขที่ `SIC00010001` ไม่ตรง `format='@YYMM####'` ของ `erp_doc_format` SIC
 - ผังบัญชีที่ใช้ลง GL ของเอกสาร 45 (ไม่มีใน `erp_doc_format_gl`)
 - เมนูที่ใช้ `CancelDocumentQuery` (`is_cancel=1`)
-- SQL จริงของการยกเลิกใบสั่งขาย 37 (แผนดักจับอยู่ใน [[phase2-tcpdump]] รอบ 4 — ผู้ใช้พักการทดสอบไว้)
+- SQL จริงของการยกเลิกใบสั่งขายรายสินค้า (37 type 2)
 - ยกเลิกบิลขายเชื่อ: ต่างจากขายสดหรือไม่ (ไม่มี `cb_trans` แต่มี `ap_ar_trans_detail` อ้างอิง)
+
+## B.0 ยืนยันจากรอบ 4: ยกเลิกใบสั่งขายทั้งหมด (SSC26100001 ยกเลิก SO26100002, 16:10:01)
+- **Transaction:** `insert ic_trans` 1 แถว (37 คอลัมน์) — **ไม่มีบรรทัด** (`ic_trans_detail` ของ SSC = 0)
+  `trans_type=2, trans_flag=37, status=0, doc_date, doc_time, cust_code, doc_ref_date, doc_no, doc_format_code='SSC', doc_ref='SO26100002', user_approve=<ผู้ใช้>, vat_type=1, user_request=null, cancel_type=1, expire_day, expire_date, vat_rate, total_value=0, credit_day, credit_date, discount_word='100', total_discount=100.00, send_day, send_date, total_before_vat=0, total_vat_value=0, remark, total_after_vat=0, total_except_vat=-100.00, total_amount=-100.00, remark_2..5, is_pos=0, creator_code, create_datetime`
+  - ค่า `discount_word`/`total_discount`/`total_amount = -100` เป็นค่าที่โปรแกรมเขียนจริงในใบนี้ — ยังไม่ทราบว่ามาจากไหน (ใบสั่งขายต้นทางไม่มีส่วนลดท้ายบิล)
+- หลัง commit: `logs` → งานสต็อกของสินค้าใน SO (ค้างจอง/ค้างส่ง, คิว `process`) → **doc flow** (16:10:04): `update ic_trans set last_status=1 where roworder=<SO>`, `ic_trans_detail`/`ap_ar_trans_detail` ของ 36 `last_status=1` → (16:10:05) ใบเสนอราคาต้นทาง **`used_status=0`** และ reset `last_status` ของ 30
+- ผลใน DB: SO26100002 `last_status=1`; QT26090001 `used_status=0, doc_success=0` (กลับมาใช้ได้)
