@@ -27,6 +27,8 @@
 
 ## สร้างไฟล์ generated ใหม่
 
+รันทั้งหมดในคำสั่งเดียว (หลัง smlerp/smljavaws2 มีการแก้โค้ด): `scripts/regenerate_all.sh` (เพิ่ม `--with-db` เมื่อตั้งค่า PG* แล้ว)
+
 ```bash
 python3 scripts/gen_menu.py            # ~/dev/smlerp/SMLAccount/menu.json → 04-Menu/menu-tree.md
 python3 scripts/gen_modules.py         # ~/dev/smlerp → 05-Modules/modules.md
