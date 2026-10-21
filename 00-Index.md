@@ -9,6 +9,8 @@ tags: [sml, index]
 - [[login-flow]] — เปิดโปรแกรม → หน้า Login → เลือก database → หน้าหลัก (ไล่โค้ดทีละขั้น)
 - เอกสารเดิมใน repo: `~/dev/smlerp/SMLDocs/` (`transflag_transtype.md`, `Database.md` เป็น DBML, `MultiCurrency/`, `Report/`)
 - [[data-model]] — เอกสารแต่ละกลุ่มเก็บตารางไหน เชื่อมกันอย่างไร (ยืนยันกับข้อมูล AOY)
+- [[permissions]] — **สิทธิ์ผู้ใช้ SML**: user_level, สิทธิ์เมนู (XML ใน `sml_permissions_*`, กลุ่ม OR ผู้ใช้), สิทธิ์ธุรกิจใน `erp_user(_group)`
+- [[cash-bank]] — **เงินสด/ธนาคาร**: `pay_type`, `cb_trans_detail.doc_type` 11 ช่องทาง, สถานะเช็คจากเอกสารเช็ค, ภาษีหัก ณ ที่จ่าย
 - [[server-layout]] — บริการ SML บน server จริง (docker compose, ตัวไหนรันอยู่, ไฟล์ config ใน `tomcat/temp`, โหมดคิวต้นทุน)
 - [[runtime-verified]] — **ยืนยันจากการรันจริง (เฟส 2)**: ลำดับ SQL จริงของบิลขาย ยกเลิก POS ซื้อ, คิวต้นทุน `process`, เงื่อนไขรายงานยอดขาย
 - [[document-engine]] — หน้าจอเอกสารกลาง `_icTransControl`: ขั้นตอนบันทึก, ตารางที่เขียน, transaction, GL, ต้นทุน
@@ -52,6 +54,8 @@ tags: [sml, index]
 - [[write-spec-receipt]] — **รับชำระหนี้ (239)**: สูตรยอดค้างรายบิลจริง, `bill_type`, ตารางที่เขียน, `used_status_2`
 - [[write-spec-credit-note]] — **รับคืน/ลดหนี้ (48)** จากโค้ด + ข้อมูลจริง (ยังไม่มี capture — ห้ามเปิดเขียน)
 - [[write-spec-master-product]] — **ข้อมูลหลักสินค้า/หน่วยนับ/บาร์โค้ด**: ตาราง, unique, ค่ารหัส, การบันทึก/แก้/ลบ, งานซ่อมข้อมูลหลังบันทึก, ความผิดปกติในข้อมูลจริง
+- [[write-spec-purchase]] — **ซื้อเงินเชื่อ (12)** verified: ตาราง, ตรวจใบกำกับซื้อซ้ำต่อผู้ขาย, ต้นทุนหลังซื้อ
+- [[write-spec-ap-payment]] — **จ่ายชำระ (19) + สูตรยอดเจ้าหนี้ค้าง** จากโค้ดร่วมกับฝั่งลูกหนี้ (ยังไม่มี capture การบันทึก)
 - [[nexflow-lessons]] — บทเรียนจาก Nexflow (Shopee/TikTok → SML): route ขาย/ยกเลิก/ลดหนี้/รับชำระ, Document Profile V1, กับดักของ SML, รูปแบบ idempotency
 - [[bybos-callers-and-gap-plan]] — ใครเรียก sml-api-bybos (Nexflow, billflow, paperless), การยิง processstockrequest, ช่องว่างที่เหลือ + แผน
 - [[write-api-comparison]] — เทียบ sml-api-bybos (Go) กับ SMLJavaRESTService3 (Java) สำหรับ MCP เขียนข้อมูล + ช่องว่างที่ต้องเติม
