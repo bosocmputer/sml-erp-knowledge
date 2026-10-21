@@ -13,7 +13,7 @@ Outputs (to --out directory, NOT the vault — statements may contain business d
   segments.md       per marker segment: statements normalized (literals -> ?), and tables written/read
 
 Usage:
-  python3 scripts/parse_pg_pcap.py capture.pcap --db aoy --db smlerpmainaoy --out ~/sml-sqllog/aoy-run1
+  python3 scripts/parse_pg_pcap.py capture.pcap --out ~/sml-sqllog/aoy-run1-all   # keep all DBs first; the provider's main DB may not be smlerpmain<shop>
 """
 import argparse
 import collections

@@ -22,9 +22,9 @@ date: 2026-10-21
 ## คำตอบจากโค้ด (2026-10-21) ที่ทำให้ทาง ค ชัดขึ้น
 1. **งานสต็อกหลังบันทึกแบ่งเป็น 2 ส่วน** (`smljavaws2 SMLICProcess._process_stock_balance` + `SMLProcess`):
    - **ส่วน 1 — ยอดคงเหลือ + ค้างรับ/ค้างส่ง/ค้างจอง:** เป็น **SQL ล้วน** (CTE ที่ดักจับได้ใน [[runtime-verified]] / [[stock-cost]]) รันทันทีเมื่อโปรแกรมเรียก SOAP `_process_stock_balance(itemList, calcFlag)`
-   - **ส่วน 2 — ต้นทุน/ล็อต:** `_process_stock_balance` (ค่าเริ่มต้น `insertProcess = true`) **ใส่คิว** `process` (`process_name='IC'`) หรือส่งเข้า RabbitMQ/Redis ถ้าตั้ง `StockProcessQueueConfig` → worker ของ web service หยิบไปทำ `_process_stock_cost` แล้วลบแถวคิว
+   - **ส่วน 2 — ต้นทุน/ล็อต:** `_process_stock_balance` (ค่าเริ่มต้น `insertProcess = true`) **ใส่คิว** `process` (`process_name='IC'`) หรือส่งเข้า RabbitMQ/Redis ถ้าตั้ง `StockProcessQueueConfig` → **โปรแกรม Windows ที่เปิดอยู่** (3 thread ต่อเครื่อง วนทุก 10 วินาที) หยิบไปทำผ่าน SOAP แล้วลบแถวคิว ดู [[stock-cost]] § ใครเป็นคนหยิบคิว
    - `processstockrequest` (REST) = ส่วน 2 แบบ synchronous + ส่วน 1 (`insertProcess=false`)
-   - จากการดักจับ: web service poll ตาราง `process` ของร้านทุก ~10 วินาที **แม้ยังไม่มีใคร login** (เห็นตั้งแต่ 08:43 ก่อน login 08:48)
+   - จากการดักจับ: การ poll ตาราง `process` ทุก ~10 วินาทีมาจากโปรแกรมที่ login อยู่ (SQL ผ่าน web service) — **แก้ไข 2026-10-21:** บันทึกเดิมว่า "poll แม้ยังไม่มีใคร login" ผิด; `smlerpmainnext.sml_access_list` แสดงว่ามี session AOY login ตั้งแต่ 07:10 และ logout 08:47:39 ก่อน login ใหม่ 08:48 ดู [[login-flow]]
 2. **ระบบเอกสารร่าง (`ic_trans_draft` …) ไม่ใช่ "บันทึกร่างทั่วไป"** — เป็นกลไก **ขออนุมัติวงเงินเครดิต** (`_companyProfile._request_ar_credit`): เมื่อยอดขายเกินวงเงิน โปรแกรมบันทึกเอกสารลงตารางร่าง + `erp_request_order` (รหัส OTP `approve_code`) → ผู้อนุมัติเห็นใน `_approveOrderControl` และอนุมัติ (`ic_trans_draft.approve_status = 1`) → ผู้ขายใส่ OTP แล้วบันทึกจริง → โปรแกรมลบร่าง
    - ⇒ **ไม่เหมาะเป็นช่องทาง "AI ร่าง คนกดบันทึก"** ทั่วไป (ผูกกับการอนุมัติเครดิต, เฉพาะเอกสารขาย)
 
@@ -41,5 +41,5 @@ date: 2026-10-21
 
 ## ผลที่ตามมา
 - ต้องมี **สเปกการบันทึกต่อประเภทเอกสาร** ใน vault (ตาราง, field สำคัญ, doc flow, งานสต็อก, ตัวเลือกร้านที่เกี่ยว) ก่อนเขียนโค้ด
-- ต้องยืนยันด้วยการรันจริง (ดักจับ SQL) อีก 2 เรื่องที่โค้ดตอบไม่ได้: (ก) server จริงใช้ worker แบบตาราง `process` หรือ queue ภายนอก (ข) คิวที่ใส่จากภายนอกถูกหยิบไปทำจริงในเวลาที่ยอมรับได้
+- ต้องยืนยันด้วยการรันจริง (ดักจับ SQL) อีก 2 เรื่องที่โค้ดตอบไม่ได้: (ก) server จริงใช้ worker แบบตาราง `process` หรือ queue ภายนอก — **ตอบแล้วบางส่วน (2026-10-21):** ร้าน AOY ใช้ตาราง `process` และคนหยิบคือโปรแกรม Windows ที่เปิดอยู่; ยังไม่ทราบว่า container `smlstockprocess`/RabbitMQ บน server รันอยู่หรือไม่ (ข) คิวที่ใส่จากภายนอกถูกหยิบไปทำจริงในเวลาที่ยอมรับได้ — **ความเสี่ยงที่เห็นแล้ว:** `kbgtest.process` ค้าง 10 แถวตั้งแต่ 2026-10-16 เพราะไม่มีโปรแกรมเปิด → ทางสำรอง `processstockrequest` (หรือ worker ของ sml_mcp_ai ที่ทำแบบเดียวกับ `_procesNow`) **จำเป็น ไม่ใช่ทางเลือก** สำหรับร้านที่ไม่มีคนเปิดโปรแกรมตลอด
 - ลำดับประเภทเอกสาร: ใบสั่งขาย → ขาย (เชื่อ/เงินสด) → ยกเลิก/ลดหนี้ → รับชำระ แล้วค่อยขยาย

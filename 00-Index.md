@@ -9,6 +9,7 @@ tags: [sml, index]
 - [[login-flow]] — เปิดโปรแกรม → หน้า Login → เลือก database → หน้าหลัก (ไล่โค้ดทีละขั้น)
 - เอกสารเดิมใน repo: `~/dev/smlerp/SMLDocs/` (`transflag_transtype.md`, `Database.md` เป็น DBML, `MultiCurrency/`, `Report/`)
 - [[data-model]] — เอกสารแต่ละกลุ่มเก็บตารางไหน เชื่อมกันอย่างไร (ยืนยันกับข้อมูล AOY)
+- [[server-layout]] — บริการ SML บน server จริง (docker compose, ตัวไหนรันอยู่, ไฟล์ config ใน `tomcat/temp`, โหมดคิวต้นทุน)
 - [[runtime-verified]] — **ยืนยันจากการรันจริง (เฟส 2)**: ลำดับ SQL จริงของบิลขาย ยกเลิก POS ซื้อ, คิวต้นทุน `process`, เงื่อนไขรายงานยอดขาย
 - [[document-engine]] — หน้าจอเอกสารกลาง `_icTransControl`: ขั้นตอนบันทึก, ตารางที่เขียน, transaction, GL, ต้นทุน
 - [[pricing-vat-gl]] — ลำดับการหาราคา 7 แหล่ง, รูปแบบคำส่วนลด, ประเภทภาษี, การลงบัญชีอัตโนมัติจากรูปแบบเอกสาร
@@ -33,6 +34,7 @@ tags: [sml, index]
 - [[code-reports]] — เครื่องมือรายงานในโค้ด: 151 reportEnum → ตาราง/เอกสาร/เมนู *(generated)*
 
 ## Database
+- [[tenants-overview]] — **ทุกร้านบน server ทดสอบ**: provider → database, ขนาด/ธุรกรรม, trans_flag ที่ใช้, ตารางเทียบตัวเลือกร้านที่มีผลต่อการบันทึก
 - [[database-layout]] — รูปแบบ DB ต่อกิจการ (`smlerpmain<provider>`, `<db>`, `_images`, `_logs`) และสถานะ DB สำเนา
 - [[aoy-settings]] — ค่าตั้งค่าจริงของร้าน AOY: ตัวเลือกที่เปลี่ยนพฤติกรรม + ผังลงบัญชี 12 รูปแบบเอกสาร (verified)
 - [[phase2-tcpdump]] — **เฟส 2**: ดักจับ SQL จริงด้วย tcpdump + ตัวแปลง `scripts/parse_pg_pcap.py`

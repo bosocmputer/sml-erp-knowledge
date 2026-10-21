@@ -67,9 +67,10 @@ rm /root/sml-capture/aoy-run1.pcap
 
 ## ขั้นที่ 5 — แปลงเป็น SQL (Claude ทำให้)
 ```bash
-python3 ~/dev/sml-knowledge/scripts/parse_pg_pcap.py ~/sml-sqllog/aoy-run1.pcap \
-  --db aoy --db smlerpmainaoy --db aoy_images --db aoy_logs --out ~/sml-sqllog/aoy-run1
+python3 -I ~/dev/sml-knowledge/scripts/parse_pg_pcap.py ~/sml-sqllog/aoy-run1.pcap --out ~/sml-sqllog/aoy-run1-all
 ```
+- **อย่ากรอง `--db` ตอน parse ครั้งแรก** — main database อาจไม่ใช่ `smlerpmain<ชื่อร้าน>` (AOY ใช้ `smlerpmainnext`) ตอนแรกกรองไว้จึงพลาด SQL login ทั้งหมด ([[login-flow]]) ให้ parse ทั้งหมดแล้วค่อยกรองตอนวิเคราะห์
+- capture มี SQL ของ tenant อื่นที่ใช้ server เดียวกันปนมา (cus_ms, kbyt, samai ฯลฯ) — วิเคราะห์เฉพาะ database ของร้านที่ทดสอบ + main database ของ provider นั้น
 - ได้ `statements.tsv` (SQL ดิบ มีข้อมูลจริง) และ `segments.md` (SQL แทนค่าด้วย `?` แยกตาม marker + ตารางที่อ่าน/เขียน)
 - Claude สรุปผลลง vault เฉพาะโครงสร้าง (ลำดับคำสั่ง, ตาราง, เงื่อนไข) แล้วเปลี่ยนสถานะโน้ตที่ยืนยันได้เป็น `verified-runtime`
 

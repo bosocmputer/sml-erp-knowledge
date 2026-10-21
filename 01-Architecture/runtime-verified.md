@@ -28,7 +28,7 @@ date: 2026-10-21
 ลำดับจริงหลังบันทึกเอกสาร (ทั้งขาย ยกเลิก POS ซื้อ):
 1. โปรแกรมอัปเดตสถานะสายเอกสาร (doc flow) — `update ic_trans_detail/ap_ar_trans_detail/cb_trans/cb_trans_detail set last_status/status …`, ทะเบียนเช็ค `delete cb_chq_list where not exists …`, serial `ic_serial`, หัก ณ ที่จ่าย `gl_wht_list_detail`, ยอดค้างรับ `update ic_inventory set accrued_in_qty …`
 2. **ส่งงานเข้าคิว:** `delete from process where process_name=? and wherein in (…)` แล้ว `insert into process (process_name, wherein) select ?, code from ic_inventory where code in (…)` — 1 แถวต่อสินค้าที่ต้องคำนวณใหม่
-3. **web service หยิบคิว** (poll ทุก ~10 วินาที: `select roworder, process_name from process where last_guid=? or last_guid is null …`) → จองงาน `update process set last_guid=?, last_process_time=now() …` (งานค้างนานถูกยึดคืนด้วย `last_process_time < now() - interval ?`)
+3. **โปรแกรม Windows ที่เปิดอยู่หยิบคิวผ่าน web service** (`SMLProcess._sendProcess._procesNow`, 3 thread วนทุก 10 วินาที ดู [[stock-cost]]: `select roworder, process_name from process where last_guid=? or last_guid is null …`) → จองงาน `update process set last_guid=?, last_process_time=now() …` (งานค้างนานถูกยึดคืนด้วย `last_process_time < now() - interval ?`)
 4. คำนวณ: `update/insert/delete ic_trans_detail_lot` (ล็อต), `update ic_trans_detail set sum_of_cost=?, sum_of_cost_1=?, average_cost=?, average_cost_1=?, profit_lost_cost_amount=?`, `update ic_inventory set average_cost=?` → `delete from process where roworder=?`
 - ผล: ต้นทุนในเอกสารอัปเดต **หลังบันทึกไม่กี่วินาทีถึงหลายสิบวินาที** ไม่ใช่ในทันที → ดู [[stock-cost]], [[document-engine]]
 
@@ -45,7 +45,7 @@ date: 2026-10-21
 ### 4. Login และการตั้งค่าที่โหลด
 - อ่าน `erp_user`, `erp_user_group`(+`_detail`, `_approve`), `erp_branch_list`, `erp_company_profile`, `erp_option`, `erp_thai_qr_config`, `erp_option_etax_inet`, `erp_option_mobillyst`, `pg_indexes` (ตรวจ index) และตัวเลขสรุปหลายตาราง
 - เขียนตอน login: `update ap_ar_trans`, `update ic_trans` (ปลดล็อกเอกสาร), ล้าง `barcode_import_list(_detail)`
-- **ไม่พบคำสั่งไปที่ `smlerpmainaoy` เลย** ทั้งที่ login สำเร็จ → การตรวจ user/GUID (`sml_user_list`, `sml_guid`) ของ provider AOY **ไม่ได้เกิดบน PostgreSQL ตัวนี้** — ยังไม่ทราบว่าใช้ main database ที่ไหน (ต้องดู config `SMLConfig<provider>.xml` ของ web service) ดู [[login-flow]]
+- **แก้ไข (2026-10-21):** login AOY ใช้ main database `smlerpmainnext` (provider NEXT) — เห็นครบเมื่อ parse capture ใหม่แบบไม่กรอง database (บันทึกเดิมว่า "ไม่พบ" ผิดเพราะ parse กรองแค่ `aoy`/`smlerpmainaoy`) ลำดับ SQL และ heartbeat ดู [[login-flow]]
 - ทุกครั้งที่เปิดเมนู โปรแกรมโหลด `erp_account_period` ซ้ำ และสั่ง `update erp_account_period set period_year = … where period_year is null`
 
 ### 5. รายงานการขายสินค้าและบริการ (`menu_so_report_invoice`)
@@ -63,6 +63,7 @@ where trans_flag in (?)                -- 44
 ### 6. connection อื่นที่เห็น
 - `172.18.0.3` = SMLJavaWebService (โปรแกรม SML ทั้งหมดผ่านตัวนี้)
 - `172.18.0.5` = บริการอื่น (ไม่ใช่โปรแกรม SML): ส่ง `-- ping` เป็นระยะ และ query สรุปใบเสนอราคา (`WITH base_orders AS …`) — ยังไม่ทราบว่าเป็นระบบอะไร (ไม่ใช่ SMLJavaWebService เพราะเป็นคนละ IP)
+- client ที่เห็นทั้ง 3 capture (นับจาก source IP ในเครือข่าย docker): `172.18.0.3` = SMLJavaWebService (`application_name='PostgreSQL JDBC Driver'`, ให้บริการทุก tenant: aoy, cus_ms, kbyt, samai, smlerpmain{next,kbyt,cusms,demo}); `172.18.0.2` → wawacrm; `172.18.0.5` → aoy, demo, ploy_test; `172.18.0.10` → demo, demo2 (+ `loyalty_hub` ซึ่งไม่ใช่ DB ของ SML); `172.18.0.15` → kbgtest; IP สาธารณะ 1 ตัว → kbyt — **ยังไม่ทราบว่า .2/.5/.10/.15 เป็น container อะไร** (ต้อง `docker network inspect` ซึ่งต้องใช้ sudo) และ capture มีงานของ tenant อื่นปนด้วย ต้องกรองตาม database ตอนวิเคราะห์
 - web service ส่ง `SET extra_float_digits`, `SET application_name`, `set enable_seqscan=false` ทุกครั้งที่เปิด connection
 
 ## รอบที่ 2 (2026-10-21 09:43–10:16, ไฟล์ aoy-run2, 5,481 คำสั่ง)

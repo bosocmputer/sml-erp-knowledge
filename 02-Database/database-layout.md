@@ -9,7 +9,9 @@
 | `<db>_images` | รูป: `images` (image_id = รหัสสินค้า, guid_code, image_file bytea), `sml_doc_images`, `images_erp_user` |
 | `<db>_logs` | `erp_logs` |
 
-provider หนึ่งมีได้หลาย data DB — ดู `sml_database_list` ใน `smlerpmain<provider>` เสมอเพื่อรู้ว่าต้องมี DB อะไรบ้าง
+provider หนึ่งมีได้หลาย data DB และ **data DB เดียวลงทะเบียนได้หลาย provider** (aoy อยู่ทั้ง AOY และ NEXT) — ดู `sml_database_list` ใน `smlerpmain<provider>` เสมอ และอย่าสรุปว่า main database = `smlerpmain<ชื่อร้าน>`
+
+> **อัปเดต 2026-10-21:** ได้สิทธิ์ superuser (ใช้แบบอ่านอย่างเดียว) แล้ว — ภาพรวมทุกร้าน, provider map และตัวเลือกร้าน ดู [[tenants-overview]] · ข้อมูลด้านล่างเป็นบันทึกวันที่ 2026-10-20 ตอนยังใช้ user read-only (บางตัวเลขเปลี่ยนแล้ว เช่น kbyt ic_trans เหลือ 2 ใบ)
 
 ## DB สำเนาของผู้ใช้ (สำรวจ 2026-10-20)
 

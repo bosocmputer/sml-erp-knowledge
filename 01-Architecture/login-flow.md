@@ -46,7 +46,26 @@ tags: [sml, login, flow]
 
 ## ยืนยันจากการรันจริง (2026-10-21)
 - หลังเลือก database โปรแกรมโหลดตั้งค่าจาก `aoy`: `erp_user`, `erp_user_group*`, `erp_branch_list`, `erp_company_profile`, `erp_option`, `erp_thai_qr_config`, `erp_option_etax_inet`, `erp_option_mobillyst` และตรวจ `pg_indexes`
-- **ไม่พบ query ไปที่ `smlerpmainaoy`** ระหว่าง login → main database ของ provider AOY (ที่เก็บ `sml_user_list`, `sml_guid`) **ไม่ได้ถูก query บน PostgreSQL ตัวนี้** — ยังไม่ทราบตำแหน่ง ดู [[runtime-verified]]
+- **main database ที่ใช้ตอน login AOY = `smlerpmainnext`** (provider ที่ผู้ใช้กรอกคือ `NEXT`, data group `SML`, data code `AOY`) — ยืนยัน 2 ทาง:
+  1. capture aoy-run1 (parse ใหม่แบบไม่กรอง database, 2026-10-21) เห็นลำดับ SQL บน `smlerpmainnext` ตามตารางด้านล่าง
+  2. `smlerpmainnext.sml_access_list` มีแถว `database_code='AOY'` เวลา 08:47/08:48 (type 2→1), 09:05 (2), 09:43 (2,1), 10:15 (2), 10:39 (2,1), 10:44 (2) ตรงกับเวลาที่ผู้ใช้ login/ปิดโปรแกรมทั้ง 3 รอบ
+- `smlerpmainaoy` ก็ลงทะเบียน AOY ไว้ (`sml_database_list`: AOY|AOY|SML) แต่ไม่ได้ถูกใช้ในการทดสอบนี้ — **database ก้อนเดียวกันลงทะเบียนได้หลาย provider** ([[tenants-overview]])
+- บันทึกเดิมที่ว่า "ไม่พบ query ไป main database" ผิด เกิดจากตอน parse ใส่ `--db aoy --db smlerpmainaoy` จึงกรอง `smlerpmainnext` ทิ้ง (ไม่ใช่พฤติกรรมของ SML)
+
+### ลำดับ SQL ที่เห็นจริงบน main database (capture aoy-run1, 08:47–08:48, ค่าใน '' ถูกปิด)
+| เวลา | SQL | มาจาก |
+|---|---|---|
+| ทุก ~60 วิ | `update sml_guid set last_access_time=? where guid_code=?` → `select * from sml_guid where now()-last_access_time > '00:05:00'` (ถ้าพบ → `delete ... > '00:05:00'`) | `Routine.java` `_sendGuid` (heartbeat จาก client `SMLERPTemplate/_templateMainForm.cs` `_processStatusBarWork`) |
+| ทุก ~30 วิ | `select roworder from sml_screen_realtime where computer_name=? and ... now()-request_time<'00:00:30'` / `select roworder,request from sml_screen_capture where guid_code=?` | ระบบดูหน้าจอระยะไกล (`SMLERPGlobal/_viewCaptureScreen.cs`) |
+| 08:47:39 | `delete from sml_guid where guid_code=?` → `insert into sml_access_list (...) values (...,2,...)` | `_logoutProcess` (ปิด session เก่าก่อน login ใหม่) |
+| 08:48:04 | `select data_group from sml_database_list where upper(data_group)=?` | ตรวจ data group |
+| 08:48:05 | `select user_password / user_name,user_level / device_id from sml_user_list where upper(user_code)=?` | ตรวจผู้ใช้ |
+| 08:48:09 | `select data_code,data_database_name,data_name from sml_database_list where upper(data_group)=? and upper(data_code) in (...)` | รายชื่อ database ที่มีสิทธิ์ |
+| 08:48:11 | `select * from sml_user_list where upper(user_code)=? and user_password=?` → `insert into sml_guid (...)` | `_loginProcess` |
+| 08:48:18–36 | `sml_language`, `sml_resource where data_group=?`, `sml_custom_language` | โหลดภาษา/resource |
+
+- session หมดอายุเมื่อไม่มี heartbeat เกิน **5 นาที** (`'00:05:00'` ใน `_sendGuid`) — ตอนนี้ `sml_guid` ของ smlerpmainnext ว่าง (0 แถว, 2026-10-21) เพราะ logout ลบแถวทิ้ง
+- ผลต่อ sml_mcp_ai: ถ้าจะเขียนผ่าน SOAP ต้องมี GUID ที่ยังไม่หมดอายุ และต้องส่ง heartbeat หรือ login ใหม่ทุกครั้ง; ถ้าเขียน DB ตรง ไม่ผ่านกลไกนี้ (ไม่มีแถวใน `sml_access_list`)
 
 ## ยังต้องไล่ต่อ
 - `SMLERPTemplate._main._startProgram()` และ `_g.g._companyProfileLoad()` ทำอะไรบ้าง

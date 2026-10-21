@@ -9,9 +9,17 @@ date: 2026-10-20
 กลับไป [[00-Index]] · เรียกจาก [[document-engine]] หลังบันทึกเอกสาร · คอลัมน์ดู [[dictionary-index]]
 
 ## ใครเรียก (จากโค้ด 2026-10-21)
-- โปรแกรมเรียก SOAP `_process_stock_balance(itemList, calcFlag)` หลังบันทึก → คำนวณยอดคงเหลือ + ค้างรับ/ส่ง/จอง ด้วย SQL ทันที และ (ค่าเริ่มต้น) **ใส่คิว `process` 'IC'** หรือส่ง RabbitMQ/Redis ถ้าตั้ง `StockProcessQueueConfig` → worker `SMLProcess` หยิบไปคำนวณต้นทุน (`_process_stock_cost`) แล้วลบแถวคิว ดู [[adr-001-write-path]]
+- โปรแกรมเรียก SOAP `_process_stock_balance(itemList, calcFlag)` หลังบันทึก → คำนวณยอดคงเหลือ + ค้างรับ/ส่ง/จอง ด้วย SQL ทันที และ (ค่าเริ่มต้น) **ใส่คิว `process` 'IC'** หรือส่ง RabbitMQ/Redis ถ้าตั้ง `StockProcessQueueConfig` → โปรแกรม Windows ที่เปิดอยู่ (thread ใน `SMLAccount/_mainForm.cs` → `SMLProcess._sendProcess._procesNow`) หยิบไปคำนวณต้นทุน (`_process(guid)` → `_process_stock_cost`) แล้วลบแถวคิว ดู [[adr-001-write-path]]
 
-**ยืนยันจากการรันจริง (2026-10-21):** เอกสารที่บันทึกจะ `insert into process (process_name, wherein)` 1 แถวต่อสินค้า แล้ว web service poll ตาราง `process` ทุก ~10 วินาที หยิบงาน (`last_guid`, `last_process_time`) คำนวณล็อต/ต้นทุน แล้วลบแถวคิว ดู [[runtime-verified]] — คำอธิบายด้านล่างเป็นจากโค้ด
+**ยืนยันจากการรันจริง (2026-10-21):** เอกสารที่บันทึกจะ `insert into process (process_name, wherein)` 1 แถวต่อสินค้า แล้วมีตัว poll ตาราง `process` ทุก ~10 วินาที หยิบงาน (`last_guid`, `last_process_time`) คำนวณล็อต/ต้นทุน แล้วลบแถวคิว ดู [[runtime-verified]] — คำอธิบายด้านล่างเป็นจากโค้ด
+
+### ใครเป็นคนหยิบคิว `process` (ยืนยันจากโค้ด + capture + DB, 2026-10-21)
+- **ตัว poll คือโปรแกรม Windows ที่เปิดอยู่ ไม่ใช่ server**: `SMLAccount/_mainForm.cs` `_mainForm_Load` สร้าง thread `"SML Thread 0..2"` **3 ตัวต่อเครื่อง** (OEM `imex` = 1 ตัว) แต่ละตัววน `SMLProcess._sendProcess._procesNow()` แล้ว `Thread.Sleep(10000)` (คอมเมนต์ในโค้ดเขียนว่า "ทุกหนึ่งวินาที" แต่ค่าจริง 10 วินาที)
+- `_procesNow()` (`SMLProcess/_sendProcess.cs`): ทุก 60 รอบ ปลดล็อกงานค้าง (`update process set last_guid='' where ... last_process_time < now() - interval ...`) → `select roworder,process_name from process where last_guid='' or last_guid is null limit 100` → จองด้วย GUID ใหม่ → `_process(guid)` (SOAP) → `update process set last_guid=null where last_guid=<guid>`
+- SQL ทั้งหมดวิ่งผ่าน SMLJavaWebService จึงเห็น source IP เป็น `172.18.0.3` ใน capture — **capture 3 รอบเห็นการ poll เฉพาะ database ที่มีคนเปิดโปรแกรมอยู่**: aoy, cus_ms, kbyt, samai
+- เงื่อนไขเริ่ม thread: (1) `erp_option.process_serial_device` ว่าง = ทุกเครื่อง, ถ้ามีค่า = เฉพาะเครื่องที่ volume serial ตรง — ทั้ง 13 tenant บน server ทดสอบเป็นค่าว่าง; (2) `MyLib/_myFrameWork.cs` `_isServerSkipProcess()` อ่าน `skip_process_cost.xml` จาก web service → ข้าม ถ้าได้ข้อความว่าง หรือขึ้นต้นด้วย `1`; ถ้าไม่มีไฟล์ `DotNetFrameWork._loadXmlFile` คืนข้อความ error (ไม่ว่าง, ไม่ขึ้นต้น 1) → **ไม่ข้าม** (บน server ทดสอบไม่มีไฟล์นี้ใน `tomcat/temp`)
+- ผลที่เห็นจริง: `kbgtest.process` มี 10 แถว `IC` สร้าง 2026-10-16 14:01 ถึง 2026-10-19 13:27 `last_time` ว่าง ยังไม่ถูกหยิบ (ตรวจ 2026-10-21) ขณะที่ `aoy.process` = 0 แถว · ใน capture ไม่มีการ poll `kbgtest` เลย — สอดคล้องกับกลไกด้านบน (ไม่มีโปรแกรม SML เปิด kbgtest) แต่**ยังไม่ได้พิสูจน์ว่าไม่มี consumer อื่น** (container `smlstockprocess` / RabbitMQ ต้องดูว่ารันอยู่ไหม ต้องใช้ sudo)
+- **ผลต่อ sml_mcp_ai**: ถ้าเขียนเอกสารแล้วแค่ `insert process 'IC'` ต้นทุน (`sum_of_cost`, `average_cost`, ล็อต) จะอัปเดต**ก็ต่อเมื่อมีคนเปิดโปรแกรม SML ของ database นั้นอยู่** — ร้านที่ไม่มีใครเปิดโปรแกรม (เช่นงานกลางคืน/API ล้วน) คิวจะค้าง ต้องวางแผน fallback (`processstockrequest` หรือ worker ของตัวเอง) ดู [[adr-001-write-path]]
 
 หลังบันทึกเอกสารสำเร็จ โปรแกรม Windows เรียก SOAP `_process_stock_balance(...)` / `_process_stock_cost(database, itemCode, processMode, dateBegin, dateEnd)` / `_process_stock_cost_finish(...)` ใน `SMLICProcess.java` (ปิดได้ด้วยตัวเลือก `disable_ic_cost_process` ดู [[company-options]]) และส่งผ่าน queue ได้ (`processstockrequest`, RabbitMQ/Redis/PubSub)
 
@@ -64,7 +72,7 @@ group by item_code
 
 ## ข้อควรรู้เวลาวิเคราะห์กำไร
 - กำไรขั้นต้น = ยอดขาย − `sum_of_cost` ของรายการขาย → ถูกต้องเมื่อกระบวนการต้นทุนรันครบแล้ว
-- ถ้าร้านปิด `disable_ic_cost_process` ต้นทุนอาจไม่อัปเดตทันที
+- ถ้าร้านปิด `disable_ic_cost_process` (ทั้ง 13 tenant บน server ทดสอบ = 0 คือไม่ปิด) ดูพฤติกรรมในข้อถัดไป
 - README ของ web service: ถ้าปิดระบบคำนวณต้นทุน โปรแกรมจะอัปเดตต้นทุนเฉพาะเอกสารวันปัจจุบัน
 
 ## รายละเอียดแต่ละวิธี (จากโค้ด)
