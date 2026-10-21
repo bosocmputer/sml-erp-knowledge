@@ -37,7 +37,7 @@ date: 2026-10-21
 | **หลายร้าน + server (13 tenant, ตัวเลือกร้าน, provider map, บริการที่รันจริง)** | ~70% | verified-runtime ดู [[tenants-overview]], [[server-layout]] |
 | **ยืนยันกับการรันจริง (ดักจับ SQL)** | ~60% (ขายเงินสด/เชื่อ, ยกเลิก, POS, ส่งเงิน POS, ซื้อ, ใบสั่งขาย→บิล, รับชำระหนี้, ปรับปรุง/โอนสต็อก, ประมวลผล GL, login, รายงานขาย) | verified-runtime ดู [[runtime-verified]] |
 
-| **สเปกการบันทึกสำหรับ sml_mcp_ai** | 2 / 4 ประเภทแรก (ใบสั่งขาย, บิลขายสด/เชื่อจาก SO) | [[write-spec-sale-order]], [[write-spec-sale-invoice]]; ยกเลิกบิล (45), รับชำระ (239) มี capture แล้ว; ลดหนี้ (48) ยังไม่มี capture |
+| **สเปกการบันทึกสำหรับ sml_mcp_ai** | ครบ 4 กลุ่มแรก: ใบสั่งขาย, บิลขาย, ยกเลิก (45 verified / 37 from-code), รับชำระ (239), ลดหนี้ (48 from-code) | [[write-spec-sale-order]], [[write-spec-sale-invoice]], [[write-spec-cancel]], [[write-spec-receipt]], [[write-spec-credit-note]] — ส่วนที่ไม่มี capture ติดป้ายและห้ามเปิดเขียน |
 
 **ภาพรวม:** ตอบ "อยู่ที่ไหน / อะไรเชื่อมกับอะไร" ได้ ~90%; ตอบ "คำนวณอย่างไร" ได้ ~75% — **เฟส 1 (โค้ด + ข้อมูลตัวอย่าง) เสร็จ**
 
