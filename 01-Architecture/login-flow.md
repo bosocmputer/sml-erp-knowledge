@@ -46,7 +46,7 @@ tags: [sml, login, flow]
 
 ## ยืนยันจากการรันจริง (2026-10-21)
 - หลังเลือก database โปรแกรมโหลดตั้งค่าจาก `aoy`: `erp_user`, `erp_user_group*`, `erp_branch_list`, `erp_company_profile`, `erp_option`, `erp_thai_qr_config`, `erp_option_etax_inet`, `erp_option_mobillyst` และตรวจ `pg_indexes`
-- **ไม่พบ query ไปที่ `smlerpmainaoy`** ระหว่าง login → main database ของ provider AOY (ที่เก็บ `sml_user_list`, `sml_guid`) น่าจะอยู่บน server อื่น ดู [[runtime-verified]]
+- **ไม่พบ query ไปที่ `smlerpmainaoy`** ระหว่าง login → main database ของ provider AOY (ที่เก็บ `sml_user_list`, `sml_guid`) **ไม่ได้ถูก query บน PostgreSQL ตัวนี้** — ยังไม่ทราบตำแหน่ง ดู [[runtime-verified]]
 
 ## ยังต้องไล่ต่อ
 - `SMLERPTemplate._main._startProgram()` และ `_g.g._companyProfileLoad()` ทำอะไรบ้าง

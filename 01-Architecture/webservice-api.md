@@ -6,7 +6,7 @@ status: from-code
 
 > สร้างอัตโนมัติด้วย `scripts/gen_webservice_api.py` จาก `~/dev/smljavaws2` (v3.9.14 ในเครื่อง; server จริงรัน 3.9.7 อาจต่างกัน) — กลับไป [[architecture]] · [[00-Index]]
 
-คอลัมน์ "ตรวจ session" เป็นการเดาจากโค้ด (หาคำว่า guid/token/login ใน handler) — ต้องอ่านโค้ดยืนยันก่อนสรุปเรื่องความปลอดภัย
+คอลัมน์ "ตรวจ session" มาจากการค้นคำ guid/token/login ใน handler แบบอัตโนมัติ — **ยังไม่ใช่ข้อสรุป** ต้องอ่านโค้ดของ endpoint นั้นยืนยันก่อน (ที่อ่านยืนยันแล้ว: query, querygroup, select, selectgroup ไม่ตรวจสิทธิ์)
 
 ## REST (23 endpoint)
 

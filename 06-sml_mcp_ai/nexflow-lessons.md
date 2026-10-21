@@ -8,6 +8,8 @@ date: 2026-10-21
 
 กลับไป [[00-Index]] · ผู้เรียก bybos [[bybos-callers-and-gap-plan]] · เทียบ API [[write-api-comparison]]
 
+> ⚠️ ข้อมูลในโน้ตนี้ **อ้างจากเอกสารของโปรเจกต์ Nexflow** (ตัวอย่างอ้างอิง ไม่ใช่สเปกหลัก) — ส่วนที่เราไม่ได้ตรวจซ้ำเองจาก smlerp/การรันจริง ให้ถือเป็น "หลักฐานรอง" จนกว่าจะยืนยัน; ส่วนที่ตรวจซ้ำแล้วระบุไว้ว่า "รวมกับที่เราดักจับได้เอง"
+
 ## Nexflow ทำอะไร
 รับคำสั่งซื้อ Shopee / TikTok (Open API, realtime) และ Excel (Shopee, Lazada, TikTok) → จับคู่ SKU แบบ deterministic (ไม่ใช้ AI) → ประกอบบิล → ส่งเข้า SML ผ่าน **sml-api-bybos** ตาม route ที่ตั้งในหน้า Channel Settings → สั่งคำนวณสต็อก → แจ้ง LINE (ไม่มีข้อมูลผู้ซื้อ)
 - ขาย: production ใช้ route `saleinvoice` / `SI` (flag 44)

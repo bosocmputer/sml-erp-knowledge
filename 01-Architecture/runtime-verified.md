@@ -45,7 +45,7 @@ date: 2026-10-21
 ### 4. Login และการตั้งค่าที่โหลด
 - อ่าน `erp_user`, `erp_user_group`(+`_detail`, `_approve`), `erp_branch_list`, `erp_company_profile`, `erp_option`, `erp_thai_qr_config`, `erp_option_etax_inet`, `erp_option_mobillyst`, `pg_indexes` (ตรวจ index) และตัวเลขสรุปหลายตาราง
 - เขียนตอน login: `update ap_ar_trans`, `update ic_trans` (ปลดล็อกเอกสาร), ล้าง `barcode_import_list(_detail)`
-- **ไม่พบคำสั่งไปที่ `smlerpmainaoy` เลย** ทั้งที่ login สำเร็จ → การตรวจ user/GUID (`sml_user_list`, `sml_guid`) ของ provider AOY น่าจะใช้ main database บน server อื่น (ดู [[login-flow]]) — ยังไม่ได้ยืนยันว่าอยู่ที่ไหน
+- **ไม่พบคำสั่งไปที่ `smlerpmainaoy` เลย** ทั้งที่ login สำเร็จ → การตรวจ user/GUID (`sml_user_list`, `sml_guid`) ของ provider AOY **ไม่ได้เกิดบน PostgreSQL ตัวนี้** — ยังไม่ทราบว่าใช้ main database ที่ไหน (ต้องดู config `SMLConfig<provider>.xml` ของ web service) ดู [[login-flow]]
 - ทุกครั้งที่เปิดเมนู โปรแกรมโหลด `erp_account_period` ซ้ำ และสั่ง `update erp_account_period set period_year = … where period_year is null`
 
 ### 5. รายงานการขายสินค้าและบริการ (`menu_so_report_invoice`)
@@ -62,7 +62,7 @@ where trans_flag in (?)                -- 44
 
 ### 6. connection อื่นที่เห็น
 - `172.18.0.3` = SMLJavaWebService (โปรแกรม SML ทั้งหมดผ่านตัวนี้)
-- `172.18.0.5` = บริการอื่น (ไม่ใช่โปรแกรม SML): ส่ง `-- ping` เป็นระยะ และ query สรุปใบเสนอราคา (`WITH base_orders AS …`) — น่าจะเป็น dashboard/API ภายนอก
+- `172.18.0.5` = บริการอื่น (ไม่ใช่โปรแกรม SML): ส่ง `-- ping` เป็นระยะ และ query สรุปใบเสนอราคา (`WITH base_orders AS …`) — ยังไม่ทราบว่าเป็นระบบอะไร (ไม่ใช่ SMLJavaWebService เพราะเป็นคนละ IP)
 - web service ส่ง `SET extra_float_digits`, `SET application_name`, `set enable_seqscan=false` ทุกครั้งที่เปิด connection
 
 ## รอบที่ 2 (2026-10-21 09:43–10:16, ไฟล์ aoy-run2, 5,481 คำสั่ง)
