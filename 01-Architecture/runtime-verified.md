@@ -4,7 +4,7 @@ source: tcpdump capture aoy-run1 (2026-10-21 08:43–09:06, client 172.18.0.3 = 
 status: verified-runtime
 date: 2026-10-21
 ---
-# สิ่งที่ยืนยันจากการรันจริง (เฟส 2, รอบที่ 1)
+# สิ่งที่ยืนยันจากการรันจริง (เฟส 2)
 
 กลับไป [[00-Index]] · วิธีทำ [[phase2-tcpdump]] · ค่าตั้งค่าร้าน [[aoy-settings]]
 
@@ -65,5 +65,35 @@ where trans_flag in (?)                -- 44
 - `172.18.0.5` = บริการอื่น (ไม่ใช่โปรแกรม SML): ส่ง `-- ping` เป็นระยะ และ query สรุปใบเสนอราคา (`WITH base_orders AS …`) — น่าจะเป็น dashboard/API ภายนอก
 - web service ส่ง `SET extra_float_digits`, `SET application_name`, `set enable_seqscan=false` ทุกครั้งที่เปิด connection
 
+## รอบที่ 2 (2026-10-21 09:43–10:16, ไฟล์ aoy-run2, 5,481 คำสั่ง)
+
+| ขั้น | เวลา | เอกสาร | ผล |
+|---|---|---|---|
+| ใบสั่งขาย (36) | 09:45 | SO26100001 | ✅ บันทึกแล้ว |
+| ขายเชื่อจากใบสั่งขาย (44) | 09:46 | INV26100002 | ✅ บันทึกแล้ว |
+| รับชำระหนี้ (239) | 09:48 | RC26100003 | ⚠️ **ไม่ได้บันทึก** — ไม่มีคำสั่ง insert และไม่มีใน DB (เลขที่ที่เห็นเป็นเลขรันถัดไปบนหน้าจอ) |
+| ปรับปรุงสต็อก เพิ่ม (66) | 10:09–10:11 | IA26100001 | ✅ บันทึกแล้ว |
+| โอนสินค้า (72) | 10:11 | TF26100001 | ⚠️ **ไม่ได้บันทึก** — เหตุเดียวกัน |
+| ส่งเงิน POS | 10:12–10:14 | 001-261021-0001 | ✅ |
+| ประมวลผล GL จากรายวัน | 10:14–10:15 | — | ✅ สร้าง GL 3 เอกสาร |
+
+### 7. ใบสั่งขาย → บิลขาย (สายเอกสาร)
+- **ใบสั่งขาย:** `insert ic_trans` → `ic_trans_detail` → `ic_trans_shipment` → `logs`/`erp_logs` แล้วปรับ **ยอดค้างจอง** `update ic_inventory set book_out_qty=? …` และเข้าคิวต้นทุน
+- **บิลขายเชื่อที่ดึงจากใบสั่งขาย:** `insert ic_trans` (`doc_ref` = ใบสั่งขาย) → `ic_trans_detail` → **`insert ap_ar_trans_detail (calc_flag -1, bill_type, billing_no, ref_doc_no …)`** (ตั้งลูกหนี้ ไม่มี `cb_trans` เพราะไม่รับเงิน) → `gl_journal_vat_sale` → `ic_trans_shipment` → logs
+- หลังบันทึก doc flow: **`update ic_trans set used_status=?, doc_success=? where roworder=?`** บนใบสั่งขาย — ตรวจใน DB แล้ว ใบสั่งขาย `used_status = 1`, `doc_success = 1` (ใช้ครบ) ✅ ตรงกับ [[doc-flow-rules]]
+
+### 8. ปรับปรุงสต็อก (66)
+- ลบรายการกำพร้าก่อน (`delete from ic_trans_detail where not exists หัวเอกสาร`), `insert ic_trans` (มี `wh_from`, `location_from`) → `ic_trans_detail` → logs → คำนวณล็อต/ต้นทุนทันที และ `update ic_trans_detail set …, sum_amount=?, price=? …` (เติมมูลค่าจากต้นทุน) → `update ic_trans set total_amount = $1 …` (server-side prepared statement) → คิว `process`
+
+### 9. ส่งเงิน POS
+- `insert POSCashierSettle (MACHINECODE, DocNo, DocDate, doc_time, CashierCode, CashAmount, CreditCardAmount, CoupongAmount, sum_amount, total_in, total_out, …)` + `insert pos_settle_bill_discount (…, period_guid)` ✅ ตรงกับ [[pos-client]]
+
+### 10. ประมวลผล GL จากข้อมูลรายวัน (`menu_gl_process`)
+1. โหลดรูปแบบเอกสารที่มีผังบัญชี (`erp_doc_format` ที่มี `erp_doc_format_gl` หรือ `gl_book`) และ `erp_doc_format_gl where condition_number > 0`
+2. โหลดแหล่งเลขบัญชีทั้งหมด: `ic_inventory.account_code_1..4`, `ap_supplier_detail.account_code`, `ar_customer_detail.account_code`, `erp_pass_book.account_code_1/2`, `cb_petty_cash.chart_of_account`, `erp_expenses_list.gl_account_code`, `erp_income_list.gl_account_code`, `erp_bank.chq_income_account_code`, `erp_credit_type.account_code`, `as_asset.*account_code`, `erp_wallet_list.account_code`, `gl_chart_of_account`
+3. ดึงเอกสารของช่วงวันที่ แล้ว**ต่อเอกสาร**: `BEGIN` → `delete gl_journal` + `delete gl_journal_detail` (ของเอกสารนั้น) → `insert gl_journal` → `insert gl_journal_detail` → `COMMIT` (ประมวลผลซ้ำได้ ไม่ซ้ำซ้อน)
+4. อัปเดตสถานะผ่านรายการ (`WITH journal_pass AS …`) และล้าง `guid_code` ใน `gl_journal`/`ic_trans`
+→ ยืนยัน [[pricing-vat-gl]] ส่วน GL และ [[aoy-settings]] (`gl_process_realtime = 0` → GL เกิดเมื่อสั่งประมวลผล)
+
 ## ยังไม่ได้ทดสอบ (รอบถัดไป)
-ใบสั่งขาย→เปิดบิลจากใบสั่งขาย (สายเอกสาร), รับชำระหนี้ (239), ขายเชื่อ, ปรับปรุง/โอนสต็อก, ประมวลผล GL, ปิดกะ/ส่งเงิน POS
+รับชำระหนี้ (239) และโอนสินค้า (72) — รอบ 2 ยังไม่ได้กดบันทึก; ซื้อแบบมีใบสั่งซื้อ (6 → 12); ขายบัตรเครดิต/เช็ค

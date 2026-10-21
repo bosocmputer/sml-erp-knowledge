@@ -22,6 +22,9 @@ date: 2026-10-20
 | บัญชีแยกประเภท | `gl_journal` / `gl_journal_detail` | 44 (133), 260, 239, 12, 48, 72, 40, 10 — 176 จาก 188 ใบผูก `doc_no` กับ `ic_trans` | GL auto จากเอกสาร / `SMLERPGLControl._journalScreen` |
 | ภาษีซื้อ/ขาย | `gl_journal_vat_buy` / `gl_journal_vat_sale` | — | สร้างพร้อมเอกสาร |
 
+## ข้อเท็จจริงที่ยืนยันแล้วจากการรันจริง (2026-10-21)
+- **ขายเชื่อ**ไม่สร้าง `cb_trans` แต่สร้าง `ap_ar_trans_detail` (calc_flag −1, billing_no, ref_doc_no) เป็นยอดตั้งลูกหนี้ ส่วนขายเงินสดสร้าง `cb_trans` ดู [[runtime-verified]]
+
 ## ข้อเท็จจริงที่ยืนยันแล้ว (AOY, 2026-10-20)
 - **บิล POS = `ic_trans` flag 44 ที่ `is_pos = 1`** (132 จาก 649 ใบขาย) ส่วนขายหน้าจอปกติ `is_pos = 0`
 - **การยกเลิกเป็นเอกสารแยก** (flag 45 = ยกเลิกขาย มี 16 ใบ) ขณะที่ `is_cancel` = 0 ทุกใบ
