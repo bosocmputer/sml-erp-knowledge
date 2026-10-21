@@ -75,7 +75,14 @@ def main():
         name = " / ".join(labels)
         fmt = lambda xs: ", ".join(f"{x} {FLAGS.get(x, '')}" for x in xs)
         L.append(f"| {name} | {src_flag} | {fmt(cancel_flags)} | {fmt(consumed)} |")
-    (VAULT / "03-Reference/doc-flow-rules.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    out = VAULT / "03-Reference/doc-flow-rules.md"
+    if out.exists():  # keep manually verified section between "## ยืนยันกับ AOY" and "## กฎรายประเภท"
+        old = out.read_text(encoding="utf-8")
+        a, b = old.find("## ยืนยันกับ AOY"), old.find("## กฎรายประเภท")
+        if a != -1 and b > a:
+            i = L.index("## กฎรายประเภท")
+            L[i:i] = old[a:b].rstrip("\n").split("\n") + [""]
+    out.write_text("\n".join(L) + "\n", encoding="utf-8")
     print(f"rules={len(rules)}")
 
 
