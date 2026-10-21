@@ -23,6 +23,8 @@ date: 2026-10-20
 | ภาษีซื้อ/ขาย | `gl_journal_vat_buy` / `gl_journal_vat_sale` | — | สร้างพร้อมเอกสาร |
 
 ## ข้อเท็จจริงที่ยืนยันแล้วจากการรันจริง (2026-10-21)
+- **รับชำระหนี้ 239:** หัว `ap_ar_trans` + `ap_ar_trans_detail` แถวละบิล (`billing_no`, `sum_debt_amount`, `balance_ref`, `sum_pay_money`) + `cb_trans`; บิลที่ถูกชำระได้ `used_status_2 = 1`
+- **โอนสินค้า:** บันทึกครั้งเดียวได้ 2 แถวเลขที่เดียวกัน — 72 โอนออก (−1) และ 70 โอนเข้า (+1)
 - **ขายเชื่อ**ไม่สร้าง `cb_trans` แต่สร้าง `ap_ar_trans_detail` (calc_flag −1, billing_no, ref_doc_no) เป็นยอดตั้งลูกหนี้ ส่วนขายเงินสดสร้าง `cb_trans` ดู [[runtime-verified]]
 
 ## ข้อเท็จจริงที่ยืนยันแล้ว (AOY, 2026-10-20)
