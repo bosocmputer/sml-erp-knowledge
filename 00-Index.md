@@ -43,6 +43,7 @@ tags: [sml, index]
 
 ## sml_mcp_ai และ product
 - [[mcp-project]] — MCP server ที่มีอยู่, tool ที่ครอบคลุม, ช่องว่าง, ความเสี่ยง
+- [[write-api-comparison]] — เทียบ sml-api-bybos (Go) กับ SMLJavaRESTService3 (Java) สำหรับ MCP เขียนข้อมูล + ช่องว่างที่ต้องเติม
 - [[product-ideas]] — ตลาด, pain point, persona, use case, ไอเดีย product 10 ข้อ
 
 ## ยังไม่ได้ทำ (งานถัดไป)
