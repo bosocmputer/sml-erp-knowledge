@@ -33,6 +33,7 @@ tags: [sml, index]
 
 ## Database
 - [[database-layout]] — รูปแบบ DB ต่อกิจการ (`smlerpmain<provider>`, `<db>`, `_images`, `_logs`) และสถานะ DB สำเนา
+- [[aoy-settings]] — ค่าตั้งค่าจริงของร้าน AOY: ตัวเลือกที่เปลี่ยนพฤติกรรม + ผังลงบัญชี 12 รูปแบบเอกสาร (verified)
 - [[sql-capture-aoy]] — ขั้นตอนทดสอบเก็บ SQL กับชุด AOY ทีละขั้น
 - [[sql-capture-runbook]] — วิธีเปิด log SQL บน DB สำเนาเพื่อ map เมนู → SQL
 - [[dictionary-index]] — **พจนานุกรมข้อมูล**: 520 ตาราง 9,988 คอลัมน์ พร้อมความหมายไทย/อังกฤษ แยก 25 โมดูล *(generated, raw: `02-Database/dictionary.json`)*

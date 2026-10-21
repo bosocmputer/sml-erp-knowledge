@@ -13,7 +13,7 @@ tags: [sml, reports, generated]
 
 ## FastReport ใน `aoy` (562 รายงาน)
 
-`report_type` (จาก `SMLFastReport/_designer.cs`, `_selectMenu.cs`): 0 ทั่วไป, 1 สินค้า, 2 ซื้อ, 3 ขาย, 4 เจ้าหนี้, 5 ลูกหนี้, 6 เงินสด/ธนาคาร, 7 สินทรัพย์, 8 GL — รายงานที่ไม่อยู่ในเมนูหลัก (เช่น menuid ตัวเลขที่ผู้ใช้/SML สร้างเพิ่ม) เปิดจากเมนู "รายงานอื่น ๆ" ของแต่ละโมดูล (`menu_fastreport_other_*`) ซึ่งกรองตาม report_type · `is_system_report` = รายงานมาตรฐานของระบบ (ยังไม่ยืนยัน)
+`report_type` (จาก `SMLFastReport/_designer.cs`, `_selectMenu.cs`): 0 ทั่วไป, 1 สินค้า, 2 ซื้อ, 3 ขาย, 4 เจ้าหนี้, 5 ลูกหนี้, 6 เงินสด/ธนาคาร, 7 สินทรัพย์, 8 GL — รายงานที่ menuid เป็นตัวเลข (ผู้ใช้/SML สร้างเพิ่ม) เปิดจากเมนู "รายงานอื่น ๆ" ของแต่ละโมดูล (`menu_fastreport_other_*`) ซึ่งกรองตาม report_type · `is_system_report` = รายงานมาตรฐานของระบบ (ยังไม่ยืนยัน)
 
 | menuid | ชื่อ | type | system | จำนวน SELECT | ตารางที่อ่าน | อยู่ในเมนู |
 |---|---|---|---|---|---|---|
