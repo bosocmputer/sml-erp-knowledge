@@ -17,6 +17,7 @@ python3 scripts/gen_docflow.py
 python3 scripts/gen_gl_actions.py
 python3 scripts/gen_code_reports.py
 python3 scripts/gen_webservice_api.py
+python3 scripts/gen_error_messages.py   # needs menu-map.json (gen_menu_map.py)
 
 if [[ "${1:-}" == "--with-db" ]]; then
   scripts/gen_schema.sh kbyt
