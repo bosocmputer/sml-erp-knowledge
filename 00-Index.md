@@ -73,3 +73,4 @@ tags: [sml, index]
 ## Support (สำหรับพนักงาน support)
 - [[faq]] — **คำถามที่พบบ่อย** 22 ข้อ: อาการ → สาเหตุ → วิธีแก้ → ผลต่อบัญชี พร้อมระดับความเชื่อมั่น
 - [[error-messages]] — **ข้อความที่โปรแกรมแสดง** 851 ข้อความ (generated จากโค้ด) พร้อมหน้าจอ/เมนูที่ขึ้น
+- [[support-set]] — **นโยบายชุด support** (โน้ตที่ให้/ไม่ให้, การแปลงตอน export) + `scripts/export_support.py` + skill `sml-support` (`09-Support/skill/`)

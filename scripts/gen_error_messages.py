@@ -23,6 +23,7 @@ OUT_JSON = VAULT / "09-Support/error-messages.json"
 RES_RE = re.compile(r'^\s*_resourceList\.Add\(new _languageClass\("((?:[^"\\]|\\.)*)",\s*"((?:[^"\\]|\\.)*)",\s*"((?:[^"\\]|\\.)*)"')
 VAR_RE = re.compile(r'(?:string|String)\s+(\w+)\s*=\s*([^;\n]+);')
 METHOD_RE = re.compile(r'^\s*(?:public|private|protected|internal)[^;=()]*?\s(\w+)\s*\([^;]*$')
+SHARED_MENU_LIMIT = 5  # more menus than this = shared control; listing 3 of them would mislead support
 ICONS = ["Error", "Warning", "Information", "Question", "Asterisk", "Exclamation", "Hand", "Stop"]
 ICON_TH = {"Error": "ผิดพลาด", "Hand": "ผิดพลาด", "Stop": "ผิดพลาด", "Warning": "เตือน", "Exclamation": "เตือน",
            "Information": "แจ้ง", "Asterisk": "แจ้ง", "Question": "ถาม"}
@@ -178,7 +179,7 @@ def main():
         offsets = [0]
         for ln in lines:
             offsets.append(offsets[-1] + len(ln) + 1)
-        menus = list(by_file.get(rel, [])) + list(by_class.get(p.stem, []))
+        menus = list(by_file.get(rel, []))  # only when this file IS the menu's screen; shared controls are labelled instead
         for kind, pat in (("box", r'MessageBox\.Show\('), ("warn", r'_displayWarning\(')):
             for m in re.finditer(pat, src):
                 start = m.end() - 1
@@ -229,7 +230,9 @@ def main():
         project = collections.Counter(l.split('/')[0] for l in e["locs"]).most_common(1)[0][0]
         data.append({"text": text, "count": len(e["locs"]), "icon": e["icons"].most_common(1)[0][0],
                      "resource_keys": sorted(e["keys"]), "project": project, "locations": e["locs"][:5],
-                     "menus": [m for m, _ in e["menus"].most_common(3)], "menu_count": len(e["menus"])})
+                     "menus": [m for m, _ in e["menus"].most_common(3)] if len(e["menus"]) <= SHARED_MENU_LIMIT else [],
+                     "menu_count": len(e["menus"]), "shared_control": len(e["menus"]) == 0 or len(e["menus"]) > SHARED_MENU_LIMIT,
+                     "control": sorted({l.split(':')[0].rsplit('/', 1)[-1].replace('.cs', '') for l in e["locs"]})[:3]})
     data.sort(key=lambda d: (d["project"], -d["count"], d["text"]))
     OUT_MD.parent.mkdir(parents=True, exist_ok=True)
     OUT_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -245,7 +248,7 @@ def main():
          "> สร้างอัตโนมัติด้วย `scripts/gen_error_messages.py` จากโค้ด smlerp — ห้ามแก้มือ (แก้ที่ script แล้วรันใหม่)",
          "> กลับไป [[00-Index]] · คำถามที่พบบ่อย [[faq]] · ใช้ร่วมกับ [[menu-map]]", "",
          "**วิธีใช้:** ค้นด้วยข้อความที่ร้านเห็นบนหน้าจอ (Ctrl+F หรือถาม AI) — คอลัมน์ \"ที่โค้ด\" บอกหน้าจอ/ฟังก์ชันที่แสดงข้อความ, "
-         "\"เมนู\" คือเมนูที่ใช้หน้าจอหรือ control นั้น (ข้อความใน control กลางเช่น `_icTransControl` ขึ้นได้ในหลายเมนู)", "",
+         "\"เมนู\" คือเมนูที่หน้าจอนั้นเป็นของเมนูโดยตรง; ถ้าขึ้นว่า \"ส่วนกลาง\" = ข้อความมาจาก control ที่ใช้ร่วมหลายหน้าจอ (เช่น `_icTransControl` ของเอกสารขาย/ซื้อ/สต็อก) ให้ดูชื่อ control และฟังก์ชันในคอลัมน์ \"ที่โค้ด\"", "",
          "⚠️ **ระดับ from-code:** ได้มาจากการอ่านโค้ด ยังไม่ได้ยืนยันว่าทุกข้อความขึ้นจริงในทุก edition; `{…}` = ค่าที่โปรแกรมแทรกตอนแสดง (เลขที่, ชื่อ, ข้อความจาก server); "
          "ข้อความผ่าน `_resource()` บางตัวอาจถูกแปลใหม่จากตาราง `sml_resource` ของร้าน", "",
          f"รวม {len(data):,} ข้อความ (ครอบคลุม {sum(d['count'] for d in data):,} จาก {total_calls:,} จุดในโค้ด) · คำแปลรหัส (`warningNN` ฯลฯ) จาก `MyLib/_smlResourceManager.cs` {len(res)} รายการ", "",
@@ -263,7 +266,12 @@ def main():
         L += [f"## {proj}", "", "| ข้อความ | ชนิด | จุดในโค้ด | ที่โค้ด (ตัวอย่าง) | เมนู (ตัวอย่าง) |", "|---|---|---|---|---|"]
         for d in by_proj[proj]:
             locs = '<br>'.join(cell(x) for x in d["locations"][:2])
-            menus = '<br>'.join(cell(x) for x in d["menus"]) + (f"<br>(+{d['menu_count'] - 3} เมนู)" if d["menu_count"] > 3 else '')
+            if d["menu_count"] == 0:
+                menus = "ส่วนกลาง " + ", ".join(f"`{c}`" for c in d["control"]) + " — ใช้ร่วมหลายหน้าจอ"
+            elif d["menu_count"] > SHARED_MENU_LIMIT:
+                menus = f"หน้าจอกลาง — ขึ้นได้ใน {d['menu_count']} เมนู"
+            else:
+                menus = '<br>'.join(cell(x) for x in d["menus"]) + (f"<br>(+{d['menu_count'] - 3} เมนู)" if d["menu_count"] > 3 else '')
             keys = (' `' + ','.join(d['resource_keys']) + '`') if d['resource_keys'] and all(not re.search(r'[ก-๙]', k) for k in d['resource_keys']) else ''
             L.append(f"| {cell(d['text'])}{keys} | {ICON_TH.get(d['icon'], '')} | {d['count']} | {locs} | {menus} |")
         L.append("")
