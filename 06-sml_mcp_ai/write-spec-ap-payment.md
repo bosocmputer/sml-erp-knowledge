@@ -62,3 +62,16 @@ source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceD
 - ลำดับเหมือน §6 + `gl_wht_list`/`gl_wht_list_detail` แทรกหลัง `ap_ar_trans_detail` ก่อน `cb_trans` — รายละเอียด [[cash-bank]] §3.1
 - ยอดหักภาษีอยู่ใน `cb_trans.total_tax_at_pay` และนับรวมในยอดจ่าย: `cash_amount 116.64 + total_tax_at_pay 3.36 = total_amount_pay 120` · ยอดตัดเจ้าหนี้ (`sum_pay_money`) = 120 เต็มจำนวน
 - **สำหรับ sml_mcp_ai:** ต้องออกเลข `RWHT…` จาก `erp_doc_format` (screen_code RWHT) ใน transaction เดียวกัน และส่ง `cust_tax_type` (1 นิติบุคคล) ให้ตรงกับแบบ ภ.ง.ด.
+
+## 8. ยืนยันจากรอบ 5.9: ใบรับวางบิลเจ้าหนี้ → จ่ายชำระตามใบรับวางบิล (PB26100001 13:18:18, PV26100003 13:19:23 วันที่ 2026-10-26)
+**ใบรับวางบิล (213)** — transaction เดียว: `ap_ar_trans` → `ap_ar_trans_detail` ต่อใบซื้อ → cleanup → `COMMIT` (ไม่มี `cb_trans`)
+- `ap_ar_trans`: `trans_type=1, trans_flag=213, doc_format_code='PB', cust_code, due_date = doc_date + credit_day (30 วัน), credit_day=30, doc_ref=null, remark, total_net_value=111600`
+- `ap_ar_trans_detail`: `trans_flag=213, billing_no=<ใบซื้อ>, billing_date, due_date, sum_debt_amount = balance_ref = sum_pay_money = 111600, bill_type=12, doc_ref=null`
+- doc flow: ใบซื้อ `PU26090001` **`used_status_2=1` ตั้งแต่รับวางบิล** (ก่อนจ่าย)
+
+**จ่ายชำระตามใบรับวางบิล (19)** — เหมือน §6 ต่างที่:
+- `ap_ar_trans_detail` ของใบซื้อ: **`doc_ref='PB26100001'`** (ใบจ่ายตรงไม่มีค่า)
+- **แถวเอกสารอ้างอิง:** `insert ap_ar_trans_detail (trans_type=1, trans_flag=99, doc_date, doc_no=<PV>, billing_no=<PB>, billing_date, remark, line_number=0)` + แถวว่าง line 1 (ถูกลบโดย cleanup ใน transaction เดียวกัน) — รูปแบบเดียวกับฝั่งลูกหนี้ ([[write-spec-receipt]] §6)
+- doc flow: **`PB26100001` `used_status=1, doc_success=1`** ⇒ กฎ `_docFlowThread.cs` ~2442 ที่นับ `ap_ar_trans_detail.trans_flag in (99)` **ถูกต้อง** — 99 ในตารางนี้คือแถวอ้างอิงของจอวางบิล/รับ-จ่ายชำระ ไม่ใช่ `ลูกหนี้_ตั้งหนี้อื่น` (ข้อสงสัยใน KB ทีม SML ดู [[team-review-2026-10-26-sml-team-kb]] ข้อ ข.)
+- ข้อมูลเดิมใน AOY: ใบรับวางบิลที่จ่ายโดยไม่ผ่านใบรับวางบิล (ไม่มีแถว 99) `used_status=0` · มี 3 ใบ (PB26040010–12) ที่มีแถว 99 ของใบจ่ายที่ไม่ถูกยกเลิก แต่ `used_status=0, doc_success=1` ⇒ doc flow ของใบนั้นไม่ได้รันหลังจ่าย (ถ้าคำนวณใหม่ตามกฎจะได้ 1) — **อย่าใช้ `used_status` ของใบรับวางบิลเป็นตัวตัดสินอย่างเดียว** ให้ดูแถว 99 / `doc_ref` ของใบจ่ายด้วย
+- **สำหรับ sml_mcp_ai:** จ่ายตามใบรับวางบิลต้องเขียนทั้ง `doc_ref=<PB>` ในบรรทัดใบซื้อ และแถว `trans_flag=99` ชี้ PB
