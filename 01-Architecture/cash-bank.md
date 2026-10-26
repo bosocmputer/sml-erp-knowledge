@@ -1,6 +1,6 @@
 ---
 tags: [sml, cash-bank, payment, cheque, wht]
-status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4, บัตรเครดิต + ขึ้นเงินบัตร รอบ 5.3, เช็ครับ → นำฝาก → ผ่าน รอบ 5.4)
+status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4, บัตรเครดิต + ขึ้นเงินบัตร รอบ 5.3, เช็ครับ → นำฝาก → ผ่าน รอบ 5.4, เช็คจ่าย รอบ 7.7)
 source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceControl.cs, SMLERPGlobal/_global.cs (`_payType` ~2151), SMLProcess/_docFlowThread.cs (~958–1100), SMLERPControl/_bank/_chqListControl.cs, _customer/_arStatusForm.cs + DB + capture aoy-run1..3
 ---
 # เงินสด / ธนาคาร: การรับ-จ่ายเงิน, เช็ค, ภาษีหัก ณ ที่จ่าย
@@ -87,6 +87,14 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - หลัง commit: คิว `process` ด้วยรหัสสมุดบัญชี (ว่าง) → reset `last_status` → ซ่อม `cb_chq_list` → **อัปเดตสถานะเช็คด้วยคำสั่ง `with chq_last_flag as (...)`** จากเอกสารเช็คล่าสุด (418 จับคู่ด้วย `item_code`) ⇒ `status` 0 → 1 (หลัง 410) → **2 (หลัง 411)** ตรงกับตาราง §2
 - **410 ไล่ doc flow ต่อไปใบรับชำระ** (`select doc_ref from ic_trans_detail where doc_no=<CHD>`) ⇒ **`RC26100006.used_status = 1` ตั้งแต่นำฝาก** · 411/461 ไม่ไล่ต่อ ⇒ ใบรับชำระที่ขึ้นเงินบัตร หรือเช็คที่บันทึกผ่านโดยไม่นำฝากก่อน จะยัง `used_status=0`
 - ไม่มี GL (ร้านปิด realtime)
+
+### 2.3 เช็คจ่าย — ยืนยันจากรอบ 7.7 (จ่ายชำระ PV26100004 จ่าย PU26100003 10 บาท ด้วยเช็ค 0000801, 15:45:32 วันที่ 2026-10-26)
+- ลำดับเหมือนจ่ายชำระเงินสด ([[write-spec-ap-payment]] §6) ต่างที่:
+  - `cb_trans`: `pay_type=2`, **`chq_amount=10`**, `cash_amount=0`
+  - `cb_trans_detail`: `doc_type=2`, **`trans_number_type=2`, `ap_ar_type=2`** (เจ้าหนี้; ฝั่งรับเป็น 1/1), `ap_ar_code=<ผู้ขาย>`, `chq_on_hand=0`, **`pass_book_code=<สมุดบัญชีที่ออกเช็ค>`** (ฝั่งรับไม่มี), `bank_code`, `bank_branch`, `trans_number=<เลขเช็ค>`, `sum_amount = amount`, `chq_due_date`, `remark`, `balance_amount=0`
+- `cb_chq_list` เกิดใน doc flow ~3 วินาทีหลัง commit (เหมือนเช็ครับ): **`chq_type=2`, `status=0`**, `ap_ar_type=2`, `pass_book_code='5843697'`, `trans_type=1`, `trans_flag=19`
+- doc flow ใบซื้อ: `used_status_2=1`
+- ขั้นต่อของเช็คจ่าย (451 ผ่าน, 452 ยกเลิก, 453 คืน, 456 เปลี่ยน) ยังไม่ได้ทดสอบ
 
 ## 3. ภาษีหัก ณ ที่จ่าย (`gl_wht_list`)
 - คอลัมน์: `doc_date, doc_no, amount, tax_value, status, trans_flag, due_date, line_number, cust_code, card_number, tax_number, cust_tax_type, cust_name, tax_doc_no, cust_address` + รายละเอียดใน `gl_wht_list_detail`
