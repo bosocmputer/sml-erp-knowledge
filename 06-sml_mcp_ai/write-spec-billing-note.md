@@ -53,3 +53,10 @@ source: smlerp SMLProcess/_docFlowThread.cs (~115, ~147, ~269, ~1556), SMLAPARCo
 - doc flow 16:13:25–26: บิล BF-INV26100032/33 `used_status_2=1`
 ### ใบรับชำระตามใบวางบิล RC26100004 (16:15:06) — ดู [[write-spec-receipt]] §6
 - doc flow 16:15:45: **`update ap_ar_trans set used_status=1, doc_success=1 where roworder=<BL>`** (รับครบ 90) ตรงกับกฎ §3
+
+## ยืนยันจากรอบ 7.6: ยกเลิกใบวางบิล (EDCC26100001 ยกเลิก BL26100001, 15:41:56 วันที่ 2026-10-26) — ใบแรกของ AOY
+เมนู ลูกหนี้ › รายงาน/ยกเลิก › ยกเลิกใบวางบิล (ลูกหนี้) (เลขเมนู 7.12.1) · ก่อนยกเลิก BL26100001 ไม่มีใบรับชำระที่ใช้งาน (ใบเดิมถูกยกเลิกรอบ 5.10)
+- เลขที่: `erp_doc_format code='EDCC'` → `select doc_no from ap_ar_trans where doc_date >= '2026-01-01' and doc_no like 'EDCC2610%' and trans_flag = 236 …` ⇒ `EDCC26100001` (หน้าจอแสดงเลขถัดไป `EDCC26100002` หลังบันทึก — เหมือนยกเลิกใบรับชำระ)
+- **Transaction:** `insert ap_ar_trans (trans_type=2, trans_flag=236, doc_date, doc_no, cust_code, doc_format_code='EDCC', doc_ref=<ใบวางบิล>, doc_ref_date=null, remark, creator_code, create_datetime)` + cleanup → `COMMIT` — หัวอย่างเดียว ไม่มี detail
+- doc flow (1.5 วินาที): **`BL26100001` `last_status=1`** + `ap_ar_trans_detail` ของใบวางบิล `last_status=1` → ไล่ต่อบิลในใบวางบิล: **`BF-INV26100032`, `BF-INV26100033` `used_status_2=0`** (วางบิล/รับชำระใหม่ได้)
+- รูปแบบเดียวกับยกเลิกใบรับชำระ ([[write-spec-receipt]] §8) — ยกเลิกเอกสารใน `ap_ar_trans` = หัวอย่างเดียว + `doc_ref`

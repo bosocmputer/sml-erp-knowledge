@@ -267,3 +267,8 @@ where trans_flag in (?)                -- 44
 |---|---|---|
 | 15:26:48 | สร้างผู้ขาย `ZZSUP-0001` | [[write-spec-master-customer]] §5 — `ap_supplier` + `ap_supplier_detail` 5 คอลัมน์ |
 | 15:27:24 | แก้ไขใส่วันเครดิต 30 | update หัว → ลบ-ใส่ detail 29 คอลัมน์ → ลบ `ap_contactor`, `ap_item_by_supplier` |
+
+## รอบที่ 7.6 (2026-10-26 15:40–15:42, ไฟล์ aoy-run7-6, 3,957 คำสั่งทุก database)
+| เวลา | ขั้น | เลขที่ | ผล |
+|---|---|---|---|
+| 15:41:56 | ยกเลิกใบวางบิล BL26100001 | EDCC26100001 (จอแสดง EDCC26100002) | [[write-spec-billing-note]] — หัวอย่างเดียว, BL `last_status=1`, บิล 32/33 `used_status_2=0` |
