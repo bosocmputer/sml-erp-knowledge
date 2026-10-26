@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, purchase, verified-runtime]
-status: verified-runtime (ซื้อเงินเชื่อไม่อ้างเอกสาร 1 ใบ) / from-code (ส่วนที่ระบุ)
+status: verified-runtime (ซื้อเงินเชื่อไม่อ้างเอกสาร 1 ใบ รอบ 1; ใบสั่งซื้อ → ซื้อเงินเชื่อ รอบ 5.5) / from-code (ส่วนที่ระบุ)
 source: capture aoy-run1 (PU26100001, 09:01–09:03) + DB aoy + smlerp SMLInventoryControl/_icTransControl.cs, _processThread.cs + smljavaws2 SMLICProcess.java
 ---
 # สเปกการบันทึก: ซื้อสินค้าและค่าบริการ (trans_flag 12)
@@ -57,3 +57,20 @@ source: capture aoy-run1 (PU26100001, 09:01–09:03) + DB aoy + smlerp SMLInvent
 - ซื้อจากใบสั่งซื้อ (6): `doc_ref_type` ของบรรทัด, `ap_ar_trans_detail.bill_type`, ผลต่อ `accrued_in_qty` และสถานะใบสั่งซื้อ
 - `is_manual_vat=1` (แก้ VAT เอง) เขียนอะไรเพิ่ม
 - `is_hold_purchase` ทำงานอย่างไร
+
+## 5. ยืนยันจากรอบ 5.5: ใบสั่งซื้อ → ซื้อเงินเชื่อ (PO26100001 12:16:19, PU26100002 12:17:43 วันที่ 2026-10-26)
+ผู้ขาย `AL-2604-0001` · 2 บรรทัด: `ZZTEST-0001` ชิ้น 2 × 10, `AH-0001` กล่อง 1 × 100 · ภาษีรวมใน 120 (ก่อนภาษี 112.15 + 7.85)
+
+**ใบสั่งซื้อ (6, เมนู ซื้อ › ใบสั่งซื้อ)** — transaction เดียว: `ic_trans` → `ic_trans_detail` ต่อบรรทัด → `COMMIT` (ไม่มี `ap_ar_trans_detail`, `gl_journal_vat_buy`, `cb_trans`)
+- `ic_trans` (40 คอลัมน์): `trans_type=1, trans_flag=6, doc_format_code='PO', cust_code, inquiry_type=0, vat_type=1, user_request=<ผู้ใช้>, approve_code=null, expire_day=0, expire_date, credit_day/date, send_day/date, total_*`, `doc_ref=null`
+- `ic_trans_detail`: `trans_flag=6, calc_flag=1, doc_ref_type=0, ref_doc_no=null, **ref_row=-1**`, `wh_code/shelf_code` ตามค่าเริ่มต้น, `stand_value/divide_value=1`, `price_exclude_vat`, `sum_amount_exclude_vat`
+- หลัง commit: ซ่อม `accrued_in_qty` (ค้างรับ) ของสินค้า + **ใส่คิว `process` 'IC'** แล้วคำนวณต้นทุนใหม่ทันที (ต้นทุนไม่เปลี่ยนเพราะใบสั่งซื้อไม่อยู่ในสูตร)
+
+**ซื้อเงินเชื่อจากใบสั่งซื้อ (12, เมนู ซื้อ › ซื้อสินค้า/ตั้งหนี้, ประเภท "1.ซื้อสินค้าเงินเชื่อ" = `inquiry_type 0`)** — transaction เดียวกับ §1 + 1 ตาราง:
+- `ic_trans`: เหมือน §1.1 (`doc_ref=null`, `tax_doc_no=<เลข PU>`, `advance_amount=0`, `is_manual_vat=0`)
+- `ic_trans_detail`: **`ref_doc_no=<เลข PO>`, `ref_row=<line_number ของบรรทัด PO>` (0, 1)**, `doc_ref_type=0`, `hidden_cost_1=0`
+- **`ap_ar_trans_detail` 1 แถว (แท็บเอกสารอ้างอิง):** `calc_flag=1, trans_type=1, trans_flag=12, doc_date, doc_no=<PU>, billing_no=<PO>, billing_date, remark, line_number=0` — ต่างจาก §1.4 (ซื้อไม่อ้างเอกสารไม่มีแถวนี้)
+- `gl_journal_vat_buy`: `vat_calc=1`, ฐาน 112.15 ภาษี 7.85 รวม 120
+- หลัง commit (~14 วินาทีหลัง commit — งานหลังบันทึกเริ่มหลังปิดหน้าพิมพ์): ซ่อมค้างรับ/จอง/ส่ง → คิว `process` → **doc flow: `PO26100001` `used_status=1, doc_success=1`** (รับครบทุกบรรทัด) → worker: เพิ่มล็อต `ic_trans_detail_lot` (lot `00016` ของ AH-0001), `ic_trans_detail.sum_of_cost/average_cost` ของบรรทัดซื้อ = ราคาก่อนภาษี (93.46, 18.69 → 9.35/ชิ้น), `ic_inventory.average_cost` AH-0001 228.39 → 227.30, ZZTEST-0001 0 → 9.35
+- ตรวจ DB หลังบันทึก: `balance_qty` ZZTEST-0001 0 → 2, AH-0001 121 → 122 · `accrued_in_qty` = 0 ทั้งคู่ (รับครบ)
+- **สำหรับ sml_mcp_ai:** ซื้ออ้างใบสั่งซื้อต้องเขียน `ref_doc_no` + `ref_row` ทุกบรรทัด **และ** แถว `ap_ar_trans_detail` อ้าง PO ไม่งั้นสถานะใบสั่งซื้อ/ค้างรับจะไม่ถูกปิด
