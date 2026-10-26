@@ -52,7 +52,6 @@ date: 2026-10-21
 | `active_status` ของผู้ใช้/กลุ่ม, `system_id`, ระดับราคา/ส่วนลดของผู้ใช้ | ยังไม่ทราบ | [[permissions]] §5 |
 | งวดบัญชี: จุดที่ตรวจ/ไม่ตรวจงวดปิด (เอกสารสินค้า**ไม่ตรวจ**ตอนบันทึก) | from-code | [[tax-period]] §3 |
 | `lock_date_back` ไม่ถูกใช้ในโค้ด | from-code (ค้นทั้ง codebase) | [[tax-period]] §4 |
-| เลขเมนู X.Y.Z นับรวมเมนูซ่อน `&hide&` (เช่น "กำหนดเขตการขาย" = 1.3.2 ไม่ใช่ 1.3.1 ตาม KB ทีม SML) และร้านที่ใช้ "SML Account POS Professional" รันตัวเปิด `SMLAccountPOSPro` (edition 13) — ตรวจได้จากภาพหน้าจอเมนูของร้าน | from-code | [[menu-map]], [[team-review-2026-10-26-sml-team-kb]] ข้อ ค. |
 | รายงานภาษีขาย/ซื้อ (กรองยกเลิก, `vat_calc`, `vat_type`) | from-code | [[tax-period]] §1–2 |
 | อายุลูกหนี้/เจ้าหนี้, เช็คในมือ, ใบวางบิลค้าง | from-code | [[report-formulas]] |
 | สูตร FastReport, การ์ดสินค้า, มูลค่าคงเหลือ ณ วันที่, งบทดลอง/กำไรขาดทุน | ยังไม่ทราบ | [[report-formulas]] |

@@ -280,12 +280,12 @@ def build_rows(prod, flags, idx):
 EDITION_NOTE = ("**เลข edition ใน tag ของเมนู** (`SMLERPTemplate/_templateMainForm.cs` `_menuRemoveByVersion`): 2 = SMLAccount, "
                 "3 = SMLAccountProfessional, 6 = SMLPOS/IMSPOS, 7 = POSLite, 8 = TomYumGoong, 9 = POSMED, 10 = POSStarter, "
                 "11 = TomYumGoongPro, 12 = SMLAccountPOS, **13 = SMLAccountPOSProfessional / SMLCM**, 15 = Merchant, 16 = POSCoffee · "
-                "ตัวเปิดที่ยังพัฒนาอยู่ `SMLAccountPOSPro/Program.cs` ตั้ง `SMLAccountPOSProfessional` (13) "
+                "ตัวเปิดที่ยังพัฒนาอยู่ `SMLAccountPOSPro/Program.cs` ตั้ง `SMLAccountPOSProfessional` (13) — ✅ ยืนยันจากเครื่องร้าน AOY (แถบเมนูมี 11.คลังสินค้า 12.Data ซึ่งมีเฉพาะ edition 3/13) "
                 "(โปรเจกต์เก่า `SMLAccountPOSProfessional/` แก้ล่าสุด 2015 ตั้ง `SMLAccountPOS` = 12) — "
                 "เมนูแสดงเมื่อ tag ว่าง, มีเลขของ edition, หรือเป็น `&hide&` ตรงๆ (หรือ tag OEM `&imex&`/`&singha&`, หรือเปิดใน enableMenuFeatures) แล้วจึงกรองตามสิทธิ์ผู้ใช้")
 
 NUMBER_NOTE = ("**เลขเมนู** = เลข X.Y.Z ที่โปรแกรมใส่หน้าชื่อเมนู (`mainMenuChangeResource`) หลังตัดเมนูตามรุ่น — นับรวมเมนูที่ซ่อน (`&hide&`) "
-               "ด้วย จึงอาจมีเลขข้าม · เลขที่ต่างกันตามรุ่นแสดงแยก เช่น `5.1 Acc/Pro · 6.1 AccPOS/AccPOSPro` · ไม่มีเลข = รุ่นเหล่านั้นไม่เห็นเมนูนี้ · "
+               "ด้วย จึงอาจมีเลขข้าม (✅ ยืนยันจากภาพหน้าจอ AOY 2026-10-26: เมนู ระบบขาย เริ่มที่ 1.3.2 เพราะ 1.3.1 ถูกซ่อน) · เลขที่ต่างกันตามรุ่นแสดงแยก เช่น `5.1 Acc/Pro · 6.1 AccPOS/AccPOSPro` · ไม่มีเลข = รุ่นเหล่านั้นไม่เห็นเมนูนี้ · "
                "ไม่รวมผลของสิทธิ์ผู้ใช้ (ตัวเลือก `show_menu_by_permission` ซ่อนเมนูแต่ไม่เปลี่ยนเลข), OEM และเมนูที่เปิดจาก service")
 
 
