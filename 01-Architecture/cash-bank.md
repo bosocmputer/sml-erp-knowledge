@@ -112,6 +112,11 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - doc flow: ใบซื้อ `used_status_2=1`
 - หน้าจอ: ระหว่างกรอก ช่อง "เอกสารวันที่" แสดง `/2569` ผู้ใช้พิมพ์วันที่ใหม่ก่อนบันทึก — ค่าที่บันทึกจริง `2026-10-26` · ยังไม่รู้ว่าอาการนี้ทำให้ค่าผิดหรือแค่แสดงผิด
 
+### 3.2 รอบ 7.8: รับชำระที่ลูกค้าหัก ณ ที่จ่าย (RC26100007 รับ INV26100003 247, 15:48:45 วันที่ 2026-10-26) — ⚠️ ยังสรุปไม่ได้
+- `cb_trans`: `pay_type=1, cash_amount=244.69, **total_tax_at_pay=2.31**, total_amount = total_net_amount = total_amount_pay = 247` · `ap_ar_trans_detail sum_pay_money=247` · บิล `used_status_2=1`
+- **ไม่มี `insert gl_wht_list` / `gl_wht_list_detail`** ใน transaction (มีแค่ลบของเลขว่าง) และไม่มีใน DB ⇒ ยอดภาษีถูกหักอยู่ใน `cb_trans.total_tax_at_pay` อย่างเดียว ไม่มีหนังสือรับรอง
+- เทียบข้อมูลจริง kbgtest: ใบรับชำระ 239 มี `gl_wht_list` 1,683 ใบ ⇒ ปกติฝั่งรับเขียน `gl_wht_list` ได้ — ต้องรู้ว่าผู้ทดสอบกรอกที่แท็บภาษีถูกหัก หรือพิมพ์ยอดตรงในแท็บรับเงิน
+
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
 - **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
