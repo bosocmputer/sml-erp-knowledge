@@ -75,3 +75,9 @@ source: capture aoy-run3 (RC26100003 รับชำระ INV26100002, 10:39–
 - **`insert cb_trans_detail` (13 คอลัมน์):** `doc_no, doc_date, doc_time, trans_type=2, trans_flag=239, doc_type=1 (โอน), chq_due_date=<วันที่>, trans_number=<รหัสสมุดบัญชี erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount=90.00, remark, line_number=0` (ดู [[cash-bank]])
 - **แถวเอกสารอ้างอิงของใบรับชำระ:** หลัง `delete cb_trans_detail …ว่าง` มี `insert ap_ar_trans_detail` (8 คอลัมน์) **`trans_type=2, trans_flag=99, doc_date, doc_no='RC26100004', billing_no='BL26100001', billing_date, remark, line_number=0`** + แถวว่าง line 1 (ถูกลบโดยคำสั่ง cleanup ท้าย transaction) — `trans_flag=99` ในที่นี้ใช้กับแถวอ้างอิงใบวางบิล (ชื่อ flag 99 ใน [[trans_flag]] คือ ลูกหนี้_ตั้งหนี้อื่น) · kbgtest มีแถวแบบนี้ 20,158 แถวที่ผูกกับใบรับชำระ
 - doc flow 16:15:45: ใบวางบิล `used_status=1, doc_success=1` ([[write-spec-billing-note]])
+
+## 7. ยืนยันจากรอบ 5.3: รับชำระด้วยบัตรเครดิต (RC26100005, 10:37:01 วันที่ 2026-10-26)
+- ลำดับคำสั่งเหมือน §2 ทุกขั้น (ลบ `cb_trans`/`cb_trans_detail`/`gl_wht_list*`/`gl_journal_vat_sale` ของเลขว่าง → `ap_ar_trans` → `ap_ar_trans_detail` `bill_type=44` → `cb_trans` → `cb_trans_detail` → cleanup → `COMMIT`)
+- ต่างจากเงินสดเฉพาะ `cb_trans.card_amount` และแถว `cb_trans_detail` `doc_type=3` (เลขบัตร, เลขอนุมัติ, `credit_card_type`) — รายละเอียดคอลัมน์ [[cash-bank]] §2.1
+- ทะเบียนบัตร `cb_chq_list` (chq_type 3) เกิดใน doc flow หลัง commit ไม่ใช่ใน transaction ⇒ sml_mcp_ai ต้องรอ/ตรวจแถวทะเบียนหลังบันทึก หรือเรียกงานหลังบันทึกเหมือนโปรแกรม
+- `ap_ar_trans_detail.ref_doc_no` ของบิลนี้เป็นเลขอ้างอิงยาวจากระบบภายนอก (คัดจาก `ic_trans` ของบิล) — โปรแกรมคัดลอกตามเดิม ไม่ได้ตรวจรูปแบบ

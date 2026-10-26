@@ -1,6 +1,6 @@
 ---
 tags: [sml, cash-bank, payment, cheque, wht]
-status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4)
+status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4, บัตรเครดิต + ขึ้นเงินบัตร รอบ 5.3)
 source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceControl.cs, SMLERPGlobal/_global.cs (`_payType` ~2151), SMLProcess/_docFlowThread.cs (~958–1100), SMLERPControl/_bank/_chqListControl.cs, _customer/_arStatusForm.cs + DB + capture aoy-run1..3
 ---
 # เงินสด / ธนาคาร: การรับ-จ่ายเงิน, เช็ค, ภาษีหัก ณ ที่จ่าย
@@ -59,6 +59,20 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - เอกสารเช็ค (405/406 ยกมา, 410–418, 451–456) เก็บใน `ic_trans`/`ic_trans_detail` โดยบรรทัดมี `chq_number`, `doc_ref`, `ref_row`
 - **เช็คในมือที่นับเพิ่มในหนี้ลูกค้า** (`_arStatusForm`): `chq_type = 1 and status not in (2, 7, 8)`; ตัวเลือก `ar_credit_chq_outstanding` เอายอดเช็คค้างไปบวกยอดหนี้ตอนตรวจวงเงิน ([[write-spec-sale-invoice]] §1.3)
 - ข้อมูลจริง kbgtest: เช็ครับ status 2 = 32,106, 7 = 1,369, 0 = 242, 8 = 93 · เช็คจ่าย status 2 = 1,479, 0 = 23
+
+### 2.1 บัตรเครดิต — ยืนยันจากรอบ 5.3 (2026-10-26: รับชำระ RC26100005 10:37:01, ขึ้นเงิน CRD26100001 10:39:49)
+**รับชำระด้วยบัตร (239)** — transaction เดียวกับรับชำระเงินสด/โอน ([[write-spec-receipt]] §2) ต่างที่:
+- `cb_trans`: `pay_type=1`, **`card_amount=48`**, `cash_amount=0`, `total_credit_charge=0`, `total_amount = total_net_amount = total_amount_pay = 48`
+- `cb_trans_detail` 1 แถว: **`doc_type=3`**, `trans_number_type=1`, `ap_ar_type=1`, `ap_ar_code=<ลูกค้า>`, **`trans_number=<เลขบัตร>`**, `no_approved=<เลขอนุมัติ>`, **`credit_card_type=<รหัสใน erp_credit_type>`**, `amount`, `charge=0`, `sum_amount`, `remark`, `line_number=0`
+- **`cb_chq_list` ไม่ได้ถูกเขียนใน transaction บันทึก** — เกิดหลัง commit ~3 วินาที ใน doc flow: ลบแถวที่ไม่มี `cb_trans_detail` คู่ → `insert into cb_chq_list (chq_number=<เลขบัตร>, doc_ref=<RC>, chq_get_date, chq_due_date, remark, ap_ar_code, pass_book_code=null, ap_ar_type=1, **chq_type=3**, bank_code=null, amount, sum_amount, charge, trans_type=2, trans_flag=239, no_approved, credit_card_type, doc_line_number=0, external_chq=0)` → ลบแถวซ้ำ
+- doc flow บิลที่รับ: `used_status_2=1` (เหมือนเงินสด)
+
+**ขึ้นเงินบัตรเครดิต (461, เมนู 8.10.4.2)** — ใบแรกของ AOY · transaction เดียว 2 คำสั่ง:
+- `ic_trans`: `trans_type=2, trans_flag=461, doc_format_code='CRD', pass_book_code=<สมุดบัญชีที่ขึ้นเงิน>, total_amount=48, total_cost/before_vat/vat=0, is_manual_vat=1, is_pos=0`
+- `ic_trans_detail` ต่อบัตร: **`item_code=<รหัสสมุดบัญชี>`** (ไม่ใช่สินค้า), `bank_name`, `bank_branch`, **`chq_number=<เลขบัตร>`, `doc_ref=<ใบรับชำระ>`, `ref_row=<doc_line_number>`**, `price = sum_amount = 48`, `calc_flag=1`
+- ไม่มี `cb_trans`, ไม่มี GL (ร้านปิด realtime)
+- หลัง commit: ใส่คิว `process` 'IC' ด้วย `wherein=<รหัสสมุดบัญชี>` (คิวว่างเพราะไม่มีสินค้ารหัสนั้น — เป็นผลข้างเคียงของการใช้ `item_code`) → **`update cb_chq_list set status = 1` (461) / 2 (462 ยกเลิก) / 0** จากเอกสาร 461/462 ล่าสุดที่ `chq_number`, `doc_ref`, `ref_row = doc_line_number` ตรงกัน ⇒ สถานะบัตร: 0 = ยังไม่ขึ้นเงิน, 1 = ขึ้นเงินแล้ว, 2 = ยกเลิก
+- **ใบรับชำระไม่ได้ถูกนับว่า "ถูกใช้"**: กฎ doc flow ของ 239 นับ `ic_trans_detail.doc_ref = RC and trans_flag in (410,411,461)` เป็น `used_status=1` แต่ doc flow ของ 461 ไม่ได้ประมวลผลใบรับชำระต่อ ⇒ `RC26100005.used_status` ยังเป็น 0 · ข้อมูลจริง: ใบรับชำระที่มีเอกสาร 410/411/461 อ้างถึง มี `used_status=1` แค่ kbgtest 112/27,133, samai 31/1,542 ⇒ **อย่าใช้ `used_status` ของใบรับชำระตัดสินว่าเช็ค/บัตรผ่านแล้ว** ให้ดู `cb_chq_list.status` หรือเอกสาร 410/411/461 โดยตรง
 
 ## 3. ภาษีหัก ณ ที่จ่าย (`gl_wht_list`)
 - คอลัมน์: `doc_date, doc_no, amount, tax_value, status, trans_flag, due_date, line_number, cust_code, card_number, tax_number, cust_tax_type, cust_name, tax_doc_no, cust_address` + รายละเอียดใน `gl_wht_list_detail`
