@@ -84,7 +84,6 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
 - ทำไมรอบ 1 วันที่เอกสารยังว่างตอนออกเลข (`SIC00010001`) — รอบ 5.6 ออกเลขปกติ อาจขึ้นกับลำดับการกดในหน้าจอ
 - ผังบัญชีที่ใช้ลง GL ของเอกสาร 45 (ไม่มีใน `erp_doc_format_gl`)
 - เมนูที่ใช้ `CancelDocumentQuery` (`is_cancel=1`)
-- SQL จริงของการยกเลิกใบสั่งขายรายสินค้า (37 type 2)
 
 ## B.0 ยืนยันจากรอบ 4: ยกเลิกใบสั่งขายทั้งหมด (SSC26100001 ยกเลิก SO26100002, 16:10:01)
 - **Transaction:** `insert ic_trans` 1 แถว (37 คอลัมน์) — **ไม่มีบรรทัด** (`ic_trans_detail` ของ SSC = 0)
@@ -92,3 +91,12 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
   - ค่า `discount_word`/`total_discount`/`total_amount = -100` เป็นค่าที่โปรแกรมเขียนจริงในใบนี้ — ยังไม่ทราบว่ามาจากไหน (ใบสั่งขายต้นทางไม่มีส่วนลดท้ายบิล)
 - หลัง commit: `logs` → งานสต็อกของสินค้าใน SO (ค้างจอง/ค้างส่ง, คิว `process`) → **doc flow** (16:10:04): `update ic_trans set last_status=1 where roworder=<SO>`, `ic_trans_detail`/`ap_ar_trans_detail` ของ 36 `last_status=1` → (16:10:05) ใบเสนอราคาต้นทาง **`used_status=0`** และ reset `last_status` ของ 30
 - ผลใน DB: SO26100002 `last_status=1`; QT26090001 `used_status=0, doc_success=0` (กลับมาใช้ได้)
+
+## B.1 ยืนยันจากรอบ 5.7: ยกเลิกใบสั่งขาย**รายสินค้า** (SSC26100002 ยกเลิกบรรทัด 2 ของ SO26100003, 12:29:19 วันที่ 2026-10-26)
+ใบสั่งขาย SO26100003 (12:27:21): `ZZTEST-0001` 1 ชิ้น × 20 + `AH-0001` 1 กล่อง × 240 · หน้าจอเลือก "ประเภทการยกเลิก: ยกเลิกรายสินค้า" แล้วตารางแสดงเฉพาะบรรทัดที่ยกเลิก
+- **Transaction (ต่างจาก type 1 ที่มีแต่หัว):** `ic_trans` → `ic_trans_detail` ต่อบรรทัดที่ยกเลิก → `ap_ar_trans_detail` → `COMMIT`
+  - `ic_trans` (37 คอลัมน์ ชุดเดียวกับ B.0): **`cancel_type=2`**, `doc_ref='SO26100003'`, `doc_ref_date`, `user_approve=<ผู้ใช้>`, `vat_type=1`, **ยอดเท่ากับบรรทัดที่ยกเลิก** (`total_value=240, total_before_vat=224.30, total_vat_value=15.70, total_amount=240`)
+  - `ic_trans_detail`: `trans_flag=37`, **`calc_flag=-1`**, `doc_ref_type=0`, **`ref_doc_no='SO26100003'`, `ref_row=1`** (line_number ของบรรทัดใน SO), `item_code`, `wh_code/shelf_code`, `unit_code`, `qty=1`, `price=240`, `sum_amount=240`, `line_number=0`
+  - `ap_ar_trans_detail` (แท็บเอกสารอ้างอิง): `calc_flag=-1, trans_type=2, trans_flag=37, doc_no=<SSC>, billing_no=<SO>, billing_date, line_number=0`
+- หลัง commit: ซ่อมค้างจอง/ค้างส่ง → คิว `process` → **doc flow: `SO26100003` `used_status=1` เท่านั้น** (`last_status=0`, `doc_success=0`) ⇒ ใบสั่งขายยังเปิดอยู่สำหรับบรรทัดที่เหลือ — ตรงกับกฎ "ยกเลิกบางรายการนับเป็นการอ้างอิง ไม่ใช่การยกเลิก"
+- ตรวจ DB: `accrued_out_qty` (ค้างส่ง) `ZZTEST-0001` = 1 (บรรทัดที่เหลือ), `AH-0001` = 1 (กลับเท่าก่อนสร้าง SO — บรรทัดที่ยกเลิกไม่นับแล้ว) · `balance_qty` ไม่เปลี่ยน
