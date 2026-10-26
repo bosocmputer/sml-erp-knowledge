@@ -119,6 +119,14 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - ข้อมูลจริง kbgtest: ใบรับชำระ 239 มี `gl_wht_list` 1,683 ใบ ⇒ เมื่อกรอกผ่านแท็บภาษีถูกหัก ฝั่งรับเขียน `gl_wht_list` (ยังไม่ได้ดักจับแบบนี้)
 - ⇒ รายงานภาษีถูกหัก ณ ที่จ่ายที่อ่าน `gl_wht_list` จะไม่เห็นยอดที่พิมพ์ตรง
 
+### 3.3 รอบ 7.8b: รับชำระแบบเพิ่มรายการในแท็บภาษีถูกหัก (RC26100008 รับ INV26100005 240, 16:17:24 วันที่ 2026-10-26)
+- ลำดับใน transaction เดียวกับฝั่งจ่าย (§3.1): `ap_ar_trans` → `ap_ar_trans_detail` → **`gl_wht_list`** → **`gl_wht_list_detail`** → `cb_trans` → `COMMIT`
+- `gl_wht_list`: `doc_no=<RC>, doc_date, **tax_doc_no=<ช่อง "เอกสารเลขที่" ที่ผู้ใช้พิมพ์>** (ฝั่งรับไม่ออกเลข `RWHT…` ให้ — เป็นเลขหนังสือรับรองของลูกค้า), due_date, amount=224.30, tax_value=2.24, cust_code, **trans_flag=239**, cust_name, cust_address (จากลูกค้า), cust_tax_type=1, card_number='', tax_number=''`
+- `gl_wht_list_detail`: `line_number=1, doc_no, tax_doc_no, trans_flag=239, income_type=<รายละเอียด>, amount=224.30, tax_rate=1.00, tax_value=2.24, due_date, cust_code`
+- `cb_trans`: `cash_amount=237.76, total_tax_at_pay=2.24, total_amount_pay=240` — **เหมือนแบบพิมพ์ยอดตรง (§3.2) ทุกค่า ต่างกันแค่มี/ไม่มีแถว `gl_wht_list`**
+- บิล `used_status_2=1`
+- **สำหรับ sml_mcp_ai:** รับชำระที่ลูกค้าหักภาษีต้องเขียน `gl_wht_list` + `_detail` (`trans_flag=239`) ด้วย ไม่ใช่แค่ `total_tax_at_pay`
+
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
 - **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
