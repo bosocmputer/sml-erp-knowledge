@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, master, customer, verified-runtime]
-status: verified-runtime รอบ 6.2 (สร้างลูกค้า + แก้ไข 3 ครั้ง) · ผู้ขาย (ap_supplier) from-data เท่านั้น
+status: verified-runtime รอบ 6.2 (สร้างลูกค้า + แก้ไข 3 ครั้ง) · รอบ 7.5 (สร้างผู้ขาย + แก้ไข 1 ครั้ง)
 source: capture aoy-run6-2 (2026-10-26 13:46–13:49) + DB aoy + smlerp SMLERPTemplate/smldatabase.xml
 ---
 # สเปกการบันทึก: ข้อมูลลูกค้า (ลูกหนี้) `ar_customer` / `ar_customer_detail`
@@ -37,5 +37,12 @@ source: capture aoy-run6-2 (2026-10-26 13:46–13:49) + DB aoy + smlerp SMLERPTe
 
 ## 4. ยังไม่ทราบ
 - ค่าอื่นของ `ar_status` นอกจาก 0/1 และป้ายบนจอ
-- ผู้ขาย (`ap_supplier` / `ap_supplier_detail`) — ยังไม่ได้ทดสอบ คาดว่ารูปแบบเดียวกัน
 - ลบลูกค้า, ลูกค้าที่มีเอกสารแล้วเปลี่ยนรหัส
+
+## 5. ผู้ขาย (เจ้าหนี้) — ยืนยันจากรอบ 7.5 (ZZSUP-0001 สร้าง 15:26:48, แก้ไข 15:27:24 วันที่ 2026-10-26)
+หน้าจอ: เจ้าหนี้ › ข้อมูลเจ้าหนี้ › กำหนดเจ้าหนี้ (`menu_ap_detail`, `SMLERPAP._ap`, เลขเมนู 6.1.1)
+- **สร้าง:** `insert into ap_supplier (code, prefixname, firstname, lastname, name_eng_1, name_1, address, province, amper, tambon, zip_code, country, telephone, fax, email, ap_type, website, remark, status=0, ap_status=1, create_code, create_datetime=now())` → `insert into ap_supplier_detail (ap_code, tax_id='', card_id='', branch_type='0', branch_code='')` → `COMMIT` → `master_logs` (`function_code=1`, `menu_name=''`)
+  - `firstname` = `name_1` (โปรแกรมคัดลอกชื่อให้) · `ap_status=1` ตามที่เลือกนิติบุคคล (เหมือน `ar_status`)
+- **แก้ไข:** ล็อก `ap_supplier.guid_code` → transaction: **`update ap_supplier` ก่อน** → `delete ap_supplier_detail` → `insert ap_supplier_detail` (29 คอลัมน์: `staff_pay_code, payment_way, pay_bill_way, pay_condition, credit_purchase='0', discount_item, discount_bill, **credit_day='30'** (ส่งเป็นข้อความ), tax_id, card_id, branch_type, branch_code, set_tax_type, tax_type, tax_rate, shipping_type, account_code, lead_time, dimension_1..5, group_main, group_sub_1..4`) → `delete ap_contactor` → `delete ap_item_by_supplier` → `COMMIT` → ปลดล็อก
+- ต่างจากลูกค้า: ลำดับ (ผู้ขาย update หัวก่อนลบลูก, ลูกค้าลบลูกก่อน) · ตารางลูก 3 ตาราง (`ap_supplier_detail`, `ap_contactor`, `ap_item_by_supplier`) — ไม่มี cashier list · ไม่มี `master_logs` ตอนแก้ไขในรอบนี้
+- วันเครดิตอยู่ใน `ap_supplier_detail.credit_day` (แก้จากหน้าจอกำหนดเจ้าหนี้ได้)

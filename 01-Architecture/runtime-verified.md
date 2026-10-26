@@ -261,3 +261,9 @@ where trans_flag in (?)                -- 44
 |---|---|---|---|
 | 15:22 | ใบสั่งขาย AH-0001 1 × 240 | SO26100004 | เหมือนรอบ 5.7 |
 | 15:23:13 | อนุมัติใบสั่งขาย | SSA26100001 | [[write-spec-sale-order]] §6.5 — `doc_ref` ที่หัว, SO `used_status=1` |
+
+## รอบที่ 7.5 (2026-10-26 15:25–15:28, ไฟล์ aoy-run7-5, 4,896 คำสั่งทุก database)
+| เวลา | ขั้น | ผล |
+|---|---|---|
+| 15:26:48 | สร้างผู้ขาย `ZZSUP-0001` | [[write-spec-master-customer]] §5 — `ap_supplier` + `ap_supplier_detail` 5 คอลัมน์ |
+| 15:27:24 | แก้ไขใส่วันเครดิต 30 | update หัว → ลบ-ใส่ detail 29 คอลัมน์ → ลบ `ap_contactor`, `ap_item_by_supplier` |
