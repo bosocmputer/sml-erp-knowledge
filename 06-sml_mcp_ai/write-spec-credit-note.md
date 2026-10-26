@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, credit-note]
-status: verified-runtime รอบ 4 สำหรับรับคืนจากขายเงินเชื่อ (inquiry_type 0) · รอบ 5.1 สำหรับลดหนี้จากขายเงินเชื่อไม่กระทบสต็อก (inquiry_type 2) · ประเภท 1, 3, 4, 5 from-code
+status: verified-runtime รอบ 4 สำหรับรับคืนจากขายเงินเชื่อ (inquiry_type 0) · รอบ 5.1 สำหรับลดหนี้จากขายเงินเชื่อไม่กระทบสต็อก (inquiry_type 2) · รอบ 7.2 สำหรับรับคืนจากขายเงินสด (inquiry_type 1) · ประเภท 3, 4, 5 from-code
 source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โครงสร้างเท่านั้น) + smlerp _icTransScreenTopControl.cs, SMLProcess/_docFlowThread.cs, smljavaws2 SMLICProcess.java + query จริงที่ capture ได้จากเอกสารอื่น
 ---
 # สเปกการบันทึก: รับคืนสินค้า / ลดหนี้ (trans_flag 48)
@@ -8,6 +8,17 @@ source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โคร�
 กลับไป [[00-Index]] · บิลขาย [[write-spec-sale-invoice]] · รับชำระ [[write-spec-receipt]] · ยกเลิก [[write-spec-cancel]]
 
 > ✅ รอบ 4 ยืนยันรับคืนจากขายเงินเชื่อ 2 ใบ (§0) · ⚠️ ประเภทอื่นยังเป็นข้อมูลจากแถวที่บันทึกไว้แล้ว + โค้ด
+
+## 0.2 ยืนยันจากรอบ 7.2: รับคืนจากขายเงินสด (CN26100005 15:12:12 วันที่ 2026-10-26 — อ้างบิลสด INV26100006 คืน ZZTEST-0001 1 ชิ้น 26.75)
+- ประเภท "2.รับคืนจากขายเงินสด" = **`inquiry_type=1`** (กด Process แล้วโปรแกรมตั้งตามบิลสดให้เอง)
+- **Transaction:** `ic_trans` → `ic_trans_detail` → `ap_ar_trans_detail` (+ แถวว่าง line 1) → **`cb_trans` คืนเงิน** → cleanup `cb_trans_detail` → `gl_journal_vat_sale` → `COMMIT`
+- `ic_trans`: `inquiry_type=1, vat_type=1, total_amount=26.75, total_before_vat=25, total_vat_value=1.75`, `ref_amount=26.75, ref_diff=26.75, ref_new_amount=0` (คืนเต็มบิล)
+- `ic_trans_detail`: **`doc_ref_type=1`** (อ้างบิล), `ref_doc_no='INV26100006'`, `ref_row=0`, `calc_flag=1`, `inquiry_type=1`
+- `ap_ar_trans_detail`: `calc_flag=-1, bill_type=1, billing_no=<บิล>, sum_debt_value = sum_debt_balance = sum_debt_amount = 26.75, final_amount=0, sum_before_vat=25` + แถวว่าง line 1 (`billing_no=null`, ยอด 0)
+- **`cb_trans` (22 คอลัมน์): `doc_format_code='CN', pay_type=2` (จ่ายออก), `trans_type=2, trans_flag=48, total_amount = cash_amount = total_net_amount = total_amount_pay = 26.75`** · ไม่มี `cb_trans_detail` (เงินสด)
+- `gl_journal_vat_sale`: `vat_calc=-1`, ฐาน 25 ภาษี 1.75
+- ตรวจ DB: บิล `used_status=1` · `ZZTEST-0001.balance_qty` 3 → 4 (inquiry 1 กระทบสต็อก)
+- ต่างจากรับคืนขายเชื่อ (§0): มี `cb_trans` คืนเงินแทนการลดยอดลูกหนี้ (ยอดลูกหนี้นับเฉพาะ inquiry 0, 2, 4)
 
 ## 1. ประเภท (`inquiry_type`) — ป้ายจาก `SMLERPTemplate/smldatabase.xml`, ลำดับจาก `_icTransScreenTopControl.cs` ~1712
 | ค่า | ความหมาย | กระทบสต็อก | นับในยอดลูกหนี้ |
