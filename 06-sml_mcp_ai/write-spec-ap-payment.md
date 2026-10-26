@@ -57,3 +57,8 @@ source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceD
 5. `delete cb_trans_detail …ว่าง` → ลบ GL 7 ตารางของเลขที่นี้ → ลบบรรทัดว่าง → `update ic_trans set due_date … where doc_no=<PV>` → `COMMIT`
 - doc flow 16:22:09: **PU26100001 `used_status_2=1`**
 - ⇒ ข้อ 3 "ยังไม่ทราบ" เดิมตอบแล้ว: ลำดับและตารางตามนี้ (WHT/VAT ซื้อในใบจ่ายชำระยังไม่ได้ทดสอบ)
+
+## 7. ยืนยันจากรอบ 5.8: จ่ายชำระแบบหัก ณ ที่จ่าย (PV26100002 จ่าย PU26100002, 13:11:02 วันที่ 2026-10-26)
+- ลำดับเหมือน §6 + `gl_wht_list`/`gl_wht_list_detail` แทรกหลัง `ap_ar_trans_detail` ก่อน `cb_trans` — รายละเอียด [[cash-bank]] §3.1
+- ยอดหักภาษีอยู่ใน `cb_trans.total_tax_at_pay` และนับรวมในยอดจ่าย: `cash_amount 116.64 + total_tax_at_pay 3.36 = total_amount_pay 120` · ยอดตัดเจ้าหนี้ (`sum_pay_money`) = 120 เต็มจำนวน
+- **สำหรับ sml_mcp_ai:** ต้องออกเลข `RWHT…` จาก `erp_doc_format` (screen_code RWHT) ใน transaction เดียวกัน และส่ง `cust_tax_type` (1 นิติบุคคล) ให้ตรงกับแบบ ภ.ง.ด.

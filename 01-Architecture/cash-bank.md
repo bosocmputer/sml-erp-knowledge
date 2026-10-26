@@ -94,6 +94,16 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - หลังบันทึกทุกเอกสาร `_updateDateTimeForCalc` ซ่อม `gl_wht_list_detail.due_date`/`cust_code` ให้ตรงหัว
 - ข้อมูลจริง kbgtest: 6,899 ใบ (รายจ่ายอื่น 260 = 3,046, รับชำระ 239 = 1,683, จ่ายชำระ 19 = 1,597, รายได้อื่น 250 = 389, ขาย 44 = 184)
 
+### 3.1 ยืนยันจากรอบ 5.8 (2026-10-26: จ่ายชำระ PV26100002 จ่าย PU26100002 120 บาท หัก ภ.ง.ด.53 3% = 3.36, 13:11:02)
+- เลขที่หนังสือรับรอง: รูปแบบเอกสาร `screen_code='RWHT'` → `code='RWHT53'` · หาเลขล่าสุดด้วย `select tax_doc_no from gl_wht_list where tax_doc_no <= 'RWHT532610z' order by tax_doc_no desc limit 1` ⇒ ได้ `RWHT5326100001` (รูปแบบ RWHT53 + YYMM + ลำดับ)
+- อยู่ใน**transaction เดียวกับใบจ่ายชำระ** ลำดับ: ลบของเลขว่าง (`cb_trans`, `cb_trans_detail`, `gl_wht_list`, `gl_wht_list_detail`, `gl_journal_vat_buy`) → `ap_ar_trans` → `ap_ar_trans_detail` → **`gl_wht_list`** → **`gl_wht_list_detail`** → `cb_trans` → cleanup → `COMMIT`
+- `gl_wht_list` (13 คอลัมน์): `doc_no=<PV>, doc_date, tax_doc_no=<RWHT…>, due_date, amount=<ฐาน 112.15>, tax_value=3.36, cust_code, trans_flag=19, cust_name, cust_address` (คัดจากข้อมูลผู้ขาย), **`cust_tax_type=1`** (นิติบุคคล), `card_number=''`, `tax_number=''`
+- `gl_wht_list_detail` ต่อบรรทัด: `line_number=1` (เริ่ม 1), `doc_no, tax_doc_no, trans_flag, income_type=<ข้อความช่องรายละเอียด>, amount=112.15, tax_rate=3.00, tax_value=3.36, due_date, cust_code`
+- `cb_trans`: `pay_type=2` (จ่าย), `cash_amount=116.64`, **`total_tax_at_pay=3.36`**, `total_amount = total_net_amount = total_amount_pay = 120` ⇒ ยอดหักภาษีนับเป็นส่วนหนึ่งของยอดจ่าย · **ไม่มี `cb_trans_detail`** (จ่ายเงินสดอย่างเดียว)
+- `ap_ar_trans_detail`: `bill_type=12, sum_debt_amount = balance_ref = sum_pay_money = 120` (เต็มยอดรวมภาษีหัก)
+- doc flow: ใบซื้อ `used_status_2=1`
+- หน้าจอ: ระหว่างกรอก ช่อง "เอกสารวันที่" แสดง `/2569` ผู้ใช้พิมพ์วันที่ใหม่ก่อนบันทึก — ค่าที่บันทึกจริง `2026-10-26` · ยังไม่รู้ว่าอาการนี้ทำให้ค่าผิดหรือแค่แสดงผิด
+
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
 - **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
