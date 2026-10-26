@@ -40,6 +40,8 @@ where trans_flag in (12,310,14,311,16,44,46,48,54,55,56,57,58,59,60,61,62,63,64,
   and is_doc_copy = 0
 group by item_code
 ```
+**สูตรนี้มี 2 ชุดในโค้ด (ตรวจ 2026-10-26):** ด้านบนคือของ web service ที่เขียน `ic_inventory.balance_qty` (`smljavaws2 SMLICProcess.java:1201`) · โปรแกรม Windows (`smlerp SMLProcess/_icProcess.cs:84-90`) ใช้ `not (trans_flag in (14,311) and inquiry_type=1) and not (trans_flag = 16 and inquiry_type in (1,3))` — ต่างกันเฉพาะบรรทัด 14/311 ที่ `inquiry_type=3` ซึ่งนับใน 17 database ทดสอบ (2026-10-26) ได้ 0 บรรทัดจาก 2,928 จึงยังไม่มีผลจริง ดู [[team-review-2026-10-26-sml-team-kb]]
+
 **สำคัญสำหรับ tool ที่คำนวณสต็อกเอง (เช่น sml_mcp_ai):** ต้องใช้เงื่อนไขชุดนี้ ไม่งั้นยอดจะไม่ตรงกับโปรแกรม — หรืออ่าน `ic_inventory.balance_qty` ที่ web service คำนวณไว้แล้ว (ขึ้นกับว่ากระบวนการรันล่าสุดเมื่อไร)
 
 **ยืนยันกับ AOY (2026-10-21):**
