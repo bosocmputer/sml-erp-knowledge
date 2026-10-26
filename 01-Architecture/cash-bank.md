@@ -67,7 +67,7 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - **`cb_chq_list` ไม่ได้ถูกเขียนใน transaction บันทึก** — เกิดหลัง commit ~3 วินาที ใน doc flow: ลบแถวที่ไม่มี `cb_trans_detail` คู่ → `insert into cb_chq_list (chq_number=<เลขบัตร>, doc_ref=<RC>, chq_get_date, chq_due_date, remark, ap_ar_code, pass_book_code=null, ap_ar_type=1, **chq_type=3**, bank_code=null, amount, sum_amount, charge, trans_type=2, trans_flag=239, no_approved, credit_card_type, doc_line_number=0, external_chq=0)` → ลบแถวซ้ำ
 - doc flow บิลที่รับ: `used_status_2=1` (เหมือนเงินสด)
 
-**ขึ้นเงินบัตรเครดิต (461, เมนู 8.10.4.2)** — ใบแรกของ AOY · transaction เดียว 2 คำสั่ง:
+**ขึ้นเงินบัตรเครดิต (461, เมนู เงินสด/ธนาคาร › ธนาคาร › บัตรเครดิต › บันทึกขึ้นเงินบัตรเครดิต)** — ใบแรกของ AOY · transaction เดียว 2 คำสั่ง:
 - `ic_trans`: `trans_type=2, trans_flag=461, doc_format_code='CRD', pass_book_code=<สมุดบัญชีที่ขึ้นเงิน>, total_amount=48, total_cost/before_vat/vat=0, is_manual_vat=1, is_pos=0`
 - `ic_trans_detail` ต่อบัตร: **`item_code=<รหัสสมุดบัญชี>`** (ไม่ใช่สินค้า), `bank_name`, `bank_branch`, **`chq_number=<เลขบัตร>`, `doc_ref=<ใบรับชำระ>`, `ref_row=<doc_line_number>`**, `price = sum_amount = 48`, `calc_flag=1`
 - ไม่มี `cb_trans`, ไม่มี GL (ร้านปิด realtime)
