@@ -74,3 +74,16 @@ source: capture aoy-run1 (PU26100001, 09:01–09:03) + DB aoy + smlerp SMLInvent
 - หลัง commit (~14 วินาทีหลัง commit — งานหลังบันทึกเริ่มหลังปิดหน้าพิมพ์): ซ่อมค้างรับ/จอง/ส่ง → คิว `process` → **doc flow: `PO26100001` `used_status=1, doc_success=1`** (รับครบทุกบรรทัด) → worker: เพิ่มล็อต `ic_trans_detail_lot` (lot `00016` ของ AH-0001), `ic_trans_detail.sum_of_cost/average_cost` ของบรรทัดซื้อ = ราคาก่อนภาษี (93.46, 18.69 → 9.35/ชิ้น), `ic_inventory.average_cost` AH-0001 228.39 → 227.30, ZZTEST-0001 0 → 9.35
 - ตรวจ DB หลังบันทึก: `balance_qty` ZZTEST-0001 0 → 2, AH-0001 121 → 122 · `accrued_in_qty` = 0 ทั้งคู่ (รับครบ)
 - **สำหรับ sml_mcp_ai:** ซื้ออ้างใบสั่งซื้อต้องเขียน `ref_doc_no` + `ref_row` ทุกบรรทัด **และ** แถว `ap_ar_trans_detail` อ้าง PO ไม่งั้นสถานะใบสั่งซื้อ/ค้างรับจะไม่ถูกปิด
+
+## 6. ยืนยันจากรอบ 6.5 (2026-10-26): ซื้อเงินสด, ใบสั่งซื้อ, ซื้ออ้างใบสั่งซื้อรับบางส่วน
+### 6.1 ซื้อเงินสด (PU00010002, 14:43:32) — ประเภท "2.ซื้อสินค้าเงินสด" = `inquiry_type 1`
+- Transaction: `ic_trans` → `ic_trans_detail` → **`cb_trans`** (`doc_format_code='PU', pay_type=2, trans_type=1, trans_flag=12, total_amount = cash_amount = total_net_amount = total_amount_pay = 30`) → cleanup `cb_trans_detail` เลขว่าง (2 ครั้ง) → `COMMIT` · ไม่มี `cb_trans_detail` (เงินสดอย่างเดียว)
+- ⚠️ **ใบนี้ออกเลขตอนวันที่เอกสารยังว่าง** (SQL หาเลข `doc_date >= '1900-01-01' and doc_no like 'PU0001%'` ⇒ `PU00010002` ต่อจาก `PU00010001` ของเดือน 4) และผลที่ตามมาในตาราง:
+  - `ic_trans.doc_date='2026-10-26'` ถูกต้อง แต่ **`tax_doc_no=null`, `tax_doc_date=null`, `credit_date='1800-01-01'`**
+  - **ไม่มี `gl_journal_vat_buy`** ⇒ ภาษีซื้อ 1.96 ไม่เข้ารายงานภาษีซื้อ
+  - เทียบใน AOY: ใบซื้อปกติ 45 ใบ (เชื่อ 16, สด 29) มี `tax_doc_no` และ `gl_journal_vat_buy` ครบ · ใบ `PU0001…` 2 ใบ (PU00010001 เดือน 4, PU00010002) ไม่มีทั้งคู่ และ `credit_date` < 1900 ทั้งคู่
+  - ⇒ **เลขเอกสารรูปแบบ `<รหัส>0001…` = สัญญาณว่าเอกสารถูกบันทึกโดยวันที่ว่างตอนออกเลข และอาจขาดข้อมูลภาษี** (เคย 3 ครั้ง: SIC00010001, PU00010001, PU00010002) — หน้าจอเคยแสดงช่องวันที่ไม่ครบ (`/2569`, `)`) ในรอบ 5.8 และ 6.3
+### 6.2 ใบสั่งซื้อ (PO26100002, 14:45:05) — เหมือน §5
+### 6.3 ซื้อเงินเชื่ออ้างใบสั่งซื้อ รับ 1 จาก 2 (PU26100003, 14:49:59)
+- เหมือน §5: `ref_doc_no='PO26100002', ref_row=0`, แถวอ้างอิง `ap_ar_trans_detail billing_no=PO` + **แถวว่าง line 1 (`billing_no=null`) ค้างในฐาน** (เหมือนบิลขายอ้างใบจอง [[write-spec-sale-invoice]] §7)
+- doc flow: **PO26100002 `used_status=1`, `doc_success=0`** (ยังรับไม่ครบ) · `ZZTEST-0001`: `balance_qty` 0 → 3 (ซื้อสด) → 4, **`accrued_in_qty`=1** (ค้างรับ), `average_cost` 9.35
