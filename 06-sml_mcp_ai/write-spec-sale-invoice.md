@@ -149,3 +149,9 @@ source: capture aoy-run1 (INV26100001 ขายสด 08:55–08:57) + aoy-run2 
 - **แถวว่างใน `ap_ar_trans_detail`:** transaction ของบิลนี้**ไม่มี** cleanup `delete from ap_ar_trans_detail where sum_debt_amount=0 … billing_no is null` (ต่างจากใบรับ/จ่ายชำระ) ⇒ เหลือแถว `trans_flag=44, billing_no=null` ในฐาน (AOY มี 2 แถวแบบนี้ = ของใบนี้) — query ที่นับแถว `ap_ar_trans_detail` ของบิลต้องกรอง `billing_no is not null`
 - สต็อก AH-0001: 122 → 121, `book_out_qty` (ค้างจอง) สุดท้าย 0 (ใบจองปิดแล้ว)
 - **สำหรับ sml_mcp_ai:** บิลอ้างใบจองต้องเขียน `doc_ref_type=2`, `ref_doc_no`, `ref_row` และแถวอ้างอิง `bill_type=2` · ใบจองอ้างใบเสนอราคาใช้ `ref_row=-1` ได้ (โปรแกรมทำแบบนั้น) — ไม่ต้องเขียนแถวว่าง
+
+## 8. รอบ 7.1: ขายเงินสด ภาษีรวมใน (INV26100006, 15:05:56 วันที่ 2026-10-26)
+- `ic_trans`: `inquiry_type=1` (ขายเงินสด), `vat_type=1` (ภาษีรวมใน), `credit_day=30` (จากลูกค้า แม้ขายสด), `total_value = total_amount = 26.75`, `total_before_vat=25`, `total_vat_value=1.75`
+- **`cb_trans` (31 คอลัมน์):** `doc_format_code='INV', pay_type=1, trans_type=2, trans_flag=44, total_amount=26.75, cash_amount=26.75, pay_cash_amount=0, money_change=0, card_amount, coupon_amount, point_qty/rate/amount, wallet_amount = 0, total_net_amount = total_amount_pay = 26.75` · ไม่มี `cb_trans_detail` (เงินสด)
+- `gl_journal_vat_sale` ฐาน 25 ภาษี 1.75 · `ic_trans_shipment` 1 แถว
+- สต็อก ZZTEST-0001 4 → 3 · ราคาดู [[pricing-vat-gl]] §1.1
