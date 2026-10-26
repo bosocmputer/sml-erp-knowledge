@@ -19,7 +19,7 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
 - เลือกบิลของลูกค้า: `ic_trans where cust_code=? and trans_flag=44`
 - อ่านสถานะต้นทาง `select doc_date, last_status, doc_success, used_status, used_status_2 from ic_trans where upper(doc_no)=?`
 - **ห้ามยกเลิก** (`_icTransScreenTopControl.cs` ~5491, ข้อความ `__docWarning1..3` ~4718): `last_status=1` ("มีการยกเลิกไปแล้ว"), `doc_success=1` ("ปิดรายการไปแล้ว"), `used_status=1` หรือ `used_status_2=1` ("มีการอ้างอิงรายการไปแล้ว" — เช่น รับชำระแล้ว/ลดหนี้แล้ว) → ล้าง `doc_ref` และไม่ให้บันทึก
-- เลขที่: `erp_doc_format code='SIC'` (AOY: `@YYMM####` แต่เลขจริงคือ `SIC00010001` — **ไม่ตรงรูปแบบ**, ยังไม่ทราบที่มา) + `select doc_no … like ? AND trans_flag = 45 …`
+- เลขที่: `erp_doc_format code='SIC'` (AOY: `@YYMM####`) — รอบ 1 ได้ `SIC00010001` เพราะตอนออกเลข วันที่เอกสารยังเป็นค่าว่าง (SQL หาเลขล่าสุด `doc_date >= '1900-01-01' and doc_no like 'SIC0001%'` ⇒ YYMM = 0001) · รอบ 5.6 ได้ `SIC26100001` ตามรูปแบบ (`doc_date >= '2026-01-01' and like 'SIC2610%'`) + `select doc_no … like ? AND trans_flag = 45 …`
 
 ### A.2 Transaction หลัก (08:58:16.981–.986) — **หัวอย่างเดียว ไม่มีรายการ**
 `insert into ic_trans (trans_type=2, trans_flag=45, status=0, doc_date, doc_time, cust_code, doc_no, doc_format_code='SIC', doc_ref='<เลขบิล>', doc_ref_date=null, remark, remark_2..5, is_pos=0, creator_code, create_datetime)` — 18 คอลัมน์ · `total_amount` = 0 (ตรวจใน DB) · `ic_trans_detail` ของ SIC = 0 แถว
@@ -50,6 +50,13 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
   | debug_kbgds_data1 | | | 160 | 160 |
   ⇒ ใน AOY (demo) บัญชีของบิลที่ยกเลิกไม่ถูกกลับรายการ เพราะการตั้งค่ารูปแบบเอกสาร — `erp_doc_format_gl` ของรูปแบบยกเลิกเป็น 0 แถวทุกร้าน จึงยังไม่ทราบว่า GL ของ 45 ใช้ผังบัญชีจากไหน
 
+### A.5 ยืนยันจากรอบ 5.6: ยกเลิกบิลขาย**เชื่อ** (SIC26100001 ยกเลิก BF-INV26100039, 12:22:26 วันที่ 2026-10-26)
+- **เหมือนขายสดทุกขั้น:** transaction มี `insert ic_trans` (หัว 18 คอลัมน์, `doc_ref=<บิล>`, `remark`) อย่างเดียว ไม่มี `ic_trans_detail` → `COMMIT`
+- doc flow (1.5 วินาทีหลัง commit): `ic_trans.last_status=1` ของบิล + `ic_trans_detail`/`ap_ar_trans_detail` `last_status=1` + `update cb_trans/cb_trans_detail … status/last_status=1` (ไม่มีแถว จึงไม่มีผล)
+- สต็อก: คิว `process` ของสินค้าในบิล → worker ลบแถวล็อตของบิล (`ic_trans_detail_lot`) และคำนวณต้นทุนใหม่ (AH-0001 227.30 → 226.68) · ตรวจ DB: `balance_qty` 122 → **123**
+- `gl_journal_vat_sale` ของบิลยังอยู่ (ฐาน 224.30 ภาษี 15.70) เหมือน A.4
+- บิลเชื่อที่ยกเลิกได้ต้องยังไม่วางบิล/รับชำระ/ลดหนี้ (`used_status=0, used_status_2=0`) ตาม A.1
+
 ## B. ยกเลิกใบสั่งขาย (37) — type 1 ยืนยันแล้ว (B.0) · type 2 from-code + ข้อมูลจริง
 - เมนู ขาย › รายงาน/ยกเลิก › ยกเลิกใบสั่งขาย (`menu_so_sale_order_cancel`, `SMLERPSO._soSaleorderCancel`, [[menu-map]])
 - หน้าจอมี `cancel_type` (`_icTransScreenTopControl.cs` ~452): **1 = ยกเลิกทั้งหมด, 2 = ยกเลิกรายสินค้า** (ป้ายจาก `smldatabase.xml`)
@@ -74,11 +81,10 @@ source: capture aoy-run1 (SIC00010001 ยกเลิก INV26100001, 08:57–08
 - `cancel_sale_order(doc_no)` แบบ**ยกเลิกทั้งหมด**: เปิดได้ตาม B.0 · แบบ**ยกเลิกรายสินค้า (type 2)**: ยังไม่เปิดจนกว่าจะ capture
 
 ## ยังไม่ทราบ
-- เลขที่ `SIC00010001` ไม่ตรง `format='@YYMM####'` ของ `erp_doc_format` SIC
+- ทำไมรอบ 1 วันที่เอกสารยังว่างตอนออกเลข (`SIC00010001`) — รอบ 5.6 ออกเลขปกติ อาจขึ้นกับลำดับการกดในหน้าจอ
 - ผังบัญชีที่ใช้ลง GL ของเอกสาร 45 (ไม่มีใน `erp_doc_format_gl`)
 - เมนูที่ใช้ `CancelDocumentQuery` (`is_cancel=1`)
 - SQL จริงของการยกเลิกใบสั่งขายรายสินค้า (37 type 2)
-- ยกเลิกบิลขายเชื่อ: ต่างจากขายสดหรือไม่ (ไม่มี `cb_trans` แต่มี `ap_ar_trans_detail` อ้างอิง)
 
 ## B.0 ยืนยันจากรอบ 4: ยกเลิกใบสั่งขายทั้งหมด (SSC26100001 ยกเลิก SO26100002, 16:10:01)
 - **Transaction:** `insert ic_trans` 1 แถว (37 คอลัมน์) — **ไม่มีบรรทัด** (`ic_trans_detail` ของ SSC = 0)
