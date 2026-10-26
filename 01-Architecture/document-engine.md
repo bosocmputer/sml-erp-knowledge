@@ -59,7 +59,9 @@ date: 2026-10-20
   6. `COMMIT`
 - หลัง commit: ซ่อม serial, คิว `process` ของสินค้าในเอกสาร (AH-0001) เพื่อคำนวณใหม่
 - ตรวจ DB: ไม่เหลือแถวใน `ic_trans`, `ic_trans_detail`, `ap_ar_trans_detail`, `ic_trans_shipment`, `gl_journal_vat_sale`, `ic_trans_discount_group` · `logs` มี 2 แถว (เพิ่ม, ลบ)
-- **ยังไม่ทราบ:** การลบเอกสารที่มี `ap_ar_trans_detail` / `ic_trans_shipment` / `cb_trans` (ใบเสนอราคาไม่มีตารางเหล่านี้) จะลบด้วยหรือไม่ — คำสั่งชุดนี้ไม่มี `delete` ของตารางเหล่านั้น
+- **รอบ 7.3 (ลบบิลขายสด INV26100007 15:17:44):** ชุดคำสั่งลบ**ขึ้นกับประเภทเอกสาร** — บิลขายลบเพิ่ม: `cb_trans` (`trans_type=2`), `cb_trans_detail` (`doc_type<>6`, `=6` แล้วลบทั้งหมดของเลขนั้นอีกครั้ง), `gl_wht_list` / `_detail`, `ap_ar_trans_detail` (`trans_flag=44`), `gl_journal_side/job/project/depart/allocate_list`, `ic_trans_shipment`, `ic_trans_detail_promotion`, `ic_trans_discount_group` · ทั้งหมดใน transaction เดียว + `logs` function_code 3
+- ตรวจ DB หลังลบ: ไม่เหลือแถวใน `ic_trans`, `ic_trans_detail`, `cb_trans`, `cb_trans_detail`, `ic_trans_shipment`, `gl_journal_vat_sale`, `ap_ar_trans_detail`, `ic_trans_detail_lot` · สต็อก ZZTEST-0001 กลับ 3 → 4 (คิว `process` คำนวณใหม่)
+- **ยังไม่ทราบ:** ลบเอกสารที่ถูกอ้างอิงแล้ว (โปรแกรมห้ามหรือไม่) และลบใบวางบิล/ใบรับชำระ (`ap_ar_trans`)
 - **สำหรับ sml_mcp_ai:** ถ้าจะมีคำสั่งลบเอกสารร่าง ต้องลบครบชุดในครั้งเดียวและเขียน `logs` function_code 3 · เลขที่ที่ลบแล้วถูกใช้ซ้ำได้ (การหาเลขดูจาก `max(doc_no)` ของที่เหลือ)
 
 ## ยังไม่ได้ไล่
