@@ -146,6 +146,14 @@ source: capture aoy-run2 (SO26100001, 2026-10-21 09:44–09:46) + แถวจ�
 - doc flow 16:08:16: ใบเสนอราคา `doc_success=0` (จำนวนที่ดึงเหลือ 6 จาก 10)
 
 ### 6.3 ยกเลิกใบสั่งขาย (SSC26100001, 37 type 1, 16:10:01) — ดู [[write-spec-cancel]] B
+### 6.5 รอบ 7.4: อนุมัติใบสั่งขาย (SO26100004 15:22, SSA26100001 15:23:13 วันที่ 2026-10-26) — ใบอนุมัติแรกของ AOY
+เมนู ขาย › อนุมัติใบสั่งขาย (`menu_so_sale_order_approve`, `SMLERPSO._soSaleorderApproval`) · เลขรูปแบบ `SSA`
+- **Transaction:** `ic_trans` → `ic_trans_detail` → `COMMIT` (ไม่มี `ap_ar_trans_detail`, `ic_trans_shipment`, ภาษี)
+- `ic_trans` (37 คอลัมน์): `trans_type=2, trans_flag=52, cust_code, **user_approve=<ผู้อนุมัติ>**, doc_format_code='SSA', user_request=null, **doc_ref=<เลขใบสั่งขาย>**, **not_approve_1=0**, vat_type, inquiry_type, expire_day/date, ยอดเท่าใบสั่งขาย (240 / 224.30 / 15.70)`
+- `ic_trans_detail`: `trans_flag=52, calc_flag=1`, **ไม่มี `ref_doc_no` และ `wh_code/shelf_code`**, `ref_row=0`, **`stand_value=0, divide_value=0`**, `set_ref_price=0`, จำนวน/ราคาเท่าใบสั่งขาย ⇒ การอ้างอิงอยู่ที่ `ic_trans.doc_ref` ระดับหัวเท่านั้น
+- doc flow: **`SO26100004` `used_status=1`** (`doc_success=0`, `last_status=0`) — ใบสั่งขายถูกนับว่า "ถูกอ้างอิง" ตั้งแต่อนุมัติ ⇒ สีแถวในรายการเปลี่ยนแม้ยังไม่ออกบิล
+- ไม่กระทบสต็อก (52 ไม่อยู่ในสูตร) · ค้างส่ง AH-0001 = 2 (ใบสั่งขายเปิดอยู่ 2 ใบ) ไม่เปลี่ยนเพราะอนุมัติ
+- ยังไม่ทราบ: ร้านที่บังคับอนุมัติก่อนออกบิล (ตัวเลือก) — AOY ไม่บังคับ
 ### 6.4 รอบ 5.7: ใบสั่งขายไม่อ้างเอกสาร (SO26100003, 12:27:21 วันที่ 2026-10-26) — ยกเลิกรายสินค้าดู [[write-spec-cancel]] B.1
 - คอลัมน์ชุดเดียวกับ §2 · `ref_row=-1`, `ref_doc_no=null` ทุกบรรทัด + `ic_trans_shipment` 1 แถว
 - `AH-0001` (มีสูตรราคา): `price_mode='6', price_type='6', set_ref_price=300` แม้ผู้ใช้พิมพ์ราคา 240 ⇒ `set_ref_price` = ราคาที่โปรแกรมหาได้ ไม่ใช่ราคาที่ขาย
