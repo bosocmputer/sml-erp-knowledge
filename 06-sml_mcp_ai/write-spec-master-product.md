@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, master-data, product, unit, barcode]
-status: verified-runtime รอบ 4 (สร้างสินค้าหลายหน่วย + บาร์โค้ดจากหน้าจอข้อมูลสินค้า) · หน้าจอบาร์โค้ดแยก/แก้ไข/ลบ from-code
+status: verified-runtime รอบ 4 (สร้างสินค้าหลายหน่วย + บาร์โค้ดจากหน้าจอข้อมูลสินค้า) · หน้าจอบาร์โค้ดแยก verified-runtime รอบ 5.2 · แก้ไข/ลบสินค้า from-code
 source: smlerp SMLERPIC/_icMain.cs (`_saveData`, `_dataList__deleteData`), SMLERPIC/_icBarcode.cs, SMLERPControl/_icmainScreenTopControl.cs, SMLERPGlobal/_utils.cs (`_updateInventoryMasterFunction`), MyLib/_myScreen.cs, SMLERPTemplate/smldatabase.xml + DB aoy/kbgtest/samai/wawacrm (2026-10-21, นับ/โครงสร้างเท่านั้น)
 ---
 # สเปกข้อมูลหลัก: สินค้า / หน่วยนับ / บาร์โค้ด
@@ -70,6 +70,19 @@ source: smlerp SMLERPIC/_icMain.cs (`_saveData`, `_dataList__deleteData`), SMLER
 - unique ที่ `barcode` ⇒ บาร์โค้ดที่ซ้ำกับสินค้าอื่นจะทำให้ทั้ง batch ล้ม
 - `unit_code` ของบาร์โค้ด**ไม่ถูกบังคับ**ให้อยู่ใน `ic_unit_use`: kbgtest มี 1,933 แถว, wawacrm 9, samai 1 ที่หน่วยของบาร์โค้ดไม่มีในหน่วยนับของสินค้า
 - ราคาตามบาร์โค้ด (`price`, `price_2..4`, `price_member*`) เป็นแหล่งราคาลำดับ 6 ใน [[pricing-vat-gl]] และ POS ใช้
+
+
+### 6.1 ยืนยันจากรอบ 5.2 (2026-10-26, เมนู 2.1.7 กำหนดบาร์โค้ดสินค้า, `ZZTEST-0001` เพิ่ม `8859999000035` หน่วยชิ้น ราคา 3.00)
+- ผู้ใช้กดบันทึก 3 ครั้ง (10:27:18 มี 3 บรรทัด, 10:29:09 มี 2 บรรทัด — บรรทัดใหม่ไม่อยู่ในตาราง, 10:29:35 มี 3 บรรทัด) ทุกครั้งเป็นรูปแบบเดียวกัน
+- ลำดับต่อการแก้ 1 ครั้ง:
+  1. เปิดสินค้า: `select * from ic_inventory_barcode where upper(ic_code)=?` + **ล็อก** `update ic_inventory set guid_code=<GUID> where code=?`
+  2. Transaction 1: `delete from ic_inventory_barcode where upper(ic_code) = ?` → `insert into ic_inventory_barcode (ic_code, barcode, unit_code, price, price_member, price_2, price_member_2, price_3, price_member_3, price_4, price_member_4, hidden_text, no_point, is_clearance, from_date, to_date)` ทุกบรรทัดในตาราง → `COMMIT`
+  3. Transaction 2 (`_updateInventoryMasterFunction`): ซ่อม `ic_inventory.unit_standard_*` + `update ic_inventory_barcode set description = ic_inventory.name_1` + เติม `ic_inventory_detail` ที่ขาด → `COMMIT`
+  4. ปลดล็อก `update ic_inventory set guid_code=null`
+- **ยืนยัน "ลบทั้งชุดแล้วใส่ใหม่":** `roworder` ของบาร์โค้ดเดิม 152, 153 → หลังบันทึกเป็น 159, 160, 161 · **บรรทัดที่ไม่อยู่ในตารางตอนกดบันทึก = ถูกลบจริง** (ครั้งที่ 2 บาร์โค้ดใหม่หายไปจนบันทึกครั้งที่ 3)
+- ราคาที่พิมพ์ในหน้าจอนี้ (ราคากลุ่มที่ 1 ราคาทั่วไป) เก็บที่ `ic_inventory_barcode.price` ตารางเดียว — ไม่แตะ `ic_inventory_price` · บาร์โค้ดเดิมที่โหลดมาถูกเขียนกลับด้วยทศนิยม 14 หลัก (`1.00000000000000`) ส่วนแถวใหม่ใช้ค่าตามที่พิมพ์ (`3.00`)
+- ไม่มีงานสต็อก/คิว `process`/doc flow
+- **สำหรับ sml_mcp_ai:** การเพิ่มบาร์โค้ด 1 ตัวต้องอ่านบาร์โค้ดทั้งหมดของสินค้าแล้วส่งกลับครบชุด (หรือ insert แถวเดียวโดยไม่ลบ ซึ่งต่างจากโปรแกรม — ต้องตัดสินใน ADR) และต้องล็อก/ปลดล็อก `guid_code` เหมือนโปรแกรม
 
 ## 7. ลบสินค้า (`_dataList__deleteData`)
 - **ห้ามลบถ้ามีใน `ic_trans_detail`** (`select count(doc_no) … where item_code=…` > 0 → "สินค้ามีการใช้ไปแล้ว ห้ามลบ")
