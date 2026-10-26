@@ -43,7 +43,7 @@ date: 2026-10-21
 | **แก้ไข/ลบสินค้า**, แก้หน่วยนับ/อัตราแปลงของสินค้าที่มีเอกสาร (`_changeUnitCodeRatio`) | from-code | [[write-spec-master-product]] §4, §7 | แก้อัตราแปลงย้อนหลังในเอกสาร | แก้สินค้าที่ไม่มีเอกสาร 1 ตัว |
 | หน่วยนับขนาน (`ic_opposite_unit`), ต้นทุนมาตรฐาน (`ic_standard_cost`) | from-code | [[write-spec-master-product]] | | สร้างสินค้าที่มีหน่วยขนาน |
 | ราคาขาย (`ic_inventory_price`, สูตรราคา) ตอนบันทึก | from-code (ลำดับหาราคา) | [[pricing-vat-gl]] | ราคาที่ API ใส่ไม่ตรงโปรแกรม | ตั้งราคา 1 สินค้า แล้วขาย |
-| ข้อมูลลูกค้า/ผู้ขาย (`ar_customer(_detail)`, `ap_supplier(_detail)`) | from-data (มีแค่โครงสร้างตาราง) | [[dictionary-index]] | ขาดแถว detail | สร้างลูกค้า 1 ราย |
+| ข้อมูล**ผู้ขาย** (`ap_supplier(_detail)`), ลบลูกค้า — **สร้าง/แก้ไขลูกค้ายืนยันแล้วรอบ 6.2** | from-data | [[write-spec-master-customer]] | ขาดแถว detail | สร้างผู้ขาย 1 ราย |
 
 ## 3. สิทธิ์ / งวด / ภาษี / รายงาน
 | เรื่อง | ระดับ | ที่อยู่ |
