@@ -26,6 +26,20 @@ date: 2026-10-20
 - `_findPriceCenter` = ราคาจาก **ศูนย์ราคากลาง** ผ่าน REST (`SMLJavaRESTService/service/pricelist/barcodeprice`) สำหรับร้านที่ตั้งค่า
 - ขายต่ำกว่าทุน/ต่ำกว่าราคามาตรฐาน → เตือน/ขอรหัสอนุมัติ (`warning_price_3`, เก็บผู้อนุมัติใน `ic_trans_detail.user_approve`)
 
+### 1.1 ยืนยันจากรอบ 6.3 (2026-10-26): ตั้งราคาขายทั่วไปแล้วหน้าจอขาย "ไม่พบราคาสินค้า"
+- **บันทึกราคา** (เมนู สินค้า › กำหนดราคาขายทั่วไป, 14:04:15): ล็อก `ic_inventory.guid_code` → `delete from ic_inventory_price where ic_code=? and price_mode=1` → `insert into ic_inventory_price (ic_code, price_type=1, price_mode=1, sale_price1=25.00, sale_price2=0, unit_code='ชิ้น', from_qty=0, to_qty=0, from_date=null, to_date=null, sale_type=0, transport_type=0, status=1, line_number=0)` → ปลดล็อก
+  - ช่องบนจอ: "ราคาแยกภาษี" = `sale_price1`, "ราคารวมภาษี" = `sale_price2` · ผู้ใช้กรอกแค่ราคาแยกภาษี
+  - เมนูนี้ลบ-ใส่ใหม่เฉพาะแถว `price_mode=1` ของสินค้านั้น
+- **ค้นราคาตอนขาย** (ใส่สินค้าด้วยรหัส) — ยิง 4 คำสั่งตามลำดับ แล้วสูตรราคา:
+  1. `price_type=3` (ตามลูกค้า: `cust_code=?`)
+  2. `price_type=2` (ตามกลุ่มลูกค้า: `cust_group_1 = ar_customer_detail.group_main` และ `cust_group_2` ตรง group_sub_1..4 หรือว่าง)
+  3. `price_type=1 and price_mode=1` · 4. `price_type=1 and price_mode=0` (เรียง `line_number desc`)
+  5. `ic_inventory_price_formula where … and coalesce(tax_type,0) in (0,2)` เมื่อบิลภาษีรวมใน / `in (0,1)` เมื่อภาษีแยกนอก
+  - ทุกคำสั่งของ `ic_inventory_price` มี **`('<วันที่บิล>' >= from_date and '<วันที่บิล>' <= to_date) and (<จำนวน> >= from_qty and <จำนวน> <= to_qty)`** และ `sale_type in (0,1)` เมื่อขายเงินสด / `in (0,2)` เมื่อขายเงินเชื่อ
+- **สาเหตุ "ไม่พบราคาสินค้า":** แถวที่บันทึกมี `from_date/to_date = null` (เปรียบเทียบกับ null = ไม่จริง) และ `to_qty=0` (1 ≤ 0 ไม่จริง) ⇒ **หน้าจอตั้งราคายอมบันทึกแถวที่ไม่มีวันใช้ได้** ต้องกรอกช่วงวันที่และช่วงจำนวน (ร้าน AOY แถวเดิมมี `from_qty/to_qty` เช่น 11–15, 2–10) — เปลี่ยนประเภทภาษีของบิลไม่ช่วย
+- ราคาตามบาร์โค้ด (`ic_inventory_barcode.price` เช่น 3.00 ของ `8859999000035`) **ไม่ถูกใช้**เมื่อใส่สินค้าด้วยรหัสสินค้า (ค้น `ic_inventory_barcode where barcode='<รหัสที่พิมพ์>'` ไม่เจอ) — ใช้เมื่อสแกน/พิมพ์บาร์โค้ด
+- **สำหรับ sml_mcp_ai:** ถ้า API จะหาราคาเอง ต้องใช้เงื่อนไขชุดเดียวกัน (รวม null = ไม่ตรง) และถ้าจะเขียนราคา ต้องใส่ `from_date/to_date` และ `from_qty/to_qty` เสมอ
+
 ## 2. ส่วนลด (`MyLib._myGlobal._calcAfterDiscount`)
 `discount` เป็น **ข้อความ** หลายขั้นคั่นด้วย `,` คิดทีละขั้นต่อเนื่อง:
 - `10%` = ลด 10% ของยอดคงเหลือ ณ ขั้นนั้น
