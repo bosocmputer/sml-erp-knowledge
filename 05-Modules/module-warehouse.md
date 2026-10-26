@@ -9,7 +9,7 @@ trans_flags: [501, 502, 503, 505, 509, 701]
 
 ## ตัวเลข
 
-- เมนูปลายทาง 19 รายการ, จับคู่คลาสได้ 7, เห็นใน SMLAccountPOSProfessional (edition 12) 0
+- เมนูปลายทาง 19 รายการ, จับคู่คลาสได้ 7, เห็นใน SMLAccountPOSProfessional (edition 13) 0
 - คลาสหน้าจอที่ใช้บ่อย: `SMLInventoryControl._clone_icTrans` (6), `SMLERPReportTool._reportTrans` (1)
 - control หลักที่ฝัง: `SMLInventoryControl._icTransControl` (6)
 
@@ -30,7 +30,7 @@ trans_flags: [501, 502, 503, 505, 509, 701]
 
 ## เมนูทั้งหมด
 
-| เมนู | menu name | POS Pro | คลาส | trans_flag | ตาราง |
+| เมนู | menu name | เลข POS Pro | คลาส | trans_flag | ตาราง |
 |---|---|---|---|---|---|
 | ยอดคงเหลือยกมา (คลัง) | `menu_wh_balance` |  | `SMLInventoryControl._clone_icTrans` | 501 |  |
 | รับสินค้าเข้า (คลัง) | `menu_wh_in_purchase` |  | `SMLInventoryControl._clone_icTrans` | 503 |  |

@@ -27,7 +27,7 @@ tags: [sml, screen, generated]
 
 | คลาส | ไฟล์ | เมนู |
 |---|---|---|
-| `SMLFastReport._designer` | `SMLFastReport/_designer.cs` | รายงานพนักงานเรียงตามกลุ่ม (`menu_report_employee_group`), ออกแบบรายงาน (`fast_report_designer`), รายงานการอนุมัติผู้จำหน่ายสินค้า (`report_imex_qc_approved_vendor`), สินค้าที่ไม่มีการขาย (`IC_INVENTORY_NO_SALE`), รายงานยอดคงเหลือสินค้า (แสดงทุกสินค้า)  แสดงมูลค่าปัจจุบัน (`menu_stock_balance_all_show_current_value`), รายงานการปรับปรุงสินค้า (`menu_report_inventory_adjust`) … +127 |
+| `SMLFastReport._designer` | `SMLFastReport/_designer.cs` | รายงานพนักงานเรียงตามกลุ่ม (`menu_report_employee_group`), ออกแบบรายงาน (`fast_report_designer`), รายงานการอนุมัติผู้จำหน่ายสินค้า (`report_imex_qc_approved_vendor`), สินค้าที่ไม่มีการขาย (`IC_INVENTORY_NO_SALE`), รายงานยอดคงเหลือสินค้า (แสดงทุกสินค้า) แสดงมูลค่าปัจจุบัน (`menu_stock_balance_all_show_current_value`), รายงานการปรับปรุงสินค้า (`menu_report_inventory_adjust`) … +127 |
 | `SMLInventoryControl._clone_icTrans` | `SMLInventoryControl/_clone_icTrans.cs` | สินค้า/วัตถุดิบ คงเหลือยกมา (`menu_ic_stk_balance`), รับสินค้าสำเร็จรูป (`menu_ic_finish_receive`), ขอเบิกสินค้า/วัตถุดิบ (`menu_ic_request_issue`), เบิกสินค้า/วัตถุดิบ (`menu_ic_issue`), รับคืนสินค้า/วัตถุดิบ จากการเบิก (`menu_ic_return_receive`), ขอโอนสินค้า/วัตถุดิบ (`menu_ic_request_transfer`) … +98 |
 | `SMLERPReportTool._reportTrans` | `SMLERPReportTool/_reportTrans.cs` | รายงานยกเลิกรับสินค้าสำเร็จรูป (`menu_ic_report_cancel_goods_pack`), รายงานยกเลิกใบเบิกสินค้า/วัตถุดิบ (`menu_ic_report_cancel_raw_material`), รายงานยกเลิกรับคืนสินค้า/วัตถุดิบ จากการเบิก (`menu_ic_report_cancel_goods_raw_meterial`), รายงานสินค้าและวัตถุดิบ คงเหลือยกมา (`menu_ic_report_goods_balance`), รายงานการรับสินค้าสำเร็จรูป (`menu_import_item_ready_by_date`), รายงานการเบิกสินค้าและวัตถุดิบ (`menu_ic_report_item_withdraw`) … +91 |
 | `MyLib._manageMasterCodeFull` | `MyLib/_manageMasterCodeFull.cs` | กำหนดรายละเอียดสาขา (`menu_setup_branch`), กำหนดรายละเอียดแผนก (`menu_setup_department_list`), กำหนดพนักงาน (`menu_setup_staff`), กำหนดกลุ่มพนักงาน (`menu_setup_user_group`), กำหนดผู้ใช้ระบบ MIS (`menu_setup_staff_mis`), กำหนดกลุ่มเอกสาร (`menu_setup_doc_group`) … +68 |
@@ -45,7 +45,7 @@ tags: [sml, screen, generated]
 | `SMLERPIC._icMain` | `SMLERPIC/_icMain.cs` | ข้อมูลสินค้า (`menu_ic_item_detail`), ข้อมูลสินค้า (แสดงตามบาร์โค๊ด) (`menu_ic_item_detail_barcode`), กำหนดสินค้า (`menu_ic_item_for_sync`) |
 | `SMLERPICInfo._stkMovement` | `SMLERPICInfo/_stkMovement.cs` | เคลื่อนไหวสินค้า (`menu_ic_info_stk_move`), บัญชีคุมพิเศษ (`menu_ic_info_stk_movement`), บัญชีคุมพิเศษ (รวมต้นทุนแฝง) (`menu_ic_info_stk_movement_hidden`) |
 | `SMLERPCASHBANKReport._report_chq._chqCreditCardList` | `SMLERPCASHBANKReport/_report_chq/_chqCreditCardList.cs` | รายงานทะเบียนเช็ครับ (`menu_cb_report_chq_in_receive`), รายงานทะเบียนเช็คจ่าย (`menu_cb_report_chq_out_payment`), รายงานรายการรับบัตรเครดิต (`menu_cb_report_credit_card_receive`) |
-| `SMLERPGL._report._tax._wht` | `SMLERPGL/_report/_tax/_wht.cs` | รายงานภาษีหัก ณ. ที่จ่าย  (ภงด.53) (`menu_gl_wht_report_in_53`), รายงานภาษีหัก ณ. ที่จ่าย  (ภงด.3) (`menu_gl_wht_report_in_3`), รายงานภาษีถูกหัก ณ. ที่จ่าย (`menu_gl_wht_report_sum`) |
+| `SMLERPGL._report._tax._wht` | `SMLERPGL/_report/_tax/_wht.cs` | รายงานภาษีหัก ณ. ที่จ่าย (ภงด.53) (`menu_gl_wht_report_in_53`), รายงานภาษีหัก ณ. ที่จ่าย (ภงด.3) (`menu_gl_wht_report_in_3`), รายงานภาษีถูกหัก ณ. ที่จ่าย (`menu_gl_wht_report_sum`) |
 | `SINGHAReport._singhaDataSyncControl` | `SINGHAReport/_singhaDataSyncControl.cs` | Data ARM (`menu_sync_data_arm`), Data Saleout (`menu_sync_data_saleout`), Data Stock (`menu_sync_data_stock`) |
 | `_g._changeCode._changeApArCodeUserControl` | `SMLERPGlobal/_changeCode/_changeApArCodeUserControl.cs` | เปลี่ยนรหัสเจ้าหนี้ (`menu_change_code_supplier`), เปลี่ยนรหัสลูกหนี้ (`menu_change_code_customer`) |
 | `SMLFastReport._importFastReport` | `SMLFastReport/_importFastReport.cs` | นำเข้ารายงาน (`menu_import_report`), นำเข้ารายงานสาขา (`menu_import_report_branch`) |
@@ -274,7 +274,7 @@ tags: [sml, screen, generated]
 | `SMLERPGL.LostAndProfit._display_lost_and_profit_compare_dimension` | `SMLERPGL/LostAndProfit/_display_lost_and_profit_compare_dimension.cs` | งบกำไรขาดทุน เปรียบเทียบ (`menu_display_lost_and_profit_compare_dimension`) |
 | `SMLERPGL.AccountCloseWizard.JournalCloseAccountControl` | `SMLERPGL/AccountCloseWizard/JournalCloseAccountControl.cs` | ประมวลผลกำไร/ขาดทุน และต้นทุนขาย (`menu_close_account_process`) |
 | `SMLMIS.calendar_trans` | `SMLMIS/calendar_trans.cs` | จำนวนรายการรายวัน (`menu_mis_calendar_trans`) |
-| `SMLERPSO._saleInformation` | `SMLERPSO/_saleInformation.cs` | Sale  Information (`menu_sale_information`) |
+| `SMLERPSO._saleInformation` | `SMLERPSO/_saleInformation.cs` | Sale Information (`menu_sale_information`) |
 | `SMLERPICInfo._ic_inventory_information` | `SMLERPICInfo/_ic_inventory_information.cs` | Inventory Information (`menu_ic_information`) |
 | `SMLERPICInfo._ic_inventory_information_2` | `SMLERPICInfo/_ic_inventory_information_2.cs` | หน้าจอสำหรับผู้บริหาร (`menu_ic_information_manager`) |
 | `SMLERPPO._buyInformation` | `SMLERPPO/_buyInformation.cs` | Buy Information (`menu_buy_information`) |

@@ -51,7 +51,7 @@ def main():
         f"เมนูหลัก {len(menu)} กลุ่ม, ทั้งหมด {stats['total']} รายการ, เมนูปลายทาง {stats['leaf']} รายการ",
         "",
         "ความหมาย tag: คำ (`so`, `po`, `ar`, `gl`, `pos`, `config`, `fastreport` …) ใช้ใน `SMLAccount/_mainForm.cs` เพื่อส่งเมนูไปยังโมดูลที่เปิดหน้าจอ;"
-        " ตัวเลข (`edition`) คือรหัส edition ที่เห็นเมนูนี้ (ยืนยันจาก `SMLERPTemplate/_templateMainForm.cs`) — **12 = SMLAccountPOS** (ตัวเปิด SMLAccountPOSProfessional ใช้ค่านี้) รายการเลขทั้งหมดดู [[menu-map]]",
+        " ตัวเลข (`edition`) คือรหัส edition ที่เห็นเมนูนี้ (ยืนยันจาก `SMLERPTemplate/_templateMainForm.cs`) — 12 = SMLAccountPOS, **13 = SMLAccountPOSProfessional** (ตัวเปิด `SMLAccountPOSPro` ที่ยังพัฒนาอยู่ใช้ค่านี้) รายการเลขทั้งหมดและเลขเมนู X.Y.Z ตามรุ่นดู [[menu-map]] · ตระกูล SMLPOS ดู [[menu-map-pos]]",
         "",
         "สิทธิ์การเห็นเมนูต่อผู้ใช้/กลุ่มมาจาก `smlerpmain<provider>` (`sml_permissions_user`, `sml_permissions_group`) ผ่าน `_hideNode()`",
         "",

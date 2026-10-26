@@ -15,7 +15,7 @@ date: 2026-10-22
 | กลุ่ม | โน้ต | เหตุผล |
 |---|---|---|
 | Support | `09-Support/faq.md`, `09-Support/error-messages.md` | สร้างมาเพื่อ support โดยตรง |
-| เมนู | `04-Menu/menu-map.md`, `04-Menu/menu-tree.md`, `05-Modules/*.md` | หาเมนู/หน้าจอ |
+| เมนู | `04-Menu/menu-map.md`, `04-Menu/menu-map-pos.md`, `04-Menu/menu-tree.md`, `05-Modules/*.md` | หาเมนู/หน้าจอ และเลขเมนูที่ร้านเห็นตามรุ่น |
 | กฎของโปรแกรม | `03-Reference/trans_flag.md`, `doc-flow-rules.md`, `company-options.md`, `enums.md`, `gl-action-codes.md` | อธิบาย "ทำไมโปรแกรมทำแบบนี้" |
 | การทำงาน | `01-Architecture/stock-cost.md`, `pricing-vat-gl.md`, `tax-period.md`, `permissions.md`, `cash-bank.md`, `document-engine.md`, `pos-client.md`, `print-forms.md`, `data-model.md` | support ระดับ 2 |
 | รายงาน | `08-Reports/report-formulas.md`, `08-Reports/reports.md` | ตรวจตัวเลขรายงาน |
@@ -30,7 +30,7 @@ date: 2026-10-22
 | `06-sml_mcp_ai/*` | การออกแบบผลิตภัณฑ์ภายใน, ช่องโหว่ที่ยังไม่แก้, สเปกการเขียนข้อมูล |
 | `07-Product/*` | ไอเดียผลิตภัณฑ์ภายใน |
 | `00-Index`, `00-Completeness`, `00-Gap-Review`, `CLAUDE.md`, `README.md`, `scripts/` | สถานะ/วิธีทำงานของทีม dev (ชุด support มี README ของตัวเอง) |
-| `08-Reports/code-reports.md`, `04-Menu/screen-classes.md`, `04-Menu/menu-map.json` | ระดับโค้ด ไม่จำเป็นสำหรับ support |
+| `08-Reports/code-reports.md`, `04-Menu/screen-classes.md`, `04-Menu/menu-map.json`, `04-Menu/menu-map-pos.json` | ระดับโค้ด ไม่จำเป็นสำหรับ support |
 
 ## การแปลงตอน export (ทำอัตโนมัติ)
 | สิ่งที่เจอในโน้ตที่ให้ | ทำอย่างไร |

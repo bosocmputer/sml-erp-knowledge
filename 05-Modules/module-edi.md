@@ -9,7 +9,7 @@ trans_flags: []
 
 ## ตัวเลข
 
-- เมนูปลายทาง 2 รายการ, จับคู่คลาสได้ 2, เห็นใน SMLAccountPOSProfessional (edition 12) 0
+- เมนูปลายทาง 2 รายการ, จับคู่คลาสได้ 2, เห็นใน SMLAccountPOSProfessional (edition 13) 0
 - คลาสหน้าจอที่ใช้บ่อย: `SMLEDIControl._ediExternal` (1), `SMLEDIControl._ediExport` (1)
 - control หลักที่ฝัง: -
 
@@ -19,7 +19,7 @@ trans_flags: []
 
 ## เมนูทั้งหมด
 
-| เมนู | menu name | POS Pro | คลาส | trans_flag | ตาราง |
+| เมนู | menu name | เลข POS Pro | คลาส | trans_flag | ตาราง |
 |---|---|---|---|---|---|
 | รายละเอียดลูกค้า EDI | `menu_edi_external` |  | `SMLEDIControl._ediExternal` |  | edi_product_list, edi_barcode_list, edi_unit_list, edi_ar_list |
 | ส่งออกข้อมูล EDI | `menu_edi_export` |  | `SMLEDIControl._ediExport` |  | edi_external, edi_product_list, ic_trans_detail, resource_report |

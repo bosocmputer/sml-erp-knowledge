@@ -9,7 +9,7 @@ trans_flags: []
 
 ## ตัวเลข
 
-- เมนูปลายทาง 9 รายการ, จับคู่คลาสได้ 5, เห็นใน SMLAccountPOSProfessional (edition 12) 0
+- เมนูปลายทาง 9 รายการ, จับคู่คลาสได้ 5, เห็นใน SMLAccountPOSProfessional (edition 13) 0
 - คลาสหน้าจอที่ใช้บ่อย: `SMLMIS.calendar_trans` (1), `SMLERPSO._saleInformation` (1), `SMLERPICInfo._ic_inventory_information` (1), `SMLERPICInfo._ic_inventory_information_2` (1), `SMLERPPO._buyInformation` (1)
 - control หลักที่ฝัง: `SMLERPAPARControl._ap_ar_billForm` (1), `SMLERPControl._icInfoProcess` (1), `SMLERPControl._icmainScreenTopControl` (1), `SMLERPControl._getPicture` (1), `SMLInventoryControl._icPriceFormulaGrid` (1)
 
@@ -19,10 +19,10 @@ trans_flags: []
 
 ## เมนูทั้งหมด
 
-| เมนู | menu name | POS Pro | คลาส | trans_flag | ตาราง |
+| เมนู | menu name | เลข POS Pro | คลาส | trans_flag | ตาราง |
 |---|---|---|---|---|---|
 | จำนวนรายการรายวัน | `menu_mis_calendar_trans` |  | `SMLMIS.calendar_trans` |  |  |
-| Sale  Information | `menu_sale_information` |  | `SMLERPSO._saleInformation` |  | resource_report, ar_customer, ic_trans_detail, ic_resource |
+| Sale Information | `menu_sale_information` |  | `SMLERPSO._saleInformation` |  | resource_report, ar_customer, ic_trans_detail, ic_resource |
 | Inventory Information | `menu_ic_information` |  | `SMLERPICInfo._ic_inventory_information` |  | ic_resource, ic_unit_use, ic_inventory, ic_serial |
 | หน้าจอสำหรับผู้บริหาร | `menu_ic_information_manager` |  | `SMLERPICInfo._ic_inventory_information_2` |  | ic_inventory, ic_cost_date, ic_inventory_price_formula, ic_unit_use |
 | Buy Information | `menu_buy_information` |  | `SMLERPPO._buyInformation` |  | resource_report, ap_supplier, ic_trans_detail, ic_resource |

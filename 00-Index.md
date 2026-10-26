@@ -22,7 +22,8 @@ tags: [sml, index]
 - [[print-forms]] — ฟอร์มพิมพ์เอกสาร: ตาราง formdesign, การผูกกับรูปแบบเอกสาร, ตัวออกแบบ/พิมพ์
 - [[architecture]] — client C# WinForms ↔ SMLJavaWebService (Tomcat) ↔ PostgreSQL, โมเดลเอกสาร ic_trans, โฟลว์ขาย/ซื้อ/คลัง, ข้อสังเกตความปลอดภัย
 - [[modules]] — โปรเจกต์ที่ SMLAccount / SMLAccountPOSProfessional ใช้ พร้อมจำนวนหน้าจอ *(generated)*
-- [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) *(generated, raw: `04-Menu/menu-map.json`)*
+- [[menu-map]] — เมนูปลายทาง 990 รายการ → คลาสหน้าจอ, control ที่ใช้, trans_flag (จับคู่ได้ 932) + **เลขเมนู X.Y.Z ตามรุ่น** Acc/Pro/AccPOS/AccPOSPro *(generated, raw: `04-Menu/menu-map.json`)*
+- [[menu-map-pos]] — ตระกูล SMLPOS (POS, Lite, TomYumGoong, TomYumGoongPro, Coffee) เมนูปลายทาง 654 รายการ + เลขเมนูตามรุ่น *(generated, raw: `04-Menu/menu-map-pos.json`)*
 - [[screen-classes]] — คลาสหน้าจอจัดกลุ่มตาม base class *(generated)*
 - [[menu-tree]] — เมนูทั้งหมด 1,121 รายการจาก menu.json *(generated)*
 - [[doc-flow-rules]] — กฎสายเอกสาร 67 ประเภท: ยกเลิกด้วยอะไร ถูกใช้ต่อโดยเอกสารไหน, used_status / doc_success *(generated)*

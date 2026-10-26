@@ -1163,7 +1163,7 @@ status: from-code
 | ข้อความ | ชนิด | จุดในโค้ด | ที่โค้ด (ตัวอย่าง) | เมนู (ตัวอย่าง) |
 |---|---|---|---|---|
 | ยังไม่ได้กำหนดเงื่อนไข | แจ้ง | 54 | SMLERPCASHBANKReport/_report_cash/_cb_subcashopen.cs:262 `_getCompanyValue`<br>SMLERPCASHBANKReport/_report_cash/_cb_subcashreceive.cs:259 `_getCompanyValue` | หน้าจอกลาง — ขึ้นได้ใน 6 เมนู |
-| :: ERR :: <br>{…} |  | 42 | SMLERPCASHBANKReport/_report_cash/_cb_deposit.cs:83 `_cb_deposit`<br>SMLERPCASHBANKReport/_report_cash/_cb_subcashopen.cs:188 `_showCondition` | บัญชี › หัก ณ. ที่จ่าย › รายงานภาษีหัก ณ. ที่จ่าย  (ภงด.53)<br>บัญชี › หัก ณ. ที่จ่าย › รายงานภาษีหัก ณ. ที่จ่าย  (ภงด.3)<br>บัญชี › หัก ณ. ที่จ่าย › รายงานภาษีถูกหัก ณ. ที่จ่าย |
+| :: ERR :: <br>{…} |  | 42 | SMLERPCASHBANKReport/_report_cash/_cb_deposit.cs:83 `_cb_deposit`<br>SMLERPCASHBANKReport/_report_cash/_cb_subcashopen.cs:188 `_showCondition` | บัญชี › หัก ณ. ที่จ่าย › รายงานภาษีหัก ณ. ที่จ่าย (ภงด.53)<br>บัญชี › หัก ณ. ที่จ่าย › รายงานภาษีหัก ณ. ที่จ่าย (ภงด.3)<br>บัญชี › หัก ณ. ที่จ่าย › รายงานภาษีถูกหัก ณ. ที่จ่าย |
 
 ## SMLERPReport
 

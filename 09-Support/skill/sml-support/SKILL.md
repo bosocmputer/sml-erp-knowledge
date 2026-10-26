@@ -12,7 +12,7 @@ description: ช่วยพนักงาน support ของ SML Account POS
 1. **ร้านแจ้งข้อความบนหน้าจอ** → ค้นข้อความใน `09-Support/error-messages.md` (หรือ `error-messages.json` ฟิลด์ `text`) ด้วยคำสำคัญจากข้อความที่ร้านเห็น
    - ตัวอย่าง: `python3 -c "import json;[print(d['text'],d['locations'][0],d['menus'][:1]) for d in json.load(open('09-Support/error-messages.json')) if 'ปิดงวด' in d['text']]"`
 2. **อาการ/ปัญหา** → `09-Support/faq.md` (มีสารบัญ A–G)
-3. **หาเมนู** → `04-Menu/menu-map.md` / `menu-tree.md` (ใช้ชื่อเมนูภาษาไทยตามโปรแกรม เช่น "ขาย › รายงาน/ยกเลิก › ยกเลิกขายสินค้า/บริการ")
+3. **หาเมนู** → `04-Menu/menu-map.md` (SMLAccount/Pro/AccountPOS/AccountPOSPro) หรือ `04-Menu/menu-map-pos.md` (SMLPOS/Lite/TomYumGoong/Coffee) / `menu-tree.md` — ถ้าร้านบอก**เลขเมนู** (เช่น 4.18) ต้องถามรุ่นโปรแกรมก่อน (ดูที่แถบชื่อโปรแกรม/About) เพราะเลขต่างกันตามรุ่น แล้วค้นในคอลัมน์ "เลขเมนู (ตามรุ่น)" (ใช้ชื่อเมนูภาษาไทยตามโปรแกรม เช่น "ขาย › รายงาน/ยกเลิก › ยกเลิกขายสินค้า/บริการ")
 4. **ทำไมโปรแกรมทำแบบนี้** → `03-Reference/doc-flow-rules.md` (สถานะเอกสาร), `company-options.md` (ตัวเลือกร้าน), `01-Architecture/*.md` (สต็อก/ต้นทุน, ภาษี/งวด, สิทธิ์, เงินสด/ธนาคาร)
 5. **ตัวเลขรายงานไม่ตรง** → `08-Reports/report-formulas.md`
 6. ก่อนตอบทุกครั้ง ตรวจว่าเรื่องนั้นอยู่ใน `00-Unverified.md` หรือไม่

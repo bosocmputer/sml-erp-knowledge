@@ -9,7 +9,7 @@ trans_flags: []
 
 ## ตัวเลข
 
-- เมนูปลายทาง 7 รายการ, จับคู่คลาสได้ 7, เห็นใน SMLAccountPOSProfessional (edition 12) 0
+- เมนูปลายทาง 7 รายการ, จับคู่คลาสได้ 7, เห็นใน SMLAccountPOSProfessional (edition 13) 0
 - คลาสหน้าจอที่ใช้บ่อย: `SINGHAReport._singhaDataSyncControl` (3), `SMLERPTransferControl._saleImportFromStockCountDiff` (1), `SMLERPTransferControl._saleImportFromPOSSaleReport` (1), `SMLERPTransferControl._salesItemsFromPurchaseBill` (1), `SMLERPAPARControl._importDebtBilling` (1)
 - control หลักที่ฝัง: `SMLERPAPARControl._ar_ap_trans_screen_top` (1), `SMLERPAPARControl._importDebtGridControl` (1)
 
@@ -19,7 +19,7 @@ trans_flags: []
 
 ## เมนูทั้งหมด
 
-| เมนู | menu name | POS Pro | คลาส | trans_flag | ตาราง |
+| เมนู | menu name | เลข POS Pro | คลาส | trans_flag | ตาราง |
 |---|---|---|---|---|---|
 | Data ARM | `menu_sync_data_arm` |  | `SINGHAReport._singhaDataSyncControl` |  | resource_report |
 | Data Saleout | `menu_sync_data_saleout` |  | `SINGHAReport._singhaDataSyncControl` |  | resource_report |

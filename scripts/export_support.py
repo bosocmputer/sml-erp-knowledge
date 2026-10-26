@@ -22,7 +22,7 @@ MARKER = ".sml-support-export"
 
 ALLOW = [
     "09-Support/faq.md", "09-Support/error-messages.md", "09-Support/error-messages.json",
-    "04-Menu/menu-map.md", "04-Menu/menu-tree.md", "05-Modules/*.md",
+    "04-Menu/menu-map.md", "04-Menu/menu-map-pos.md", "04-Menu/menu-tree.md", "05-Modules/*.md",
     "03-Reference/trans_flag.md", "03-Reference/doc-flow-rules.md", "03-Reference/company-options.md",
     "03-Reference/enums.md", "03-Reference/gl-action-codes.md",
     "01-Architecture/stock-cost.md", "01-Architecture/pricing-vat-gl.md", "01-Architecture/tax-period.md",
@@ -47,6 +47,10 @@ LINK_RE = re.compile(r"\[\[([^\]|#]*)(#[^\]|]*)?(?:\|([^\]]*))?\]\]")
 FORBIDDEN = [re.compile(p, re.I) for p in (r"nextstep", r"iszai", r"/home/", r"bosscatdog", r"sshpass", r"PGPASSWORD",
                                            r"\.pgpass", r"sml-sqllog", r"trycloudflare")]
 VERSION_LIKE = re.compile(r"^\d+\.\d+\.\d+$")
+# menu numbers such as "1.10.1.7" or "5.1 Acc/Pro · 6.1 AccPOS/AccPOSPro" look like IPs; keep them only in table cells
+# of the generated menu notes (menu-map*.md, 05-Modules/*.md)
+MENU_NOTE_RE = re.compile(r"^(04-Menu/menu-map[\w-]*\.md|05-Modules/[^/]+\.md)$")
+MENU_NUM_CELL = re.compile(r"^\d+(?:\.\d+)+(?: [A-Za-z/]+)?(?: · \d+(?:\.\d+)+(?: [A-Za-z/]+)?)*$")
 
 
 def collect():
@@ -59,7 +63,7 @@ def collect():
     return files
 
 
-def transform(text, names, stats):
+def transform(text, names, stats, rel=""):
     lines, out = text.split("\n"), []
     for ln in lines:
         if DROP_LINE_RE.search(ln):
@@ -73,7 +77,14 @@ def transform(text, names, stats):
             return m.group(0)
         stats["ip"] += 1
         return "<ip ภายใน>"
-    text = IP_RE.sub(ip_sub, text)
+    if MENU_NOTE_RE.match(rel):
+        def line_sub(ln):
+            if "|" not in ln:
+                return IP_RE.sub(ip_sub, ln)
+            return "|".join(c if MENU_NUM_CELL.match(c.strip()) else IP_RE.sub(ip_sub, c) for c in ln.split("|"))
+        text = "\n".join(line_sub(ln) for ln in text.split("\n"))
+    else:
+        text = IP_RE.sub(ip_sub, text)
     text, n = CAPTURE_RE.subn("การทดสอบภายใน", text)
     stats["capture"] += n
     text, n = TENANT_RE.subn("ร้านทดสอบ", text)
@@ -95,7 +106,7 @@ README = """# ชุดความรู้ SML สำหรับพนัก�
 ## เริ่มที่ไหน
 1. ร้านแจ้งข้อความบนหน้าจอ → ค้นใน [[error-messages]] (Ctrl+F ด้วยข้อความที่ร้านเห็น)
 2. อาการ/ปัญหาที่พบบ่อย → [[faq]]
-3. หาเมนู/หน้าจอ → [[menu-map]] หรือ [[menu-tree]]
+3. หาเมนู/หน้าจอ → [[menu-map]] (SMLAccount ตระกูล Account/AccountPOS) หรือ [[menu-map-pos]] (ตระกูล SMLPOS) — ร้านบอกเลขเมนู ให้ถามรุ่นโปรแกรมก่อน เพราะเลขต่างกันตามรุ่น
 4. เรื่องที่ยังไม่ได้ทดสอบ (ต้องส่งต่อ dev) → [[00-Unverified]]
 
 ## ระดับความเชื่อมั่น
@@ -126,7 +137,7 @@ def main():
         rel = f.relative_to(VAULT)
         dst = OUT / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
-        text = transform(f.read_text(encoding="utf-8"), names, stats)
+        text = transform(f.read_text(encoding="utf-8"), names, stats, rel.as_posix())
         for pat in FORBIDDEN:
             for m in pat.finditer(text):
                 line = text.count("\n", 0, m.start()) + 1
