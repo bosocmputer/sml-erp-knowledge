@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, credit-note]
-status: verified-runtime รอบ 4 สำหรับรับคืนจากขายเงินเชื่อ (inquiry_type 0) · ประเภทอื่น from-code
+status: verified-runtime รอบ 4 สำหรับรับคืนจากขายเงินเชื่อ (inquiry_type 0) · รอบ 5.1 สำหรับลดหนี้จากขายเงินเชื่อไม่กระทบสต็อก (inquiry_type 2) · ประเภท 1, 3, 4, 5 from-code
 source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โครงสร้างเท่านั้น) + smlerp _icTransScreenTopControl.cs, SMLProcess/_docFlowThread.cs, smljavaws2 SMLICProcess.java + query จริงที่ capture ได้จากเอกสารอื่น
 ---
 # สเปกการบันทึก: รับคืนสินค้า / ลดหนี้ (trans_flag 48)
@@ -42,7 +42,7 @@ source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โคร�
 - ยกเลิก CN (49) → `_processThread` แปลงเป็น 48 ก่อนเรียก (เหมือนยกเลิกบิล)
 
 ## 5. สำหรับ sml_mcp_ai
-- `commit_credit_note` เปิดได้**เฉพาะรับคืนจากขายเชื่อ (inquiry_type 0)** ตาม §0 · ประเภท 1–5 ยังไม่เปิดจนกว่าจะ capture (โดยเฉพาะ 2 = ลดหนี้ไม่กระทบสต็อก)
+- `commit_credit_note` เปิดได้สำหรับ**รับคืนจากขายเชื่อ (inquiry_type 0)** ตาม §0 และ**ลดหนี้จากขายเชื่อไม่กระทบสต็อก (inquiry_type 2)** ตาม §0.1 — API ต้องส่ง `inquiry_type` เอง ห้ามเดาจากบิลต้นทาง · ประเภท 1–5 ยังไม่เปิดจนกว่าจะ capture (โดยเฉพาะ 2 = ลดหนี้ไม่กระทบสต็อก)
 - `preview_credit_note` ทำได้แล้ว (อ่านอย่างเดียว): ตรวจบิลต้นทาง `last_status=0`, จำนวนรับคืนต่อบรรทัด ≤ จำนวนขายที่ยังไม่ถูกคืน, เลือก `inquiry_type` ให้ตรงกับประเภทบิล (เชื่อ 0/2/4, สด 1/3/5)
 
 ## 6. ยังไม่ทราบ
@@ -70,4 +70,16 @@ source: DB aoy/kbgtest/samai/debug_kbgds_data1 (2026-10-21, นับ/โคร�
   | `sum_before_vat` | 297.20 | 297.20 | ฐานภาษีของบิลเดิม (318 / 1.07) |
 - `gl_journal_vat_sale`: **`vat_calc=-1`** ทั้ง 2 ใบ (ฐาน/ภาษี 280.37/19.63 และ 16.82/1.18), `vat_number`=เลข CN, `ref_doc_no/ref_vat_no` = null
 - หลัง commit (CN26100002): `logs` → สต็อกของสินค้าที่รับคืน (flag 48: `balance_qty`, ค้างทุกแบบ) → คิว `process` → doc flow: **บิล `used_status=1`** (16:17:31) + reset `last_status` ของ 44 และ 48 → worker คำนวณต้นทุน (`sum_of_cost` ของบรรทัด CN26100002 = 149.53)
-- รอบ 4 ผู้ใช้เลือก inquiry 0 ทั้งสองใบ (แผนเดิมให้ใบที่ 2 เป็น inquiry 2) ⇒ **ลดหนี้ไม่กระทบสต็อก (2) ยังไม่ได้ยืนยัน**
+- รอบ 4 ผู้ใช้เลือก inquiry 0 ทั้งสองใบ (แผนเดิมให้ใบที่ 2 เป็น inquiry 2) — สาเหตุดูข้อ 0.1 (กด Process แล้วประเภทถูกตั้งตามบิล)
+
+## 0.1 ยืนยันจากรอบ 5.1: ลดหนี้จากขายเงินเชื่อ ไม่กระทบสต๊อก (CN26100004 บันทึก 10:19:25 วันที่ 2026-10-26 — อ้าง BF-INV26100036 ลด 10 บาท)
+**Transaction เดียวกับ inquiry 0 ทุกตาราง:** `ic_trans` → `ic_trans_detail` → `ap_ar_trans_detail` → `gl_journal_vat_sale` → `COMMIT` — ไม่มี `cb_trans` · คอลัมน์ชุดเดียวกับ §0 ต่างกันเฉพาะค่า
+- `ic_trans`: **`inquiry_type=2`**, `total_value=10, total_before_vat=9.35, total_vat_value=0.65, total_amount=10` (ภาษีรวมใน), `ref_amount=315, ref_diff=10, ref_new_amount=305`, `doc_ref=null`
+- `ic_trans_detail` 1 บรรทัด: **`inquiry_type=2` แต่ `calc_flag=1`** (เหมือนรับคืน) และยังมี `wh_code`/`shelf_code`/`unit_code`, `qty=1, price=10, sum_amount=10` — **การไม่กระทบสต็อกมาจากสูตรยอดคงเหลือที่ตัด `trans_flag=48 and inquiry_type>1` ไม่ใช่จาก `calc_flag`** · `doc_ref_type=1, ref_doc_no=<บิล>, ref_row=0`
+- "ราคา" ของบรรทัด = ยอดลดหนี้ (ไม่ใช่ราคาขาย) · ช่องส่วนลดเว้นไว้
+- `ap_ar_trans_detail`: `calc_flag=-1, bill_type=1, sum_debt_value=315, sum_debt_balance=315, sum_debt_amount=10, final_amount=305, sum_before_vat=294.39` — ความหมายเดียวกับ §0
+- `gl_journal_vat_sale`: `vat_calc=-1`, ฐาน 9.35 ภาษี 0.65
+- `remark_2..5` ถูกคัดลอกมาจากบิลต้นทาง (ใบนี้ `remark_5` มีรหัสอ้างอิงของระบบภายนอกที่สร้างบิล)
+- หลัง commit: `logs` → reset `ic_inventory` ค้างรับ/จอง/ส่ง ของ AH-0001 → **ยังใส่คิว `process` 'IC' ของสินค้าและคำนวณต้นทุนใหม่** (หยิบคิวภายใน 3 วินาที เพราะมีโปรแกรมเปิดอยู่) → doc flow: บิล `used_status=1`
+- ตรวจ DB หลังบันทึก (อ่านอย่างเดียว): `AH-0001.balance_qty = 121` = สูตร · ถ้านับบรรทัดนี้จะเป็น 122 ⇒ **ยืนยันว่าไม่กระทบสต็อก** · บิล `used_status=1, used_status_2=0`
+- **พฤติกรรมหน้าจอ:** กด **Process** (ดึงรายการจากบิล) แล้ว "ประเภทการรับคืน" ถูกตั้งกลับเป็น `1.รับคืนจากขายเงินเชื่อ` ⇒ ต้องเลือกประเภท**หลัง**กด Process (ข้อ "3." บนจอ = `inquiry_type 2` เพราะนับจาก 0) — เป็นสาเหตุที่รอบ 4 ได้ประเภทผิด
