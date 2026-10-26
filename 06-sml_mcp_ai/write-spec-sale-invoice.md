@@ -134,3 +134,18 @@ source: capture aoy-run1 (INV26100001 ขายสด 08:55–08:57) + aoy-run2 
 - หลัง commit (~11 วินาที): doc flow reset `last_status` → worker ต้นทุน: ล็อต + `sum_of_cost` ต่อบรรทัด (ZZTEST 9.35, AH-0001 149.54 — ต้นทุนบรรทัด AH-0001 มาจากล็อต ไม่ใช่ `average_cost` 227.30 ของสินค้า)
 - ตรวจ DB: `balance_qty` ZZTEST-0001 2 → 1, AH-0001 123 → 122 · บิล `used_status=0, last_status=0`
 - **สำหรับ sml_mcp_ai:** ส่วนลดท้ายบิลส่ง `discount_word` (ข้อความ เช่น `5%` หรือตัวเลข) + `total_discount` ที่คำนวณแล้ว และคำนวณภาษีจากยอดหลังลด · ไม่ต้องกระจายลงบรรทัด (โปรแกรมไม่ทำ)
+
+## 7. ยืนยันจากรอบ 6.4: ใบเสนอราคา → ใบสั่งจอง → ขายเชื่อ (QT26100001 14:34:45, BS26100001 14:35:52, INV26100005 14:37:05 วันที่ 2026-10-26)
+ลูกค้า `ZZCUST-0001` · `AH-0001` 1 กล่อง × 240 ภาษีรวมใน ทุกใบ
+
+| ใบ | ตาราง (transaction เดียว) | บรรทัด `ic_trans_detail` | แถวอ้างอิง `ap_ar_trans_detail` |
+|---|---|---|---|
+| **ใบเสนอราคา 30** (เมนู ขาย › ใบเสนอราคา) | `ic_trans` (40 คอลัมน์: `user_request`, `approve_code=null`, `expire_day/date`, `credit_day=30` จากลูกค้า) + `ic_trans_detail` | **ไม่มีคอลัมน์ `wh_code/shelf_code`, `doc_ref_type`, `ref_doc_no`**, `ref_row=-1`, `calc_flag=1`, `set_ref_price=300` | — |
+| **ใบสั่งจอง 34** (ขาย › ใบสั่งซื้อ/สั่งจอง อ้าง QT) | `ic_trans` + `ic_trans_detail` + `ap_ar_trans_detail` + `ic_trans_shipment` | `doc_ref_type=0`, **`ref_doc_no='QT26100001'`, `ref_row=-1`** (ไม่ใส่เลขบรรทัดต้นทาง), มี `wh_code/shelf_code`, `price_mode/price_type=null` | `calc_flag=1, trans_flag=34, billing_no='QT26100001'` (ไม่มี `bill_type`) |
+| **ขายเชื่อ 44** (อ้าง BS) | เหมือน §6 + `ap_ar_trans_detail` | **`doc_ref_type=2`** (จากใบจอง), `ref_doc_no='BS26100001'`, **`ref_row=0`** | `calc_flag=-1, trans_flag=44, **bill_type=2**, billing_no='BS26100001'` + **แถวว่าง 2 แถว** (line 1, 2: `bill_type=0`, `billing_no=null`) ที่ไม่ถูกลบ |
+
+- doc flow: หลังบันทึกใบจอง QT26100001 `used_status=1, doc_success=1` · หลังบันทึกบิล BS26100001 `used_status=1, doc_success=1` · บิล `used_status=0`
+- ค่า `doc_ref_type` / `bill_type` ตรงกับที่ vault บันทึกไว้จากโค้ด: บิลอ้างใบจอง = 2 ([[write-spec-sale-order]] §1)
+- **แถวว่างใน `ap_ar_trans_detail`:** transaction ของบิลนี้**ไม่มี** cleanup `delete from ap_ar_trans_detail where sum_debt_amount=0 … billing_no is null` (ต่างจากใบรับ/จ่ายชำระ) ⇒ เหลือแถว `trans_flag=44, billing_no=null` ในฐาน (AOY มี 2 แถวแบบนี้ = ของใบนี้) — query ที่นับแถว `ap_ar_trans_detail` ของบิลต้องกรอง `billing_no is not null`
+- สต็อก AH-0001: 122 → 121, `book_out_qty` (ค้างจอง) สุดท้าย 0 (ใบจองปิดแล้ว)
+- **สำหรับ sml_mcp_ai:** บิลอ้างใบจองต้องเขียน `doc_ref_type=2`, `ref_doc_no`, `ref_row` และแถวอ้างอิง `bill_type=2` · ใบจองอ้างใบเสนอราคาใช้ `ref_row=-1` ได้ (โปรแกรมทำแบบนั้น) — ไม่ต้องเขียนแถวว่าง
