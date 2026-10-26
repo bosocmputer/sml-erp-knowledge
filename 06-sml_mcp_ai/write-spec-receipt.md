@@ -81,3 +81,15 @@ source: capture aoy-run3 (RC26100003 รับชำระ INV26100002, 10:39–
 - ต่างจากเงินสดเฉพาะ `cb_trans.card_amount` และแถว `cb_trans_detail` `doc_type=3` (เลขบัตร, เลขอนุมัติ, `credit_card_type`) — รายละเอียดคอลัมน์ [[cash-bank]] §2.1
 - ทะเบียนบัตร `cb_chq_list` (chq_type 3) เกิดใน doc flow หลัง commit ไม่ใช่ใน transaction ⇒ sml_mcp_ai ต้องรอ/ตรวจแถวทะเบียนหลังบันทึก หรือเรียกงานหลังบันทึกเหมือนโปรแกรม
 - `ap_ar_trans_detail.ref_doc_no` ของบิลนี้เป็นเลขอ้างอิงยาวจากระบบภายนอก (คัดจาก `ic_trans` ของบิล) — โปรแกรมคัดลอกตามเดิม ไม่ได้ตรวจรูปแบบ
+
+## 8. ยืนยันจากรอบ 5.10: ยกเลิกใบรับชำระ (EEC26100001 ยกเลิก RC26100004, 13:24:23 วันที่ 2026-10-26) — ใบแรกของ AOY
+เมนู ลูกหนี้ › รายงาน/ยกเลิก › ยกเลิกชำระหนี้/ยกเลิกใบเสร็จรับเงิน · RC26100004 = รับตามใบวางบิล BL26100001 (BF-INV26100032/33) ด้วยเงินโอน 90 บาท
+- เลขที่: `erp_doc_format code='EEC'` → `select doc_no from ap_ar_trans where doc_date >= '2026-01-01' and doc_no like 'EEC2610%' and trans_flag = 240 …` ⇒ `EEC26100001` · หลังบันทึก หน้าจอแสดงเลขถัดไป (`EEC26100002`) เตรียมไว้สำหรับใบใหม่ ⇒ **เลขที่บนจอหลังบันทึกไม่ใช่เลขของใบที่เพิ่งบันทึก**
+- **Transaction:** `insert ap_ar_trans (trans_type=2, trans_flag=240, doc_date, doc_no, cust_code, doc_format_code='EEC', doc_ref=<RC>, doc_ref_date=null, remark, creator_code, create_datetime)` อย่างเดียว (ไม่มี detail, ไม่มี `cb_trans`, ไม่มียอด) + cleanup → `COMMIT`
+- ⚠️ `cust_code` ของใบยกเลิกเป็น `AB-2604-0012` ขณะที่ RC26100004 เป็นของ `AB-2605-0002` — โปรแกรมไม่ได้บังคับให้ตรงกัน (ยังไม่ทราบว่าผู้ใช้เลือกลูกค้าอื่นในหน้าจอหรือโปรแกรมใส่เอง)
+- doc flow (1.5 วินาทีหลัง commit):
+  1. ใบรับชำระ: `ap_ar_trans.last_status=1`, `ap_ar_trans_detail … trans_flag=239 → last_status=1`, **`cb_trans.status=1`**, `cb_trans_detail.last_status=1` (เงินโอนไม่ถูกลบ แค่ปิดสถานะ — เหมือนการยกเลิกบิลขายสด)
+  2. ล้าง `cb_chq_list` ที่ไม่มีคู่
+  3. ไล่ต่อบิลทั้ง 2 ใบ (reset `last_status=0` ของ 44)
+  4. **ใบวางบิล BL26100001 `used_status=0, doc_success=0`** (กลับมารับชำระได้)
+- ตรวจ DB: บิล BF-INV26100032/33 **ยังเป็น `used_status_2=1`** เพราะยังอยู่ในใบวางบิล · แถวอ้างอิง `trans_flag=99` ของ RC26100004 **ยัง `last_status=0`** (doc flow ปิดเฉพาะแถว 239) — กฎใบวางบิลนับ 239 ที่ `doc_ref` + `last_status=0` จึงไม่ได้รับผล
