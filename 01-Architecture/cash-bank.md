@@ -1,6 +1,6 @@
 ---
 tags: [sml, cash-bank, payment, cheque, wht]
-status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4, บัตรเครดิต + ขึ้นเงินบัตร รอบ 5.3)
+status: from-code + ข้อมูลจริง + capture (เงินสด รอบ 1–4, โอนเงิน รอบ 4, บัตรเครดิต + ขึ้นเงินบัตร รอบ 5.3, เช็ครับ → นำฝาก → ผ่าน รอบ 5.4)
 source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceControl.cs, SMLERPGlobal/_global.cs (`_payType` ~2151), SMLProcess/_docFlowThread.cs (~958–1100), SMLERPControl/_bank/_chqListControl.cs, _customer/_arStatusForm.cs + DB + capture aoy-run1..3
 ---
 # เงินสด / ธนาคาร: การรับ-จ่ายเงิน, เช็ค, ภาษีหัก ณ ที่จ่าย
@@ -72,7 +72,21 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - `ic_trans_detail` ต่อบัตร: **`item_code=<รหัสสมุดบัญชี>`** (ไม่ใช่สินค้า), `bank_name`, `bank_branch`, **`chq_number=<เลขบัตร>`, `doc_ref=<ใบรับชำระ>`, `ref_row=<doc_line_number>`**, `price = sum_amount = 48`, `calc_flag=1`
 - ไม่มี `cb_trans`, ไม่มี GL (ร้านปิด realtime)
 - หลัง commit: ใส่คิว `process` 'IC' ด้วย `wherein=<รหัสสมุดบัญชี>` (คิวว่างเพราะไม่มีสินค้ารหัสนั้น — เป็นผลข้างเคียงของการใช้ `item_code`) → **`update cb_chq_list set status = 1` (461) / 2 (462 ยกเลิก) / 0** จากเอกสาร 461/462 ล่าสุดที่ `chq_number`, `doc_ref`, `ref_row = doc_line_number` ตรงกัน ⇒ สถานะบัตร: 0 = ยังไม่ขึ้นเงิน, 1 = ขึ้นเงินแล้ว, 2 = ยกเลิก
-- **ใบรับชำระไม่ได้ถูกนับว่า "ถูกใช้"**: กฎ doc flow ของ 239 นับ `ic_trans_detail.doc_ref = RC and trans_flag in (410,411,461)` เป็น `used_status=1` แต่ doc flow ของ 461 ไม่ได้ประมวลผลใบรับชำระต่อ ⇒ `RC26100005.used_status` ยังเป็น 0 · ข้อมูลจริง: ใบรับชำระที่มีเอกสาร 410/411/461 อ้างถึง มี `used_status=1` แค่ kbgtest 112/27,133, samai 31/1,542 ⇒ **อย่าใช้ `used_status` ของใบรับชำระตัดสินว่าเช็ค/บัตรผ่านแล้ว** ให้ดู `cb_chq_list.status` หรือเอกสาร 410/411/461 โดยตรง
+- **ใบรับชำระไม่ได้ถูกนับว่า "ถูกใช้"**: กฎ doc flow ของ 239 นับ `ic_trans_detail.doc_ref = RC and trans_flag in (410,411,461)` เป็น `used_status=1` แต่ doc flow ของ 461 ไม่มี `__queryDocRefForNextProcess` (`_docFlowThread.cs` ~2663) จึงไม่ประมวลผลใบรับชำระต่อ ⇒ `RC26100005.used_status` ยังเป็น 0 · มีแค่ **410 นำฝากเช็ค** ที่ไล่ต่อไปใบรับชำระ (~2611) ดู §2.2 · ข้อมูลจริง: ใบรับชำระที่มีเอกสาร 410/411/461 อ้างถึง มี `used_status=1` แค่ kbgtest 112/27,133, samai 31/1,542 ⇒ **อย่าใช้ `used_status` ของใบรับชำระตัดสินว่าเช็ค/บัตรผ่านแล้ว** ให้ดู `cb_chq_list.status` หรือเอกสาร 410/411/461 โดยตรง
+
+### 2.2 เช็ครับ — ยืนยันจากรอบ 5.4 (2026-10-26: รับชำระ RC26100006 12:06:29, นำฝาก CHD26100001 12:07:48, ผ่าน CHP26100001 12:08:49)
+**รับชำระด้วยเช็ค (239)** — ลำดับเดียวกับเงินสด/บัตร ต่างที่:
+- `cb_trans`: `pay_type=1`, **`chq_amount=255`**, `cash_amount=0`
+- `cb_trans_detail`: **`doc_type=2`**, `trans_number_type=1`, `ap_ar_type=1`, `ap_ar_code`, **`chq_on_hand=0`**, `bank_code`, `bank_branch`, **`trans_number=<เลขเช็ค>`**, `sum_amount = amount`, **`chq_due_date`**, `remark`, `balance_amount=0`, `doc_ref=null`, `line_number`
+- `cb_chq_list` เกิดหลัง commit ใน doc flow (เหมือนบัตร): `chq_type=1`, `status` เริ่ม 0, `bank_code`, `bank_branch`, `chq_due_date`, `pass_book_code=null`, `no_approved/credit_card_type=null` · เงื่อนไข `coalesce(chq_on_hand,0)=0` ⇒ เช็คที่ติ๊ก "เช็คในมือ" ไม่ถูกเก็บในทะเบียน
+- doc flow บิล: `used_status_2=1`
+
+**นำฝาก (410, CHD) และเช็คผ่าน (411, CHP)** — แต่ละใบ transaction เดียว 2 คำสั่ง รูปแบบเดียวกับ 461:
+- `ic_trans`: `trans_flag=410/411`, `doc_format_code='CHD'/'CHP'`, `pass_book_code=<สมุดบัญชี>`, `total_amount` (411 ใส่ `total_value` ด้วย), `is_pos=0`
+- `ic_trans_detail` ต่อเช็ค: **`item_code=<รหัสสมุดบัญชี>`**, `bank_name`, `bank_branch`, **`chq_number`, `doc_ref=<ใบรับชำระ>`, `ref_row=<doc_line_number>`**, `sum_amount` (411 มี `date_due`, `price` ด้วย), `calc_flag=1`
+- หลัง commit: คิว `process` ด้วยรหัสสมุดบัญชี (ว่าง) → reset `last_status` → ซ่อม `cb_chq_list` → **อัปเดตสถานะเช็คด้วยคำสั่ง `with chq_last_flag as (...)`** จากเอกสารเช็คล่าสุด (418 จับคู่ด้วย `item_code`) ⇒ `status` 0 → 1 (หลัง 410) → **2 (หลัง 411)** ตรงกับตาราง §2
+- **410 ไล่ doc flow ต่อไปใบรับชำระ** (`select doc_ref from ic_trans_detail where doc_no=<CHD>`) ⇒ **`RC26100006.used_status = 1` ตั้งแต่นำฝาก** · 411/461 ไม่ไล่ต่อ ⇒ ใบรับชำระที่ขึ้นเงินบัตร หรือเช็คที่บันทึกผ่านโดยไม่นำฝากก่อน จะยัง `used_status=0`
+- ไม่มี GL (ร้านปิด realtime)
 
 ## 3. ภาษีหัก ณ ที่จ่าย (`gl_wht_list`)
 - คอลัมน์: `doc_date, doc_no, amount, tax_value, status, trans_flag, due_date, line_number, cust_code, card_number, tax_number, cust_tax_type, cust_name, tax_doc_no, cust_address` + รายละเอียดใน `gl_wht_list_detail`
