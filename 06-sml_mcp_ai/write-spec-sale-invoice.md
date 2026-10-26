@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, sale-invoice, verified-runtime]
-status: verified-runtime (สร้างใบใหม่: ขายสด, ขายเชื่อที่ดึงจากใบสั่งขาย) / from-code (ส่วนที่ระบุ)
+status: verified-runtime (สร้างใบใหม่: ขายสด, ขายเชื่อที่ดึงจากใบสั่งขาย, ขายเชื่อไม่อ้างเอกสาร + ส่วนลดท้ายบิล % รอบ 6.1) / from-code (ส่วนที่ระบุ)
 source: capture aoy-run1 (INV26100001 ขายสด 08:55–08:57) + aoy-run2 (INV26100002 ขายเชื่อจาก SO26100001 09:46–09:47) + แถวจริงใน aoy + smlerp SMLInventoryControl/_icTransControl.cs + smljavaws2 SMLICProcess.java
 ---
 # สเปกการบันทึก: บิลขาย / ขายสินค้าและบริการ (trans_flag 44)
@@ -122,3 +122,15 @@ source: capture aoy-run1 (INV26100001 ขายสด 08:55–08:57) + aoy-run2 
 - ช่องทางรับเงินอื่น (บัตร/เช็ค/โอน/คูปอง/คะแนน/มัดจำ) และ `cb_trans_detail`
 - `tax_format` ที่ไม่ว่าง (ร้านที่ใช้เลขใบกำกับแยกจากเลขบิล)
 - ค่า default ของคอลัมน์ที่ไม่ได้ใส่ และข้อ 5 อื่น ๆ ใน [[write-spec-sale-order]]
+
+## 6. ยืนยันจากรอบ 6.1: ขายเชื่อไม่อ้างเอกสาร + ส่วนลดท้ายบิล 5% (INV26100003, 13:43:56 วันที่ 2026-10-26)
+ลูกค้า `AB-2605-0002` · `ZZTEST-0001` 1 × 20 + `AH-0001` 1 × 240 = 260 · ส่วนลด `5%` · ภาษีรวมใน · รูปแบบเลข `INV`
+- **Transaction เดียว:** `ic_trans` (43 คอลัมน์) → `ic_trans_detail` × 2 → cleanup `cb_trans_detail` เลขว่าง → `gl_journal_vat_sale` → `ic_trans_shipment` → `COMMIT` · **ไม่มี `cb_trans`/`cb_trans_detail`** (เชื่อ) และ**ไม่มี `ap_ar_trans_detail`** (ไม่อ้างเอกสาร)
+- **ส่วนลดท้ายบิลเก็บที่หัวเท่านั้น:** `discount_word='5%'` (ข้อความตามที่พิมพ์), `total_discount=13.00`, `total_value=260` (ก่อนลด), `total_after_vat = total_amount = 247.00`, `total_before_vat=230.84`, `total_vat_value=16.16` ⇒ **ภาษีคิดจากยอดหลังหักส่วนลด** (247 / 1.07)
+- **บรรทัดไม่ถูกกระจายส่วนลด:** `discount=null`, `discount_amount=0`, `sum_amount` 20 / 240, `sum_amount_exclude_vat` 18.69 / 224.30 (รวม 242.99 ≠ 230.84 ของหัว) ⇒ รายงานที่รวมยอดจากบรรทัดจะได้ยอดก่อนหักส่วนลดท้ายบิล
+- `gl_journal_vat_sale`: `vat_calc=1`, ฐาน 230.84, ภาษี 16.16
+- บรรทัด: `ref_row=-1`, `doc_ref_type=0`, `calc_flag=-1` · `price_mode/price_type` '-1' (ZZTEST ไม่มีสูตรราคา) / '6' + `set_ref_price=300` (AH-0001) — เหมือนใบสั่งขาย [[write-spec-sale-order]] §6.4
+- `cashier_code=<ผู้ใช้>`, `advance_amount=0`, `send_type=0`
+- หลัง commit (~11 วินาที): doc flow reset `last_status` → worker ต้นทุน: ล็อต + `sum_of_cost` ต่อบรรทัด (ZZTEST 9.35, AH-0001 149.54 — ต้นทุนบรรทัด AH-0001 มาจากล็อต ไม่ใช่ `average_cost` 227.30 ของสินค้า)
+- ตรวจ DB: `balance_qty` ZZTEST-0001 2 → 1, AH-0001 123 → 122 · บิล `used_status=0, last_status=0`
+- **สำหรับ sml_mcp_ai:** ส่วนลดท้ายบิลส่ง `discount_word` (ข้อความ เช่น `5%` หรือตัวเลข) + `total_discount` ที่คำนวณแล้ว และคำนวณภาษีจากยอดหลังลด · ไม่ต้องกระจายลงบรรทัด (โปรแกรมไม่ทำ)
