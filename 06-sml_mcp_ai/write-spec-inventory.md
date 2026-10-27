@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, inventory, verified-runtime]
-status: verified-runtime รอบ 10.1 (โอนสินค้า), 10.2 (ปรับเพิ่ม) · รอบ 10.3–10.6 รอทดสอบ
+status: verified-runtime รอบ 10.1 (โอนสินค้า), 10.2 (ปรับเพิ่ม), 10.3 (ปรับลด) · รอบ 10.4–10.6 รอทดสอบ
 source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
 ---
 # สเปกการบันทึก: เอกสารสินค้า/คลัง (โอน, ปรับปรุง, เบิก, ตรวจนับ)
@@ -30,3 +30,11 @@ source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
 - หลัง commit: คำนวณต้นทุน (บรรทัดได้ `sum_of_cost=121.49`, `average_cost=121.49` — ต้นทุนเฉลี่ยไม่เปลี่ยนเพราะใช้ราคาเท่าเดิม) → reset `last_status` → ตรวจค้างรับ/จอง/ส่ง → คิว `process` 'IC' → `update ic_trans set total_amount` (= 121.49)
 - ผลตรวจ DB: AB-1 11 → **12**, รวม 13 → **14**
 - **สำหรับ sml_mcp_ai:** ราคาปรับเพิ่มมีผลต่อต้นทุนเฉลี่ย — ถ้าไม่ระบุ ให้ใช้ `ic_inventory.average_cost` แบบโปรแกรม; ราคาที่ต่างจากต้นทุนเฉลี่ยจะเปลี่ยนต้นทุนของสินค้า (ยังไม่ได้ทดสอบ)
+
+## 3. ปรับปรุงสต็อก (ลด) 68 — ยืนยันรอบ 10.3 (IS26100001, 15:55:59 วันที่ 2026-10-27)
+หน้าจอ: 2.21 ปรับปรุงสต็อกสินค้า/วัตถุดิบ (ลด) (`menu_ic_stk_adjust_subtract`) · AH-0011 −1 แท่ง AB-1/001
+- หน้าจอ**ไม่แสดงต้นทุน** (ผู้ใช้ปล่อยว่าง) — เปิดหน้าจอยังล้างบรรทัดกำพร้าของ flag **66** (ไม่ใช่ 68)
+- transaction: `insert ic_trans (trans_type=3, trans_flag=68, status=0, doc_format_code='IS', wh_from, location_from, remark, is_pos=0, …)` — **ไม่มี `inquiry_type` ที่หัว** (ต่างจาก 66) → `insert ic_trans_detail` (`calc_flag=-1`, `wh_code, shelf_code, unit_code, qty=1`, **`price=0, sum_amount=0`**, `ref_row=-1`) → `logs` (`menu_ic_stk_adjust_subtract`, `screen_code=68`)
+- หลัง commit (~14 วินาทีต่อมา): คำนวณต้นทุนเติมให้บรรทัด `price = sum_amount = sum_of_cost = 121.49`, `average_cost=121.49` → ซ่อม `cb_chq_list` (ทำทุกครั้ง ไม่เกี่ยวกับเอกสารนี้) → คิว `process` 'IC' → `update ic_trans set total_amount` (= 121.49)
+- ผลตรวจ DB: AB-1 12 → **11**, รวม 14 → **13**, ต้นทุนเฉลี่ยคง 121.49
+- **สำหรับ sml_mcp_ai:** ส่ง `price=0, sum_amount=0` ได้ โปรแกรมเติมต้นทุนเองตอนคำนวณต้นทุน (เหมือนโอน) — ถ้าคิว `process` ค้าง มูลค่าจะยังเป็น 0
