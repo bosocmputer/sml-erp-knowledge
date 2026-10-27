@@ -144,6 +144,14 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
   - doc flow: **`DPS26100001` `used_status=1, used_status_2=1, doc_success=0`** (ตัดบางส่วน เหลือ 73.25) — ยอดคงเหลือคำนวณจาก Σ `cb_trans_detail.amount` ที่ `doc_type=5, trans_number=<DPS>`
 - เลขบิล `INV26100007` เป็นเลขเดียวกับบิลที่ถูกลบในรอบ 7.3 ⇒ **เลขของเอกสารที่ถูกลบถูกนำกลับมาใช้**
 
+## 3.6 ค่าใช้จ่ายอื่น (260) — ยืนยันจากรอบ 8.5 (EPI-26100001 ผู้ขาย ZZSUP-0001 50 บาท เงินสด, 10:36:57 วันที่ 2026-10-27)
+เมนู เงินสด/ธนาคาร › ค่าใช้จ่ายอื่นๆ (8.5) · หน้าจอเอกสารกลาง (`_clone_icTrans`)
+- **Transaction:** `ic_trans` → `ic_trans_detail` → `cb_trans` → cleanup → `gl_journal_vat_buy` → `COMMIT`
+- `ic_trans`: **`trans_type=2`** (ตาม `_transType()` แม้เป็นรายจ่าย), `trans_flag=260`, `cust_code=<ผู้ขาย>`, `doc_format_code='EPI'`, `tax_doc_no = doc_no`, `inquiry_type=1`, `vat_type=1` (รวมใน), `credit_day=30` (จากผู้ขาย), `total_amount=50`, `total_before_vat=46.73`, `total_vat_value=3.27`
+- `ic_trans_detail`: **`item_code=<รหัสค่าใช้จ่าย ใน erp_expenses_list>` (5001), `item_name`=ชื่อค่าใช้จ่าย**, `sum_amount=50`, `sum_amount_exclude_vat=46.73`, **ไม่มี qty/price/unit/คลัง**, `stand_value=0, divide_value=0`, `ref_row=-1`, `calc_flag=1` (260 ไม่อยู่ในสูตรสต็อก)
+- `cb_trans`: `doc_format_code='EPI', pay_type=2, trans_type=2, trans_flag=260, cash_amount=50, total_amount_pay=50`
+- **`gl_journal_vat_buy`: `trans_type=2`, `vat_calc=1`, ฐาน 46.73 ภาษี 3.27** ⇒ ค่าใช้จ่ายอื่นเข้ารายงานภาษีซื้อ
+
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
 - **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
