@@ -136,7 +136,13 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 เมนู ขาย › รับเงินล่วงหน้า (4.11) · จอ `_po_so_deposit_control`
 - **Transaction:** `insert into ic_trans(trans_type=2, trans_flag=40, doc_date, doc_time, doc_no, doc_format_code='DPS', cust_code, deposit_day=0, deposit_date, doc_ref, doc_ref_date, remark, total_value=100, total_amount=100, cashier_code, creator_code, create_datetime)` (17 คอลัมน์, **ไม่มี `vat_type`/ยอดภาษี → ค่าเริ่มต้น 0**) → `ap_ar_trans_detail (doc_no, doc_date, trans_type=2, trans_flag=40, sale_shift_id='', remark='เงินล่วงหน้า', sum_debt_amount=100, line_number=0)` + แถวว่าง line 1 (ถูกลบโดย cleanup ในรอบนี้) → **`cb_trans` (`doc_format_code='DPS', pay_type=1`, `cash_amount=100`, `total_amount_pay=100`)** → cleanup → `COMMIT`
 - **ไม่มี `ic_trans_detail` และไม่มี `gl_journal_vat_sale`** ⇒ ร้านนี้รับเงินล่วงหน้าโดยไม่ออกใบกำกับภาษี
-- สถานะหลังบันทึก: `used_status=0, used_status_2=0, doc_success=0` — ยอดคงเหลือคำนวณจากการถูกตัด (`cb_trans_detail.doc_type=5`, `trans_number=<DPS>`) ดูรอบ 8.4
+- สถานะหลังบันทึก: `used_status=0, used_status_2=0, doc_success=0`
+- **ตัดในบิลขาย (รอบ 8.4, INV26100007 10:32:20 วันที่ 2026-10-27 — ขายสด 26.75 ตัดเงินล่วงหน้าเต็มยอดบิล):**
+  - `cb_trans`: **`deposit_amount=26.75`**, `cash_amount=0`, `total_amount = total_net_amount = total_amount_pay = 26.75` · `ic_trans.advance_amount=0` (ไม่ได้ใช้คอลัมน์นี้)
+  - **`cb_trans_detail`: `doc_type=5`, `trans_number='DPS26100001'`, `doc_date_ref`, `sum_amount=100` (ยอดใบล่วงหน้า), `balance_amount=100` (คงเหลือก่อนตัด), `amount=26.75` (ยอดที่ตัด)** + แถวว่าง line 1 (`trans_number=null`) ที่ถูกลบโดย cleanup `trans_number is null`
+  - ภาษีขาย `gl_journal_vat_sale` ของบิลคิดจากยอดเต็ม (ฐาน 25 ภาษี 1.75) — ตอนรับเงินล่วงหน้าไม่ได้ออกภาษี
+  - doc flow: **`DPS26100001` `used_status=1, used_status_2=1, doc_success=0`** (ตัดบางส่วน เหลือ 73.25) — ยอดคงเหลือคำนวณจาก Σ `cb_trans_detail.amount` ที่ `doc_type=5, trans_number=<DPS>`
+- เลขบิล `INV26100007` เป็นเลขเดียวกับบิลที่ถูกลบในรอบ 7.3 ⇒ **เลขของเอกสารที่ถูกลบถูกนำกลับมาใช้**
 
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
