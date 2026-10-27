@@ -94,7 +94,12 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
   - `cb_trans_detail`: `doc_type=2`, **`trans_number_type=2`, `ap_ar_type=2`** (เจ้าหนี้; ฝั่งรับเป็น 1/1), `ap_ar_code=<ผู้ขาย>`, `chq_on_hand=0`, **`pass_book_code=<สมุดบัญชีที่ออกเช็ค>`** (ฝั่งรับไม่มี), `bank_code`, `bank_branch`, `trans_number=<เลขเช็ค>`, `sum_amount = amount`, `chq_due_date`, `remark`, `balance_amount=0`
 - `cb_chq_list` เกิดใน doc flow ~3 วินาทีหลัง commit (เหมือนเช็ครับ): **`chq_type=2`, `status=0`**, `ap_ar_type=2`, `pass_book_code='5843697'`, `trans_type=1`, `trans_flag=19`
 - doc flow ใบซื้อ: `used_status_2=1`
-- ขั้นต่อของเช็คจ่าย (451 ผ่าน, 452 ยกเลิก, 453 คืน, 456 เปลี่ยน) ยังไม่ได้ทดสอบ
+- **เช็คจ่ายผ่าน 451 (รอบ 8.1, CPP26100001 10:17:32 วันที่ 2026-10-27, เมนู เงินสด/ธนาคาร › ธนาคาร › เช็คจ่าย › บันทึกเช็คผ่าน)** — รูปแบบเดียวกับเช็ครับผ่าน 411 (§2.2):
+  - `ic_trans`: **`trans_type=1`**, `trans_flag=451`, `doc_format_code='CPP'`, `pass_book_code`, `total_amount=10`
+  - `ic_trans_detail`: `item_code=<สมุดบัญชี>`, `bank_name`, `bank_branch`, `chq_number`, `date_due`, `doc_ref=<ใบจ่ายชำระ>`, `ref_row=0`, `price = sum_amount = 10`, `calc_flag=1`
+  - หลัง commit: คิว `process` ด้วยรหัสสมุดบัญชี (ว่าง) → ซ่อม `cb_chq_list` → **สถานะเช็ค 0 → 2** (ข้ามนำฝาก — เช็คจ่ายไม่มีขั้นนำฝาก)
+  - ใบจ่ายชำระ `PV26100004` **`used_status` ยังเป็น 0** (เหมือนเช็ครับผ่าน 411 ที่ไม่ไล่ต่อไปใบรับชำระ)
+- ขั้นต่อที่ยังไม่ได้ทดสอบ: 452 ยกเลิก, 453 คืน, 456 เปลี่ยนเช็ค
 
 ## 3. ภาษีหัก ณ ที่จ่าย (`gl_wht_list`)
 - คอลัมน์: `doc_date, doc_no, amount, tax_value, status, trans_flag, due_date, line_number, cust_code, card_number, tax_number, cust_tax_type, cust_name, tax_doc_no, cust_address` + รายละเอียดใน `gl_wht_list_detail`
