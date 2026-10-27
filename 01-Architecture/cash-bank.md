@@ -152,6 +152,15 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - `cb_trans`: `doc_format_code='EPI', pay_type=2, trans_type=2, trans_flag=260, cash_amount=50, total_amount_pay=50`
 - **`gl_journal_vat_buy`: `trans_type=2`, `vat_calc=1`, ฐาน 46.73 ภาษี 3.27** ⇒ ค่าใช้จ่ายอื่นเข้ารายงานภาษีซื้อ
 
+## 3.7 โอนเงินระหว่างธนาคาร (422 + 420) — ยืนยันจากรอบ 8.6 (TM26100001 100 บาท จาก 5843697 SCB ไป 68667871 KBANK, 10:51:24 วันที่ 2026-10-27) — ใบแรกของ AOY
+เมนู เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › บันทึกโอนเงินระหว่างธนาคาร (8.10.1.5)
+- **เลขเดียว 2 เอกสาร ใน transaction เดียว:** `ic_trans` 422 (โอนออก) + `ic_trans` 420 (โอนเข้า) เลขที่ `TM26100001` ทั้งคู่ → `ic_trans_detail` ของแต่ละ flag → `COMMIT`
+- `ic_trans` (16 คอลัมน์): **`trans_type=0`**, `trans_flag=422/420`, `doc_format_code='TM'`, `remark`, `total_amount=100`, `total_amount_2=0` — ไม่มี `pass_book_code` ที่หัว
+- `ic_trans_detail`: **422: `item_code=<บัญชีต้นทาง>`, `bank_name/bank_branch`, `item_code_2=<บัญชีปลายทาง>`, `bank_name_2/bank_branch_2`** · 420: สลับต้นทาง/ปลายทาง · `transfer_amount=100, fee_amount=0, sum_amount=100` · **`calc_flag`: 422 = 1, 420 = -1** (ตรงกับ `_transStockCalcType`) · `ref_row=-1`
+- **ไม่มี `cb_trans`/`cb_trans_detail`** และ**ไม่มีการอัปเดตยอดใน `erp_pass_book`** ⇒ ยอดคงเหลือในสมุดบัญชีต้องคำนวณจากเอกสาร (รายงาน)
+- หลัง commit: `logs` + doc flow reset `last_status` ของทั้ง 420 และ 422
+- ค่าธรรมเนียมโอน (`fee_amount`) ยังไม่ได้ทดสอบ
+
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
 - **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
