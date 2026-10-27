@@ -132,6 +132,12 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - บิล `used_status_2=1`
 - **สำหรับ sml_mcp_ai:** รับชำระที่ลูกค้าหักภาษีต้องเขียน `gl_wht_list` + `_detail` (`trans_flag=239`) ด้วย ไม่ใช่แค่ `total_tax_at_pay`
 
+### 3.4 รอบ 9.3: ค่าใช้จ่ายอื่นหัก ณ ที่จ่าย (EPI-26100002 100 บาท หัก 3% = 2.80, 11:19:57 วันที่ 2026-10-27)
+- ลำดับ: `ic_trans` → `ic_trans_detail` → `cb_trans` (`cash_amount=97.20, total_tax_at_pay=2.80, total_amount_pay=100`) → **`gl_wht_list` → `gl_wht_list_detail`** → `gl_journal_vat_buy` → `COMMIT`
+- เลขหนังสือรับรอง **`RWHT5326100002`** — ใช้รูปแบบ `RWHT53` เดียวกับใบจ่ายชำระ (รอบ 5.8) และเลขต่อกันข้ามประเภทเอกสาร (19 → 260) ⇒ AOY มีรูปแบบ `screen_code='RWHT'` แค่รูปแบบเดียว
+- `gl_wht_list.trans_flag=260`, **`cust_tax_type=1`** แม้แผนให้เลือกบุคคลธรรมดา — ช่อง "ประเภท" ในแท็บภาษีหัก ณ ที่จ่ายเป็นช่องเทา (ภาพรอบ 5.8/7.8b) ⇒ **ประเภทผู้เสียภาษีมาจากข้อมูลผู้ขาย (`ap_status`) ไม่ใช่เลือกในเอกสาร** (ZZSUP-0001 `ap_status=1`) — ต้องเปลี่ยนที่ข้อมูลผู้ขายถ้าจะทดสอบบุคคลธรรมดา
+- `gl_journal_vat_buy` ฐาน 93.46 ภาษี 6.54 (ภาษีซื้อ) — หัก ณ ที่จ่ายคิดจากฐานเดียวกัน
+
 ## 3.5 เงินรับล่วงหน้า (40) — ยืนยันจากรอบ 8.3 (DPS26100001 100 บาท ลูกค้า ZZCUST-0001, 10:24:45 วันที่ 2026-10-27)
 เมนู ขาย › รับเงินล่วงหน้า (4.11) · จอ `_po_so_deposit_control`
 - **Transaction:** `insert into ic_trans(trans_type=2, trans_flag=40, doc_date, doc_time, doc_no, doc_format_code='DPS', cust_code, deposit_day=0, deposit_date, doc_ref, doc_ref_date, remark, total_value=100, total_amount=100, cashier_code, creator_code, create_datetime)` (17 คอลัมน์, **ไม่มี `vat_type`/ยอดภาษี → ค่าเริ่มต้น 0**) → `ap_ar_trans_detail (doc_no, doc_date, trans_type=2, trans_flag=40, sale_shift_id='', remark='เงินล่วงหน้า', sum_debt_amount=100, line_number=0)` + แถวว่าง line 1 (ถูกลบโดย cleanup ในรอบนี้) → **`cb_trans` (`doc_format_code='DPS', pay_type=1`, `cash_amount=100`, `total_amount_pay=100`)** → cleanup → `COMMIT`
