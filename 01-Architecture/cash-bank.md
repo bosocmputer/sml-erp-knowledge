@@ -132,6 +132,12 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - บิล `used_status_2=1`
 - **สำหรับ sml_mcp_ai:** รับชำระที่ลูกค้าหักภาษีต้องเขียน `gl_wht_list` + `_detail` (`trans_flag=239`) ด้วย ไม่ใช่แค่ `total_tax_at_pay`
 
+## 3.5 เงินรับล่วงหน้า (40) — ยืนยันจากรอบ 8.3 (DPS26100001 100 บาท ลูกค้า ZZCUST-0001, 10:24:45 วันที่ 2026-10-27)
+เมนู ขาย › รับเงินล่วงหน้า (4.11) · จอ `_po_so_deposit_control`
+- **Transaction:** `insert into ic_trans(trans_type=2, trans_flag=40, doc_date, doc_time, doc_no, doc_format_code='DPS', cust_code, deposit_day=0, deposit_date, doc_ref, doc_ref_date, remark, total_value=100, total_amount=100, cashier_code, creator_code, create_datetime)` (17 คอลัมน์, **ไม่มี `vat_type`/ยอดภาษี → ค่าเริ่มต้น 0**) → `ap_ar_trans_detail (doc_no, doc_date, trans_type=2, trans_flag=40, sale_shift_id='', remark='เงินล่วงหน้า', sum_debt_amount=100, line_number=0)` + แถวว่าง line 1 (ถูกลบโดย cleanup ในรอบนี้) → **`cb_trans` (`doc_format_code='DPS', pay_type=1`, `cash_amount=100`, `total_amount_pay=100`)** → cleanup → `COMMIT`
+- **ไม่มี `ic_trans_detail` และไม่มี `gl_journal_vat_sale`** ⇒ ร้านนี้รับเงินล่วงหน้าโดยไม่ออกใบกำกับภาษี
+- สถานะหลังบันทึก: `used_status=0, used_status_2=0, doc_success=0` — ยอดคงเหลือคำนวณจากการถูกตัด (`cb_trans_detail.doc_type=5`, `trans_number=<DPS>`) ดูรอบ 8.4
+
 ## 4. สำหรับ sml_mcp_ai
 - ช่องทางที่ยืนยันด้วย SQL จริงแล้วมีแค่ **เงินสด** (`cb_trans` อย่างเดียว) — เปิดเขียนเฉพาะเงินสดก่อน
 - **โอนเงินยืนยันแล้ว (รอบ 4)**: `cb_trans_detail` doc_type 1 = 13 คอลัมน์ `doc_no, doc_date, doc_time, trans_type, trans_flag, doc_type=1, chq_due_date, trans_number=<erp_pass_book.code ตัวพิมพ์ใหญ่>, bank_code, bank_branch, amount, remark, line_number` + `cb_trans.tranfer_amount` ([[write-spec-receipt]] §6)
