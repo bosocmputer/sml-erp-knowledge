@@ -87,3 +87,12 @@ source: capture aoy-run1 (PU26100001, 09:01–09:03) + DB aoy + smlerp SMLInvent
 ### 6.3 ซื้อเงินเชื่ออ้างใบสั่งซื้อ รับ 1 จาก 2 (PU26100003, 14:49:59)
 - เหมือน §5: `ref_doc_no='PO26100002', ref_row=0`, แถวอ้างอิง `ap_ar_trans_detail billing_no=PO` + **แถวว่าง line 1 (`billing_no=null`) ค้างในฐาน** (เหมือนบิลขายอ้างใบจอง [[write-spec-sale-invoice]] §7)
 - doc flow: **PO26100002 `used_status=1`, `doc_success=0`** (ยังรับไม่ครบ) · `ZZTEST-0001`: `balance_qty` 0 → 3 (ซื้อสด) → 4, **`accrued_in_qty`=1** (ค้างรับ), `average_cost` 9.35
+
+## 7. ยืนยันจากรอบ 9.1: ส่งคืนสินค้าซื้อ (PT26100001 อ้าง PU26100002 คืน ZZTEST-0001 1 ชิ้น 10 บาท, 11:11:05 วันที่ 2026-10-27) — ใบแรกของ AOY
+เมนู ซื้อ › ส่งคืนสินค้า/ราคาผิด (3.17) · ประเภท "1.ลดหนี้เจ้าหนี้, ลดสินค้า" = **`inquiry_type 0`**
+- **Transaction (รูปแบบเดียวกับใบลดหนี้ขาย 48):** `ic_trans` → `ic_trans_detail` → `ap_ar_trans_detail` (+ แถวว่าง line 1) → `gl_journal_vat_buy` → `COMMIT`
+- `ic_trans`: `trans_type=1, trans_flag=16, doc_format_code='PT', tax_doc_no=<PT>, inquiry_type=0, vat_type=1, total_amount=10, total_before_vat=9.35, total_vat_value=0.65, **ref_amount=120, ref_diff=10, ref_new_amount=110**`
+- `ic_trans_detail`: **`calc_flag=-1`**, `doc_ref_type=1`, `ref_doc_no='PU26100002'`, `ref_row=0`, คลัง/ที่เก็บ/หน่วย, `qty=1, price=10`
+- `ap_ar_trans_detail`: `calc_flag=-1, trans_type=1, trans_flag=16, bill_type=1, billing_no=<PU>, sum_debt_value=120, sum_debt_balance=120, sum_debt_amount=10, final_amount=110, sum_before_vat=112.15`
+- **`gl_journal_vat_buy`: `vat_calc=-1`**, ฐาน 9.35 ภาษี 0.65
+- ตรวจ DB: `ZZTEST-0001.balance_qty` 3 → 2 · PU26100002 `used_status=1` · ไม่มี `cb_trans` (ใบซื้อเชื่อ)
