@@ -153,7 +153,7 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - **`gl_journal_vat_buy`: `trans_type=2`, `vat_calc=1`, ฐาน 46.73 ภาษี 3.27** ⇒ ค่าใช้จ่ายอื่นเข้ารายงานภาษีซื้อ
 
 ## 3.7 โอนเงินระหว่างธนาคาร (422 + 420) — ยืนยันจากรอบ 8.6 (TM26100001 100 บาท จาก 5843697 SCB ไป 68667871 KBANK, 10:51:24 วันที่ 2026-10-27) — ใบแรกของ AOY
-เมนู เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › บันทึกโอนเงินระหว่างธนาคาร (8.10.1.5)
+เมนู เงินสด/ธนาคาร › ธนาคาร › ฝาก/ถอน › บันทึกโอนเงินระหว่างธนาคาร
 - **เลขเดียว 2 เอกสาร ใน transaction เดียว:** `ic_trans` 422 (โอนออก) + `ic_trans` 420 (โอนเข้า) เลขที่ `TM26100001` ทั้งคู่ → `ic_trans_detail` ของแต่ละ flag → `COMMIT`
 - `ic_trans` (16 คอลัมน์): **`trans_type=0`**, `trans_flag=422/420`, `doc_format_code='TM'`, `remark`, `total_amount=100`, `total_amount_2=0` — ไม่มี `pass_book_code` ที่หัว
 - `ic_trans_detail`: **422: `item_code=<บัญชีต้นทาง>`, `bank_name/bank_branch`, `item_code_2=<บัญชีปลายทาง>`, `bank_name_2/bank_branch_2`** · 420: สลับต้นทาง/ปลายทาง · `transfer_amount=100, fee_amount=0, sum_amount=100` · **`calc_flag`: 422 = 1, 420 = -1** (ตรงกับ `_transStockCalcType`) · `ref_row=-1`
