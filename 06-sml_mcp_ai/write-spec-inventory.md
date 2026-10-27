@@ -1,0 +1,23 @@
+---
+tags: [sml, sml_mcp_ai, write-spec, inventory, verified-runtime]
+status: verified-runtime รอบ 10.1 (โอนสินค้า) · รอบ 10.2–10.6 รอทดสอบ
+source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
+---
+# สเปกการบันทึก: เอกสารสินค้า/คลัง (โอน, ปรับปรุง, เบิก, ตรวจนับ)
+
+กลับไป [[00-Index]] · สต็อก/ต้นทุน [[stock-cost]] · เมนู [[module-inventory]] · ยังไม่ได้ทดสอบ [[00-Unverified]]
+
+## 1. โอนสินค้า (72 + 70) — ยืนยันรอบ 10.1 (TF26100002, 15:46:16 วันที่ 2026-10-27)
+หน้าจอ: 2.18 โอนสินค้า/วัตถุดิบ (`menu_ic_transfer_wh_out`) · AH-0011 2 แท่ง AB-1/001 → AB-2/002
+- **เอกสารเดียว เลขเดียว แต่ 2 หัว 2 ชุดบรรทัด** (transaction เดียว):
+  1. `insert ic_trans (trans_type=3, trans_flag=72, status=0, doc_date, doc_time, doc_no, doc_format_code='TF', doc_ref_date, doc_ref, sale_code, wh_from, location_from, wh_to, location_to, remark, is_pos=0, remark_2..5, creator_code, create_datetime)` — โอนออก
+  2. `insert ic_trans (… trans_flag=70 …)` — โอนเข้า หัวเหมือนกันทุกช่อง
+  3. `insert ic_trans_detail` flag **72**: `calc_flag=-1`, **`wh_code/shelf_code` = ต้นทาง** (AB-1/001), **`wh_code_2/shelf_code_2` = ปลายทาง**, `item_code, item_name, unit_code, qty, stand_value, divide_value`, `ref_row=-1`, `ref_guid`
+  4. `insert ic_trans_detail` flag **70**: `calc_flag=1`, `wh_code/shelf_code` = **ปลายทาง**, `wh_code_2/shelf_code_2` = ต้นทาง (สลับกับข้อ 3), `ref_guid` เดียวกัน
+  5. `logs` (`menu_name='menu_ic_transfer_wh_out'`, `screen_code=72`, `function_code=1`, `doc_qty=2`)
+- ไม่มีราคา/มูลค่าตอนบันทึก (`price`, `sum_amount` ไม่ถูกส่ง) · `wh_from`/`wh_to` ที่หัวเป็น null เมื่อเลือกคลังที่บรรทัด
+- ข้อสังเกต: `doc_time` ของบรรทัด 70 เป็น 15:46 ขณะที่หัวและบรรทัด 72 เป็น 15:45 (เวลาปัจจุบันตอนสร้างแถว)
+- หลัง commit: reset `last_status` ทั้ง 70/72 → คำนวณต้นทุน: **ทั้งสองบรรทัดได้ `sum_of_cost=242.98`, `average_cost=121.49`** (โอนพาต้นทุนเฉลี่ยไปด้วย) → ตรวจ `accrued_in/book_out/accrued_out` → คิว `process` 'IC' → **`update ic_trans set total_amount = <มูลค่าต้นทุน>`** ทั้ง 70 และ 72 (ตรวจ DB: 242.98)
+- ผลตรวจ DB: AB-1/001 13 → **11**, AB-2/002 0 → **2**, `ic_inventory.balance_qty` รวมยังเป็น 13
+- **สำหรับ sml_mcp_ai:** เขียน 2 หัว + 2 บรรทัดต่อสินค้า (คลังสลับกันใน `wh_code`/`wh_code_2`), `calc_flag` −1/+1, ใส่คิว `process` 'IC'; `total_amount` ปล่อยให้โปรแกรมคำนวณจากต้นทุน
+- ยังไม่ทราบ: ตัวเลือก `transfer_stock_control` (ห้ามโอนติดลบ), โอนหลายรายการ, ยกเลิก (73/71 — รอบ 10.6)
