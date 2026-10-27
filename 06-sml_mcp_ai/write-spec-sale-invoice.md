@@ -155,3 +155,12 @@ source: capture aoy-run1 (INV26100001 ขายสด 08:55–08:57) + aoy-run2 
 - **`cb_trans` (31 คอลัมน์):** `doc_format_code='INV', pay_type=1, trans_type=2, trans_flag=44, total_amount=26.75, cash_amount=26.75, pay_cash_amount=0, money_change=0, card_amount, coupon_amount, point_qty/rate/amount, wallet_amount = 0, total_net_amount = total_amount_pay = 26.75` · ไม่มี `cb_trans_detail` (เงินสด)
 - `gl_journal_vat_sale` ฐาน 25 ภาษี 1.75 · `ic_trans_shipment` 1 แถว
 - สต็อก ZZTEST-0001 4 → 3 · ราคาดู [[pricing-vat-gl]] §1.1
+
+## 9. รอบ 9.2: เพิ่มหนี้ขาย ไม่กระทบสต็อก (SA2610-001 อ้าง INV26100004 เพิ่ม 5 บาท, 11:15:02 วันที่ 2026-10-27)
+เมนู ขาย › เพิ่มหนี้ (4.20) · ตัวเลือกประเภท: 1.เพิ่มหนี้จากการขายเงินเชื่อ (= `inquiry_type 0`, กระทบสต็อก) · **2.เพิ่มหนี้จากการขายเงินเชื่อ (ไม่กระทบสต๊อก) = `inquiry_type 1`** · 3.…(สินค้าบริการ) · เลขรูปแบบ `SA2610-001`
+- **Transaction (รูปแบบเดียวกับใบลดหนี้ 48):** `ic_trans` → `ic_trans_detail` → `ap_ar_trans_detail` (+ แถวว่าง line 1) → `gl_journal_vat_sale` → `COMMIT`
+- `ic_trans`: `trans_flag=46, inquiry_type=1, vat_type=1` (ใบเพิ่มหนี้เป็นภาษีรวมใน แม้บิลต้นทางแยกนอก — หน้าจอไม่ได้คัดประเภทภาษีมาจากบิล), `total_amount=5, total_before_vat=4.67, total_vat_value=0.33`, **`ref_amount=26.75, ref_diff=5, ref_new_amount=31.75`**
+- `ic_trans_detail`: **`calc_flag=-1`**, `doc_ref_type=1`, `ref_doc_no=<บิล>`, **`ref_row=-1`**, `qty=1, price=5`, `set_ref_price=25` (ราคาเดิมในบิล)
+- `ap_ar_trans_detail`: **`calc_flag=-1`** (เหมือนใบลดหนี้), `bill_type=1, billing_no=<บิล>, sum_debt_value=26.75, sum_debt_balance=26.75, sum_debt_amount=5, final_amount=31.75, sum_before_vat=25`
+- `gl_journal_vat_sale`: **`vat_calc=1`** (บวก — ต่างจากลดหนี้ที่เป็น −1), ฐาน 4.67 ภาษี 0.33
+- ตรวจ DB: บิล `used_status=1` · สต็อก ZZTEST-0001 คงที่ 2 (46 `inquiry_type<>0` ถูกตัดจากสูตร)
