@@ -88,6 +88,14 @@ source: smlerp SMLAPARControl/_payControl.cs (`_queryInsert` ~594), _advanceCont
 - **410 ไล่ doc flow ต่อไปใบรับชำระ** (`select doc_ref from ic_trans_detail where doc_no=<CHD>`) ⇒ **`RC26100006.used_status = 1` ตั้งแต่นำฝาก** · 411/461 ไม่ไล่ต่อ ⇒ ใบรับชำระที่ขึ้นเงินบัตร หรือเช็คที่บันทึกผ่านโดยไม่นำฝากก่อน จะยัง `used_status=0`
 - ไม่มี GL (ร้านปิด realtime)
 
+**เช็ครับคืน (412, CRT) — ยืนยันจากรอบ 9.5** (2026-10-27: รับชำระ RC26100009 BF-INV26100033 30 บาท ด้วยเช็ค 0000502 14:06:43 → นำฝาก CHD26100002 14:07:46 → คืน CRT26100001 14:08:59, เมนู 8.10.2.5 `menu_cb_chq_in_return`)
+- หน้าจอเลือกเช็คจาก `cb_chq_list where chq_number=? and chq_type=1 and status in (1,2)` (นำฝากแล้วหรือผ่านแล้ว) · หน้าจอนำฝาก 410 เลือก `status in (0,3)` ⇒ **เช็คคืนนำฝากซ้ำได้**
+- transaction เดียว 2 คำสั่ง แบบเดียวกับ 411: `ic_trans` (`trans_type=2`, `trans_flag=412`, `doc_format_code='CRT'`, `pass_book_code`, `total_value = total_amount = 30`, `total_cost=0`, `remark`) + `ic_trans_detail` (`item_code=<สมุดบัญชี>`, `bank_name`, `bank_branch`, `chq_number`, `date_due`, `doc_ref=<ใบรับชำระ>`, `ref_row`, `price = sum_amount`, `calc_flag=1`) → `logs` `function_code=1`
+- หลัง commit: คิว `process` (สมุดบัญชี) → ซ่อม `cb_chq_list` → คำสั่ง `with chq_last_flag` (เรียงเอกสารเช็คล่าสุดตามวันที่/เวลา/flag มากสุด แล้วแปลง 410→1, 411→2, 412→3, 413→4, 414→6, 416→7, 418→8, ไม่มี→0) ⇒ **status 1 → 3** (ตรวจ DB แล้ว)
+- **ไม่ย้อนหนี้ลูกค้า**: ไม่มีการเขียน `ap_ar_trans`/`ap_ar_trans_detail`/`cb_trans` · ใบรับชำระ `RC26100009` ยัง `used_status=1`, `last_status=0` · บิล `BF-INV26100033` ยัง `used_status_2=1` ⇒ ยอดค้างรายบิล (สูตร [[write-spec-receipt]] §1) ยังเป็น 0 — การตั้งหนี้ใหม่ต้องทำด้วย 418 แยก (ยังไม่ได้ทดสอบ)
+- ผลที่หนี้ลูกค้า: เช็ค status 3 ยังถูกนับใน "เช็คในมือ" ของ `_arStatusForm` (`status not in (2,7,8)`) — from-code, ยังไม่ได้ดูหน้าจอ
+- ไม่มี GL (ร้านปิด realtime)
+
 ### 2.3 เช็คจ่าย — ยืนยันจากรอบ 7.7 (จ่ายชำระ PV26100004 จ่าย PU26100003 10 บาท ด้วยเช็ค 0000801, 15:45:32 วันที่ 2026-10-26)
 - ลำดับเหมือนจ่ายชำระเงินสด ([[write-spec-ap-payment]] §6) ต่างที่:
   - `cb_trans`: `pay_type=2`, **`chq_amount=10`**, `cash_amount=0`
