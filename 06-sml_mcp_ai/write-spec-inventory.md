@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, inventory, verified-runtime]
-status: verified-runtime รอบ 10.1 (โอนสินค้า) · รอบ 10.2–10.6 รอทดสอบ
+status: verified-runtime รอบ 10.1 (โอนสินค้า), 10.2 (ปรับเพิ่ม) · รอบ 10.3–10.6 รอทดสอบ
 source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
 ---
 # สเปกการบันทึก: เอกสารสินค้า/คลัง (โอน, ปรับปรุง, เบิก, ตรวจนับ)
@@ -21,3 +21,12 @@ source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
 - ผลตรวจ DB: AB-1/001 13 → **11**, AB-2/002 0 → **2**, `ic_inventory.balance_qty` รวมยังเป็น 13
 - **สำหรับ sml_mcp_ai:** เขียน 2 หัว + 2 บรรทัดต่อสินค้า (คลังสลับกันใน `wh_code`/`wh_code_2`), `calc_flag` −1/+1, ใส่คิว `process` 'IC'; `total_amount` ปล่อยให้โปรแกรมคำนวณจากต้นทุน
 - ยังไม่ทราบ: ตัวเลือก `transfer_stock_control` (ห้ามโอนติดลบ), โอนหลายรายการ, ยกเลิก (73/71 — รอบ 10.6)
+
+## 2. ปรับปรุงสต็อก (เพิ่ม) 66 — ยืนยันรอบ 10.2 (IA26100002, 15:51:21 วันที่ 2026-10-27)
+หน้าจอ: 2.20 ปรับปรุงสต็อกสินค้า/วัตถุดิบ (เพิ่ม) (`menu_ic_stk_adjust`) · AH-0011 +1 แท่ง AB-1/001
+- เปิดหน้าจอ: ล้างบรรทัดกำพร้า `delete from ic_trans_detail where trans_flag=66 and not exists (หัว)`
+- เลือกสินค้า: อ่าน `ic_inventory.average_cost` (+ `stand_value/divide_value` ของหน่วยต้นทุน) → **ราคาที่เติมให้ = ต้นทุนเฉลี่ยปัจจุบัน** (121.49) · คลัง/ชั้นเก็บเริ่มต้น = **ชั้นเก็บแรกเมื่อเรียงตาม `whcode`** (`select whcode, code from ic_shelf order by whcode limit 1`)
+- transaction: `insert ic_trans (trans_type=3, trans_flag=66, status=0, doc_format_code='IA', inquiry_type=0, wh_from, location_from, remark, is_pos=0, …)` → `insert ic_trans_detail` (`calc_flag=1`, `wh_code, shelf_code, unit_code, qty, price=121.49, sum_amount=121.49, price_exclude_vat, sum_amount_exclude_vat`, `ref_row=-1`, `stand_value/divide_value`) → `logs` (`menu_ic_stk_adjust`, `screen_code=66`)
+- หลัง commit: คำนวณต้นทุน (บรรทัดได้ `sum_of_cost=121.49`, `average_cost=121.49` — ต้นทุนเฉลี่ยไม่เปลี่ยนเพราะใช้ราคาเท่าเดิม) → reset `last_status` → ตรวจค้างรับ/จอง/ส่ง → คิว `process` 'IC' → `update ic_trans set total_amount` (= 121.49)
+- ผลตรวจ DB: AB-1 11 → **12**, รวม 13 → **14**
+- **สำหรับ sml_mcp_ai:** ราคาปรับเพิ่มมีผลต่อต้นทุนเฉลี่ย — ถ้าไม่ระบุ ให้ใช้ `ic_inventory.average_cost` แบบโปรแกรม; ราคาที่ต่างจากต้นทุนเฉลี่ยจะเปลี่ยนต้นทุนของสินค้า (ยังไม่ได้ทดสอบ)
