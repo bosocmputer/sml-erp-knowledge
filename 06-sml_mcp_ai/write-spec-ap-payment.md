@@ -81,3 +81,13 @@ source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceD
 - **Transaction:** `insert ap_ar_trans (trans_type=1, trans_flag=23, doc_date, doc_no, cust_code, doc_format_code='DEC', doc_ref=<PV>, doc_ref_date=null, remark, creator_code, create_datetime)` + cleanup → `COMMIT` — หัวอย่างเดียว (เหมือนยกเลิกใบรับชำระ/ใบวางบิล)
 - doc flow (~2 วินาที): PV `last_status=1`, `ap_ar_trans_detail` (19) `last_status=1`, **`cb_trans.status=1`**, `cb_trans_detail.last_status=1` → ไล่ต่อใบซื้อ: **PU26100002 `used_status_2=0`** (จ่ายใหม่ได้) → ไล่ต่อ PO26100001
 - ⚠️ **`gl_wht_list` ของ PV (RWHT5326100001) ยังอยู่และ `status=0`** — doc flow ไม่ปิดหนังสือรับรองหัก ณ ที่จ่าย ⇒ รายงานภาษีหัก ณ ที่จ่ายที่อ่าน `gl_wht_list` โดยไม่เช็ค `last_status` ของใบจ่ายจะยังนับยอดนี้ (ยังไม่ได้ตรวจตัวรายงาน)
+
+## 10. ยืนยันจากรอบ 9.4: ใบรับวางบิลเจ้าหนี้ + ยกเลิก (PB26100002 13:49:15, DDC26100001 13:50:17 วันที่ 2026-10-27)
+**ยอดค้างที่หน้าจอใช้ (SQL จริง 13:46:25)** — union 3 ส่วนต่อเอกสาร คำนวณ**แยกรายใบ**:
+1. ใบซื้อ 12 (`inquiry_type in (0,2)`): `total_amount − Σ(sum_pay_money + lost_profit_exchange_amount)` ของ `ap_ar_trans_detail` 19 ที่ `billing_no = doc_no and bill_type = trans_flag`
+2. เพิ่มหนี้/ตั้งหนี้: 14, 315 (0,2), 316, 81, 87, 83, 89, 260/264 (0,2) — ยอดบวก
+3. **ลดหนี้: 16 (`inquiry_type in (0,1)`), 317 (0,1), 85, 262 (0,2), 91 — ยอดติดลบเป็นบรรทัดของตัวเอง**
+- ⇒ **ใบส่งคืน/ลดหนี้ไม่ถูกหักจากยอดของใบซื้อ** แต่เป็นอีกบรรทัดที่ต้องเลือกเอง · รอบนี้ผู้ใช้กรองเลขเอกสาร `PU26100002` (`doc_no between … and …`) จึงไม่เห็น PT26100001 (−10) — ยอด PU แสดง 120 เต็ม
+- โปรแกรมตรวจซ้ำก่อนเลือก: `select billing_no from ap_ar_trans_detail where upper(billing_no)=? and trans_flag=213 and last_status=0` (ใบเดียวอยู่ในใบรับวางบิลที่ใช้งานได้ใบเดียว)
+**ใบรับวางบิล:** เหมือน §8 (`ap_ar_trans` 213 + `ap_ar_trans_detail` `bill_type=12`, `sum_debt_amount = balance_ref = sum_pay_money = 120`) · `credit_day=0`, `due_date = doc_date`
+**ยกเลิก (214):** `insert ap_ar_trans (trans_type=1, trans_flag=214, doc_no, cust_code, doc_format_code='DDC', doc_ref=<PB>, …)` หัวอย่างเดียว (แบบเดียวกับ 236/240/23) → PB `last_status=1` → ใบซื้อ `used_status_2=0`
