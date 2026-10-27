@@ -75,3 +75,9 @@ source: smlerp SMLERPARInfo/_process.cs (`_createQuery` ~624–860, `_arBalanceD
 - doc flow: **`PB26100001` `used_status=1, doc_success=1`** ⇒ กฎ `_docFlowThread.cs` ~2442 ที่นับ `ap_ar_trans_detail.trans_flag in (99)` **ถูกต้อง** — 99 ในตารางนี้คือแถวอ้างอิงของจอวางบิล/รับ-จ่ายชำระ ไม่ใช่ `ลูกหนี้_ตั้งหนี้อื่น` (ข้อสงสัยใน KB ทีม SML ดู [[team-review-2026-10-26-sml-team-kb]] ข้อ ข.)
 - ข้อมูลเดิมใน AOY: ใบรับวางบิลที่จ่ายโดยไม่ผ่านใบรับวางบิล (ไม่มีแถว 99) `used_status=0` · มี 3 ใบ (PB26040010–12) ที่มีแถว 99 ของใบจ่ายที่ไม่ถูกยกเลิก แต่ `used_status=0, doc_success=1` ⇒ doc flow ของใบนั้นไม่ได้รันหลังจ่าย (ถ้าคำนวณใหม่ตามกฎจะได้ 1) — **อย่าใช้ `used_status` ของใบรับวางบิลเป็นตัวตัดสินอย่างเดียว** ให้ดูแถว 99 / `doc_ref` ของใบจ่ายด้วย
 - **สำหรับ sml_mcp_ai:** จ่ายตามใบรับวางบิลต้องเขียนทั้ง `doc_ref=<PB>` ในบรรทัดใบซื้อ และแถว `trans_flag=99` ชี้ PB
+
+## 9. ยืนยันจากรอบ 8.2: ยกเลิกจ่ายชำระ (DEC26100001 ยกเลิก PV26100002, 10:20:58 วันที่ 2026-10-27) — ใบแรกของ AOY
+เมนู เจ้าหนี้ › รายงาน/ยกเลิก › ยกเลิกจ่ายชำระหนี้ (เจ้าหนี้) (6.13.2) · PV26100002 = จ่าย PU26100002 เงินสด 116.64 + หัก ณ ที่จ่าย 3.36 (`RWHT5326100001`)
+- **Transaction:** `insert ap_ar_trans (trans_type=1, trans_flag=23, doc_date, doc_no, cust_code, doc_format_code='DEC', doc_ref=<PV>, doc_ref_date=null, remark, creator_code, create_datetime)` + cleanup → `COMMIT` — หัวอย่างเดียว (เหมือนยกเลิกใบรับชำระ/ใบวางบิล)
+- doc flow (~2 วินาที): PV `last_status=1`, `ap_ar_trans_detail` (19) `last_status=1`, **`cb_trans.status=1`**, `cb_trans_detail.last_status=1` → ไล่ต่อใบซื้อ: **PU26100002 `used_status_2=0`** (จ่ายใหม่ได้) → ไล่ต่อ PO26100001
+- ⚠️ **`gl_wht_list` ของ PV (RWHT5326100001) ยังอยู่และ `status=0`** — doc flow ไม่ปิดหนังสือรับรองหัก ณ ที่จ่าย ⇒ รายงานภาษีหัก ณ ที่จ่ายที่อ่าน `gl_wht_list` โดยไม่เช็ค `last_status` ของใบจ่ายจะยังนับยอดนี้ (ยังไม่ได้ตรวจตัวรายงาน)
