@@ -1,6 +1,6 @@
 ---
 tags: [sml, sml_mcp_ai, write-spec, inventory, verified-runtime]
-status: verified-runtime รอบ 10.1 (โอนสินค้า), 10.2 (ปรับเพิ่ม), 10.3 (ปรับลด) · รอบ 10.4–10.6 รอทดสอบ
+status: verified-runtime รอบ 10.1 (โอนสินค้า), 10.2 (ปรับเพิ่ม), 10.3 (ปรับลด), 10.4 (เบิก) · รอบ 10.5–10.6 รอทดสอบ
 source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
 ---
 # สเปกการบันทึก: เอกสารสินค้า/คลัง (โอน, ปรับปรุง, เบิก, ตรวจนับ)
@@ -38,3 +38,11 @@ source: capture aoy-run10-1 (2026-10-27 15:46) + DB aoy
 - หลัง commit (~14 วินาทีต่อมา): คำนวณต้นทุนเติมให้บรรทัด `price = sum_amount = sum_of_cost = 121.49`, `average_cost=121.49` → ซ่อม `cb_chq_list` (ทำทุกครั้ง ไม่เกี่ยวกับเอกสารนี้) → คิว `process` 'IC' → `update ic_trans set total_amount` (= 121.49)
 - ผลตรวจ DB: AB-1 12 → **11**, รวม 14 → **13**, ต้นทุนเฉลี่ยคง 121.49
 - **สำหรับ sml_mcp_ai:** ส่ง `price=0, sum_amount=0` ได้ โปรแกรมเติมต้นทุนเองตอนคำนวณต้นทุน (เหมือนโอน) — ถ้าคิว `process` ค้าง มูลค่าจะยังเป็น 0
+
+## 4. เบิกสินค้า 56 — ยืนยันรอบ 10.4 (WID26100001, 15:59:02 วันที่ 2026-10-27)
+หน้าจอ: 2.14 เบิกสินค้า/วัตถุดิบ (`menu_ic_issue`) · AH-0011 1 แท่ง AB-1/001 · หมายเหตุ "ทดสอบเบิก"
+- transaction: `insert ic_trans (trans_type=3, trans_flag=56, status=0, doc_format_code='WID', doc_ref_date, doc_ref, wh_from, location_from, remark, is_pos=0, …)` — **ไม่มีช่องผู้เบิก/แผนกที่ถูกบันทึก** → `insert ic_trans_detail` (`calc_flag=-1`, `wh_code, shelf_code, unit_code, qty`, **ไม่ส่ง `price`/`sum_amount` เลย**, มี `doc_ref_type=0`, `ref_doc_no`, `set_ref_line`, `set_ref_qty` สำหรับอ้างใบขอเบิก 122) → `logs` (`menu_ic_issue`, `screen_code=56`)
+- หลัง commit: คำนวณต้นทุน `sum_of_cost=121.49`, `average_cost=121.49` แต่ **`sum_amount=0`** (ต่างจาก 68 ที่เติม `sum_amount=price=121.49`) → คิว `process` 'IC' → `update ic_trans set total_amount` (DB: 121.49)
+- **ต้นทุนเฉลี่ยสินค้าเปลี่ยน 121.49 → 121.50** หลังเบิก (ไม่มีการรับเข้าใหม่) — น่าจะเป็นเศษจากการปัดมูลค่าคงเหลือ ยังไม่ได้ยืนยันสาเหตุ
+- ผลตรวจ DB: AB-1 11 → **10**
+- ต่างจากปรับลด (68): มีช่องอ้างใบขอเบิก, `sum_amount` ของบรรทัดคง 0
