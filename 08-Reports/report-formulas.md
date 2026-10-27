@@ -36,6 +36,28 @@ source: capture aoy-run1 (รายงานยอดขาย 09:04), capture a
   | `ar_balance` | ผลรวมทั้งหมด |
 - มีการหักยอด "คืนเงินล่วงหน้า" (`ic_trans` ประเภทคืนเงินล่วงหน้า) ในส่วนรวม (~990) — ยังไม่ได้ไล่ละเอียด
 
+## สินค้าถึงจุดสั่งซื้อ — 2 หน้าจอ 2 สูตร (ยืนยันหน้าจอ 2.24.10 จาก capture aoy-v1 2026-10-27 15:08:32)
+ค่าตั้ง: `ic_inventory_detail.purchase_point` (ป้าย "จุดสั่งซื้อ") · `minimum_qty`/`maximum_qty` **ไม่ถูกใช้** ในทั้งสองหน้าจอ
+
+**ก. วิเคราะห์ข้อมูล › สินค้าถึงจุดสั่งซื้อ** (`menu_ic_info_stk_reorder`, `SMLInventoryControl._stkReorder`, เลข 2.24.10) — **verified-runtime**
+```sql
+select code as ic_code, name_1 as ic_name, unit_standard||'~'||unit_standard_name as ic_unit_code,
+       balance_qty, (select purchase_point from ic_inventory_detail where ic_code=ic_inventory.code) as purchase_point,
+       accrued_in_qty as purchase_balance_qty
+from ic_inventory
+where item_type<>5 and (select purchase_point …)>0 and balance_qty < (select purchase_point …)
+order by code
+```
+- ยอดจาก**คอลัมน์ที่เก็บไว้** `ic_inventory.balance_qty` / `accrued_in_qty` (ไม่คำนวณใหม่ — ถ้าคิว `process` ค้าง ยอดอาจไม่ล่าสุด, [[stock-cost]])
+- คอลัมน์ "ควรสั่ง" คำนวณในหน้าจอ (`_stkReorder.cs` ~221): `purchase_point − (balance_qty + accrued_in_qty)` — **อาจเป็น 0 หรือติดลบ แต่ยังแสดงแถว**
+- ผลทดสอบ AOY (คงเหลือ/ค้างรับ/จุดสั่งซื้อ → ผล): AH-0007 3/0/5 → **ขึ้น** · AH-0037 3/0/3 → ไม่ขึ้น (เท่ากัน) · AH-0010 8/0/5 → ไม่ขึ้น · **ZZTEST-0001 2/1/3 → ขึ้น** (คงเหลือ+ค้างรับ = จุดสั่งซื้อแล้ว)
+- ตารางล่าง (คลิกแถว): ใบสั่งซื้อล่าสุด (6) + ซื้อล่าสุด ของสินค้านั้น พร้อมผู้ขาย/หน่วย/ราคา (`_stkReorder.cs` ~140–171) — from-code
+
+**ข. รายงานวิเคราะห์ › รายงานสินค้าที่ถึงจุดสั่งซื้อ** (`menu_ic_report_info_stk_reorder`, `SMLERPICReport.ic_analysis._report_ic_stk_reorder`, เลข 2.26.6) — **from-code** (เปิดไม่ได้ในรอบทดสอบ: เครื่องไม่มีเครื่องพิมพ์ "Please set Default Printer")
+- ยอดคงเหลือ**คำนวณใหม่จากเอกสาร ณ วันที่สิ้นสุด** (`_stkStockInfoAndBalanceQuery`, ต้นทุนปกติ, ยอดตามสินค้า) · เงื่อนไข `purchase_point>0 and purchase_point>balance_qty` · **ไม่มีค้างรับเลย**
+
+**สำหรับ AI / sml_mcp_ai:** ทั้งสองหน้าจอแสดงสินค้าที่สั่งซื้อแล้วยังไม่ได้รับ ⇒ ก่อนร่างใบสั่งซื้อต้องหัก `accrued_in_qty` เอง และตัดแถวที่ "ควรสั่ง" ≤ 0 ไม่งั้นสั่งซ้ำ
+
 ## ข้อควรระวังเวลาสร้างรายงานเอง
 - กรอง `last_status = 0` ทุกครั้ง (เอกสารยกเลิก = `last_status = 1`) — ยกเว้นรายงานภาษีขายที่ SML แสดงแถวยกเลิกเป็นยอด 0
 - อย่าใช้ `is_cancel` เป็นตัวกรองการยกเลิกของบิลที่ยกเลิกด้วย 45 (ค่าเป็น 0) ([[write-spec-cancel]])
