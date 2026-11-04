@@ -22,7 +22,7 @@ provider หนึ่งมีได้หลาย data DB และ **data DB 
 - `kbyt` (1.5 GB): master data ครบ (ic_inventory ~20.5k, ar_customer ~27.8k, ap_supplier 848, ic_warehouse 3) แต่ **ธุรกรรมน้อยมาก** — ic_trans 16 ใบ (2026), gl_journal 0, erp_branch_list 0; มีตารางสำรอง `ic_trans_detail_20250209_111929` 583k แถว (doc_date 2021-01-04 ถึง 2025-02-08) และ `ic_trans_detail_20250209_111845`
 - ตารางแถวเยอะ: erp_print_logs ~1.78M, gl_journal_allocate_list ~1.0M, gl_journal_job_list ~0.9M
 - `kbyt_images` 2.6 GB: images ~13.9k แถว
-- `kbgtest` คือ DB ที่ sml_mcp_ai/OpenClaw production ใช้ (พร้อม `kbgtest_images`)
+- `kbgtest` คือ DB ที่ระบบ production ภายในตัวหนึ่งใช้ (พร้อม `kbgtest_images`)
 
 - ชุด AOY (`smlerpmainaoy`, `aoy`, `aoy_images`, `aoy_logs`): ต่อได้ครบ 2026-10-20 มีธุรกรรมหลากหลายกว่า kbyt (ic_trans 923 ใบ) — ใช้เป็นชุดทดสอบหลัก ดู [[sql-capture-aoy]]
 

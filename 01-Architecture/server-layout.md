@@ -9,7 +9,7 @@ source: SSH เข้า server ทดสอบ (read-only) + compose files + /p
 > **ไม่เก็บ host, IP สาธารณะ, port ที่เปิดออกนอก, user/password ใน vault** — ค่าจริงอยู่ใน `~/dev/sml-connect/` ของเจ้าของเท่านั้น
 > ดูเฉพาะส่วนของ SML ERP ตามที่ผู้ใช้อนุญาต (ไม่สำรวจบริการอื่นบนเครื่อง)
 
-## โฟลเดอร์บริการ (`/mnt/data/nextstep-node-2/smlservice/`, เป็น git repo ของ deploy)
+## โฟลเดอร์บริการ (`<deploy-root>/smlservice/`, เป็น git repo ของ deploy)
 
 แต่ละโฟลเดอร์มี `docker-compose.yml` ของตัวเอง ทุกตัวใช้ network ภายนอกชื่อ `sml_service_network` และ reverse proxy คือ traefik (route ตาม `PathPrefix`)
 
@@ -26,7 +26,7 @@ source: SSH เข้า server ทดสอบ (read-only) + compose files + /p
 
 - สคริปต์เปิดเครื่อง `dockerrunallcontainer.sh` / `dockerrunallcontainer3.sh` สั่ง `up -d` แค่ **traefik_proxy → smljavawebservice → postgresql**
 - ⇒ **บน server นี้ส่วน SML ที่รันมีแค่ 4 ตัว:** traefik, smljavawebservice, sml_postgresql, sml_postgresql_autobackup (ตรงกับสคริปต์เปิดเครื่อง) — ไม่มีตัวคำนวณต้นทุนแยก, ไม่มี RabbitMQ, ไม่มี SMLJavaRESTService
-- container อื่นบนเครื่อง (nexflow-*, nextcafe*, kbwshop-*, ฯลฯ) ไม่ใช่ส่วนของ SML ERP — ไม่ได้สำรวจ ยกเว้นตัวที่ต่อ database ของ SML (ตารางด้านล่าง)
+- container อื่นบนเครื่อง (บริการของโปรเจกต์อื่น) ไม่ใช่ส่วนของ SML ERP — ไม่ได้สำรวจ ยกเว้นตัวที่ต่อ database ของ SML (ตารางด้านล่าง)
 
 ## `tomcat/temp` = config ของ SMLJavaWebService (`java.io.tmpdir`)
 
@@ -49,13 +49,13 @@ source: SSH เข้า server ทดสอบ (read-only) + compose files + /p
 
 ## client ของ database SML ใน `sml_service_network` (ชื่อจาก `docker network inspect` + พฤติกรรมจาก capture 3 รอบ)
 
-| IP | container | database ของ SML ที่ใช้ | ทำอะไร (นับชนิดคำสั่ง, ไม่ดูค่า) |
-|---|---|---|---|
-| 172.18.0.3 | `smljavawebservice-smljavawebservice-1` | ทุก tenant + main database ทุก provider | โปรแกรม SML ทั้งหมด (JDBC) |
-| 172.18.0.5 | `nexflow-sml-api-bybos` (image `nexflow-sml-api-bybos:f33b34c`) | aoy, demo, ploy_test | อ่านอย่างเดียวในช่วง capture: `-- ping` และ query สรุปใบเสนอราคา/สถานะ (`WITH base_orders …`) |
-| 172.18.0.10 | `nextloyalty-api` | demo, demo2 (+ `loyalty_hub` ของตัวเอง) | อ่าน + **เขียนตรงเข้าตาราง SML**: `UPDATE ar_customer SET website = <line_user_id> FROM jsonb_to_recordset(...)` (42 ครั้ง) — ใช้คอลัมน์ `website` เก็บ LINE user id |
-| 172.18.0.15 | `kbwshop-nextstep-api-1` | kbgtest | อ่านอย่างเดียวในช่วง capture (369 select) |
-| 172.18.0.2 | `pricelabelservice` | wawacrm | อ่านอย่างเดียวในช่วง capture (122 select) |
+| บริการ | database ของ SML ที่ใช้ | ทำอะไร (นับชนิดคำสั่ง, ไม่ดูค่า) |
+|---|---|---|
+| SMLJavaWebService (`smljavawebservice`) | ทุก tenant + main database ทุก provider | โปรแกรม SML ทั้งหมด (JDBC) |
+| API ภายนอก A | tenant ทดสอบ 3 ตัว | อ่านอย่างเดียวในช่วง capture (`-- ping` + query) |
+| API ภายนอก B (ระบบสมาชิก) | tenant ทดสอบ 2 ตัว (+ database ของตัวเอง) | อ่าน + **เขียนตรงเข้าตาราง SML**: `UPDATE ar_customer SET website …` |
+| API ภายนอก C | tenant ทดสอบ 1 ตัว | อ่านอย่างเดียวในช่วง capture |
+| API ภายนอก D | tenant ทดสอบ 1 ตัว | อ่านอย่างเดียวในช่วง capture |
 
 - IP ใน docker เปลี่ยนได้เมื่อ container ถูกสร้างใหม่ — mapping นี้ใช้ได้กับ capture วันที่ 2026-10-21 เพราะ container เหล่านี้ Up ≥ 7 วันก่อน capture
 - โปรเจกต์เหล่านี้เป็น**ตัวอย่างอ้างอิงเท่านั้น** (ไม่แก้) — แต่ยืนยันว่ามีหลายระบบเขียน/อ่าน database ของ SML ตรง ๆ โดยไม่ผ่าน web service ซึ่งเป็นเหตุผลที่ sml_mcp_ai ต้องเป็นมาตรฐานกลาง ([[mcp-project]])

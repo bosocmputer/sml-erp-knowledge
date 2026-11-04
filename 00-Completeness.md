@@ -54,5 +54,5 @@ date: 2026-10-21
 - ยังไม่มี capture: แก้ไข/ยกเลิกใบสั่งขาย, เอกสารที่ดึงจากใบเสนอราคา/ใบจอง, ลดหนี้/รับคืน (48), ซื้อจากใบสั่งซื้อ, ขายบัตรเครดิต/เช็ค, ใบวางบิล, จ่ายชำระเจ้าหนี้
 - ~~main database ของ provider AOY~~ → **ตอบแล้ว 2026-10-21:** `smlerpmainnext` ([[login-flow]])
 - ~~server ใช้คิวต้นทุนแบบไหน~~ → **ตอบแล้ว:** ตาราง `process` หยิบโดยโปรแกรม Windows ที่เปิดอยู่; RabbitMQ/smlstockprocess ไม่รัน ([[stock-cost]], [[server-layout]])
-- ~~client IP อื่นใน docker network~~ → **ตอบแล้ว:** sml-api-bybos (Nexflow), nextloyalty-api, kbwshop-nextstep-api, pricelabelservice ([[server-layout]])
+- ~~client IP อื่นใน docker network~~ → **ตอบแล้ว:** บริการอื่นอีก 4 ตัว (อ่านอย่างเดียว 3, เขียนตรงเข้าตาราง SML 1) ([[server-layout]])
 - รายละเอียดย่อย: ไวยากรณ์ field ในฟอร์มพิมพ์, สูตรรายงานในโค้ดแต่ละตัว (รู้ตารางแล้ว), สินค้า 3 ตัวที่ balance_qty ไม่ตรงสูตร (สาเหตุยังไม่ทราบ — ยังไม่ได้ตรวจ)

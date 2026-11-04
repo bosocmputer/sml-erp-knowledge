@@ -44,8 +44,13 @@ IP_RE = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}(?::\d+)?\b")
 DROP_LINE_RE = re.compile(r"(?i)sml_mcp_ai|smlmcpconnect|nexflow|bybos|openclaw|loyalty")
 CAPTURE_RE = re.compile(r"\baoy-run\d+(?:-all)?\b|การทดสอบภายใน-run\d+")
 LINK_RE = re.compile(r"\[\[([^\]|#]*)(#[^\]|]*)?(?:\|([^\]]*))?\]\]")
-FORBIDDEN = [re.compile(p, re.I) for p in (r"nextstep", r"iszai", r"/home/", r"bosscatdog", r"sshpass", r"PGPASSWORD",
-                                           r"\.pgpass", r"sml-sqllog", r"trycloudflare")]
+# site-specific terms (host names, user names) live in scripts/.export-forbidden (one regex per line, git-ignored)
+# because the vault repo is public; the generic ones stay here
+_LOCAL_FORBIDDEN = pathlib.Path(__file__).with_name(".export-forbidden")
+_extra = [ln.strip() for ln in _LOCAL_FORBIDDEN.read_text().splitlines()
+          if ln.strip() and not ln.startswith("#")] if _LOCAL_FORBIDDEN.exists() else []
+FORBIDDEN = [re.compile(p, re.I) for p in (r"/home/", r"sshpass", r"PGPASSWORD", r"\.pgpass", r"sml-sqllog",
+                                           r"trycloudflare", *_extra)]
 VERSION_LIKE = re.compile(r"^\d+\.\d+\.\d+$")
 # menu numbers such as "1.10.1.7" or "5.1 Acc/Pro · 6.1 AccPOS/AccPOSPro" look like IPs; keep them only in table cells
 # of the generated menu notes (menu-map*.md, 05-Modules/*.md)

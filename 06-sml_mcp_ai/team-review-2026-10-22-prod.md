@@ -38,7 +38,7 @@ status: ข้อสรุปจากการประชุมจำลอง
 - F9 **ต้นทุนถูกคำนวณเฉพาะเมื่อมีโปรแกรม SML ของร้านนั้นเปิดอยู่** (คิว `process`); `kbgtest` ค้าง 10 แถวตั้งแต่ 2026-10-16 ([[stock-cost]])
 - F10 เลขที่เอกสารไม่มีการล็อก ใช้ unique `(doc_no, trans_flag)` กันซ้ำ ([[write-spec-sale-order]] §1)
 - F11 เอกสารสินค้า**ไม่ตรวจงวดปิดตอนบันทึก** ([[tax-period]] §3); บิลยกเลิกยังลง GL ถ้ารูปแบบ 45 ไม่มี `gl_book` ([[write-spec-cancel]])
-- F12 มีหลายระบบเขียน DB ของ SML ตรงอยู่แล้ว (sml-api-bybos, nextloyalty-api เขียน `ar_customer.website`) ([[server-layout]])
+- F12 มีหลายระบบเขียน DB ของ SML ตรงอยู่แล้ว (sml-api-bybos, API ระบบสมาชิก เขียน `ar_customer.website`) ([[server-layout]])
 - F13 บน server ทดสอบ **ไม่มี container SMLJavaRESTService** ([[server-layout]]) ⇒ F4 ใช้ไม่ได้บน deployment นี้
 - F14 ตัวเลือกร้านต่างกันมาก (VAT 10% / หลายสกุลเงินที่ thao_auto, ทศนิยม 0–7, ตรวจวงเงิน) ([[tenants-overview]] §4)
 - F15 การแก้ไขเอกสารของ SML = ลบแล้วใส่ใหม่ `roworder` เปลี่ยน; มีล็อก `guid_code` ([[document-engine]])

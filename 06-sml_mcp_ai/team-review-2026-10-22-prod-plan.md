@@ -12,16 +12,13 @@ status: ข้อสรุปจากการประชุมจำลอง
 ## โจทย์จากเจ้าของ (ยืนยันแล้ว)
 - ผู้ใช้: ทุกกลุ่ม ทยอยปล่อย (อ่านก่อน → ระบบอื่นเขียน → AI ร่างเอกสาร)
 - ติดตั้งแบบผสม: ร้านบน server ของเรา → ศูนย์กลาง; ร้านที่มี server เอง → ติดตั้งแยก
-- เริ่มที่ demo ไม่มีกำหนดเวลา; ติดตั้ง prod ที่ `192.168.2.109` ห้ามกระทบโปรเจกต์ที่รันอยู่
+- เริ่มที่ demo ไม่มีกำหนดเวลา; ติดตั้ง prod ที่เครื่องใน LAN ห้ามกระทบโปรเจกต์ที่รันอยู่
 
-## ข้อเท็จจริงของ 192.168.2.109 (สำรวจอ่านอย่างเดียว 2026-10-22)
-- Ubuntu 24.04.4, 4 core, RAM 7.6 GB (ว่าง ~3.9 GB), ดิสก์ 109 GB ใช้ 85% (เหลือ 17 GB); ผู้ใช้อยู่กลุ่ม `docker`, `sudo`
-- container ที่รัน: ai-bcc-v2 (api, worker, frontend, assistant×2, egress×2, sentinel, postgres), ai-business-command-center (api, web, worker, db), openclaw-admin (+postgres `0.0.0.0:5432`), **smlmcpconnect (ตัวเก่า)**
-- **smlmcpconnect ตัวเก่า:** `/home/bosscatdog/smlmcpconnect` (ไม่ใช่ git checkout, version-info 1.0.0), `127.0.0.1:3515`, `restart=unless-stopped`, ต่อ `kbgtest` บน nextstep ด้วย **`postgres`**, `MCP_ACCESS_MODE=admin`, รูปสินค้าผ่าน nginx `127.0.0.1:3516` → cloudflared quick tunnel
-- โปรเจกต์ที่อ้างถึง smlmcpconnect: openclaw-admin, openclaw runtime/src, parts-lookup-chatbot (compose); billflow `.env` ชี้ `192.168.2.248:3515` (อีกเครื่อง)
-- nginx: site `bossboard` (`:80` → `127.0.0.1:3003`) และ product-images proxy `127.0.0.1:3516`; cloudflared quick tunnel 4 ตัว (6324, 3055, 18789, 3516)
-- port ที่ใช้: 22, 80, 3000, 3055, 3515, 3516, 4000, 4055, 5432, 6324, 18789, 20241–20244
-- `docker-compose.yml` ของ repo มี **`container_name: smlmcpconnect`** ตายตัว ⇒ ใช้ไฟล์นี้ติดตั้งตัวที่สองบนเครื่องเดียวกันจะชนตัวเก่า
+## ข้อเท็จจริงของเครื่อง prod (สำรวจอ่านอย่างเดียว 2026-10-22)
+> รายละเอียดเครื่อง (IP, พอร์ต, path, รายชื่อบริการ/โปรเจกต์อื่น, tunnel) **เก็บนอก vault** — vault เป็น public
+- Ubuntu 24.04, ทรัพยากรจำกัด (ดิสก์ใช้ ~85%, RAM ว่าง ~4 GB)
+- มีบริการอื่นและ MCP ตัวเก่ารันอยู่ และมีโปรเจกต์อื่นพึ่งพาตัวเก่า — **ห้ามกระทบ**
+- `docker-compose.yml` ของ repo มี `container_name` ตายตัว ⇒ ใช้ไฟล์นี้ติดตั้งตัวที่สองบนเครื่องเดียวกันจะชนตัวเก่า
 
 ## การอภิปรายและโหวต
 **M1 ที่ติดตั้ง** — DevOps: แยกโฟลเดอร์ `~/sml-mcp-prod`, compose project `smlmcp-prod`, ชื่อ container/network ใหม่, `mem_limit`+`cpus`, หมุน log (ดิสก์เหลือน้อย); Security: ห้ามใช้ network เดียวกับตัวเก่า — **10/0/0**
@@ -32,7 +29,7 @@ status: ข้อสรุปจากการประชุมจำลอง
 - งด 1 (CS)
 - ⇒ มติ (ก) และเปิด (ข) ในเฟส 4
 
-**M3 บัญชี database** — Security+BA: ตัวเก่าใช้ `postgres` เสี่ยงสูงสุด (เขียน/ลบได้ทุก database ของทุกร้าน); prod ใช้ `sml_mcp_ro` และ `sml_mcp_rw` แยก — **10/0/0** · หมายเหตุ: การสร้าง role ต้องเขียนบน PostgreSQL ของ nextstep ⇒ ต้องได้อนุมัติจากเจ้าของ
+**M3 บัญชี database** — Security+BA: การใช้บัญชี superuser เสี่ยงสูงสุด (เขียน/ลบได้ทุก database ของทุกร้าน); prod ใช้ `sml_mcp_ro` และ `sml_mcp_rw` แยก — **10/0/0** · หมายเหตุ: การสร้าง role ต้องเขียนบน PostgreSQL ของ server ทดสอบ ⇒ ต้องได้อนุมัติจากเจ้าของ
 
 **M4 ที่เก็บข้อมูลของ sml_mcp_ai** (API key, tenant, idempotency, preview token, audit)
 - Postgres แยก 6 (Tech Lead, Backend, QA, Security, AI, BA): ต้องการ transaction/unique constraint สำหรับ idempotency และ preview token ตอนเฟส 2, เครื่องมือเดียวกับ SML
@@ -59,6 +56,6 @@ status: ข้อสรุปจากการประชุมจำลอง
 - การเขียนเริ่มเฟส 3 หลัง write engine (เฟส 2) และ parity test
 
 ## เรื่องที่รอเจ้าของ
-1. อนุมัติสร้าง role `sml_mcp_ro` / `sml_mcp_rw` บน nextstep
+1. อนุมัติสร้าง role `sml_mcp_ro` / `sml_mcp_rw` บน server ทดสอบ
 2. port `3520` บน LAN และรายชื่อเครื่องที่จะเรียก
 3. วันเริ่มเฟส 0
